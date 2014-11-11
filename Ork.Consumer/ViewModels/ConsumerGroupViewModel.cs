@@ -22,7 +22,7 @@ namespace Ork.Consumer.ViewModels
             get { return Model; }
         }
 
-        public string
+        
 
     }
 }
