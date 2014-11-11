@@ -1,0 +1,26 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary
+      Source="../Brushes.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style
+    TargetType="MenuItem">
+    <Setter
+      Property="Background"
+      Value="{StaticResource WorkspaceBackgroundColorBrush}" />
+    <Setter
+      Property="Foreground"
+      Value="{StaticResource TextForegroundColorBrush}" />
+
+  </Style>
+
+  <Style
+    TargetType="ContextMenu">
+    <Setter
+      Property="Background"
+      Value="{StaticResource WindowBackgroundColorBrush}" />
+  </Style>
+</ResourceDictionary>

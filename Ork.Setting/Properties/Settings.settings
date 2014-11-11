@@ -1,0 +1,65 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<SettingsFile
+  xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings"
+  CurrentProfile="(Default)"
+  GeneratedClassNamespace="Ork.Setting.Properties"
+  GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting
+      Name="url"
+      Type="System.String"
+      Scope="User">
+      <Value
+        Profile="(Default)">
+        localhost
+      </Value>
+    </Setting>
+    <Setting
+      Name="port"
+      Type="System.Int32"
+      Scope="User">
+      <Value
+        Profile="(Default)">
+        7000
+      </Value>
+    </Setting>
+    <Setting
+      Name="user"
+      Type="System.String"
+      Scope="User">
+      <Value
+        Profile="(Default)">
+        root
+      </Value>
+    </Setting>
+    <Setting
+      Name="password"
+      Type="System.String"
+      Scope="User">
+      <Value
+        Profile="(Default)">
+        ork123
+      </Value>
+    </Setting>
+    <Setting
+      Name="language"
+      Type="System.String"
+      Scope="User">
+      <Value
+        Profile="(Default)">
+        de-DE
+      </Value>
+    </Setting>
+    <Setting
+      Name="theme"
+      Type="System.String"
+      Scope="User">
+      <Value
+        Profile="(Default)">
+        Ork.Theme.Dark
+      </Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

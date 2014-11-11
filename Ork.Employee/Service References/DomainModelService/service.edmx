@@ -1,0 +1,544 @@
+﻿<edmx:Edmx
+  Version="1.0"
+  xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices
+    m:DataServiceVersion="1.0"
+    m:MaxDataServiceVersion="3.0"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema
+      Namespace="OpenResKit.DomainModel"
+      xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType
+        Name="Appointment">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="Begin"
+          Type="Edm.DateTime"
+          Nullable="false" />
+        <Property
+          Name="End"
+          Type="Edm.DateTime"
+          Nullable="false" />
+        <Property
+          Name="IsAllDay"
+          Type="Edm.Boolean"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="ResponsibleSubject"
+        Abstract="true">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+      </EntityType>
+      <EntityType
+        Name="Employee"
+        BaseType="OpenResKit.DomainModel.ResponsibleSubject">
+        <Property
+          Name="FirstName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="LastName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="UserName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Number"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <NavigationProperty
+          Name="Groups"
+          Relationship="OpenResKit.DomainModel.Employee_Groups"
+          ToRole="Employee_Groups_Target"
+          FromRole="Employee_Groups_Source" />
+      </EntityType>
+      <EntityType
+        Name="EmployeeGroup"
+        BaseType="OpenResKit.DomainModel.ResponsibleSubject">
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+      </EntityType>
+      <EntityType
+        Name="Series">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="Begin"
+          Type="Edm.DateTime"
+          Nullable="false" />
+        <Property
+          Name="Cycle"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="End"
+          Type="Edm.DateTime"
+          Nullable="false" />
+        <Property
+          Name="EndsWithDate"
+          Type="Edm.Boolean"
+          Nullable="false" />
+        <Property
+          Name="IsAllDay"
+          Type="Edm.Boolean"
+          Nullable="false" />
+        <Property
+          Name="IsWeekdayRecurrence"
+          Type="Edm.Boolean"
+          Nullable="false" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="NumberOfRecurrences"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="RecurrenceInterval"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="Repeat"
+          Type="Edm.Boolean"
+          Nullable="false" />
+        <Property
+          Name="RepeatUntilDate"
+          Type="Edm.DateTime"
+          Nullable="false" />
+        <NavigationProperty
+          Name="SeriesColor"
+          Relationship="OpenResKit.DomainModel.Series_SeriesColor"
+          ToRole="Series_SeriesColor_Target"
+          FromRole="Series_SeriesColor_Source" />
+        <NavigationProperty
+          Name="WeekDays"
+          Relationship="OpenResKit.DomainModel.Series_WeekDays"
+          ToRole="Series_WeekDays_Target"
+          FromRole="Series_WeekDays_Source" />
+      </EntityType>
+      <EntityType
+        Name="SeriesColor">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="B"
+          Type="Edm.Byte"
+          Nullable="false" />
+        <Property
+          Name="G"
+          Type="Edm.Byte"
+          Nullable="false" />
+        <Property
+          Name="R"
+          Type="Edm.Byte"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="DayOfWeek">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="WeekDay"
+          Type="Edm.Int32"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="ScheduledTask">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="Progress"
+          Type="Edm.Single"
+          Nullable="false" />
+        <NavigationProperty
+          Name="AppointmentResponsibleSubject"
+          Relationship="OpenResKit.DomainModel.ScheduledTask_AppointmentResponsibleSubject"
+          ToRole="ScheduledTask_AppointmentResponsibleSubject_Target"
+          FromRole="ScheduledTask_AppointmentResponsibleSubject_Source" />
+        <NavigationProperty
+          Name="DueDate"
+          Relationship="OpenResKit.DomainModel.ScheduledTask_DueDate"
+          ToRole="ScheduledTask_DueDate_Target"
+          FromRole="ScheduledTask_DueDate_Source" />
+        <NavigationProperty
+          Name="EntryDate"
+          Relationship="OpenResKit.DomainModel.ScheduledTask_EntryDate"
+          ToRole="ScheduledTask_EntryDate_Target"
+          FromRole="ScheduledTask_EntryDate_Source" />
+        <NavigationProperty
+          Name="EntryResponsibleSubject"
+          Relationship="OpenResKit.DomainModel.ScheduledTask_EntryResponsibleSubject"
+          ToRole="ScheduledTask_EntryResponsibleSubject_Target"
+          FromRole="ScheduledTask_EntryResponsibleSubject_Source" />
+        <NavigationProperty
+          Name="RelatedSeries"
+          Relationship="OpenResKit.DomainModel.ScheduledTask_RelatedSeries"
+          ToRole="ScheduledTask_RelatedSeries_Target"
+          FromRole="ScheduledTask_RelatedSeries_Source" />
+      </EntityType>
+      <EntityType
+        Name="Map">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="MapSource"
+          Type="Edm.Binary"
+          MaxLength="Max"
+          FixedLength="false" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+      </EntityType>
+      <EntityType
+        Name="MapPosition">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="XPosition"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="YPosition"
+          Type="Edm.Double"
+          Nullable="false" />
+        <NavigationProperty
+          Name="Map"
+          Relationship="OpenResKit.DomainModel.MapPosition_Map"
+          ToRole="MapPosition_Map_Target"
+          FromRole="MapPosition_Map_Source" />
+      </EntityType>
+      <Association
+        Name="Employee_Groups">
+        <End
+          Type="OpenResKit.DomainModel.Employee"
+          Role="Employee_Groups_Source"
+          Multiplicity="*" />
+        <End
+          Type="OpenResKit.DomainModel.EmployeeGroup"
+          Role="Employee_Groups_Target"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="Series_SeriesColor">
+        <End
+          Type="OpenResKit.DomainModel.Series"
+          Role="Series_SeriesColor_Source"
+          Multiplicity="1">
+          <OnDelete
+            Action="Cascade" />
+        </End>
+        <End
+          Type="OpenResKit.DomainModel.SeriesColor"
+          Role="Series_SeriesColor_Target"
+          Multiplicity="1" />
+        <ReferentialConstraint>
+          <Principal
+            Role="Series_SeriesColor_Source">
+            <PropertyRef
+              Name="Id" />
+          </Principal>
+          <Dependent
+            Role="Series_SeriesColor_Target">
+            <PropertyRef
+              Name="Id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association
+        Name="Series_WeekDays">
+        <End
+          Type="OpenResKit.DomainModel.Series"
+          Role="Series_WeekDays_Source"
+          Multiplicity="0..1">
+          <OnDelete
+            Action="Cascade" />
+        </End>
+        <End
+          Type="OpenResKit.DomainModel.DayOfWeek"
+          Role="Series_WeekDays_Target"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="ScheduledTask_AppointmentResponsibleSubject">
+        <End
+          Type="OpenResKit.DomainModel.ResponsibleSubject"
+          Role="ScheduledTask_AppointmentResponsibleSubject_Target"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.ScheduledTask"
+          Role="ScheduledTask_AppointmentResponsibleSubject_Source"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="ScheduledTask_DueDate">
+        <End
+          Type="OpenResKit.DomainModel.Appointment"
+          Role="ScheduledTask_DueDate_Target"
+          Multiplicity="1">
+          <OnDelete
+            Action="Cascade" />
+        </End>
+        <End
+          Type="OpenResKit.DomainModel.ScheduledTask"
+          Role="ScheduledTask_DueDate_Source"
+          Multiplicity="0..1" />
+        <ReferentialConstraint>
+          <Principal
+            Role="ScheduledTask_DueDate_Target">
+            <PropertyRef
+              Name="Id" />
+          </Principal>
+          <Dependent
+            Role="ScheduledTask_DueDate_Source">
+            <PropertyRef
+              Name="Id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association
+        Name="ScheduledTask_EntryDate">
+        <End
+          Type="OpenResKit.DomainModel.Appointment"
+          Role="ScheduledTask_EntryDate_Target"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.ScheduledTask"
+          Role="ScheduledTask_EntryDate_Source"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="ScheduledTask_EntryResponsibleSubject">
+        <End
+          Type="OpenResKit.DomainModel.ResponsibleSubject"
+          Role="ScheduledTask_EntryResponsibleSubject_Target"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.ScheduledTask"
+          Role="ScheduledTask_EntryResponsibleSubject_Source"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="ScheduledTask_RelatedSeries">
+        <End
+          Type="OpenResKit.DomainModel.Series"
+          Role="ScheduledTask_RelatedSeries_Target"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.ScheduledTask"
+          Role="ScheduledTask_RelatedSeries_Source"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="MapPosition_Map">
+        <End
+          Type="OpenResKit.DomainModel.Map"
+          Role="MapPosition_Map_Target"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.MapPosition"
+          Role="MapPosition_Map_Source"
+          Multiplicity="*" />
+      </Association>
+      <EntityContainer
+        Name="DomainModelContext"
+        m:IsDefaultEntityContainer="true">
+        <EntitySet
+          Name="Appointments"
+          EntityType="OpenResKit.DomainModel.Appointment" />
+        <EntitySet
+          Name="ResponsibleSubjects"
+          EntityType="OpenResKit.DomainModel.ResponsibleSubject" />
+        <EntitySet
+          Name="Series"
+          EntityType="OpenResKit.DomainModel.Series" />
+        <EntitySet
+          Name="SeriesColors"
+          EntityType="OpenResKit.DomainModel.SeriesColor" />
+        <EntitySet
+          Name="DayOfWeeks"
+          EntityType="OpenResKit.DomainModel.DayOfWeek" />
+        <EntitySet
+          Name="ScheduledTasks"
+          EntityType="OpenResKit.DomainModel.ScheduledTask" />
+        <EntitySet
+          Name="Maps"
+          EntityType="OpenResKit.DomainModel.Map" />
+        <EntitySet
+          Name="MapPositions"
+          EntityType="OpenResKit.DomainModel.MapPosition" />
+        <AssociationSet
+          Name="Employee_Groups"
+          Association="OpenResKit.DomainModel.Employee_Groups">
+          <End
+            Role="Employee_Groups_Source"
+            EntitySet="ResponsibleSubjects" />
+          <End
+            Role="Employee_Groups_Target"
+            EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet
+          Name="Series_SeriesColor"
+          Association="OpenResKit.DomainModel.Series_SeriesColor">
+          <End
+            Role="Series_SeriesColor_Source"
+            EntitySet="Series" />
+          <End
+            Role="Series_SeriesColor_Target"
+            EntitySet="SeriesColors" />
+        </AssociationSet>
+        <AssociationSet
+          Name="Series_WeekDays"
+          Association="OpenResKit.DomainModel.Series_WeekDays">
+          <End
+            Role="Series_WeekDays_Source"
+            EntitySet="Series" />
+          <End
+            Role="Series_WeekDays_Target"
+            EntitySet="DayOfWeeks" />
+        </AssociationSet>
+        <AssociationSet
+          Name="ScheduledTask_AppointmentResponsibleSubject"
+          Association="OpenResKit.DomainModel.ScheduledTask_AppointmentResponsibleSubject">
+          <End
+            Role="ScheduledTask_AppointmentResponsibleSubject_Source"
+            EntitySet="ScheduledTasks" />
+          <End
+            Role="ScheduledTask_AppointmentResponsibleSubject_Target"
+            EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet
+          Name="ScheduledTask_DueDate"
+          Association="OpenResKit.DomainModel.ScheduledTask_DueDate">
+          <End
+            Role="ScheduledTask_DueDate_Source"
+            EntitySet="ScheduledTasks" />
+          <End
+            Role="ScheduledTask_DueDate_Target"
+            EntitySet="Appointments" />
+        </AssociationSet>
+        <AssociationSet
+          Name="ScheduledTask_EntryDate"
+          Association="OpenResKit.DomainModel.ScheduledTask_EntryDate">
+          <End
+            Role="ScheduledTask_EntryDate_Source"
+            EntitySet="ScheduledTasks" />
+          <End
+            Role="ScheduledTask_EntryDate_Target"
+            EntitySet="Appointments" />
+        </AssociationSet>
+        <AssociationSet
+          Name="ScheduledTask_EntryResponsibleSubject"
+          Association="OpenResKit.DomainModel.ScheduledTask_EntryResponsibleSubject">
+          <End
+            Role="ScheduledTask_EntryResponsibleSubject_Source"
+            EntitySet="ScheduledTasks" />
+          <End
+            Role="ScheduledTask_EntryResponsibleSubject_Target"
+            EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet
+          Name="ScheduledTask_RelatedSeries"
+          Association="OpenResKit.DomainModel.ScheduledTask_RelatedSeries">
+          <End
+            Role="ScheduledTask_RelatedSeries_Source"
+            EntitySet="ScheduledTasks" />
+          <End
+            Role="ScheduledTask_RelatedSeries_Target"
+            EntitySet="Series" />
+        </AssociationSet>
+        <AssociationSet
+          Name="MapPosition_Map"
+          Association="OpenResKit.DomainModel.MapPosition_Map">
+          <End
+            Role="MapPosition_Map_Source"
+            EntitySet="MapPositions" />
+          <End
+            Role="MapPosition_Map_Target"
+            EntitySet="Maps" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

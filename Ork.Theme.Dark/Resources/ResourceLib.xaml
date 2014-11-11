@@ -1,0 +1,52 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary
+      Source="Brushes.xaml" />
+    <ResourceDictionary
+      Source="Colors.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/CalendarStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/DatePickerStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/TimePickerStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/PathStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/ButtonStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/ImageStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/TextBlockStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/ControlStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/ComboBoxStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/FlyoutStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/ListBoxStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/ScrollBarStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/ToolTipStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/CheckBoxStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/DateTimePickerStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/RadioButtonStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/LabelStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/ContextMenuStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlStyles/DataGridStyle.xaml" />
+    <ResourceDictionary
+      Source="ControlTemplates/ButtonScroller.xaml" />
+
+  </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

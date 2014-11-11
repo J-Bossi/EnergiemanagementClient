@@ -1,0 +1,55 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Color
+    x:Key="TextForegroundColor">
+    White
+  </Color>
+
+  <Color
+    x:Key="TextFocusColor">
+    LightGray
+  </Color>
+
+  <Color
+    x:Key="Transparent">
+    #00000000
+  </Color>
+
+  <Color
+    x:Key="WindowBackgroundColor">
+    #0084FF
+  </Color>
+
+  <Color
+    x:Key="WorkspaceBackgroundColor">
+    WhiteSmoke
+  </Color>
+
+  <Color
+    x:Key="HighlightWeakColor">
+    BurlyWood
+  </Color>
+
+  <Color
+    x:Key="HighlightMediumColor">
+    #783000
+  </Color>
+
+  <Color
+    x:Key="HighlightColor">
+    #0084FF
+  </Color>
+
+  <Color
+    x:Key="LightControlColor">
+    #8DC8FF
+  </Color>
+
+  <Color
+    x:Key="MediumControlColor">
+    #63B2FC
+  </Color>
+
+</ResourceDictionary>

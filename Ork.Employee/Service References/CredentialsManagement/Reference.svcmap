@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2efda526-b804-42b8-9589-1abf7d028913" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:7000/CredentialsManagement" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CredentialsDatabaseAccessor.wsdl" MetadataType="Wsdl" ID="03d086f7-7baf-4415-9eb5-9db7fca443a3" SourceId="1" SourceUrl="http://localhost:7000/CredentialsManagement" />
+    <MetadataFile FileName="CredentialsManagement.xsd" MetadataType="Schema" ID="ca32cd7f-2e88-46a0-9e67-2b35ba041051" SourceId="1" SourceUrl="http://localhost:7000/CredentialsManagement?xsd=xsd0" />
+    <MetadataFile FileName="CredentialsManagement1.xsd" MetadataType="Schema" ID="0ac9c5cb-895d-4ef4-80db-39917fa50d5d" SourceId="1" SourceUrl="http://localhost:7000/CredentialsManagement?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

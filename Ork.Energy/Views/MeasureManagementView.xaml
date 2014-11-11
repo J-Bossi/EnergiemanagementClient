@@ -1,0 +1,280 @@
+﻿<UserControl
+    x:Class="Ork.Energy.Views.MeasureManagementView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+    xmlns:tkControls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+    xmlns:oxy="http://oxyplot.codeplex.com"
+    xmlns:global="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+    xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    xmlns:converters2="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:primitives="clr-namespace:Microsoft.Windows.Controls.Primitives;assembly=WPFToolkit"
+    xmlns:views="clr-namespace:Ork.Energy.Views"
+    xmlns:converters="clr-namespace:Ork.Energy.Converters"
+    lex:LocalizeDictionary.DesignCulture="de"
+    lex:ResxLocalizationProvider.DefaultAssembly="Ork.Energy"
+    lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="600">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters2:PinnedToThicknessConverter
+                x:Key="PinnedToThickness" />
+        </ResourceDictionary>
+
+
+    </UserControl.Resources>
+    <Grid>
+
+        <Grid
+            Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+            Name="MeasureTable">
+
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="*" />
+
+                <RowDefinition
+                    Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.Margin>
+                <MultiBinding
+                    Converter="{StaticResource PinnedToThickness}">
+                    <Binding
+                        ElementName="MeasureFlyout" />
+                    <Binding
+                        ElementName="MeasureTable" />
+                    <Binding
+                        ElementName="MeasureFlyout"
+                        Path="Pinned"
+                        Mode="OneWay" />
+                </MultiBinding>
+            </Grid.Margin>
+
+            <AdornerDecorator
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                Width="300"
+                Margin="10 10 0 0">
+                <xctk:AutoSelectTextBox
+                    Style="{DynamicResource EntryControl}"
+                    Text="{Binding SearchTextMeasures, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+                    <global:WatermarkService.Watermark>
+
+                        <TextBlock
+                            Text="{lex:Loc Ork.Energy:Translate:FilterResponsible}"
+                            Foreground="{DynamicResource TextForegroundColorBrush}" />
+
+                    </global:WatermarkService.Watermark>
+                </xctk:AutoSelectTextBox>
+            </AdornerDecorator>
+
+            <TabControl
+                Grid.Row="1"
+                SelectedIndex="{Binding ActivatedManagementViewModel}"
+                Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+                BorderThickness="0"
+                TabStripPlacement="Bottom">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Grid Name="Panel">
+                                        <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+
+
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Panel" Property="Background" Value="{DynamicResource HighlightMediumBrush}" />
+                                      
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Panel" Property="Background" Value="{DynamicResource WorkspaceBackgroundColorBrush}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+
+                <TabItem
+                    Foreground="{DynamicResource TextForegroundColorBrush}">
+                    <TabItem.Header>
+                        <TextBlock Text="Normal" />
+                    </TabItem.Header>
+                    <views:MeasureGridStandard />
+                </TabItem>
+                <TabItem Header="Ökologische Ansicht"
+                         Foreground="{DynamicResource TextForegroundColorBrush}">
+                    <views:MeasureGridEco />
+                </TabItem>
+            </TabControl>
+
+           
+
+
+            <Button
+                Grid.Row="2"
+                Content="Maßnahme hinzufügen"
+                Width="175"
+                Margin="0 0 10 0"
+                IsEnabled="{Binding CanAdd}"
+                cal:Message.Attach="OpenMeasureAddDialog()" HorizontalAlignment="Right" />
+
+
+        </Grid>
+
+        <global:Flyout
+            Pinned="True"
+            IsEnabled="{Binding FlyoutActivated}"
+            Name="MeasureFlyout"
+            HorizontalAlignment="Left">
+
+            <Grid
+                Margin="0 0 12 0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition
+                        Height="Auto" />
+                </Grid.RowDefinitions>
+                <AdornerDecorator
+                    Grid.Row="0">
+                    <xctk:AutoSelectTextBox
+                        Style="{DynamicResource EntryControl}"
+
+                        Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+                        <global:WatermarkService.Watermark>
+                            <TextBlock
+                                Text="{lex:Loc Ork.Energy:Translate:FilterCatalogs}"
+                                Foreground="{DynamicResource TextForegroundColorBrush}" />
+                        </global:WatermarkService.Watermark>
+                    </xctk:AutoSelectTextBox>
+                </AdornerDecorator>
+
+                <Button
+                    Grid.Row="1"
+                    Style="{DynamicResource ButtonAsItem}"
+                    cal:Message.Attach="ShowAllMeasures"
+                    Margin="12 0 0 2">
+                    <Button.Content>
+                        <StackPanel
+                            Orientation="Vertical">
+                            <TextBlock
+                                Text="{lex:Loc Ork.Energy:Translate:AllMeasures}"
+                                FontSize="16"
+                                Margin="3 0 0 0" />
+                            <TextBlock
+                                Text="{Binding AllMeasures, Mode=OneWay}"
+                                FontSize="12"
+                                Margin="3 0 0 0" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <ListBox
+                    ItemsSource="{Binding Catalogs}"
+                    Margin="12 0 0 12"
+                    SelectedItem="{Binding SelectedCatalog}"
+                    SelectedIndex="0"
+                    Grid.Row="2"
+                    Style="{DynamicResource FlyoutListBoxStyle}">
+
+                    <ListBox.GroupStyle>
+                        <GroupStyle>
+
+                            <GroupStyle.ContainerStyle>
+                                <Style
+                                    TargetType="{x:Type GroupItem}">
+
+                                    <Setter
+                                        Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate
+                                                TargetType="{x:Type GroupItem}">
+                                                <Grid>
+
+                                                    <Expander
+                                                        IsExpanded="True">
+                                                        <Expander.Header>
+                                                            <TextBlock
+                                                                Style="{DynamicResource TextBlockStyle}"
+                                                                Text="{Binding Name}"
+                                                                FontSize="18"
+                                                                Margin="0 12 0 6" />
+
+                                                        </Expander.Header>
+                                                        <Expander.Content>
+                                                            <ItemsPresenter />
+                                                        </Expander.Content>
+                                                    </Expander>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ListBox.GroupStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                Margin="0 0 4 0"
+                                Background="Transparent"
+                                Orientation="Vertical"
+                                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]">
+                                <TextBlock
+                                    Style="{DynamicResource TextBlockStyle}"
+                                    FontSize="16"
+                                    Text="{Binding Name}"
+                                    TextTrimming="CharacterEllipsis"
+                                    Margin="0 0 0 4" />
+                                <TextBlock
+                                    Style="{DynamicResource TextBlockStyle}"
+                                    Text="{Binding FullDate}"
+                                    TextTrimming="CharacterEllipsis"
+                                    Margin="0 0 0 4" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button
+                    Grid.Row="3"
+                    Width="150"
+                    HorizontalAlignment="Right"
+                    Content="Katalog hinzufügen"
+                    cal:Message.Attach="OpenCatalogAddDialog" />
+
+
+            </Grid>
+        </global:Flyout>
+
+        <ContentControl
+            VerticalContentAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            x:Name="Dialogs" />
+
+    </Grid>
+
+</UserControl>

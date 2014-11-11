@@ -1,0 +1,19 @@
+﻿<Application
+  x:Class="Ork.MeasureManagement.App"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:framework="clr-namespace:Ork.Framework;assembly=Ork.Framework">
+
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+          <framework:Bootstrapper
+            x:Key="bootstrapper"
+            ApplicationName="Maßnahmenmanagement" />
+        </ResourceDictionary>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+
+</Application>

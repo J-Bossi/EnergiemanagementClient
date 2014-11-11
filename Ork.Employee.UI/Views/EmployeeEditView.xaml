@@ -1,0 +1,195 @@
+<UserControl
+  x:Class="Ork.Employee.UI.Views.EmployeeEditView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+  xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:controls="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Employee.UI"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="350"
+  d:DesignWidth="300">
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <Storyboard
+        x:Key="OpenDeletePopup"
+        BeginTime="0:0:0">
+        <BooleanAnimationUsingKeyFrames
+          Storyboard.TargetName="DeleteChoicesPopup"
+          Storyboard.TargetProperty="IsOpen">
+          <DiscreteBooleanKeyFrame
+            KeyTime="00:00:00"
+            Value="true" />
+        </BooleanAnimationUsingKeyFrames>
+      </Storyboard>
+
+    </ResourceDictionary>
+  </UserControl.Resources>
+  <StackPanel>
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc FirstName}" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding FirstName}" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc Surname}" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding LastName}" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc Number}" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding Number}" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc UserName}" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      IsEnabled="{Binding IsNotLoggedIn}"
+      Text="{Binding UserName}" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc Password}" />
+
+    <PasswordBox
+      controls:PasswordBoxAssistant.BindPassword="true"
+      controls:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+      Style="{DynamicResource EntryControl}"
+      IsEnabled="{Binding IsNotLoggedIn}" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc AddGroups}" />
+
+    <StackPanel
+      Background="{DynamicResource WorkspaceBackgroundColorBrush}">
+
+
+      <!--Group Filter-->
+      <AdornerDecorator>
+        <xctk:AutoSelectTextBox
+          Style="{DynamicResource EntryControl}"
+          Text="{Binding GroupSearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+
+          <controls:WatermarkService.Watermark>
+            <TextBlock
+              Foreground="{DynamicResource TextForegroundColorBrush}"
+              Text="{lex:Loc Ork.Employee.UI:Translate:FilterGroups}" />
+          </controls:WatermarkService.Watermark>
+
+        </xctk:AutoSelectTextBox>
+
+      </AdornerDecorator>
+
+      <!--EmployeeGroupList-->
+      <ListBox
+        ItemsSource="{Binding FilteredGroups}"
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        ScrollViewer.VerticalScrollBarVisibility="Auto"
+        Style="{DynamicResource FlyoutListBoxStyle}"
+        Margin="12 0 6 0"
+        Height="100">
+
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Grid
+              Margin="0 3 0 3">
+
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition
+                  Width="Auto" />
+              </Grid.ColumnDefinitions>
+
+              <StackPanel
+                Grid.Column="0"
+                Margin="0 0 4 0"
+                Background="Transparent"
+                Orientation="Horizontal">
+
+                <CheckBox
+                  IsChecked="{Binding IsSelected}"
+                  VerticalAlignment="Center"
+                  Margin="0 0 5 0" />
+
+                <TextBlock
+                  Text="{Binding Name}"
+                  TextTrimming="CharacterEllipsis"
+                  Margin="0 0 0 4" />
+
+              </StackPanel>
+
+            </Grid>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+
+      </ListBox>
+
+    </StackPanel>
+
+    <Grid
+      Margin="0 20 0 0"
+      HorizontalAlignment="Stretch">
+
+      <Button
+        x:Name="DeleteButton"
+        IsEnabled="{Binding IsNotLoggedIn}"
+        Content="{lex:Loc Delete}"
+        HorizontalAlignment="Left">
+
+        <Button.Triggers>
+          <EventTrigger
+            RoutedEvent="Button.Click">
+            <BeginStoryboard
+              Storyboard="{StaticResource OpenDeletePopup}" />
+          </EventTrigger>
+        </Button.Triggers>
+      </Button>
+
+      <Popup
+        AllowsTransparency="True"
+        x:Name="DeleteChoicesPopup"
+        StaysOpen="False"
+        Placement="Top"
+        PlacementTarget="{Binding ElementName=DeleteButton}">
+
+        <StackPanel
+          Background="{DynamicResource WindowBackgroundColorBrush}"
+          HorizontalAlignment="Center">
+
+          <Button
+            Style="{DynamicResource DeleteButtonStyle}"
+            cal:Message.Attach="RemoveEmployee"
+            Content="{lex:Loc Sure}" />
+
+        </StackPanel>
+
+      </Popup>
+
+      <Button
+        cal:Message.Attach="Accept"
+        HorizontalAlignment="Right"
+        Content="{lex:Loc Ok}" />
+
+    </Grid>
+
+  </StackPanel>
+</UserControl>
