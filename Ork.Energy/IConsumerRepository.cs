@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Services.Client;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ork.Consumer.DomainModelService;
+using Ork.Energy.DomainModelService;
 
-namespace Ork.Consumer
+namespace Ork.Energy
 {
     public interface IConsumerRepository
         

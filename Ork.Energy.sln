@@ -24,8 +24,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Theme.Dark", "Ork.Theme
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Energy", "Ork.Energy\Ork.Energy.csproj", "{31B7E9E9-4F17-4526-9435-31F0EE58E190}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Consumer", "Ork.Consumer\Ork.Consumer.csproj", "{3BB78F9F-2534-4813-B1CB-C798D18A7384}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.EnergyManagement", "Ork.EnergyManagement\Ork.EnergyManagement.csproj", "{D8F92964-822A-4E24-8393-BBAB0A57E2ED}"
 EndProject
 Global
@@ -62,10 +60,6 @@ Global
 		{31B7E9E9-4F17-4526-9435-31F0EE58E190}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31B7E9E9-4F17-4526-9435-31F0EE58E190}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31B7E9E9-4F17-4526-9435-31F0EE58E190}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3BB78F9F-2534-4813-B1CB-C798D18A7384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BB78F9F-2534-4813-B1CB-C798D18A7384}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BB78F9F-2534-4813-B1CB-C798D18A7384}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BB78F9F-2534-4813-B1CB-C798D18A7384}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D8F92964-822A-4E24-8393-BBAB0A57E2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D8F92964-822A-4E24-8393-BBAB0A57E2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8F92964-822A-4E24-8393-BBAB0A57E2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU

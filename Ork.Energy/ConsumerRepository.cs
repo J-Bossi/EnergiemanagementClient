@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
-using Ork.Consumer.DomainModelService;
+using Ork.Energy.DomainModelService;
 using Ork.Setting;
 
-namespace Ork.Consumer
+namespace Ork.Energy
 {
     [Export(typeof (IConsumerRepository))]
     internal class ConsumerRepository : IConsumerRepository

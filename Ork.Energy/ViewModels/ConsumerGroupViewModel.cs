@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ork.Consumer.DomainModelService;
+﻿using Ork.Energy.DomainModelService;
 
-namespace Ork.Consumer.ViewModels
+namespace Ork.Energy.ViewModels
 {
     public class ConsumerGroupViewModel
     {
@@ -19,7 +14,7 @@ namespace Ork.Consumer.ViewModels
 
         public ConsumerGroup Model
         {
-            get { return Model; }
+            get { return m_Model; }
         }
 
         
