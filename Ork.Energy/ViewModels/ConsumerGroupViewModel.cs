@@ -17,7 +17,17 @@ namespace Ork.Energy.ViewModels
             get { return m_Model; }
         }
 
-        
+        public string GroupName
+        {
+            get { return m_Model.GroupName; }
+            set { m_Model.GroupName = value; }
+        }
+
+        public string GroupDescription
+        {
+            get { return m_Model.GroupDescription; }
+            set { m_Model.GroupDescription = value; }
+        }
 
     }
 }

@@ -21,15 +21,18 @@ namespace Ork.Energy.ViewModels
 
         [ImportingConstructor]
         public ConsumerManagementViewModel([Import] IConsumerRepository mRepository,
-            [Import] IConsumerViewModelFactory mConsumerViewModelFactory)
+            [Import] IConsumerViewModelFactory mConsumerViewModelFactory, [Import] IDialogManager dialogs)
         {
+            Dialogs = dialogs;
             m_Repository = mRepository;
             m_ConsumerViewModelFactory = mConsumerViewModelFactory;
+            
+            
             m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
             Reload();
         }
 
-       
+        public new IDialogManager Dialogs { get; private set; }
 
         public int Index
         {
@@ -53,6 +56,7 @@ namespace Ork.Energy.ViewModels
 
         private void Reload()
         {
+            
             IsEnabled = m_Repository.HasConnection;
             if (IsEnabled)
             {

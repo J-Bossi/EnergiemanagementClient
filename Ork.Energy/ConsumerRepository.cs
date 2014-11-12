@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
+using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
+
 using Ork.Setting;
 
 namespace Ork.Energy
@@ -46,6 +48,7 @@ namespace Ork.Energy
 
         public event EventHandler ContextChanged;
         public event EventHandler SaveCompleted;
+   
 
         private void Initialize()
         {
@@ -59,17 +62,31 @@ namespace Ork.Energy
                 LoadReadings();
                 HasConnection = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 HasConnection = false;
+                var message = ex.Message;
+                message += message + Environment.NewLine + ex.InnerException.Message;
+                
+                
+                
             }
+
+
+          
+
+
         }
+
+
+
 
         private void LoadConsumerGroups()
         {
             ConsumerGroups = new DataServiceCollection<ConsumerGroup>(m_Context);
 
-            DataServiceQuery<ConsumerGroup> query = m_Context.ConsumerGroups.Expand("OpenResKit.DomainModel.Consumers");
+            DataServiceQuery<ConsumerGroup> query = m_Context.ConsumerGroups.Expand("Consumers");
+            ConsumerGroups.Load(query);
         }
 
         private void LoadReadings()
@@ -100,5 +117,9 @@ namespace Ork.Energy
                 eventHandler(this, new EventArgs());
             }
         }
+
+        
+
+       
     }
 }

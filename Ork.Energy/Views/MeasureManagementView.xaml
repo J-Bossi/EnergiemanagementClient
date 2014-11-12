@@ -79,7 +79,7 @@
 
             <TabControl
                 Grid.Row="1"
-                SelectedIndex="{Binding ActivatedManagementViewModel}"
+              
                 Background="{DynamicResource WorkspaceBackgroundColorBrush}"
                 BorderThickness="0"
                 TabStripPlacement="Bottom">

@@ -28,7 +28,8 @@
                       IsEditable="True"
                       ItemsSource="{Binding AllConsumerGroups}"
                       MaxDropDownHeight="125"
-                      Text="{Binding GroupName}"/>
+                      DisplayMemberPath="GroupName" 
+                      />
 
     </Grid>
 </UserControl>

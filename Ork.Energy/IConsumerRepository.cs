@@ -2,6 +2,7 @@
 using System.Data.Services.Client;
 using Ork.Energy.DomainModelService;
 
+
 namespace Ork.Energy
 {
     public interface IConsumerRepository
@@ -15,5 +16,6 @@ namespace Ork.Energy
         void Save();
         event EventHandler ContextChanged;
         event EventHandler SaveCompleted;
+        
     }
 }
