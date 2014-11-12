@@ -1,5 +1,10 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows;
+using Caliburn.Micro;
+using Ork.Energy.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Framework;
 
@@ -10,6 +15,7 @@ namespace Ork.Energy.ViewModels
     {
         private readonly IConsumerViewModelFactory m_ConsumerViewModelFactory;
         private readonly IConsumerRepository m_Repository;
+        private BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups = new BindableCollection<ConsumerGroupViewModel>();
         private bool m_IsEnabled;
         private bool m_FlyoutActivated;
 
@@ -51,20 +57,51 @@ namespace Ork.Energy.ViewModels
             if (IsEnabled)
             {
                 //TODO Load Data method, Show all Data method Notify of Property Chanfe
+                LoadData();
             }
         }
 
-        public bool FlyoutActivated
+        private void LoadData()
         {
-            get { return m_FlyoutActivated; }
-            set
+            LoadConsumerGroups();
+        }
+
+        private void LoadConsumerGroups()
+        {
+            m_Repository.ConsumerGroups.CollectionChanged += AlterConsumerGroupCollection;
+            foreach (var consumerGroup in m_Repository.ConsumerGroups)
             {
-                if (m_FlyoutActivated == value)
-                {
-                    return;
-                }
-                m_FlyoutActivated = value;
-                NotifyOfPropertyChange(() => FlyoutActivated);
+                CreateConsumerGroupViewModel(consumerGroup);
+            }
+        }
+
+        private void CreateConsumerGroupViewModel(ConsumerGroup consumerGroup)
+        {
+            m_ConsumerGroups.Add(m_ConsumerViewModelFactory.CreateFromExisting(consumerGroup));
+            //Todo: Create Childs (i.e. Consumers)
+        }
+
+        public ICollection<ConsumerGroupViewModel> AllConsumerGroups
+        {
+            get { return m_ConsumerGroups; }
+        }
+
+        private void AlterConsumerGroupCollection(object sender, NotifyCollectionChangedEventArgs eventArgs)
+        {
+            switch (eventArgs.Action)
+            {
+                    case NotifyCollectionChangedAction.Add:
+                    foreach ( var newConsumerGroup in eventArgs.NewItems.OfType<ConsumerGroup>())
+                    {
+                        CreateConsumerGroupViewModel(new ConsumerGroup());
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (var oldConsumerGroup in eventArgs.OldItems.OfType<ConsumerGroup>().Select(oldConsumerGroup => m_ConsumerGroups.Single(cg => cg.Model == oldConsumerGroup)))
+                    {
+                        m_ConsumerGroups.Remove(oldConsumerGroup);
+                    }
+                    break;
             }
         }
     }
