@@ -1,4 +1,5 @@
-﻿using Ork.Energy.DomainModelService;
+﻿using System;
+using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
@@ -28,6 +29,13 @@ namespace Ork.Energy.ViewModels
             get { return m_Model.GroupDescription; }
             set { m_Model.GroupDescription = value; }
         }
+
+        public int RelatedConsumers
+        {
+            get { return m_Model.Consumers.Count; }
+        }
+
+
 
     }
 }

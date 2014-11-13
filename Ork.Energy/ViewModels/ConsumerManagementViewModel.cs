@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -108,5 +109,23 @@ namespace Ork.Energy.ViewModels
                     break;
             }
         }
+
+        public void OpenEditConsumerGroupDialog(object dataContext)
+        {
+            //TODO Edit it
+            Console.WriteLine("Erfolgreich den print Button gedrückt und zwar in dem ManagementVM");
+        }
+
+        public void DeleteConsumerGroup(object dataContext)
+        {
+            //TODO Delete ConsumerGroup and Check on Childs
+        }
+
+        public void AddNewConsumerGroup()
+        {
+            
+        }
+
+        public string NewConsumerGroupName { get; set; }
     }
 }
