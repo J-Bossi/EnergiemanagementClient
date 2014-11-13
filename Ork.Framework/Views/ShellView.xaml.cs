@@ -15,13 +15,14 @@
 #endregion
 
 using System.Windows;
+using MahApps.Metro.Controls;
 
 namespace Ork.Framework.Views
 {
   /// <summary>
   ///   Interaktionslogik für ShellView.xaml
   /// </summary>
-  public partial class ShellView : Window
+  public partial class ShellView : MetroWindow
   {
     public ShellView()
     {
