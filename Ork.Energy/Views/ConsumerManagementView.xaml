@@ -1,14 +1,15 @@
-﻿<UserControl x:Class="Ork.Energy.Views.ConsumerManagementView"
+﻿<UserControl xmlns:Views="clr-namespace:Ork.Energy.Views" x:Class="Ork.Energy.Views.ConsumerManagementView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:cal="clr-namespace:Caliburn;assembly=Caliburn.Micro"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d" 
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid
-        Background="{DynamicResource AccentColorBrush}"><Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
@@ -19,17 +20,22 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <ComboBox Width="200"
-                      Margin="0, 10, 0, 0"
-                      Grid.Column="0"
-                      Grid.Row="0"
-                      Style="{DynamicResource VirtualisedMetroComboBox}"
-                      Controls:TextboxHelper.Watermark="Verbrauchergruppe"
-                      
-                      IsEditable="True"
-                      ItemsSource="{Binding AllConsumerGroups}"
-                      MaxDropDownHeight="125"
-                      DisplayMemberPath="GroupName" 
-                      />
+                  Margin="0, 10, 0, 0"
+                  Grid.Column="0"
+                  Grid.Row="0"
+                  Style="{DynamicResource VirtualisedMetroComboBox}"
+                  Controls:TextboxHelper.Watermark="Verbrauchergruppe"
+                  IsEditable="True"
+                  ItemsSource="{Binding AllConsumerGroups}"
+                  MaxDropDownHeight="125"
+                  DisplayMemberPath="GroupName" />
+        <ListView ItemsSource="{Binding AllConsumerGroups}" Grid.Column="0" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Views:ConsumerGroupCardView DataContext="{Binding }"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListView>
 
     </Grid>
 </UserControl>

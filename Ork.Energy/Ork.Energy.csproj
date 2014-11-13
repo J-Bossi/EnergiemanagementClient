@@ -156,6 +156,9 @@
     <Compile Include="ViewModels\MeasureViewModel.cs" />
     <Compile Include="ViewModels\ResponsibleSubjectViewModel.cs" />
     <Compile Include="ViewModels\SubMeasureViewModel.cs" />
+    <Compile Include="Views\ConsumerGroupCardView.xaml.cs">
+      <DependentUpon>ConsumerGroupCardView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MeasureGridEco.xaml.cs">
       <DependentUpon>MeasureGridEco.xaml</DependentUpon>
     </Compile>
@@ -198,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CatalogEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConsumerGroupCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
