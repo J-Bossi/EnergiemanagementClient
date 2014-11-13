@@ -111,6 +111,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Factories\IConsumerViewModelFactory.cs" />
     <Compile Include="Factories\IResponsibleSubjectViewModelFactory.cs" />
+    <Compile Include="Factories\ModelFactory.cs" />
     <Compile Include="Factories\ResponsibleSubjectViewModelFactory.cs" />
     <Compile Include="Factories\IContextFactory.cs" />
     <Compile Include="Factories\ISubMeasureViewModelFactory.cs" />

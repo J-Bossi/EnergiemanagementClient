@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -14,11 +13,14 @@ namespace Ork.Energy.ViewModels
     [Export(typeof (IWorkspace))]
     public class ConsumerManagementViewModel : DocumentBase, IWorkspace
     {
+        private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+            new BindableCollection<ConsumerGroupViewModel>();
+
         private readonly IConsumerViewModelFactory m_ConsumerViewModelFactory;
         private readonly IConsumerRepository m_Repository;
-        private BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups = new BindableCollection<ConsumerGroupViewModel>();
-        private bool m_IsEnabled;
+
         private bool m_FlyoutActivated;
+        private bool m_IsEnabled;
 
         [ImportingConstructor]
         public ConsumerManagementViewModel([Import] IConsumerRepository mRepository,
@@ -27,13 +29,20 @@ namespace Ork.Energy.ViewModels
             Dialogs = dialogs;
             m_Repository = mRepository;
             m_ConsumerViewModelFactory = mConsumerViewModelFactory;
-            
-            
+
+
             m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
             Reload();
         }
 
         public new IDialogManager Dialogs { get; private set; }
+
+        public ICollection<ConsumerGroupViewModel> AllConsumerGroups
+        {
+            get { return m_ConsumerGroups; }
+        }
+
+        public string NewConsumerGroupName { get; set; }
 
         public int Index
         {
@@ -57,7 +66,6 @@ namespace Ork.Energy.ViewModels
 
         private void Reload()
         {
-            
             IsEnabled = m_Repository.HasConnection;
             if (IsEnabled)
             {
@@ -74,7 +82,7 @@ namespace Ork.Energy.ViewModels
         private void LoadConsumerGroups()
         {
             m_Repository.ConsumerGroups.CollectionChanged += AlterConsumerGroupCollection;
-            foreach (var consumerGroup in m_Repository.ConsumerGroups)
+            foreach (ConsumerGroup consumerGroup in m_Repository.ConsumerGroups)
             {
                 CreateConsumerGroupViewModel(consumerGroup);
             }
@@ -86,23 +94,22 @@ namespace Ork.Energy.ViewModels
             //Todo: Create Childs (i.e. Consumers)
         }
 
-        public ICollection<ConsumerGroupViewModel> AllConsumerGroups
-        {
-            get { return m_ConsumerGroups; }
-        }
-
         private void AlterConsumerGroupCollection(object sender, NotifyCollectionChangedEventArgs eventArgs)
         {
             switch (eventArgs.Action)
             {
-                    case NotifyCollectionChangedAction.Add:
-                    foreach ( var newConsumerGroup in eventArgs.NewItems.OfType<ConsumerGroup>())
+                case NotifyCollectionChangedAction.Add:
+                    foreach (ConsumerGroup newConsumerGroup in eventArgs.NewItems.OfType<ConsumerGroup>())
                     {
-                        CreateConsumerGroupViewModel(new ConsumerGroup());
+                        CreateConsumerGroupViewModel(newConsumerGroup);
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var oldConsumerGroup in eventArgs.OldItems.OfType<ConsumerGroup>().Select(oldConsumerGroup => m_ConsumerGroups.Single(cg => cg.Model == oldConsumerGroup)))
+                    foreach (
+                        ConsumerGroupViewModel oldConsumerGroup in
+                            eventArgs.OldItems.OfType<ConsumerGroup>()
+                                .Select(oldConsumerGroup => m_ConsumerGroups.Single(cg => cg.Model == oldConsumerGroup))
+                        )
                     {
                         m_ConsumerGroups.Remove(oldConsumerGroup);
                     }
@@ -113,7 +120,6 @@ namespace Ork.Energy.ViewModels
         public void OpenEditConsumerGroupDialog(object dataContext)
         {
             //TODO Edit it
-            Console.WriteLine("Erfolgreich den print Button gedrückt und zwar in dem ManagementVM");
         }
 
         public void DeleteConsumerGroup(object dataContext)
@@ -123,9 +129,13 @@ namespace Ork.Energy.ViewModels
 
         public void AddNewConsumerGroup()
         {
-            
-        }
+            m_Repository.ConsumerGroups.Add(ModelFactory.CreateConsumerGroup(NewConsumerGroupName));
+            m_Repository.Save();
 
-        public string NewConsumerGroupName { get; set; }
+            //TODO maybe select last Consumer Group
+
+            //LoadData();
+            NotifyOfPropertyChange(() => AllConsumerGroups);
+        }
     }
 }
