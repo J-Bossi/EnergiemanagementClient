@@ -24,12 +24,14 @@ namespace Ork.Framework.ViewModels
   [Export(typeof (IShell))]
   public class ShellViewModel : Conductor<IWorkspace>.Collection.OneActive, IShell
   {
+      int m_TabIndex = -1;
+
     [ImportingConstructor]
     public ShellViewModel([Import] IDialogManager dialogManager, [Import("ApplicationName")] string appName)
     {
       DisplayName = appName;
       Dialogs = dialogManager;
-
+      
       //ActivateItem(Items.First(i => i.IsEnabled));
       CloseStrategy = new ApplicationCloseStrategy();
     }
@@ -46,6 +48,12 @@ namespace Ork.Framework.ViewModels
         }
       }
     }
+
+      public int InitialTabSelection
+      {
+          get { return m_TabIndex; }
+          set { m_TabIndex = value; }
+      }
 
     public IDialogManager Dialogs { get; private set; }
   }

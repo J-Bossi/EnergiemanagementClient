@@ -193,20 +193,26 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        var measures = m_Repository.Catalogs.SelectMany(cat => cat.Measures)
-                                   .ToArray();
-        if (!measures.Any())
-        {
-          return TranslationProvider.Translate("NoneAvailable");
-        }
-        var dateList = measures.Select(measure => measure.DueDate)
-                               .OrderBy(m => m)
-                               .ToArray();
-        return dateList.First()
-                       .ToShortDateString() + " - " + dateList.Last()
-                                                              .ToShortDateString();
+          return CalculateDateInterval();
+        
       }
     }
+
+      private string CalculateDateInterval()
+      {
+          var measures = m_Catalogs.SelectMany(cat => cat.Measures)
+                                   .ToArray();
+          if (!measures.Any())
+          {
+              return TranslationProvider.Translate("NoneAvailable");
+          }
+          var dateList = measures.Select(measure => measure.DueDate)
+                                 .OrderBy(m => m)
+                                 .ToArray();
+          return dateList.First()
+                         .ToShortDateString() + " - " + dateList.Last()
+                                                                .ToShortDateString();
+      }
 
     //public bool VisibleNormal           // Sichtbarkeit Alle Maßnahmen
     //{
