@@ -653,8 +653,8 @@ namespace Ork.Energy.ViewModels
         ? TranslationProvider.Translate("AllMeasures")
         : SelectedCatalog.Name;
 
-      var textForegroundColor = (Color) Application.Current.Resources["TextForegroundColor"];
-      var lightControlColor = (Color) Application.Current.Resources["LightControlColor"];
+      var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
+      var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
 
       m_Plot.Title = catalogName;
       m_Plot.LegendOrientation = LegendOrientation.Horizontal;
@@ -711,8 +711,8 @@ namespace Ork.Energy.ViewModels
           ? TranslationProvider.Translate("AllMeasures")
           : SelectedCatalog.Name;
 
-        var textForegroundColor = (Color)Application.Current.Resources["TextForegroundColor"];
-        var lightControlColor = (Color)Application.Current.Resources["LightControlColor"];
+        var textForegroundColor = (Color)Application.Current.Resources["BlackColor"];
+        var lightControlColor = (Color)Application.Current.Resources["WhiteColor"];
 
         m_Plot.Title = catalogName;
         m_Plot.LegendOrientation = LegendOrientation.Horizontal;
@@ -763,8 +763,8 @@ namespace Ork.Energy.ViewModels
           ? TranslationProvider.Translate("AllMeasures")
           : SelectedCatalog.Name;
 
-        var textForegroundColor = (Color)Application.Current.Resources["TextForegroundColor"];
-        var lightControlColor = (Color)Application.Current.Resources["LightControlColor"];
+        var textForegroundColor = (Color)Application.Current.Resources["BlackColor"];
+        var lightControlColor = (Color)Application.Current.Resources["WhiteColor"];
 
         m_Plot.Title = catalogName;
         m_Plot.LegendOrientation = LegendOrientation.Horizontal;

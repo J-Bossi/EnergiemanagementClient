@@ -138,61 +138,43 @@
                         Header="Verteiler Aktion"
                         Binding="{Binding Name}"
                         Width="50*" >
-                    <toolkit:DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </toolkit:DataGridTextColumn.ElementStyle>
-                    <toolkit:DataGridTextColumn.EditingElementStyle>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Foreground" Value="Blue"/>
-                        </Style>
-                    </toolkit:DataGridTextColumn.EditingElementStyle>
+
                 </toolkit:DataGridTextColumn>
 
                 <toolkit:DataGridTextColumn
                         Header="Betrachteter Verbraucher"
-                        Binding="{Binding ConsumerUnit}"
+                        Binding="{Binding ConsumerUnit, Mode=OneWay}"
                         Width="45*" >
-                    <toolkit:DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </toolkit:DataGridTextColumn.ElementStyle>
-                    <toolkit:DataGridTextColumn.EditingElementStyle>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Foreground" Value="Blue"/>
-                        </Style>
-                    </toolkit:DataGridTextColumn.EditingElementStyle>
+                    
                 </toolkit:DataGridTextColumn>
 
                 <toolkit:DataGridTextColumn
                         Header="Aktueller&#10;Verbrauchswert (€/Jahr)" 
-                        Binding="{Binding SavedMoneyAktuell}"
+                        Binding="{Binding SavedMoneyAktuell,  Mode=OneWay}"
                         Width="33*" />
 
 
                 <toolkit:DataGridTextColumn 
                         Header="Aktueller&#10;Verbrauchswert (kWh/Jahr)"
-                        Binding="{Binding SavedWattAktuell}"
+                        Binding="{Binding SavedWattAktuell,  Mode=OneWay}"
                         Width="37*" />
 
 
                 <toolkit:DataGridTextColumn
                         Header="Einsparung&#10;der Maßnahme (€/Jahr)"
-                        Binding="{Binding SavedMoneySoll}"
+                        Binding="{Binding SavedMoneySoll,  Mode=OneWay}"
                         Width="32*" />
 
 
                 <toolkit:DataGridTextColumn
                         Header="Einsparung&#10;der Maßnahme (kWh/Jahr)"
-                        Binding="{Binding SavedWattSoll}"
+                        Binding="{Binding SavedWattSoll,  Mode=OneWay}"
                         Width="36*" />
 
 
                 <toolkit:DataGridTextColumn
                         Header="Einsparung&#10;CO2 (kg/Jahr)"
-                        Binding="{Binding SavedCO2}"
+                        Binding="{Binding SavedCO2,  Mode=OneWay}"
                         Width="20*" />
 
 

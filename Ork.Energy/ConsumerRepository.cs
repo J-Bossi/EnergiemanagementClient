@@ -67,11 +67,10 @@ namespace Ork.Energy
                 HasConnection = false;
                 var message = ex.Message;
                 message += message + Environment.NewLine + ex.InnerException.Message;
-                
-                
+
                 
             }
-
+            RaiseEvent(ContextChanged);
 
           
 

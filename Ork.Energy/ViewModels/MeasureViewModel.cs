@@ -59,6 +59,7 @@ namespace Ork.Energy.ViewModels
     public string Name
     {
       get { return m_Model.Name; }
+        set { m_Model.Name = value; }
     }
 
     public DomainModelService.Measure Model
@@ -203,12 +204,14 @@ namespace Ork.Energy.ViewModels
       public string ConsumerUnit
       {
           get { return m_Model.ConsumerUnit; }
+          
       }
 
 
       public double Investment
       {
           get { return m_Model.Investment; }
+       
       }
 
       public double Amortisationtime

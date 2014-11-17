@@ -81,6 +81,7 @@ namespace Ork.Energy.ViewModels
 
         private void LoadConsumerGroups()
         {
+            m_ConsumerGroups.Clear();
             m_Repository.ConsumerGroups.CollectionChanged += AlterConsumerGroupCollection;
             foreach (ConsumerGroup consumerGroup in m_Repository.ConsumerGroups)
             {

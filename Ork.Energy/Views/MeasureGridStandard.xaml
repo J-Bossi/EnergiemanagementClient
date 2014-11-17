@@ -141,32 +141,14 @@
                         Header="Verteiler Aktion"
                         Binding="{Binding Name}"
                         Width="45*" >
-                    <controls:DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </controls:DataGridTextColumn.ElementStyle>
-                    <controls:DataGridTextColumn.EditingElementStyle>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Foreground" Value="Blue"/>
-                        </Style>
-                    </controls:DataGridTextColumn.EditingElementStyle>
+                   
                 </controls:DataGridTextColumn>
 
                 <controls:DataGridTextColumn
                         Header="Betrachteter Verbraucher"
-                        Binding="{Binding ConsumerUnit}"
+                        Binding="{Binding ConsumerUnit,  Mode=OneWay}"
                         Width="45*" >
-                    <controls:DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </controls:DataGridTextColumn.ElementStyle>
-                    <controls:DataGridTextColumn.EditingElementStyle>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Foreground" Value="Blue"/>
-                        </Style>
-                    </controls:DataGridTextColumn.EditingElementStyle>
+                  
                 </controls:DataGridTextColumn>
 
                 <controls:DataGridTemplateColumn
@@ -257,7 +239,7 @@
 
                 <controls:DataGridTextColumn
                         Header="{lex:Loc Ork.Energy:Translate:State}"
-                        Binding="{Binding StatusName}"
+                        Binding="{Binding StatusName,  Mode=OneWay}"
                         SortDirection="Ascending"
                         Width="15*" />
 
@@ -276,28 +258,19 @@
 
                 <controls:DataGridTextColumn
                         Header="{lex:Loc Ork.Energy:Translate:ResponsibleSubject}"
-                        Binding="{Binding ResponsibleSubjectName}"
+                        Binding="{Binding ResponsibleSubjectName,  Mode=OneWay}"
                         Width="30*" />
 
                 <controls:DataGridTextColumn
                         Header="Einheit [EnPI]"
-                        Binding="{Binding Kenn}"
+                        Binding="{Binding Kenn,  Mode=OneWay}"
                         Width="20*" >
-                    <controls:DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </controls:DataGridTextColumn.ElementStyle>
-                    <controls:DataGridTextColumn.EditingElementStyle>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Foreground" Value="Blue"/>
-                        </Style>
-                    </controls:DataGridTextColumn.EditingElementStyle>
+                   
                 </controls:DataGridTextColumn>
 
                 <controls:DataGridTextColumn
                         Header="Amotisationszeit&#10;(in Tagen)"
-                        Binding="{Binding Amortisationtime}"
+                        Binding="{Binding Amortisationtime,  Mode=OneWay}"
                         Width="25*" />
 
                 <!--<toolkit:DataGridTextColumn
