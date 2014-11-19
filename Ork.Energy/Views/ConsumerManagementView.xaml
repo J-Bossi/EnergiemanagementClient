@@ -47,7 +47,7 @@
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Views:ConsumerGroupCardView  HorizontalAlignment="Stretch" />
+                            <Views:ConsumerGroupCardView  HorizontalAlignment="Stretch" cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenEditConsumerGroupDialog($dataContext)]"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
