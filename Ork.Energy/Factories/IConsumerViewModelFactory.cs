@@ -6,5 +6,7 @@ namespace Ork.Energy.Factories
     public interface IConsumerViewModelFactory
     {
         ConsumerGroupViewModel CreateFromExisting(ConsumerGroup consumerGroup);
+
+        ConsumerGroupModifyViewModel CreateConsumerGroupModifyVM(ConsumerGroup consumerGroup);
     }
 }

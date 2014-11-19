@@ -18,9 +18,9 @@ namespace Ork.Energy.ViewModels
 
         private readonly IConsumerViewModelFactory m_ConsumerViewModelFactory;
         private readonly IConsumerRepository m_Repository;
-
+        private IScreen m_EditItem;
         private bool m_FlyoutActivated;
-        private bool m_IsEnabled;
+        private bool m_IsEnabled; private string m_SearchConsumerGroupText;
 
         [ImportingConstructor]
         public ConsumerManagementViewModel([Import] IConsumerRepository mRepository,
@@ -37,12 +37,47 @@ namespace Ork.Energy.ViewModels
 
         public new IDialogManager Dialogs { get; private set; }
 
-        public ICollection<ConsumerGroupViewModel> AllConsumerGroups
+        public IEnumerable<ConsumerGroupViewModel> ConsumerGroups
         {
-            get { return m_ConsumerGroups; }
+            get { return FilteredConsumerGroups; }
+        }
+
+        private IEnumerable<ConsumerGroupViewModel> FilteredConsumerGroups
+        {
+            get
+            {
+                ConsumerGroupViewModel[] filteredConsumerGroups = SearchInConsumerGroupList()
+                    .ToArray();
+                return filteredConsumerGroups;
+            }
+        }
+
+        public IEnumerable<ConsumerGroupViewModel> SearchInConsumerGroupList()
+        {
+            if (string.IsNullOrEmpty(SearchConsumerGroupsText))
+            {
+                return m_ConsumerGroups;
+            }
+            string searchText = SearchConsumerGroupsText.ToLower();
+
+
+            return m_ConsumerGroups.Where(c => (((c.GroupName != null) && (c.GroupName.ToLower()
+                .Contains(searchText)) || (c.GroupDescription.ToLower()
+                .Contains(searchText)) )));
+        }
+
+        public string SearchConsumerGroupsText
+        {
+            get { return m_SearchConsumerGroupText; }
+            set
+            {
+                m_SearchConsumerGroupText = value;
+                NotifyOfPropertyChange(() => ConsumerGroups);
+            }
         }
 
         public string NewConsumerGroupName { get; set; }
+        public ConsumerGroupViewModel SelectedConsumerGroup { get; set; }
 
         public int Index
         {
@@ -120,16 +155,42 @@ namespace Ork.Energy.ViewModels
 
         public void OpenEditConsumerGroupDialog(object dataContext)
         {
-            //TODO Edit it
+            SelectedConsumerGroup = (ConsumerGroupViewModel) dataContext;
+            OpenEditor(m_ConsumerViewModelFactory.CreateConsumerGroupModifyVM(SelectedConsumerGroup.Model));
+        }
+
+        private void OpenEditor(object dataContext)
+        {
+            m_EditItem = (IScreen) dataContext;
+            Dialogs.ShowDialog(m_EditItem);
         }
 
         public void DeleteConsumerGroup(object dataContext)
         {
             //TODO Delete ConsumerGroup and Check on Childs
-            m_Repository.ConsumerGroups.Remove(((ConsumerGroupViewModel)dataContext).Model);
+            m_Repository.ConsumerGroups.Remove(((ConsumerGroupViewModel) dataContext).Model);
             m_Repository.Save();
 
-            NotifyOfPropertyChange(() => AllConsumerGroups);
+            NotifyOfPropertyChange(() => ConsumerGroups);
+        }
+
+        public void SaveConsumerGroup(object dataContext)
+        {
+            Save();
+            NotifyOfPropertyChange(() => ConsumerGroups);
+           
+        }
+
+        private void CloseEditor()
+        {
+            m_EditItem.TryClose();
+            m_EditItem = null;
+        }
+
+        private void Save()
+        {
+            CloseEditor();
+            m_Repository.Save();
         }
 
         public void AddNewConsumerGroup()
@@ -140,7 +201,7 @@ namespace Ork.Energy.ViewModels
             //TODO maybe select last Consumer Group
 
             //LoadData();
-            NotifyOfPropertyChange(() => AllConsumerGroups);
+            NotifyOfPropertyChange(() => ConsumerGroups);
         }
     }
 }

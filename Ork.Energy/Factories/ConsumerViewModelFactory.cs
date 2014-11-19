@@ -18,5 +18,10 @@ namespace Ork.Energy.Factories
         {
             return new ConsumerGroupViewModel(consumerGroup);
         }
+
+        public ConsumerGroupModifyViewModel CreateConsumerGroupModifyVM(ConsumerGroup consumerGroup)
+        {
+            return new ConsumerGroupModifyViewModel(consumerGroup);
+        }
     }
 }
