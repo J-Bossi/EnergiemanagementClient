@@ -34,15 +34,12 @@
 
 
             <ListBox ItemsSource="{Binding AllConsumerGroups}" Grid.Row="1" BorderThickness="0"
-                     HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    </Style>
-                </ListBox.ItemContainerStyle>
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+            
+           
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Views:ConsumerGroupCardView />
+                        <Views:ConsumerGroupCardView DataContext="{Binding }" HorizontalAlignment="Stretch"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -53,6 +50,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBox
                     Controls:TextboxHelper.Watermark="Neue Verbrauchergruppe..." Grid.Column="0"
+                    Text="{Binding NewConsumerGroupName, Mode=TwoWay}"
                     HorizontalAlignment="Stretch" />
                 <Button
                     Grid.Column="1"
