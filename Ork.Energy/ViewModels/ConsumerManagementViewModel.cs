@@ -126,6 +126,10 @@ namespace Ork.Energy.ViewModels
         public void DeleteConsumerGroup(object dataContext)
         {
             //TODO Delete ConsumerGroup and Check on Childs
+            m_Repository.ConsumerGroups.Remove(((ConsumerGroupViewModel)dataContext).Model);
+            m_Repository.Save();
+
+            NotifyOfPropertyChange(() => AllConsumerGroups);
         }
 
         public void AddNewConsumerGroup()

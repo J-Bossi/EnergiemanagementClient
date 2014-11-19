@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*" />
 
         </Grid.ColumnDefinitions>
-        <Grid Column="0">
+        <Grid Column="0" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -34,43 +34,54 @@
 
 
             <ListBox ItemsSource="{Binding AllConsumerGroups}" Grid.Row="1" BorderThickness="0"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
-            
-           
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Margin" Value="0 2 0 2" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Views:ConsumerGroupCardView DataContext="{Binding }" HorizontalAlignment="Stretch"/>
+                        <Views:ConsumerGroupCardView DataContext="{Binding }" HorizontalAlignment="Stretch" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Grid Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBox
-                    Controls:TextboxHelper.Watermark="Neue Verbrauchergruppe..." Grid.Column="0"
-                    Text="{Binding NewConsumerGroupName, Mode=TwoWay}"
-                    HorizontalAlignment="Stretch" />
-                <Button
-                    Grid.Column="1"
-                    Width="50"
-                    Height="50"
-                    Margin="0, 10, 0, 0"
-                    Style="{DynamicResource MetroCircleButtonStyle}"
-                    cal:Message.Attach="AddNewConsumerGroup()">
-                    <Rectangle Width="20"
-                               Height="20"
-                               Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                                         Visual="{DynamicResource appbar_add}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Button>
-            </Grid>
-
+            <Border VerticalAlignment="Top" Grid.Row="2" BorderBrush="{DynamicResource AccentColorBrush4}"
+                    BorderThickness="2" Margin="0 0 0 0"  HorizontalAlignment="Stretch">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        Margin="5"
+                        Controls:TextboxHelper.Watermark="Neue Verbrauchergruppe..." Grid.Column="0"
+                        Text="{Binding NewConsumerGroupName, Mode=TwoWay}"
+                        HorizontalAlignment="Stretch" />
+                    <Button
+                        Grid.Column="1"
+                        Width="50"
+                        Height="50"
+                        Margin="2"
+                        Style="{DynamicResource MetroCircleButtonStyle}"
+                        cal:Message.Attach="AddNewConsumerGroup()">
+                        <Rectangle Width="20"
+                                   Height="20"
+                                   Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+                                             Visual="{DynamicResource appbar_add}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </Grid>
+            </Border>
         </Grid>
+
 
         <Grid Column="1">
             <Grid.RowDefinitions>

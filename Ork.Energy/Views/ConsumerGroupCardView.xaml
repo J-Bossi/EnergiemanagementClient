@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <!--The Mahapps.Metro Control has a left Margin of 5px in the Content Presenter. These 5px are subtracted-->
-    <Border BorderBrush="{DynamicResource AccentColorBrush4}" BorderThickness="2"  Margin="-5 2 0 2" HorizontalAlignment="Stretch" >
+    <Border BorderBrush="{DynamicResource AccentColorBrush4}" BorderThickness="2"  Margin="-5 0 0 0" HorizontalAlignment="Stretch" >
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -37,7 +37,8 @@
             <Button Width="50"
                     Height="50"
                     Margin="2"
-                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    Style="{DynamicResource MetroCircleButtonStyle}"
+                    cal:Message.Attach="DeleteConsumerGroup($dataContext)">
                 <Rectangle Width="20"
                            Height="20"
                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
