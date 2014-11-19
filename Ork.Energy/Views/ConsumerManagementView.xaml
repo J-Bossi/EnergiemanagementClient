@@ -10,115 +10,116 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
 
-        </Grid.ColumnDefinitions>
-        <Grid Column="0" VerticalAlignment="Top">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <ComboBox HorizontalAlignment="Stretch"
-                      Margin="0, 10, 0, 0"
-                      Text="{Binding SearchConsumerGroupsText}"
-                      Grid.Row="0"
-                      Style="{DynamicResource VirtualisedMetroComboBox}"
-                      Controls:TextboxHelper.Watermark="Verbrauchergruppe"
-                      IsEditable="True"
-                      ItemsSource="{Binding ConsumerGroups}"
-                      MaxDropDownHeight="125"
-                      DisplayMemberPath="GroupName" />
-
-
-            <ListBox ItemsSource="{Binding ConsumerGroups}" Grid.Row="1" BorderThickness="0"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false">
-
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Margin" Value="0 2 0 2" />
-                    </Style>
-                </ListBox.ItemContainerStyle>
+            </Grid.ColumnDefinitions>
+            <Grid Column="0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ComboBox HorizontalAlignment="Stretch"
+                          Margin="0, 10, 0, 0"
+                          Text="{Binding SearchConsumerGroupsText}"
+                          Grid.Row="0"
+                          Style="{DynamicResource VirtualisedMetroComboBox}"
+                          Controls:TextboxHelper.Watermark="Verbrauchergruppe"
+                          IsEditable="True"
+                          ItemsSource="{Binding ConsumerGroups}"
+                          MaxDropDownHeight="125"
+                          DisplayMemberPath="GroupName" />
 
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                            <Views:ConsumerGroupCardView  HorizontalAlignment="Stretch" cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenEditConsumerGroupDialog($dataContext)]"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Border VerticalAlignment="Top" Grid.Row="2" BorderBrush="{DynamicResource AccentColorBrush4}"
-                    BorderThickness="2" Margin="0 0 0 0"  HorizontalAlignment="Stretch">
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox
-                        Margin="5"
-                        Controls:TextboxHelper.Watermark="Neue Verbrauchergruppe..." Grid.Column="0"
-                        Text="{Binding NewConsumerGroupName, Mode=TwoWay}"
-                        HorizontalAlignment="Stretch" />
-                    <Button
-                        Grid.Column="1"
-                        Width="50"
-                        Height="50"
-                        Margin="2"
-                        Style="{DynamicResource MetroCircleButtonStyle}"
-                        cal:Message.Attach="AddNewConsumerGroup()">
-                        <Rectangle Width="20"
-                                   Height="20"
-                                   Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill"
-                                             Visual="{DynamicResource appbar_add}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                </Grid>
-            </Border>
-        </Grid>
+                <ListBox ItemsSource="{Binding ConsumerGroups}" Grid.Row="1" BorderThickness="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false">
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0 2 0 2" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
 
 
-        <Grid Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <ComboBox HorizontalAlignment="Stretch"
-                      Margin="0, 10, 0, 0"
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Views:ConsumerGroupCardView HorizontalAlignment="Stretch"
+                                                         cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenEditConsumerGroupDialog($dataContext)]" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Border VerticalAlignment="Top" Grid.Row="2" BorderBrush="{DynamicResource AccentColorBrush4}"
+                        BorderThickness="2" Margin="0 0 0 0" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            Margin="5"
+                            Controls:TextboxHelper.Watermark="Neue Verbrauchergruppe..." Grid.Column="0"
+                            Text="{Binding NewConsumerGroupName, Mode=TwoWay}"
+                            HorizontalAlignment="Stretch" />
+                        <Button
+                            Grid.Column="1"
+                            Width="50"
+                            Height="50"
+                            Margin="2"
+                            Style="{DynamicResource MetroCircleButtonStyle}"
+                            cal:Message.Attach="AddNewConsumerGroup()">
+                            <Rectangle Width="20"
+                                       Height="20"
+                                       Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+                                                 Visual="{DynamicResource appbar_add}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
 
-                      Grid.Row="0"
-                      Style="{DynamicResource VirtualisedMetroComboBox}"
-                      Controls:TextboxHelper.Watermark="Verteiler"
-                      IsEditable="True"
-                      ItemsSource="{Binding ConsumerGroups}"
-                      MaxDropDownHeight="125"
-                      DisplayMemberPath="GroupName" />
-        </Grid>
 
-        <Grid Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <ComboBox HorizontalAlignment="Stretch"
-                      Margin="0, 10, 0, 0"
+            <Grid Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ComboBox HorizontalAlignment="Stretch"
+                          Margin="0, 10, 0, 0"
 
-                      Grid.Row="0"
-                      Style="{DynamicResource VirtualisedMetroComboBox}"
-                      Controls:TextboxHelper.Watermark="Verbraucher"
-                      IsEditable="True"
-                      ItemsSource="{Binding ConsumerGroups}"
-                      MaxDropDownHeight="125"
-                      DisplayMemberPath="GroupName" />
-        </Grid>
+                          Grid.Row="0"
+                          Style="{DynamicResource VirtualisedMetroComboBox}"
+                          Controls:TextboxHelper.Watermark="Verteiler"
+                          IsEditable="True"
+                          ItemsSource="{Binding ConsumerGroups}"
+                          MaxDropDownHeight="125"
+                          DisplayMemberPath="GroupName" />
+            </Grid>
+
+            <Grid Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ComboBox HorizontalAlignment="Stretch"
+                          Margin="0, 10, 0, 0"
+
+                          Grid.Row="0"
+                          Style="{DynamicResource VirtualisedMetroComboBox}"
+                          Controls:TextboxHelper.Watermark="Verbraucher"
+                          IsEditable="True"
+                          ItemsSource="{Binding ConsumerGroups}"
+                          MaxDropDownHeight="125"
+                          DisplayMemberPath="GroupName" />
+            </Grid>
         </Grid>
         <ContentControl
             VerticalContentAlignment="Stretch"
@@ -127,5 +128,5 @@
 
     </Grid>
 
- 
+
 </UserControl>

@@ -15,54 +15,53 @@
 #endregion
 
 using Caliburn.Micro;
-using Ork.Framework;
 using Ork.Energy.DomainModelService;
-using Ork.Energy.ViewModels;
+using Ork.Framework;
 
 namespace Ork.Energy.ViewModels
 {
-  public class CatalogAddViewModel : Screen
-  {
-    private readonly CatalogModifyViewModel m_Model;
-
-    public CatalogAddViewModel(Catalog model)
+    public class CatalogAddViewModel : Screen
     {
-      DisplayName = TranslationProvider.Translate("AddCatalog");
-      m_Model = new CatalogModifyViewModel(model);
-    }
+        private readonly CatalogModifyViewModel m_Model;
 
-    public Catalog Model
-    {
-      get { return m_Model.Model; }
-    }
-
-    public string Name
-    {
-      get { return m_Model.Name; }
-      set
-      {
-        m_Model.Name = value;
-        NotifyOfPropertyChange(() => ValidateCatalog);
-      }
-    }
-
-    public bool ValidateCatalog
-    {
-      get
-      {
-        if (!string.IsNullOrEmpty(Name))
+        public CatalogAddViewModel(Catalog model)
         {
-          return true;
+            DisplayName = TranslationProvider.Translate("AddCatalog");
+            m_Model = new CatalogModifyViewModel(model);
         }
 
-        return false;
-      }
-    }
+        public Catalog Model
+        {
+            get { return m_Model.Model; }
+        }
 
-    public string Description
-    {
-      get { return m_Model.Description; }
-      set { m_Model.Description = value; }
+        public string Name
+        {
+            get { return m_Model.Name; }
+            set
+            {
+                m_Model.Name = value;
+                NotifyOfPropertyChange(() => ValidateCatalog);
+            }
+        }
+
+        public bool ValidateCatalog
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Name))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public string Description
+        {
+            get { return m_Model.Description; }
+            set { m_Model.Description = value; }
+        }
     }
-  }
 }

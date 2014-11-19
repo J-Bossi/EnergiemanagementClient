@@ -19,25 +19,24 @@ using Ork.Framework;
 
 namespace Ork.Energy.ViewModels
 {
-  public class CatalogEditViewModel : CatalogAddViewModel
-  {
-    private readonly Action m_RemoveCatalog;
-
-    public CatalogEditViewModel(CatalogViewModel model, Action removeCatalogAction)
-      : base(model.Model)
+    public class CatalogEditViewModel : CatalogAddViewModel
     {
-      DisplayName = TranslationProvider.Translate("EditCatalog");
-      CatalogViewModel = model;
-      m_RemoveCatalog = removeCatalogAction;
+        private readonly Action m_RemoveCatalog;
+
+        public CatalogEditViewModel(CatalogViewModel model, Action removeCatalogAction)
+            : base(model.Model)
+        {
+            DisplayName = TranslationProvider.Translate("EditCatalog");
+            CatalogViewModel = model;
+            m_RemoveCatalog = removeCatalogAction;
+        }
+
+
+        public CatalogViewModel CatalogViewModel { get; set; }
+
+        public void RemoveCatalog()
+        {
+            m_RemoveCatalog();
+        }
     }
-
-
-    public CatalogViewModel CatalogViewModel { get; set; }
-
-    public void RemoveCatalog()
-    {
-      m_RemoveCatalog();
-      
-    }
-  }
 }

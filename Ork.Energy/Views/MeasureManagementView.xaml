@@ -79,7 +79,7 @@
 
             <TabControl
                 Grid.Row="1"
-              
+
                 Background="{DynamicResource WorkspaceBackgroundColorBrush}"
                 BorderThickness="0"
                 TabStripPlacement="Bottom">
@@ -90,20 +90,22 @@
                                 <ControlTemplate TargetType="TabItem">
                                     <Grid Name="Panel">
                                         <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
+                                                          VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"
+                                                          ContentSource="Header"
+                                                          Margin="10,2" />
 
 
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Panel" Property="Background" Value="{DynamicResource HighlightMediumBrush}" />
-                                      
+                                            <Setter TargetName="Panel" Property="Background"
+                                                    Value="{DynamicResource HighlightMediumBrush}" />
+
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Panel" Property="Background" Value="{DynamicResource WorkspaceBackgroundColorBrush}" />
+                                            <Setter TargetName="Panel" Property="Background"
+                                                    Value="{DynamicResource WorkspaceBackgroundColorBrush}" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -124,8 +126,6 @@
                     <views:MeasureGridEco />
                 </TabItem>
             </TabControl>
-
-           
 
 
             <Button

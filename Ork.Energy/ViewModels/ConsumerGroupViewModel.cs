@@ -1,5 +1,4 @@
-﻿using System;
-using Ork.Energy.DomainModelService;
+﻿using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
@@ -10,7 +9,6 @@ namespace Ork.Energy.ViewModels
         public ConsumerGroupViewModel(ConsumerGroup consumerGroup)
         {
             m_Model = consumerGroup;
-
         }
 
         public ConsumerGroup Model
@@ -34,8 +32,5 @@ namespace Ork.Energy.ViewModels
         {
             get { return m_Model.Consumers.Count; }
         }
-
-
-
     }
 }

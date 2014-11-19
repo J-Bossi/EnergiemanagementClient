@@ -14,63 +14,62 @@
 
 #endregion
 
+using System;
+using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Linq;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
-  public class CatalogModifyViewModel
-  {
-    private readonly Catalog m_Model;
-
-    public CatalogModifyViewModel(Catalog catalog)
+    public class CatalogModifyViewModel
     {
-      m_Model = catalog;
-    }
+        private readonly Catalog m_Model;
 
-    public Catalog Model
-    {
-      get { return m_Model; }
-    }
-
-    public string Name
-    {
-      get { return m_Model.Name; }
-      set { m_Model.Name = value; }
-    }
-
-    public string Description
-    {
-      get { return m_Model.Description; }
-      set { m_Model.Description = value; }
-    }
-
-    public DataServiceCollection<DomainModelService.Measure> Measures
-    {
-      get { return m_Model.Measures; }
-      set { m_Model.Measures = value; }
-    }
-
-    public string FullDate
-    {
-      get
-      {
-        var dateList = m_Model.Measures.Select(measure => measure.DueDate)
-                              .ToList();
-        dateList.Sort();
-
-        if (dateList.Count == 0)
+        public CatalogModifyViewModel(Catalog catalog)
         {
-          return "";
+            m_Model = catalog;
         }
-        else
+
+        public Catalog Model
         {
-          return dateList.First()
-                         .ToShortDateString() + " - " + dateList.Last()
-                                                                .ToShortDateString();
+            get { return m_Model; }
         }
-      }
+
+        public string Name
+        {
+            get { return m_Model.Name; }
+            set { m_Model.Name = value; }
+        }
+
+        public string Description
+        {
+            get { return m_Model.Description; }
+            set { m_Model.Description = value; }
+        }
+
+        public DataServiceCollection<Measure> Measures
+        {
+            get { return m_Model.Measures; }
+            set { m_Model.Measures = value; }
+        }
+
+        public string FullDate
+        {
+            get
+            {
+                List<DateTime> dateList = m_Model.Measures.Select(measure => measure.DueDate)
+                    .ToList();
+                dateList.Sort();
+
+                if (dateList.Count == 0)
+                {
+                    return "";
+                }
+                return dateList.First()
+                    .ToShortDateString() + " - " + dateList.Last()
+                        .ToShortDateString();
+            }
+        }
     }
-  }
 }

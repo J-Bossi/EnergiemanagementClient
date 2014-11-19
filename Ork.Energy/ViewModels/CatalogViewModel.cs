@@ -14,60 +14,59 @@
 
 #endregion
 
+using System;
+using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Linq;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
-  public class CatalogViewModel
-  {
-    private readonly Catalog m_Model;
-
-    public CatalogViewModel(Catalog catalog)
+    public class CatalogViewModel
     {
-      m_Model = catalog;
-    }
+        private readonly Catalog m_Model;
 
-    public Catalog Model
-    {
-      get { return m_Model; }
-    }
-
-    public string Name
-    {
-      get { return m_Model.Name; }
-    }
-
-    public string Description
-    {
-      get { return m_Model.Description; }
-    }
-
-    public DataServiceCollection<DomainModelService.Measure> Measures
-    {
-      get { return m_Model.Measures; }
-    }
-
-    public string FullDate
-    {
-      get
-      {
-        var dateList = m_Model.Measures.Select(measure => measure.DueDate)
-                              .ToList();
-        dateList.Sort();
-
-        if (dateList.Count == 0)
+        public CatalogViewModel(Catalog catalog)
         {
-          return "";
+            m_Model = catalog;
         }
-        else
+
+        public Catalog Model
         {
-          return dateList.First()
-                         .ToShortDateString() + " - " + dateList.Last()
-                                                                .ToShortDateString();
+            get { return m_Model; }
         }
-      }
+
+        public string Name
+        {
+            get { return m_Model.Name; }
+        }
+
+        public string Description
+        {
+            get { return m_Model.Description; }
+        }
+
+        public DataServiceCollection<Measure> Measures
+        {
+            get { return m_Model.Measures; }
+        }
+
+        public string FullDate
+        {
+            get
+            {
+                List<DateTime> dateList = m_Model.Measures.Select(measure => measure.DueDate)
+                    .ToList();
+                dateList.Sort();
+
+                if (dateList.Count == 0)
+                {
+                    return "";
+                }
+                return dateList.First()
+                    .ToShortDateString() + " - " + dateList.Last()
+                        .ToShortDateString();
+            }
+        }
     }
-  }
 }

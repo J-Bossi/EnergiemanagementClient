@@ -8,9 +8,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <!--The Mahapps.Metro Control has a left Margin of 5px in the Content Presenter. These 5px are subtracted-->
     <Border BorderBrush="{DynamicResource AccentColorBrush4}" BorderThickness="2" Margin="-5 0 0 0"
-            HorizontalAlignment="Stretch"
-           >
-        <Grid >
+            HorizontalAlignment="Stretch">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

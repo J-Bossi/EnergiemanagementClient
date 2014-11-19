@@ -1,62 +1,51 @@
 ﻿<UserControl
-  x:Class="Ork.Framework.Views.DialogConductorView"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:converters="clr-namespace:Ork.Framework.Converters"
-  xmlns:controls="clr-namespace:Ork.Framework.Controls">
+    x:Class="Ork.Framework.Views.DialogConductorView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Ork.Framework.Converters"
+    xmlns:controls="clr-namespace:Ork.Framework.Controls">
 
-  <UserControl.Resources>
-    <ResourceDictionary>
+    <UserControl.Resources>
+        <ResourceDictionary>
 
-      <converters:NullToCollapsedConverter
-        x:Key="NullToCollapsed" />
+            <converters:NullToCollapsedConverter
+                x:Key="NullToCollapsed" />
 
-    </ResourceDictionary>
-  </UserControl.Resources>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
-  <Border
-    Background="#77000000"
-    Visibility="{Binding ActiveItem, Mode=TwoWay, Converter={StaticResource NullToCollapsed}}"
-    IsHitTestVisible="True">
+    <Border
+        Background="#77000000"
+        Visibility="{Binding ActiveItem, Mode=TwoWay, Converter={StaticResource NullToCollapsed}}"
+        IsHitTestVisible="True">
 
-    <ScrollViewer
-      VerticalScrollBarVisibility="Auto"
-      HorizontalScrollBarVisibility="Auto">
-      <StackPanel
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        Background="{DynamicResource WindowBackgroundColorBrush}">
+        <ScrollViewer
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Auto">
+            <StackPanel
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Background="{DynamicResource WindowBackgroundBrush}">
 
-        <Grid
-          Margin="18 18 18 0"
-          HorizontalAlignment="Stretch">
+                <Grid
+                    Margin="18 18 18 0"
+                    HorizontalAlignment="Stretch">
 
-          <TextBlock
-            Style="{DynamicResource HeaderTextBlockStyle}"
-            x:Name="ActiveItem_DisplayName"
-            HorizontalAlignment="Left"
-            Foreground="{DynamicResource TextForegroundColorBrush}" />
+                    <Label
+                        FontSize="22"
+                        x:Name="ActiveItem_DisplayName"
+                        HorizontalAlignment="Left" />
 
-          <!--<Button
-          VerticalAlignment="Top"
-          HorizontalAlignment="Right"
-          Style="{DynamicResource FlyoutButton}">
 
-          <Path
-            Style="{DynamicResource IconCancel}"
-            Fill="{StaticResource TextForegroundColorBrush}" />
+                </Grid>
 
-        </Button>-->
+                <controls:CustomTransitionControl
+                    Margin="18"
+                    x:Name="ActiveItem"
+                    VerticalContentAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch" />
 
-        </Grid>
-
-        <controls:CustomTransitionControl
-          Margin="18"
-          x:Name="ActiveItem"
-          VerticalContentAlignment="Stretch"
-          HorizontalContentAlignment="Stretch" />
-
-      </StackPanel>
-    </ScrollViewer>
-  </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
 </UserControl>

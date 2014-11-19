@@ -20,7 +20,8 @@ namespace Ork.Energy.ViewModels
         private readonly IConsumerRepository m_Repository;
         private IScreen m_EditItem;
         private bool m_FlyoutActivated;
-        private bool m_IsEnabled; private string m_SearchConsumerGroupText;
+        private bool m_IsEnabled;
+        private string m_SearchConsumerGroupText;
 
         [ImportingConstructor]
         public ConsumerManagementViewModel([Import] IConsumerRepository mRepository,
@@ -50,20 +51,6 @@ namespace Ork.Energy.ViewModels
                     .ToArray();
                 return filteredConsumerGroups;
             }
-        }
-
-        public IEnumerable<ConsumerGroupViewModel> SearchInConsumerGroupList()
-        {
-            if (string.IsNullOrEmpty(SearchConsumerGroupsText))
-            {
-                return m_ConsumerGroups;
-            }
-            string searchText = SearchConsumerGroupsText.ToLower();
-
-
-            return m_ConsumerGroups.Where(c => (((c.GroupName != null) && (c.GroupName.ToLower()
-                .Contains(searchText)) || (c.GroupDescription.ToLower()
-                .Contains(searchText)) )));
         }
 
         public string SearchConsumerGroupsText
@@ -97,6 +84,20 @@ namespace Ork.Energy.ViewModels
         public string Title
         {
             get { return "Verbraucher"; }
+        }
+
+        public IEnumerable<ConsumerGroupViewModel> SearchInConsumerGroupList()
+        {
+            if (string.IsNullOrEmpty(SearchConsumerGroupsText))
+            {
+                return m_ConsumerGroups;
+            }
+            string searchText = SearchConsumerGroupsText.ToLower();
+
+
+            return m_ConsumerGroups.Where(c => (((c.GroupName != null) && (c.GroupName.ToLower()
+                .Contains(searchText)) || (c.GroupDescription != null) && (c.GroupDescription.ToLower()
+                    .Contains(searchText)))));
         }
 
         private void Reload()
@@ -178,7 +179,6 @@ namespace Ork.Energy.ViewModels
         {
             Save();
             NotifyOfPropertyChange(() => ConsumerGroups);
-           
         }
 
         private void CloseEditor()
