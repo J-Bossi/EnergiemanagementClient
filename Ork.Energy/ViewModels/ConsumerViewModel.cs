@@ -13,6 +13,11 @@ namespace Ork.Energy.ViewModels
             m_Model = consumer;
         }
 
+        public Consumer Model
+        {
+            get { return m_Model; }
+        }
+
         public virtual Room Room
         {
             get { return m_Model.Room; }

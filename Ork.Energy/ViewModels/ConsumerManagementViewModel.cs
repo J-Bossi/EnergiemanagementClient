@@ -17,11 +17,18 @@ namespace Ork.Energy.ViewModels
             new BindableCollection<ConsumerGroupViewModel>();
 
         private readonly IConsumerViewModelFactory m_ConsumerViewModelFactory;
+        private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
+
+        private readonly BindableCollection<DistributorViewModel> m_Distributors =
+            new BindableCollection<DistributorViewModel>();
+
         private readonly IConsumerRepository m_Repository;
         private IScreen m_EditItem;
         private bool m_FlyoutActivated;
         private bool m_IsEnabled;
         private string m_SearchConsumerGroupText;
+        private string m_SearchConsumerText;
+        private string m_SearchDistributorText;
 
         [ImportingConstructor]
         public ConsumerManagementViewModel([Import] IConsumerRepository mRepository,
@@ -43,6 +50,16 @@ namespace Ork.Energy.ViewModels
             get { return FilteredConsumerGroups; }
         }
 
+        public IEnumerable<ConsumerViewModel> Consumers
+        {
+            get { return FilteredConsumers; }
+        }
+
+        public IEnumerable<DistributorViewModel> Distributors
+        {
+            get { return FilteredDistributors; }
+        } 
+
         private IEnumerable<ConsumerGroupViewModel> FilteredConsumerGroups
         {
             get
@@ -53,6 +70,27 @@ namespace Ork.Energy.ViewModels
             }
         }
 
+        private IEnumerable<ConsumerViewModel> FilteredConsumers
+        {
+            get
+            {
+                ConsumerViewModel[] filteredConsumers = SearchInConsumerList()
+                    .ToArray();
+                return filteredConsumers;
+            }
+        }
+
+        private IEnumerable<DistributorViewModel> FilteredDistributors
+        {
+            get
+            {
+                DistributorViewModel[] filteredDistributors = SearchInDistributorList()
+                    .ToArray();
+                return filteredDistributors;
+            }
+        }
+
+
         public string SearchConsumerGroupsText
         {
             get { return m_SearchConsumerGroupText; }
@@ -60,6 +98,32 @@ namespace Ork.Energy.ViewModels
             {
                 m_SearchConsumerGroupText = value;
                 NotifyOfPropertyChange(() => ConsumerGroups);
+                NotifyOfPropertyChange(() => Consumers);
+                NotifyOfPropertyChange(() => Distributors);
+            }
+        }
+
+        public string SearchConsumerText
+        {
+            get { return m_SearchConsumerText; }
+            set
+            {
+                m_SearchConsumerText = value;
+                NotifyOfPropertyChange(() => ConsumerGroups);
+                NotifyOfPropertyChange(() => Consumers);
+                NotifyOfPropertyChange(() => Distributors);
+            }
+        }
+
+        public string SearchDistributorText
+        {
+            get { return m_SearchDistributorText; }
+            set
+            {
+                m_SearchDistributorText = value;
+                NotifyOfPropertyChange(() => ConsumerGroups);
+                NotifyOfPropertyChange(() => Consumers);
+                NotifyOfPropertyChange(() => Distributors);
             }
         }
 
@@ -100,6 +164,33 @@ namespace Ork.Energy.ViewModels
                     .Contains(searchText)))));
         }
 
+        public IEnumerable<ConsumerViewModel> SearchInConsumerList()
+        {
+            if (string.IsNullOrEmpty(SearchConsumerText))
+            {
+                return m_Consumers;
+            }
+            string searchText = SearchConsumerText.ToLower();
+
+
+            return m_Consumers.Where(c => (((c.Name != null) && (c.Name.ToLower()
+                .Contains(searchText)) || (c.Manufacturer != null) && (c.Manufacturer.ToLower()
+                    .Contains(searchText)))));
+        }
+
+        public IEnumerable<DistributorViewModel> SearchInDistributorList()
+        {
+            if (string.IsNullOrEmpty(SearchDistributorText))
+            {
+                return m_Distributors;
+            }
+            string searchText = SearchDistributorText.ToLower();
+
+
+            return m_Distributors.Where(c => (((c.Name != null) && (c.Name.ToLower()
+                .Contains(searchText)))));
+        }
+
         private void Reload()
         {
             IsEnabled = m_Repository.HasConnection;
@@ -113,6 +204,8 @@ namespace Ork.Energy.ViewModels
         private void LoadData()
         {
             LoadConsumerGroups();
+            LoadConsumers();
+            LoadDistributors();
         }
 
         private void LoadConsumerGroups()
@@ -125,10 +218,42 @@ namespace Ork.Energy.ViewModels
             }
         }
 
+        private void LoadConsumers()
+        {
+            m_Consumers.Clear();
+            m_Repository.Consumers.CollectionChanged += AlterConsumerCollection;
+            foreach (Consumer consumer in m_Repository.Consumers)
+            {
+                CreateConsumerViewModel(consumer);
+            }
+        }
+
+        private void LoadDistributors()
+        {
+            m_Distributors.Clear();
+            m_Repository.Distributors.CollectionChanged += AlterDistributorCollection;
+            foreach (Distributor distributor in m_Repository.Distributors)
+            {
+                CreateDistributorViewModel(distributor);
+            }
+        }
+
         private void CreateConsumerGroupViewModel(ConsumerGroup consumerGroup)
         {
             m_ConsumerGroups.Add(m_ConsumerViewModelFactory.CreateFromExisting(consumerGroup));
-            //Todo: Create Childs (i.e. Consumers)
+            
+        }
+
+        private void CreateConsumerViewModel(Consumer consumer)
+        {
+            m_Consumers.Add(m_ConsumerViewModelFactory.CreateFromExisting(consumer));
+
+        }
+
+        private void CreateDistributorViewModel(Distributor distributor)
+        {
+            m_Distributors.Add(m_ConsumerViewModelFactory.CreateFromExisting(distributor));
+
         }
 
         private void AlterConsumerGroupCollection(object sender, NotifyCollectionChangedEventArgs eventArgs)
@@ -149,6 +274,44 @@ namespace Ork.Energy.ViewModels
                         )
                     {
                         m_ConsumerGroups.Remove(oldConsumerGroup);
+                    }
+                    break;
+            }
+        }
+
+        private void AlterConsumerCollection(object sender, NotifyCollectionChangedEventArgs eventArgs)
+        {
+            switch (eventArgs.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (Consumer consumer in eventArgs.NewItems.OfType<Consumer>())
+                    {
+                        CreateConsumerViewModel(consumer);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (ConsumerViewModel oldConsumer in eventArgs.OldItems.OfType<Consumer>().Select(oldConsumer => m_Consumers.Single(c => c.Model == oldConsumer)))
+                    {
+                        m_Consumers.Remove(oldConsumer);
+                    }
+                    break;
+            }
+        }
+
+        private void AlterDistributorCollection(object sender, NotifyCollectionChangedEventArgs eventArgs)
+        {
+            switch (eventArgs.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (Distributor distributor in eventArgs.NewItems.OfType<Distributor>())
+                    {
+                        CreateDistributorViewModel(distributor);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (DistributorViewModel oldDistributor in eventArgs.OldItems.OfType<Distributor>().Select(oldDistributor => m_Distributors.Single(c => c.Model == oldDistributor)))
+                    {
+                        m_Distributors.Remove(oldDistributor);
                     }
                     break;
             }

@@ -28,6 +28,7 @@ namespace Ork.Energy
         public DataServiceCollection<Building> Buildings { get; private set; }
         public DataServiceCollection<Distributor> Distributors { get; private set; }
         public DataServiceCollection<Reading> Readings { get; private set; }
+        public DataServiceCollection<Consumer> Consumers { get; private set; }
         public bool HasConnection { get; private set; }
 
         public void Save()
@@ -58,6 +59,7 @@ namespace Ork.Energy
             {
                 LoadConsumerGroups();
                 LoadBuildings();
+                LoadConsumers();
                 LoadDistributors();
                 LoadReadings();
                 HasConnection = true;
@@ -84,15 +86,25 @@ namespace Ork.Energy
         {
             ConsumerGroups = new DataServiceCollection<ConsumerGroup>(m_Context);
 
-            DataServiceQuery<ConsumerGroup> query = m_Context.ConsumerGroups.Expand("Consumers");
+            DataServiceQuery<ConsumerGroup> query = m_Context.ConsumerGroups;
             ConsumerGroups.Load(query);
         }
+
+        private void LoadConsumers()
+        {
+            Consumers = new DataServiceCollection<Consumer>(m_Context);
+
+            DataServiceQuery<Consumer> query = m_Context.Consumers;
+            Consumers.Load(query);
+        }
+
 
         private void LoadReadings()
         {
             Readings = new DataServiceCollection<Reading>(m_Context);
 
             DataServiceQuery<Reading> query = m_Context.Readings;
+            Readings.Load(query);
         }
 
         private void LoadDistributors()
@@ -100,6 +112,7 @@ namespace Ork.Energy
             Distributors = new DataServiceCollection<Distributor>(m_Context);
 
             DataServiceQuery<Distributor> query = m_Context.Distributors;
+            Distributors.Load(query);
         }
 
         private void LoadBuildings()

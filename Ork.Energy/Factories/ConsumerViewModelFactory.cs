@@ -23,12 +23,12 @@ namespace Ork.Energy.Factories
 
         public ConsumerViewModel CreateFromExisting(Consumer consumer)
         {
-            throw new NotImplementedException();
+            return new ConsumerViewModel(consumer);
         }
 
         public DistributorViewModel CreateFromExisting(Distributor distributor)
         {
-            throw new NotImplementedException();
+            return new DistributorViewModel(distributor);
         }
 
         public ConsumerGroupModifyViewModel CreateConsumerGroupModifyVM(ConsumerGroup consumerGroup)
@@ -38,12 +38,12 @@ namespace Ork.Energy.Factories
 
         public ConsumerModifyViewModel CreateConsumerModifyVM(Consumer consumer)
         {
-            throw new NotImplementedException();
+            return new ConsumerModifyViewModel(consumer);
         }
 
         public DistributorModifyViewModel CreateDistributorModifyVM(Distributor distributor)
         {
-            throw new NotImplementedException();
+            return new DistributorModifyViewModel(distributor);
         }
     }
 }
