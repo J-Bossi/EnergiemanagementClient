@@ -343,6 +343,24 @@ namespace Ork.Energy.ViewModels
             NotifyOfPropertyChange(() => ConsumerGroups);
         }
 
+        public void DeleteConsumer(object dataContext)
+        {
+            //TODO Delete ConsumerGroup and Check on Childs
+            m_Repository.Consumers.Remove(((ConsumerViewModel)dataContext).Model);
+            m_Repository.Save();
+
+            NotifyOfPropertyChange(() => Consumers);
+        }
+
+        public void DeleteDistributor(object dataContext)
+        {
+            //TODO Delete ConsumerGroup and Check on Childs
+            m_Repository.Distributors.Remove(((DistributorViewModel)dataContext).Model);
+            m_Repository.Save();
+
+            NotifyOfPropertyChange(() => Distributors);
+        }
+
         public void SaveConsumerGroup(object dataContext)
         {
             Save();
@@ -374,7 +392,7 @@ namespace Ork.Energy.ViewModels
 
         public void AddNewConsumer()
         {
-            m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName));
+            m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName, Distributors.First().Model));
             m_Repository.Save();
 
             //TODO maybe select last Consumer 
