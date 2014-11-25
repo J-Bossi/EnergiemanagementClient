@@ -58,7 +58,7 @@ namespace Ork.Energy.ViewModels
         public IEnumerable<DistributorViewModel> Distributors
         {
             get { return FilteredDistributors; }
-        } 
+        }
 
         private IEnumerable<ConsumerGroupViewModel> FilteredConsumerGroups
         {
@@ -128,6 +128,8 @@ namespace Ork.Energy.ViewModels
         }
 
         public string NewConsumerGroupName { get; set; }
+        public string NewConsumerName { get; set; }
+        public string NewDistributorName { get; set; }
         public ConsumerGroupViewModel SelectedConsumerGroup { get; set; }
 
         public int Index
@@ -241,19 +243,16 @@ namespace Ork.Energy.ViewModels
         private void CreateConsumerGroupViewModel(ConsumerGroup consumerGroup)
         {
             m_ConsumerGroups.Add(m_ConsumerViewModelFactory.CreateFromExisting(consumerGroup));
-            
         }
 
         private void CreateConsumerViewModel(Consumer consumer)
         {
             m_Consumers.Add(m_ConsumerViewModelFactory.CreateFromExisting(consumer));
-
         }
 
         private void CreateDistributorViewModel(Distributor distributor)
         {
             m_Distributors.Add(m_ConsumerViewModelFactory.CreateFromExisting(distributor));
-
         }
 
         private void AlterConsumerGroupCollection(object sender, NotifyCollectionChangedEventArgs eventArgs)
@@ -290,7 +289,10 @@ namespace Ork.Energy.ViewModels
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (ConsumerViewModel oldConsumer in eventArgs.OldItems.OfType<Consumer>().Select(oldConsumer => m_Consumers.Single(c => c.Model == oldConsumer)))
+                    foreach (
+                        ConsumerViewModel oldConsumer in
+                            eventArgs.OldItems.OfType<Consumer>()
+                                .Select(oldConsumer => m_Consumers.Single(c => c.Model == oldConsumer)))
                     {
                         m_Consumers.Remove(oldConsumer);
                     }
@@ -309,7 +311,10 @@ namespace Ork.Energy.ViewModels
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (DistributorViewModel oldDistributor in eventArgs.OldItems.OfType<Distributor>().Select(oldDistributor => m_Distributors.Single(c => c.Model == oldDistributor)))
+                    foreach (
+                        DistributorViewModel oldDistributor in
+                            eventArgs.OldItems.OfType<Distributor>()
+                                .Select(oldDistributor => m_Distributors.Single(c => c.Model == oldDistributor)))
                     {
                         m_Distributors.Remove(oldDistributor);
                     }
@@ -359,6 +364,28 @@ namespace Ork.Energy.ViewModels
         public void AddNewConsumerGroup()
         {
             m_Repository.ConsumerGroups.Add(ModelFactory.CreateConsumerGroup(NewConsumerGroupName));
+            m_Repository.Save();
+
+            //TODO maybe select last Consumer Group
+
+            //LoadData();
+            NotifyOfPropertyChange(() => ConsumerGroups);
+        }
+
+        public void AddNewConsumer()
+        {
+            m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName));
+            m_Repository.Save();
+
+            //TODO maybe select last Consumer 
+
+            //LoadData();
+            NotifyOfPropertyChange(() => Consumers);
+        }
+
+        public void AddNewDistributor()
+        {
+            m_Repository.Distributors.Add(ModelFactory.CreateDistributor(NewDistributorName));
             m_Repository.Save();
 
             //TODO maybe select last Consumer Group

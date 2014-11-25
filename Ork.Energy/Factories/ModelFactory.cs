@@ -26,5 +26,21 @@ namespace Ork.Energy.Factories
                 GroupDescription = null
             };
         }
+
+        public static Consumer CreateConsumer(string p1)
+        {
+            return new Consumer
+            {
+                Name = p1
+            };
+        }
+
+        public static Distributor CreateDistributor(string p1)
+        {
+            return new Distributor
+            {
+                Name = p1
+            };
+        }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
-using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
-
 using Ork.Setting;
 
 namespace Ork.Energy
@@ -49,7 +47,7 @@ namespace Ork.Energy
 
         public event EventHandler ContextChanged;
         public event EventHandler SaveCompleted;
-   
+
 
         private void Initialize()
         {
@@ -67,19 +65,11 @@ namespace Ork.Energy
             catch (Exception ex)
             {
                 HasConnection = false;
-                var message = ex.Message;
+                string message = ex.Message;
                 message += message + Environment.NewLine + ex.InnerException.Message;
-
-                
             }
             RaiseEvent(ContextChanged);
-
-          
-
-
         }
-
-
 
 
         private void LoadConsumerGroups()
@@ -129,9 +119,5 @@ namespace Ork.Energy
                 eventHandler(this, new EventArgs());
             }
         }
-
-        
-
-       
     }
 }
