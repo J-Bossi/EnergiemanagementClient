@@ -153,6 +153,10 @@
     <Compile Include="ViewModels\ConsumerGroupModifyViewModel.cs" />
     <Compile Include="ViewModels\ConsumerGroupViewModel.cs" />
     <Compile Include="ViewModels\ConsumerManagementViewModel.cs" />
+    <Compile Include="ViewModels\ConsumerModifyViewModel.cs" />
+    <Compile Include="ViewModels\ConsumerViewModel.cs" />
+    <Compile Include="ViewModels\DistributorModifyViewModel.cs" />
+    <Compile Include="ViewModels\DistributorViewModel.cs" />
     <Compile Include="ViewModels\MeasureAddViewModel.cs" />
     <Compile Include="ViewModels\MeasureEditViewModel.cs" />
     <Compile Include="ViewModels\MeasureManagementViewModel.cs" />

@@ -75,6 +75,14 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
       </EntityType>
+      <EntityType Name="Building">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BuildingName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
       <EntityType Name="Catalog">
         <Key>
           <PropertyRef Name="Id" />
@@ -83,16 +91,6 @@
         <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="Measures" Relationship="OpenResKit.DomainModel.Catalog_Measures" ToRole="Catalog_Measures_Target" FromRole="Catalog_Measures_Source" />
-      </EntityType>
-      <EntityType Name="SubMeasure">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
-        <NavigationProperty Name="ResponsibleSubject" Relationship="OpenResKit.DomainModel.SubMeasure_ResponsibleSubject" ToRole="SubMeasure_ResponsibleSubject_Target" FromRole="SubMeasure_ResponsibleSubject_Source" />
-        <NavigationProperty Name="ReleatedMeasure" Relationship="OpenResKit.DomainModel.SubMeasure_ReleatedMeasure" ToRole="SubMeasure_ReleatedMeasure_Target" FromRole="SubMeasure_ReleatedMeasure_Source" />
       </EntityType>
       <EntityType Name="Consumer">
         <Key>
@@ -137,19 +135,12 @@
         <Property Name="RoomUsage" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="Building" Relationship="OpenResKit.DomainModel.Room_Building" ToRole="Room_Building_Target" FromRole="Room_Building_Source" />
       </EntityType>
-      <EntityType Name="Building">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Name="BuildingName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-      </EntityType>
       <EntityType Name="Distributor">
         <Key>
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="IsMainDistributor" Type="Edm.Boolean" Nullable="false" />
         <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Distributor_Readings" ToRole="Distributor_Readings_Target" FromRole="Distributor_Readings_Source" />
         <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.Distributor_Room" ToRole="Distributor_Room_Target" FromRole="Distributor_Room_Source" />
@@ -164,6 +155,16 @@
         <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="Consumers" Relationship="OpenResKit.DomainModel.ConsumerGroup_Consumers" ToRole="ConsumerGroup_Consumers_Target" FromRole="ConsumerGroup_Consumers_Source" />
         <NavigationProperty Name="Measures" Relationship="OpenResKit.DomainModel.ConsumerGroup_Measures" ToRole="ConsumerGroup_Measures_Target" FromRole="ConsumerGroup_Measures_Source" />
+      </EntityType>
+      <EntityType Name="SubMeasure">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="ResponsibleSubject" Relationship="OpenResKit.DomainModel.SubMeasure_ResponsibleSubject" ToRole="SubMeasure_ResponsibleSubject_Target" FromRole="SubMeasure_ResponsibleSubject_Source" />
+        <NavigationProperty Name="ReleatedMeasure" Relationship="OpenResKit.DomainModel.SubMeasure_ReleatedMeasure" ToRole="SubMeasure_ReleatedMeasure_Target" FromRole="SubMeasure_ReleatedMeasure_Source" />
       </EntityType>
       <EntityType Name="Appointment">
         <Key>
@@ -277,14 +278,6 @@
         </End>
         <End Type="OpenResKit.DomainModel.Measure" Role="Catalog_Measures_Target" Multiplicity="*" />
       </Association>
-      <Association Name="SubMeasure_ResponsibleSubject">
-        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="SubMeasure_ResponsibleSubject_Target" Multiplicity="0..1" />
-        <End Type="OpenResKit.DomainModel.SubMeasure" Role="SubMeasure_ResponsibleSubject_Source" Multiplicity="*" />
-      </Association>
-      <Association Name="SubMeasure_ReleatedMeasure">
-        <End Type="OpenResKit.DomainModel.Measure" Role="SubMeasure_ReleatedMeasure_Target" Multiplicity="0..1" />
-        <End Type="OpenResKit.DomainModel.SubMeasure" Role="SubMeasure_ReleatedMeasure_Source" Multiplicity="*" />
-      </Association>
       <Association Name="Consumer_Readings">
         <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Readings_Source" Multiplicity="0..1">
           <OnDelete Action="Cascade" />
@@ -330,6 +323,14 @@
       <Association Name="ConsumerGroup_Measures">
         <End Type="OpenResKit.DomainModel.ConsumerGroup" Role="ConsumerGroup_Measures_Source" Multiplicity="0..1" />
         <End Type="OpenResKit.DomainModel.Measure" Role="ConsumerGroup_Measures_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="SubMeasure_ResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="SubMeasure_ResponsibleSubject_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.SubMeasure" Role="SubMeasure_ResponsibleSubject_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="SubMeasure_ReleatedMeasure">
+        <End Type="OpenResKit.DomainModel.Measure" Role="SubMeasure_ReleatedMeasure_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.SubMeasure" Role="SubMeasure_ReleatedMeasure_Source" Multiplicity="*" />
       </Association>
       <Association Name="Series_SeriesColor">
         <End Type="OpenResKit.DomainModel.Series" Role="Series_SeriesColor_Source" Multiplicity="1">
@@ -395,14 +396,14 @@
         <EntitySet Name="MeasureImageSources" EntityType="OpenResKit.DomainModel.MeasureImageSource" />
         <EntitySet Name="Documents" EntityType="OpenResKit.DomainModel.Document" />
         <EntitySet Name="DocumentSources" EntityType="OpenResKit.DomainModel.DocumentSource" />
+        <EntitySet Name="Buildings" EntityType="OpenResKit.DomainModel.Building" />
         <EntitySet Name="Catalogs" EntityType="OpenResKit.DomainModel.Catalog" />
-        <EntitySet Name="SubMeasures" EntityType="OpenResKit.DomainModel.SubMeasure" />
         <EntitySet Name="Consumers" EntityType="OpenResKit.DomainModel.Consumer" />
         <EntitySet Name="Readings" EntityType="OpenResKit.DomainModel.Reading" />
         <EntitySet Name="Rooms" EntityType="OpenResKit.DomainModel.Room" />
-        <EntitySet Name="Buildings" EntityType="OpenResKit.DomainModel.Building" />
         <EntitySet Name="Distributors" EntityType="OpenResKit.DomainModel.Distributor" />
         <EntitySet Name="ConsumerGroups" EntityType="OpenResKit.DomainModel.ConsumerGroup" />
+        <EntitySet Name="SubMeasures" EntityType="OpenResKit.DomainModel.SubMeasure" />
         <EntitySet Name="Appointments" EntityType="OpenResKit.DomainModel.Appointment" />
         <EntitySet Name="Series" EntityType="OpenResKit.DomainModel.Series" />
         <EntitySet Name="SeriesColors" EntityType="OpenResKit.DomainModel.SeriesColor" />
@@ -434,14 +435,6 @@
         <AssociationSet Name="Catalog_Measures" Association="OpenResKit.DomainModel.Catalog_Measures">
           <End Role="Catalog_Measures_Source" EntitySet="Catalogs" />
           <End Role="Catalog_Measures_Target" EntitySet="Measures" />
-        </AssociationSet>
-        <AssociationSet Name="SubMeasure_ResponsibleSubject" Association="OpenResKit.DomainModel.SubMeasure_ResponsibleSubject">
-          <End Role="SubMeasure_ResponsibleSubject_Source" EntitySet="SubMeasures" />
-          <End Role="SubMeasure_ResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
-        </AssociationSet>
-        <AssociationSet Name="SubMeasure_ReleatedMeasure" Association="OpenResKit.DomainModel.SubMeasure_ReleatedMeasure">
-          <End Role="SubMeasure_ReleatedMeasure_Source" EntitySet="SubMeasures" />
-          <End Role="SubMeasure_ReleatedMeasure_Target" EntitySet="Measures" />
         </AssociationSet>
         <AssociationSet Name="Consumer_Readings" Association="OpenResKit.DomainModel.Consumer_Readings">
           <End Role="Consumer_Readings_Source" EntitySet="Consumers" />
@@ -478,6 +471,14 @@
         <AssociationSet Name="ConsumerGroup_Measures" Association="OpenResKit.DomainModel.ConsumerGroup_Measures">
           <End Role="ConsumerGroup_Measures_Source" EntitySet="ConsumerGroups" />
           <End Role="ConsumerGroup_Measures_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="SubMeasure_ResponsibleSubject" Association="OpenResKit.DomainModel.SubMeasure_ResponsibleSubject">
+          <End Role="SubMeasure_ResponsibleSubject_Source" EntitySet="SubMeasures" />
+          <End Role="SubMeasure_ResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="SubMeasure_ReleatedMeasure" Association="OpenResKit.DomainModel.SubMeasure_ReleatedMeasure">
+          <End Role="SubMeasure_ReleatedMeasure_Source" EntitySet="SubMeasures" />
+          <End Role="SubMeasure_ReleatedMeasure_Target" EntitySet="Measures" />
         </AssociationSet>
         <AssociationSet Name="Series_SeriesColor" Association="OpenResKit.DomainModel.Series_SeriesColor">
           <End Role="Series_SeriesColor_Source" EntitySet="Series" />

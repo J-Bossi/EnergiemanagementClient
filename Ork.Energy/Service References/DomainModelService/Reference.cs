@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 12.11.2014 16:08:45
+// Generation date: 25.11.2014 11:23:43
 namespace Ork.Energy.DomainModelService
 {
     
@@ -146,6 +146,23 @@ namespace Ork.Energy.DomainModelService
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<DocumentSource> _DocumentSources;
         /// <summary>
+        /// There are no comments for Buildings in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<Building> Buildings
+        {
+            get
+            {
+                if ((this._Buildings == null))
+                {
+                    this._Buildings = base.CreateQuery<Building>("Buildings");
+                }
+                return this._Buildings;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<Building> _Buildings;
+        /// <summary>
         /// There are no comments for Catalogs in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -162,23 +179,6 @@ namespace Ork.Energy.DomainModelService
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<Catalog> _Catalogs;
-        /// <summary>
-        /// There are no comments for SubMeasures in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Data.Services.Client.DataServiceQuery<SubMeasure> SubMeasures
-        {
-            get
-            {
-                if ((this._SubMeasures == null))
-                {
-                    this._SubMeasures = base.CreateQuery<SubMeasure>("SubMeasures");
-                }
-                return this._SubMeasures;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Data.Services.Client.DataServiceQuery<SubMeasure> _SubMeasures;
         /// <summary>
         /// There are no comments for Consumers in the schema.
         /// </summary>
@@ -231,23 +231,6 @@ namespace Ork.Energy.DomainModelService
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<Room> _Rooms;
         /// <summary>
-        /// There are no comments for Buildings in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Data.Services.Client.DataServiceQuery<Building> Buildings
-        {
-            get
-            {
-                if ((this._Buildings == null))
-                {
-                    this._Buildings = base.CreateQuery<Building>("Buildings");
-                }
-                return this._Buildings;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Data.Services.Client.DataServiceQuery<Building> _Buildings;
-        /// <summary>
         /// There are no comments for Distributors in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -281,6 +264,23 @@ namespace Ork.Energy.DomainModelService
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<ConsumerGroup> _ConsumerGroups;
+        /// <summary>
+        /// There are no comments for SubMeasures in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<SubMeasure> SubMeasures
+        {
+            get
+            {
+                if ((this._SubMeasures == null))
+                {
+                    this._SubMeasures = base.CreateQuery<SubMeasure>("SubMeasures");
+                }
+                return this._SubMeasures;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<SubMeasure> _SubMeasures;
         /// <summary>
         /// There are no comments for Appointments in the schema.
         /// </summary>
@@ -458,20 +458,20 @@ namespace Ork.Energy.DomainModelService
             base.AddObject("DocumentSources", documentSource);
         }
         /// <summary>
+        /// There are no comments for Buildings in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToBuildings(Building building)
+        {
+            base.AddObject("Buildings", building);
+        }
+        /// <summary>
         /// There are no comments for Catalogs in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public void AddToCatalogs(Catalog catalog)
         {
             base.AddObject("Catalogs", catalog);
-        }
-        /// <summary>
-        /// There are no comments for SubMeasures in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public void AddToSubMeasures(SubMeasure subMeasure)
-        {
-            base.AddObject("SubMeasures", subMeasure);
         }
         /// <summary>
         /// There are no comments for Consumers in the schema.
@@ -498,14 +498,6 @@ namespace Ork.Energy.DomainModelService
             base.AddObject("Rooms", room);
         }
         /// <summary>
-        /// There are no comments for Buildings in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public void AddToBuildings(Building building)
-        {
-            base.AddObject("Buildings", building);
-        }
-        /// <summary>
         /// There are no comments for Distributors in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -520,6 +512,14 @@ namespace Ork.Energy.DomainModelService
         public void AddToConsumerGroups(ConsumerGroup consumerGroup)
         {
             base.AddObject("ConsumerGroups", consumerGroup);
+        }
+        /// <summary>
+        /// There are no comments for SubMeasures in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToSubMeasures(SubMeasure subMeasure)
+        {
+            base.AddObject("SubMeasures", subMeasure);
         }
         /// <summary>
         /// There are no comments for Appointments in the schema.
@@ -660,355 +660,356 @@ namespace Ork.Energy.DomainModelService
                 "=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmln" +
                 "s:p6=\"http://schemas.microsoft.com/ado/2009/02/edm/annotation\" /><Property Name=" +
                 "\"BinarySource\" Type=\"Edm.Binary\" MaxLength=\"Max\" FixedLength=\"false\" /></EntityT" +
-                "ype><EntityType Name=\"Catalog\"><Key><PropertyRef Name=\"Id\" /></Key><Property Nam" +
-                "e=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xml" +
-                "ns:p6=\"http://schemas.microsoft.com/ado/2009/02/edm/annotation\" /><Property Name" +
-                "=\"Name\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><" +
-                "Property Name=\"Description\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false" +
-                "\" Unicode=\"true\" /><NavigationProperty Name=\"Measures\" Relationship=\"OpenResKit." +
-                "DomainModel.Catalog_Measures\" ToRole=\"Catalog_Measures_Target\" FromRole=\"Catalog" +
-                "_Measures_Source\" /></EntityType><EntityType Name=\"SubMeasure\"><Key><PropertyRef" +
-                " Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:Stor" +
-                "eGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009/02/" +
-                "edm/annotation\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"Max\" FixedL" +
-                "ength=\"false\" Unicode=\"true\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolean\" N" +
-                "ullable=\"false\" /><NavigationProperty Name=\"ResponsibleSubject\" Relationship=\"Op" +
-                "enResKit.DomainModel.SubMeasure_ResponsibleSubject\" ToRole=\"SubMeasure_Responsib" +
-                "leSubject_Target\" FromRole=\"SubMeasure_ResponsibleSubject_Source\" /><NavigationP" +
-                "roperty Name=\"ReleatedMeasure\" Relationship=\"OpenResKit.DomainModel.SubMeasure_R" +
-                "eleatedMeasure\" ToRole=\"SubMeasure_ReleatedMeasure_Target\" FromRole=\"SubMeasure_" +
-                "ReleatedMeasure_Source\" /></EntityType><EntityType Name=\"Consumer\"><Key><Propert" +
-                "yRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:" +
-                "StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009" +
-                "/02/edm/annotation\" /><Property Name=\"Localid\" Type=\"Edm.Int32\" Nullable=\"false\"" +
-                " /><Property Name=\"LocalGr\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
-                "LocalGnr\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /" +
-                "><Property Name=\"InventoryNr\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"fal" +
-                "se\" Unicode=\"true\" /><Property Name=\"LocalSerialNr\" Type=\"E";
+                "ype><EntityType Name=\"Building\"><Key><PropertyRef Name=\"Id\" /></Key><Property Na" +
+                "me=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xm" +
+                "lns:p6=\"http://schemas.microsoft.com/ado/2009/02/edm/annotation\" /><Property Nam" +
+                "e=\"BuildingName\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"" +
+                "true\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"fal" +
+                "se\" Unicode=\"true\" /></EntityType><EntityType Name=\"Catalog\"><Key><PropertyRef N" +
+                "ame=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreG" +
+                "eneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009/02/ed" +
+                "m/annotation\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLen" +
+                "gth=\"false\" Unicode=\"true\" /><Property Name=\"Description\" Type=\"Edm.String\" MaxL" +
+                "ength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><NavigationProperty Name=\"Measu" +
+                "res\" Relationship=\"OpenResKit.DomainModel.Catalog_Measures\" ToRole=\"Catalog_Meas" +
+                "ures_Target\" FromRole=\"Catalog_Measures_Source\" /></EntityType><EntityType Name=" +
+                "\"Consumer\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int" +
+                "32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schema" +
+                "s.microsoft.com/ado/2009/02/edm/annotation\" /><Property Name=\"Localid\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"LocalGr\" Type=\"Edm.Int32\" Nullable=\"f" +
+                "alse\" /><Property Name=\"LocalGnr\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=" +
+                "\"false\" Unicode=\"true\" /><Property Name=\"InventoryNr\" Type=\"Edm.String\" MaxLengt" +
+                "h=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><Property Name=\"LocalSerialNr\" Type" +
+                "=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><Property Nam" +
+                "e=\"Manufacturer\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"" +
+                "true\" /><Property Name=\"Identifier\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLengt" +
+                "h=\"false\" Unicode=\"true\" /><Property Name=\"Comment\" Type=\"Edm.String\" MaxLength=" +
+                "\"Max\" FixedLength=\"false\" Unicode=\"true\" /><Property Name=\"";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart1 = "dm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><Property Name=\"M" +
-                "anufacturer\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true" +
-                "\" /><Property Name=\"Identifier\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"f" +
-                "alse\" Unicode=\"true\" /><Property Name=\"Comment\" Type=\"Edm.String\" MaxLength=\"Max" +
-                "\" FixedLength=\"false\" Unicode=\"true\" /><Property Name=\"Year\" Type=\"Edm.Int32\" />" +
-                "<Property Name=\"PowerOutput\" Type=\"Edm.Int64\" /><Property Name=\"PowerCurrent\" Ty" +
-                "pe=\"Edm.Int64\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLe" +
-                "ngth=\"false\" Unicode=\"true\" /><NavigationProperty Name=\"Readings\" Relationship=\"" +
-                "OpenResKit.DomainModel.Consumer_Readings\" ToRole=\"Consumer_Readings_Target\" From" +
-                "Role=\"Consumer_Readings_Source\" /><NavigationProperty Name=\"Room\" Relationship=\"" +
-                "OpenResKit.DomainModel.Consumer_Room\" ToRole=\"Consumer_Room_Target\" FromRole=\"Co" +
-                "nsumer_Room_Source\" /><NavigationProperty Name=\"Distributor\" Relationship=\"OpenR" +
-                "esKit.DomainModel.Consumer_Distributor\" ToRole=\"Consumer_Distributor_Target\" Fro" +
-                "mRole=\"Consumer_Distributor_Source\" /><NavigationProperty Name=\"Measures\" Relati" +
-                "onship=\"OpenResKit.DomainModel.Consumer_Measures\" ToRole=\"Consumer_Measures_Targ" +
-                "et\" FromRole=\"Consumer_Measures_Source\" /></EntityType><EntityType Name=\"Reading" +
-                "\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nulla" +
-                "ble=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microso" +
-                "ft.com/ado/2009/02/edm/annotation\" /><Property Name=\"CounterReading\" Type=\"Edm.I" +
-                "nt64\" Nullable=\"false\" /><Property Name=\"ReadingDate\" Type=\"Edm.DateTime\" Nullab" +
-                "le=\"false\" /></EntityType><EntityType Name=\"Room\"><Key><PropertyRef Name=\"Id\" />" +
-                "</Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPat" +
-                "tern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009/02/edm/annotatio" +
-                "n\" /><Property Name=\"RoomNumber\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"" +
-                "false\" Unicode=\"true\" /><Property Name=\"Floor\" Type=\"Edm.Int32\" Nullable=\"false\"" +
-                " /><Property Name=\"Level\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" " +
-                "Unicode=\"true\" /><Property Name=\"Space\" Type=\"Edm.Int64\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"RoomInformation\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"fals" +
-                "e\" Unicode=\"true\" /><Property Name=\"RoomUsage\" Type=\"Edm.String\" MaxLength=\"Max\"" +
-                " FixedLength=\"false\" Unicode=\"true\" /><NavigationProperty Name=\"Building\" Relati" +
-                "onship=\"OpenResKit.DomainModel.Room_Building\" ToRole=\"Room_Building_Target\" From" +
-                "Role=\"Room_Building_Source\" /></EntityType><EntityType Name=\"Building\"><Key><Pro" +
-                "pertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\"" +
-                " p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/" +
-                "2009/02/edm/annotation\" /><Property Name=\"BuildingName\" Type=\"Edm.String\" MaxLen" +
-                "gth=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><Property Name=\"Name\" Type=\"Edm.S" +
-                "tring\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /></EntityType><Entity" +
-                "Type Name=\"Distributor\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" " +
-                "Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"" +
-                "http://schemas.microsoft.com/ado/2009/02/edm/annotation\" /><Property Name=\"IsMai" +
-                "nDistributor\" Type=\"Edm.Boolean\" Nullable=\"false\" /><NavigationProperty Name=\"Re" +
-                "adings\" Relationship=\"OpenResKit.DomainModel.Distributor_Readings\" ToRole=\"Distr" +
-                "ibutor_Readings_Target\" FromRole=\"Distributor_Readings_Source\" /><NavigationProp" +
-                "erty Name=\"Room\" Relationship=\"OpenResKit.DomainModel.Distributor_Room\" ToRole=\"" +
-                "Distributor_Room_Target\" FromRole=\"Distributor_Room_Source\" /></EntityType><Enti" +
-                "tyType Name=\"ConsumerGroup\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"" +
-                "Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:" +
-                "p6=\"http://schemas.microsoft.com/ado/2009/02/edm/annotation\" /><Property Name=\"G" +
-                "roupName\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /" +
-                "><Property Name=\"GroupDescription\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength" +
-                "=\"false\" Unicode=\"true\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"Max" +
-                "\" FixedLength=\"false\" Unicode=\"true\" /><NavigationProperty Name=\"Consumers\" Rela" +
-                "tionship=\"OpenResKit.DomainModel.ConsumerGroup_Consumers\" ToRole=\"ConsumerGroup_" +
-                "Consumers_Target\" FromRole=\"ConsumerGroup_Consumers_Source\" /><NavigationPropert" +
-                "y Name=\"Measures\" Relationship=\"OpenResKit.DomainModel.ConsumerGroup_Measures\" T" +
-                "oRole=\"ConsumerGroup_Measures_Target\" FromRole=\"ConsumerGroup_Measures_Source\" /" +
-                "></EntityType><EntityType Name=\"Appointment\"><Key><PropertyRef Name=\"Id\" /></Key" +
-                "><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=" +
-                "\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009/02/edm/annotation\" />" +
-                "<Property Name=\"Begin\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"En" +
-                "d\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"IsAllDay\" Type=\"Edm.Bo" +
-                "olean\" Nullable=\"false\" /></EntityType><EntityType Name=\"Series\"><Key><PropertyR" +
-                "ef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:St" +
-                "oreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009/0" +
-                "2/edm/annotation\" /><Property Name=\"Begin\" Type=\"Edm.DateTime\" Nullable=\"false\" " +
-                "/><Property Name=\"Cycle\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"End" +
-                "\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndsWithDate\" Type=\"Edm" +
-                ".Boolean\" Nullable=\"false\" /><Property Name=\"IsAllDay\" Type=\"Edm.Boolean\" Nullab" +
-                "le=\"false\" /><Property Name=\"IsWeekdayRecurrence\" Type=\"Edm.Boolean\" Nullable=\"f" +
-                "alse\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"fal" +
-                "se\" Unicode=\"true\" /><Property Name=\"NumberOfRecurrences\" Type=\"Edm.Int32\" Nulla" +
-                "ble=\"false\" /><Property Name=\"RecurrenceInterval\" Type=\"Edm.Int32\" Nullable=\"fal" +
-                "se\" /><Property Name=\"Repeat\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Na" +
-                "me=\"RepeatUntilDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><NavigationProperty " +
-                "Name=\"SeriesColor\" Relationship=\"OpenResKit.DomainModel.Series_SeriesColor\" ToRo" +
-                "le=\"Series_SeriesColor_Target\" FromRole=\"Series_SeriesColor_Source\" /><Navigatio" +
-                "nProperty Name=\"WeekDays\" Relationship=\"OpenResKit.DomainModel.Series_WeekDays\" " +
-                "ToRole=\"Series_WeekDays_Target\" FromRole=\"Series_WeekDays_Source\" /></EntityType" +
-                "><EntityType Name=\"SeriesColor\"><Key><PropertyRef Name=\"Id\" /></Key><Property Na" +
-                "me=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"B\" Type=\"Edm.Byte\" N" +
-                "ullable=\"false\" /><Property Name=\"G\" Type=\"Edm.Byte\" Nullable=\"false\" /><Propert" +
-                "y Name=\"R\" Type=\"Edm.Byte\" Nullable=\"false\" /></EntityType><EntityType Name=\"Day" +
-                "OfWeek\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\"" +
-                " Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.m" +
-                "icrosoft.com/ado/2009/02/edm/annotation\" /><Property Name=\"WeekDay\" Type=\"Edm.In" +
-                "t32\" Nullable=\"false\" /></EntityType><EntityType Name=\"ScheduledTask\"><Key><Prop" +
-                "ertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" " +
-                "/><Property Name=\"Progress\" Type=\"Edm.Single\" Nullable=\"false\" /><NavigationProp" +
-                "erty Name=\"AppointmentResponsibleSubject\" Relationship=\"OpenResKit.DomainModel.S" +
-                "cheduledTask_AppointmentResponsibleSubject\" ToRole=\"ScheduledTask_AppointmentRes" +
-                "ponsibleSubject_Target\" FromRole=\"ScheduledTask_AppointmentResponsibleSubject_So" +
-                "urce\" /><NavigationProperty Name=\"DueDate\" Relationship=\"OpenResKit.DomainModel." +
-                "ScheduledTask_DueDate\" ToRole=\"ScheduledTask_DueDate_Target\" FromRole=\"Scheduled" +
-                "Task_DueDate_Source\" /><NavigationProperty Name=\"EntryDate\"";
+            private const string ModelPart1 = "Year\" Type=\"Edm.Int32\" /><Property Name=\"PowerOutput\" Type=\"Edm.Int64\" /><Propert" +
+                "y Name=\"PowerCurrent\" Type=\"Edm.Int64\" /><Property Name=\"Name\" Type=\"Edm.String\"" +
+                " MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><NavigationProperty Name=\"" +
+                "Readings\" Relationship=\"OpenResKit.DomainModel.Consumer_Readings\" ToRole=\"Consum" +
+                "er_Readings_Target\" FromRole=\"Consumer_Readings_Source\" /><NavigationProperty Na" +
+                "me=\"Room\" Relationship=\"OpenResKit.DomainModel.Consumer_Room\" ToRole=\"Consumer_R" +
+                "oom_Target\" FromRole=\"Consumer_Room_Source\" /><NavigationProperty Name=\"Distribu" +
+                "tor\" Relationship=\"OpenResKit.DomainModel.Consumer_Distributor\" ToRole=\"Consumer" +
+                "_Distributor_Target\" FromRole=\"Consumer_Distributor_Source\" /><NavigationPropert" +
+                "y Name=\"Measures\" Relationship=\"OpenResKit.DomainModel.Consumer_Measures\" ToRole" +
+                "=\"Consumer_Measures_Target\" FromRole=\"Consumer_Measures_Source\" /></EntityType><" +
+                "EntityType Name=\"Reading\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id" +
+                "\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6" +
+                "=\"http://schemas.microsoft.com/ado/2009/02/edm/annotation\" /><Property Name=\"Cou" +
+                "nterReading\" Type=\"Edm.Int64\" Nullable=\"false\" /><Property Name=\"ReadingDate\" Ty" +
+                "pe=\"Edm.DateTime\" Nullable=\"false\" /></EntityType><EntityType Name=\"Room\"><Key><" +
+                "PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/a" +
+                "do/2009/02/edm/annotation\" /><Property Name=\"RoomNumber\" Type=\"Edm.String\" MaxLe" +
+                "ngth=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><Property Name=\"Floor\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"Level\" Type=\"Edm.String\" MaxLength=\"M" +
+                "ax\" FixedLength=\"false\" Unicode=\"true\" /><Property Name=\"Space\" Type=\"Edm.Int64\"" +
+                " Nullable=\"false\" /><Property Name=\"RoomInformation\" Type=\"Edm.String\" MaxLength" +
+                "=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><Property Name=\"RoomUsage\" Type=\"Edm" +
+                ".String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><NavigationPropert" +
+                "y Name=\"Building\" Relationship=\"OpenResKit.DomainModel.Room_Building\" ToRole=\"Ro" +
+                "om_Building_Target\" FromRole=\"Room_Building_Source\" /></EntityType><EntityType N" +
+                "ame=\"Distributor\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"" +
+                "Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http:/" +
+                "/schemas.microsoft.com/ado/2009/02/edm/annotation\" /><Property Name=\"Name\" Type=" +
+                "\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><Property Name" +
+                "=\"IsMainDistributor\" Type=\"Edm.Boolean\" Nullable=\"false\" /><NavigationProperty N" +
+                "ame=\"Readings\" Relationship=\"OpenResKit.DomainModel.Distributor_Readings\" ToRole" +
+                "=\"Distributor_Readings_Target\" FromRole=\"Distributor_Readings_Source\" /><Navigat" +
+                "ionProperty Name=\"Room\" Relationship=\"OpenResKit.DomainModel.Distributor_Room\" T" +
+                "oRole=\"Distributor_Room_Target\" FromRole=\"Distributor_Room_Source\" /></EntityTyp" +
+                "e><EntityType Name=\"ConsumerGroup\"><Key><PropertyRef Name=\"Id\" /></Key><Property" +
+                " Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\"" +
+                " xmlns:p6=\"http://schemas.microsoft.com/ado/2009/02/edm/annotation\" /><Property " +
+                "Name=\"GroupName\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false\" Unicode=\"" +
+                "true\" /><Property Name=\"GroupDescription\" Type=\"Edm.String\" MaxLength=\"Max\" Fixe" +
+                "dLength=\"false\" Unicode=\"true\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLeng" +
+                "th=\"Max\" FixedLength=\"false\" Unicode=\"true\" /><NavigationProperty Name=\"Consumer" +
+                "s\" Relationship=\"OpenResKit.DomainModel.ConsumerGroup_Consumers\" ToRole=\"Consume" +
+                "rGroup_Consumers_Target\" FromRole=\"ConsumerGroup_Consumers_Source\" /><Navigation" +
+                "Property Name=\"Measures\" Relationship=\"OpenResKit.DomainModel.ConsumerGroup_Meas" +
+                "ures\" ToRole=\"ConsumerGroup_Measures_Target\" FromRole=\"ConsumerGroup_Measures_So" +
+                "urce\" /></EntityType><EntityType Name=\"SubMeasure\"><Key><PropertyRef Name=\"Id\" /" +
+                "></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPa" +
+                "ttern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009/02/edm/annotati" +
+                "on\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLength=\"false" +
+                "\" Unicode=\"true\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolean\" Nullable=\"fal" +
+                "se\" /><NavigationProperty Name=\"ResponsibleSubject\" Relationship=\"OpenResKit.Dom" +
+                "ainModel.SubMeasure_ResponsibleSubject\" ToRole=\"SubMeasure_ResponsibleSubject_Ta" +
+                "rget\" FromRole=\"SubMeasure_ResponsibleSubject_Source\" /><NavigationProperty Name" +
+                "=\"ReleatedMeasure\" Relationship=\"OpenResKit.DomainModel.SubMeasure_ReleatedMeasu" +
+                "re\" ToRole=\"SubMeasure_ReleatedMeasure_Target\" FromRole=\"SubMeasure_ReleatedMeas" +
+                "ure_Source\" /></EntityType><EntityType Name=\"Appointment\"><Key><PropertyRef Name" +
+                "=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGene" +
+                "ratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009/02/edm/a" +
+                "nnotation\" /><Property Name=\"Begin\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"End\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"IsAllDay\"" +
+                " Type=\"Edm.Boolean\" Nullable=\"false\" /></EntityType><EntityType Name=\"Series\"><K" +
+                "ey><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=" +
+                "\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.c" +
+                "om/ado/2009/02/edm/annotation\" /><Property Name=\"Begin\" Type=\"Edm.DateTime\" Null" +
+                "able=\"false\" /><Property Name=\"Cycle\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"End\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndsWithDa" +
+                "te\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsAllDay\" Type=\"Edm.Bo" +
+                "olean\" Nullable=\"false\" /><Property Name=\"IsWeekdayRecurrence\" Type=\"Edm.Boolean" +
+                "\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"Max\" Fix" +
+                "edLength=\"false\" Unicode=\"true\" /><Property Name=\"NumberOfRecurrences\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"RecurrenceInterval\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /><Property Name=\"Repeat\" Type=\"Edm.Boolean\" Nullable=\"false\" /" +
+                "><Property Name=\"RepeatUntilDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Naviga" +
+                "tionProperty Name=\"SeriesColor\" Relationship=\"OpenResKit.DomainModel.Series_Seri" +
+                "esColor\" ToRole=\"Series_SeriesColor_Target\" FromRole=\"Series_SeriesColor_Source\"" +
+                " /><NavigationProperty Name=\"WeekDays\" Relationship=\"OpenResKit.DomainModel.Seri" +
+                "es_WeekDays\" ToRole=\"Series_WeekDays_Target\" FromRole=\"Series_WeekDays_Source\" /" +
+                "></EntityType><EntityType Name=\"SeriesColor\"><Key><PropertyRef Name=\"Id\" /></Key" +
+                "><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"B\" Type" +
+                "=\"Edm.Byte\" Nullable=\"false\" /><Property Name=\"G\" Type=\"Edm.Byte\" Nullable=\"fals" +
+                "e\" /><Property Name=\"R\" Type=\"Edm.Byte\" Nullable=\"false\" /></EntityType><EntityT" +
+                "ype Name=\"DayOfWeek\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Typ" +
+                "e=\"Edm.Int32\" Nullable=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"htt" +
+                "p://schemas.microsoft.com/ado/2009/02/edm/annotation\" /><Property Name=\"WeekDay\"" +
+                " Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityType Name=\"ScheduledTas" +
+                "k\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Null" +
+                "able=\"false\" /><Property Name=\"Progress\" Type=\"Edm.Single\" Nullable=\"false\" /><N" +
+                "avigationProperty Name=\"AppointmentResponsibleSubject\" Relationship=\"OpenResKit." +
+                "DomainModel.ScheduledTask_AppointmentResponsibleSubject\" ToRole=\"ScheduledTask_A" +
+                "ppointmentResponsibleSubject_Target\" FromRole=\"ScheduledTask_AppointmentResponsi" +
+                "bleSubject_Source\" /><NavigationProperty Name=\"DueDate\" Relationship=\"OpenResKit" +
+                ".DomainModel.ScheduledTask_DueDate\" ToRole=\"ScheduledTask_D";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart2 = " Relationship=\"OpenResKit.DomainModel.ScheduledTask_EntryDate\" ToRole=\"ScheduledT" +
-                "ask_EntryDate_Target\" FromRole=\"ScheduledTask_EntryDate_Source\" /><NavigationPro" +
-                "perty Name=\"EntryResponsibleSubject\" Relationship=\"OpenResKit.DomainModel.Schedu" +
-                "ledTask_EntryResponsibleSubject\" ToRole=\"ScheduledTask_EntryResponsibleSubject_T" +
-                "arget\" FromRole=\"ScheduledTask_EntryResponsibleSubject_Source\" /><NavigationProp" +
-                "erty Name=\"RelatedSeries\" Relationship=\"OpenResKit.DomainModel.ScheduledTask_Rel" +
-                "atedSeries\" ToRole=\"ScheduledTask_RelatedSeries_Target\" FromRole=\"ScheduledTask_" +
-                "RelatedSeries_Source\" /></EntityType><EntityType Name=\"Map\"><Key><PropertyRef Na" +
-                "me=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:StoreGe" +
-                "neratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009/02/edm" +
-                "/annotation\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"Max\" FixedLeng" +
-                "th=\"false\" Unicode=\"true\" /><NavigationProperty Name=\"MapSource\" Relationship=\"O" +
-                "penResKit.DomainModel.Map_MapSource\" ToRole=\"Map_MapSource_Target\" FromRole=\"Map" +
-                "_MapSource_Source\" /></EntityType><EntityType Name=\"MapSource\"><Key><PropertyRef" +
-                " Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6:Stor" +
-                "eGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/2009/02/" +
-                "edm/annotation\" /><Property Name=\"BinarySource\" Type=\"Edm.Binary\" MaxLength=\"Max" +
-                "\" FixedLength=\"false\" /></EntityType><EntityType Name=\"MapPosition\"><Key><Proper" +
-                "tyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" p6" +
-                ":StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ado/200" +
-                "9/02/edm/annotation\" /><Property Name=\"XPosition\" Type=\"Edm.Double\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"YPosition\" Type=\"Edm.Double\" Nullable=\"false\" /><Navigati" +
-                "onProperty Name=\"Map\" Relationship=\"OpenResKit.DomainModel.MapPosition_Map\" ToRo" +
-                "le=\"MapPosition_Map_Target\" FromRole=\"MapPosition_Map_Source\" /></EntityType><As" +
-                "sociation Name=\"Measure_ResponsibleSubject\"><End Type=\"OpenResKit.DomainModel.Me" +
-                "asure\" Role=\"Measure_ResponsibleSubject_Source\" Multiplicity=\"*\" /><End Type=\"Op" +
-                "enResKit.DomainModel.ResponsibleSubject\" Role=\"Measure_ResponsibleSubject_Target" +
-                "\" Multiplicity=\"0..1\" /></Association><Association Name=\"Measure_MeasureImageSou" +
-                "rce\"><End Type=\"OpenResKit.DomainModel.MeasureImageSource\" Role=\"Measure_Measure" +
-                "ImageSource_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainModel.Meas" +
-                "ure\" Role=\"Measure_MeasureImageSource_Source\" Multiplicity=\"0..1\"><OnDelete Acti" +
-                "on=\"Cascade\" /></End></Association><Association Name=\"Measure_AttachedDocuments\"" +
-                "><End Type=\"OpenResKit.DomainModel.Document\" Role=\"Measure_AttachedDocuments_Tar" +
-                "get\" Multiplicity=\"*\" /><End Type=\"OpenResKit.DomainModel.Measure\" Role=\"Measure" +
-                "_AttachedDocuments_Source\" Multiplicity=\"0..1\"><OnDelete Action=\"Cascade\" /></En" +
-                "d></Association><Association Name=\"Employee_Groups\"><End Type=\"OpenResKit.Domain" +
-                "Model.Employee\" Role=\"Employee_Groups_Source\" Multiplicity=\"*\" /><End Type=\"Open" +
-                "ResKit.DomainModel.EmployeeGroup\" Role=\"Employee_Groups_Target\" Multiplicity=\"*\"" +
-                " /></Association><Association Name=\"Document_DocumentSource\"><End Type=\"OpenResK" +
-                "it.DomainModel.DocumentSource\" Role=\"Document_DocumentSource_Target\" Multiplicit" +
-                "y=\"0..1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.DomainModel.Do" +
-                "cument\" Role=\"Document_DocumentSource_Source\" Multiplicity=\"0..1\" /></Associatio" +
-                "n><Association Name=\"Catalog_Measures\"><End Type=\"OpenResKit.DomainModel.Catalog" +
-                "\" Role=\"Catalog_Measures_Source\" Multiplicity=\"0..1\"><OnDelete Action=\"Cascade\" " +
-                "/></End><End Type=\"OpenResKit.DomainModel.Measure\" Role=\"Catalog_Measures_Target" +
-                "\" Multiplicity=\"*\" /></Association><Association Name=\"SubMeasure_ResponsibleSubj" +
-                "ect\"><End Type=\"OpenResKit.DomainModel.ResponsibleSubject\" Role=\"SubMeasure_Resp" +
-                "onsibleSubject_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainModel.S" +
-                "ubMeasure\" Role=\"SubMeasure_ResponsibleSubject_Source\" Multiplicity=\"*\" /></Asso" +
-                "ciation><Association Name=\"SubMeasure_ReleatedMeasure\"><End Type=\"OpenResKit.Dom" +
-                "ainModel.Measure\" Role=\"SubMeasure_ReleatedMeasure_Target\" Multiplicity=\"0..1\" /" +
-                "><End Type=\"OpenResKit.DomainModel.SubMeasure\" Role=\"SubMeasure_ReleatedMeasure_" +
-                "Source\" Multiplicity=\"*\" /></Association><Association Name=\"Consumer_Readings\"><" +
-                "End Type=\"OpenResKit.DomainModel.Consumer\" Role=\"Consumer_Readings_Source\" Multi" +
-                "plicity=\"0..1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.DomainMo" +
-                "del.Reading\" Role=\"Consumer_Readings_Target\" Multiplicity=\"*\" /></Association><A" +
-                "ssociation Name=\"Consumer_Room\"><End Type=\"OpenResKit.DomainModel.Consumer\" Role" +
-                "=\"Consumer_Room_Source\" Multiplicity=\"*\" /><End Type=\"OpenResKit.DomainModel.Roo" +
-                "m\" Role=\"Consumer_Room_Target\" Multiplicity=\"0..1\"><OnDelete Action=\"Cascade\" />" +
-                "</End></Association><Association Name=\"Consumer_Distributor\"><End Type=\"OpenResK" +
-                "it.DomainModel.Consumer\" Role=\"Consumer_Distributor_Source\" Multiplicity=\"*\" /><" +
-                "End Type=\"OpenResKit.DomainModel.Distributor\" Role=\"Consumer_Distributor_Target\"" +
-                " Multiplicity=\"0..1\" /></Association><Association Name=\"Consumer_Measures\"><End " +
-                "Type=\"OpenResKit.DomainModel.Consumer\" Role=\"Consumer_Measures_Source\" Multiplic" +
-                "ity=\"0..1\" /><End Type=\"OpenResKit.DomainModel.Measure\" Role=\"Consumer_Measures_" +
-                "Target\" Multiplicity=\"*\" /></Association><Association Name=\"Room_Building\"><End " +
-                "Type=\"OpenResKit.DomainModel.Building\" Role=\"Room_Building_Target\" Multiplicity=" +
-                "\"1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.DomainModel.Room\" R" +
-                "ole=\"Room_Building_Source\" Multiplicity=\"*\" /></Association><Association Name=\"D" +
-                "istributor_Readings\"><End Type=\"OpenResKit.DomainModel.Distributor\" Role=\"Distri" +
-                "butor_Readings_Source\" Multiplicity=\"0..1\"><OnDelete Action=\"Cascade\" /></End><E" +
-                "nd Type=\"OpenResKit.DomainModel.Reading\" Role=\"Distributor_Readings_Target\" Mult" +
-                "iplicity=\"*\" /></Association><Association Name=\"Distributor_Room\"><End Type=\"Ope" +
-                "nResKit.DomainModel.Distributor\" Role=\"Distributor_Room_Source\" Multiplicity=\"*\"" +
-                " /><End Type=\"OpenResKit.DomainModel.Room\" Role=\"Distributor_Room_Target\" Multip" +
-                "licity=\"0..1\" /></Association><Association Name=\"ConsumerGroup_Consumers\"><End T" +
-                "ype=\"OpenResKit.DomainModel.ConsumerGroup\" Role=\"ConsumerGroup_Consumers_Source\"" +
-                " Multiplicity=\"1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.Domai" +
-                "nModel.Consumer\" Role=\"ConsumerGroup_Consumers_Target\" Multiplicity=\"*\" /></Asso" +
-                "ciation><Association Name=\"ConsumerGroup_Measures\"><End Type=\"OpenResKit.DomainM" +
-                "odel.ConsumerGroup\" Role=\"ConsumerGroup_Measures_Source\" Multiplicity=\"0..1\" /><" +
-                "End Type=\"OpenResKit.DomainModel.Measure\" Role=\"ConsumerGroup_Measures_Target\" M" +
-                "ultiplicity=\"*\" /></Association><Association Name=\"Series_SeriesColor\"><End Type" +
-                "=\"OpenResKit.DomainModel.Series\" Role=\"Series_SeriesColor_Source\" Multiplicity=\"" +
-                "1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.DomainModel.SeriesCo" +
-                "lor\" Role=\"Series_SeriesColor_Target\" Multiplicity=\"1\" /><ReferentialConstraint>" +
-                "<Principal Role=\"Series_SeriesColor_Source\"><PropertyRef Name=\"Id\" /></Principal" +
-                "><Dependent Role=\"Series_SeriesColor_Target\"><PropertyRef Name=\"Id\" /></Dependen" +
-                "t></ReferentialConstraint></Association><Association Name=\"Series_WeekDays\"><End" +
-                " Type=\"OpenResKit.DomainModel.Series\" Role=\"Series_WeekDays_Source\" Multiplicity" +
-                "=\"0..1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.DomainModel.Day" +
-                "OfWeek\" Role=\"Series_WeekDays_Target\" Multiplicity=\"*\" /></Association><Associat" +
-                "ion Name=\"ScheduledTask_AppointmentResponsibleSubject\"><End Type=\"OpenResKit.Dom" +
-                "ainModel.ResponsibleSubject\" Role=\"ScheduledTask_Appointmen";
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart3 = "tResponsibleSubject_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainMod" +
-                "el.ScheduledTask\" Role=\"ScheduledTask_AppointmentResponsibleSubject_Source\" Mult" +
-                "iplicity=\"*\" /></Association><Association Name=\"ScheduledTask_DueDate\"><End Type" +
-                "=\"OpenResKit.DomainModel.Appointment\" Role=\"ScheduledTask_DueDate_Target\" Multip" +
+            private const string ModelPart2 = "ueDate_Target\" FromRole=\"ScheduledTask_DueDate_Source\" /><NavigationProperty Name" +
+                "=\"EntryDate\" Relationship=\"OpenResKit.DomainModel.ScheduledTask_EntryDate\" ToRol" +
+                "e=\"ScheduledTask_EntryDate_Target\" FromRole=\"ScheduledTask_EntryDate_Source\" /><" +
+                "NavigationProperty Name=\"EntryResponsibleSubject\" Relationship=\"OpenResKit.Domai" +
+                "nModel.ScheduledTask_EntryResponsibleSubject\" ToRole=\"ScheduledTask_EntryRespons" +
+                "ibleSubject_Target\" FromRole=\"ScheduledTask_EntryResponsibleSubject_Source\" /><N" +
+                "avigationProperty Name=\"RelatedSeries\" Relationship=\"OpenResKit.DomainModel.Sche" +
+                "duledTask_RelatedSeries\" ToRole=\"ScheduledTask_RelatedSeries_Target\" FromRole=\"S" +
+                "cheduledTask_RelatedSeries_Source\" /></EntityType><EntityType Name=\"Map\"><Key><P" +
+                "ropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"fals" +
+                "e\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com/ad" +
+                "o/2009/02/edm/annotation\" /><Property Name=\"Name\" Type=\"Edm.String\" MaxLength=\"M" +
+                "ax\" FixedLength=\"false\" Unicode=\"true\" /><NavigationProperty Name=\"MapSource\" Re" +
+                "lationship=\"OpenResKit.DomainModel.Map_MapSource\" ToRole=\"Map_MapSource_Target\" " +
+                "FromRole=\"Map_MapSource_Source\" /></EntityType><EntityType Name=\"MapSource\"><Key" +
+                "><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"f" +
+                "alse\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsoft.com" +
+                "/ado/2009/02/edm/annotation\" /><Property Name=\"BinarySource\" Type=\"Edm.Binary\" M" +
+                "axLength=\"Max\" FixedLength=\"false\" /></EntityType><EntityType Name=\"MapPosition\"" +
+                "><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullab" +
+                "le=\"false\" p6:StoreGeneratedPattern=\"Identity\" xmlns:p6=\"http://schemas.microsof" +
+                "t.com/ado/2009/02/edm/annotation\" /><Property Name=\"XPosition\" Type=\"Edm.Double\"" +
+                " Nullable=\"false\" /><Property Name=\"YPosition\" Type=\"Edm.Double\" Nullable=\"false" +
+                "\" /><NavigationProperty Name=\"Map\" Relationship=\"OpenResKit.DomainModel.MapPosit" +
+                "ion_Map\" ToRole=\"MapPosition_Map_Target\" FromRole=\"MapPosition_Map_Source\" /></E" +
+                "ntityType><Association Name=\"Measure_ResponsibleSubject\"><End Type=\"OpenResKit.D" +
+                "omainModel.Measure\" Role=\"Measure_ResponsibleSubject_Source\" Multiplicity=\"*\" />" +
+                "<End Type=\"OpenResKit.DomainModel.ResponsibleSubject\" Role=\"Measure_ResponsibleS" +
+                "ubject_Target\" Multiplicity=\"0..1\" /></Association><Association Name=\"Measure_Me" +
+                "asureImageSource\"><End Type=\"OpenResKit.DomainModel.MeasureImageSource\" Role=\"Me" +
+                "asure_MeasureImageSource_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenResKit.Dom" +
+                "ainModel.Measure\" Role=\"Measure_MeasureImageSource_Source\" Multiplicity=\"0..1\"><" +
+                "OnDelete Action=\"Cascade\" /></End></Association><Association Name=\"Measure_Attac" +
+                "hedDocuments\"><End Type=\"OpenResKit.DomainModel.Document\" Role=\"Measure_Attached" +
+                "Documents_Target\" Multiplicity=\"*\" /><End Type=\"OpenResKit.DomainModel.Measure\" " +
+                "Role=\"Measure_AttachedDocuments_Source\" Multiplicity=\"0..1\"><OnDelete Action=\"Ca" +
+                "scade\" /></End></Association><Association Name=\"Employee_Groups\"><End Type=\"Open" +
+                "ResKit.DomainModel.Employee\" Role=\"Employee_Groups_Source\" Multiplicity=\"*\" /><E" +
+                "nd Type=\"OpenResKit.DomainModel.EmployeeGroup\" Role=\"Employee_Groups_Target\" Mul" +
+                "tiplicity=\"*\" /></Association><Association Name=\"Document_DocumentSource\"><End T" +
+                "ype=\"OpenResKit.DomainModel.DocumentSource\" Role=\"Document_DocumentSource_Target" +
+                "\" Multiplicity=\"0..1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.D" +
+                "omainModel.Document\" Role=\"Document_DocumentSource_Source\" Multiplicity=\"0..1\" /" +
+                "></Association><Association Name=\"Catalog_Measures\"><End Type=\"OpenResKit.Domain" +
+                "Model.Catalog\" Role=\"Catalog_Measures_Source\" Multiplicity=\"0..1\"><OnDelete Acti" +
+                "on=\"Cascade\" /></End><End Type=\"OpenResKit.DomainModel.Measure\" Role=\"Catalog_Me" +
+                "asures_Target\" Multiplicity=\"*\" /></Association><Association Name=\"Consumer_Read" +
+                "ings\"><End Type=\"OpenResKit.DomainModel.Consumer\" Role=\"Consumer_Readings_Source" +
+                "\" Multiplicity=\"0..1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.D" +
+                "omainModel.Reading\" Role=\"Consumer_Readings_Target\" Multiplicity=\"*\" /></Associa" +
+                "tion><Association Name=\"Consumer_Room\"><End Type=\"OpenResKit.DomainModel.Consume" +
+                "r\" Role=\"Consumer_Room_Source\" Multiplicity=\"*\" /><End Type=\"OpenResKit.DomainMo" +
+                "del.Room\" Role=\"Consumer_Room_Target\" Multiplicity=\"0..1\"><OnDelete Action=\"Casc" +
+                "ade\" /></End></Association><Association Name=\"Consumer_Distributor\"><End Type=\"O" +
+                "penResKit.DomainModel.Consumer\" Role=\"Consumer_Distributor_Source\" Multiplicity=" +
+                "\"*\" /><End Type=\"OpenResKit.DomainModel.Distributor\" Role=\"Consumer_Distributor_" +
+                "Target\" Multiplicity=\"0..1\" /></Association><Association Name=\"Consumer_Measures" +
+                "\"><End Type=\"OpenResKit.DomainModel.Consumer\" Role=\"Consumer_Measures_Source\" Mu" +
+                "ltiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainModel.Measure\" Role=\"Consumer_Me" +
+                "asures_Target\" Multiplicity=\"*\" /></Association><Association Name=\"Room_Building" +
+                "\"><End Type=\"OpenResKit.DomainModel.Building\" Role=\"Room_Building_Target\" Multip" +
                 "licity=\"1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.DomainModel." +
-                "ScheduledTask\" Role=\"ScheduledTask_DueDate_Source\" Multiplicity=\"0..1\" /><Refere" +
-                "ntialConstraint><Principal Role=\"ScheduledTask_DueDate_Target\"><PropertyRef Name" +
-                "=\"Id\" /></Principal><Dependent Role=\"ScheduledTask_DueDate_Source\"><PropertyRef " +
-                "Name=\"Id\" /></Dependent></ReferentialConstraint></Association><Association Name=" +
-                "\"ScheduledTask_EntryDate\"><End Type=\"OpenResKit.DomainModel.Appointment\" Role=\"S" +
-                "cheduledTask_EntryDate_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenResKit.Domai" +
-                "nModel.ScheduledTask\" Role=\"ScheduledTask_EntryDate_Source\" Multiplicity=\"*\" /><" +
-                "/Association><Association Name=\"ScheduledTask_EntryResponsibleSubject\"><End Type" +
-                "=\"OpenResKit.DomainModel.ResponsibleSubject\" Role=\"ScheduledTask_EntryResponsibl" +
-                "eSubject_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainModel.Schedul" +
-                "edTask\" Role=\"ScheduledTask_EntryResponsibleSubject_Source\" Multiplicity=\"*\" /><" +
-                "/Association><Association Name=\"ScheduledTask_RelatedSeries\"><End Type=\"OpenResK" +
-                "it.DomainModel.Series\" Role=\"ScheduledTask_RelatedSeries_Target\" Multiplicity=\"0" +
-                "..1\" /><End Type=\"OpenResKit.DomainModel.ScheduledTask\" Role=\"ScheduledTask_Rela" +
-                "tedSeries_Source\" Multiplicity=\"*\" /></Association><Association Name=\"Map_MapSou" +
-                "rce\"><End Type=\"OpenResKit.DomainModel.MapSource\" Role=\"Map_MapSource_Target\" Mu" +
-                "ltiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainModel.Map\" Role=\"Map_MapSource_S" +
-                "ource\" Multiplicity=\"*\" /></Association><Association Name=\"MapPosition_Map\"><End" +
-                " Type=\"OpenResKit.DomainModel.Map\" Role=\"MapPosition_Map_Target\" Multiplicity=\"0" +
-                "..1\" /><End Type=\"OpenResKit.DomainModel.MapPosition\" Role=\"MapPosition_Map_Sour" +
-                "ce\" Multiplicity=\"*\" /></Association><EntityContainer Name=\"DomainModelContext\" " +
-                "m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Measures\" EntityType=\"OpenRes" +
-                "Kit.DomainModel.Measure\" /><EntitySet Name=\"ResponsibleSubjects\" EntityType=\"Ope" +
-                "nResKit.DomainModel.ResponsibleSubject\" /><EntitySet Name=\"MeasureImageSources\" " +
-                "EntityType=\"OpenResKit.DomainModel.MeasureImageSource\" /><EntitySet Name=\"Docume" +
-                "nts\" EntityType=\"OpenResKit.DomainModel.Document\" /><EntitySet Name=\"DocumentSou" +
-                "rces\" EntityType=\"OpenResKit.DomainModel.DocumentSource\" /><EntitySet Name=\"Cata" +
-                "logs\" EntityType=\"OpenResKit.DomainModel.Catalog\" /><EntitySet Name=\"SubMeasures" +
-                "\" EntityType=\"OpenResKit.DomainModel.SubMeasure\" /><EntitySet Name=\"Consumers\" E" +
-                "ntityType=\"OpenResKit.DomainModel.Consumer\" /><EntitySet Name=\"Readings\" EntityT" +
-                "ype=\"OpenResKit.DomainModel.Reading\" /><EntitySet Name=\"Rooms\" EntityType=\"OpenR" +
-                "esKit.DomainModel.Room\" /><EntitySet Name=\"Buildings\" EntityType=\"OpenResKit.Dom" +
-                "ainModel.Building\" /><EntitySet Name=\"Distributors\" EntityType=\"OpenResKit.Domai" +
-                "nModel.Distributor\" /><EntitySet Name=\"ConsumerGroups\" EntityType=\"OpenResKit.Do" +
-                "mainModel.ConsumerGroup\" /><EntitySet Name=\"Appointments\" EntityType=\"OpenResKit" +
-                ".DomainModel.Appointment\" /><EntitySet Name=\"Series\" EntityType=\"OpenResKit.Doma" +
-                "inModel.Series\" /><EntitySet Name=\"SeriesColors\" EntityType=\"OpenResKit.DomainMo" +
-                "del.SeriesColor\" /><EntitySet Name=\"DayOfWeeks\" EntityType=\"OpenResKit.DomainMod" +
-                "el.DayOfWeek\" /><EntitySet Name=\"ScheduledTasks\" EntityType=\"OpenResKit.DomainMo" +
-                "del.ScheduledTask\" /><EntitySet Name=\"Maps\" EntityType=\"OpenResKit.DomainModel.M" +
-                "ap\" /><EntitySet Name=\"MapSources\" EntityType=\"OpenResKit.DomainModel.MapSource\"" +
-                " /><EntitySet Name=\"MapPositions\" EntityType=\"OpenResKit.DomainModel.MapPosition" +
-                "\" /><AssociationSet Name=\"Measure_ResponsibleSubject\" Association=\"OpenResKit.Do" +
-                "mainModel.Measure_ResponsibleSubject\"><End Role=\"Measure_ResponsibleSubject_Sour" +
-                "ce\" EntitySet=\"Measures\" /><End Role=\"Measure_ResponsibleSubject_Target\" EntityS" +
-                "et=\"ResponsibleSubjects\" /></AssociationSet><AssociationSet Name=\"Measure_Measur" +
-                "eImageSource\" Association=\"OpenResKit.DomainModel.Measure_MeasureImageSource\"><E" +
-                "nd Role=\"Measure_MeasureImageSource_Source\" EntitySet=\"Measures\" /><End Role=\"Me" +
-                "asure_MeasureImageSource_Target\" EntitySet=\"MeasureImageSources\" /></Association" +
-                "Set><AssociationSet Name=\"Measure_AttachedDocuments\" Association=\"OpenResKit.Dom" +
-                "ainModel.Measure_AttachedDocuments\"><End Role=\"Measure_AttachedDocuments_Source\"" +
-                " EntitySet=\"Measures\" /><End Role=\"Measure_AttachedDocuments_Target\" EntitySet=\"" +
-                "Documents\" /></AssociationSet><AssociationSet Name=\"Employee_Groups\" Association" +
-                "=\"OpenResKit.DomainModel.Employee_Groups\"><End Role=\"Employee_Groups_Source\" Ent" +
-                "itySet=\"ResponsibleSubjects\" /><End Role=\"Employee_Groups_Target\" EntitySet=\"Res" +
-                "ponsibleSubjects\" /></AssociationSet><AssociationSet Name=\"Document_DocumentSour" +
-                "ce\" Association=\"OpenResKit.DomainModel.Document_DocumentSource\"><End Role=\"Docu" +
-                "ment_DocumentSource_Source\" EntitySet=\"Documents\" /><End Role=\"Document_Document" +
-                "Source_Target\" EntitySet=\"DocumentSources\" /></AssociationSet><AssociationSet Na" +
-                "me=\"Catalog_Measures\" Association=\"OpenResKit.DomainModel.Catalog_Measures\"><End" +
-                " Role=\"Catalog_Measures_Source\" EntitySet=\"Catalogs\" /><End Role=\"Catalog_Measur" +
-                "es_Target\" EntitySet=\"Measures\" /></AssociationSet><AssociationSet Name=\"SubMeas" +
-                "ure_ResponsibleSubject\" Association=\"OpenResKit.DomainModel.SubMeasure_Responsib" +
-                "leSubject\"><End Role=\"SubMeasure_ResponsibleSubject_Source\" EntitySet=\"SubMeasur" +
-                "es\" /><End Role=\"SubMeasure_ResponsibleSubject_Target\" EntitySet=\"ResponsibleSub" +
-                "jects\" /></AssociationSet><AssociationSet Name=\"SubMeasure_ReleatedMeasure\" Asso" +
-                "ciation=\"OpenResKit.DomainModel.SubMeasure_ReleatedMeasure\"><End Role=\"SubMeasur" +
-                "e_ReleatedMeasure_Source\" EntitySet=\"SubMeasures\" /><End Role=\"SubMeasure_Releat" +
-                "edMeasure_Target\" EntitySet=\"Measures\" /></AssociationSet><AssociationSet Name=\"" +
-                "Consumer_Readings\" Association=\"OpenResKit.DomainModel.Consumer_Readings\"><End R" +
-                "ole=\"Consumer_Readings_Source\" EntitySet=\"Consumers\" /><End Role=\"Consumer_Readi" +
-                "ngs_Target\" EntitySet=\"Readings\" /></AssociationSet><AssociationSet Name=\"Consum" +
-                "er_Room\" Association=\"OpenResKit.DomainModel.Consumer_Room\"><End Role=\"Consumer_" +
-                "Room_Source\" EntitySet=\"Consumers\" /><End Role=\"Consumer_Room_Target\" EntitySet=" +
-                "\"Rooms\" /></AssociationSet><AssociationSet Name=\"Consumer_Distributor\" Associati" +
-                "on=\"OpenResKit.DomainModel.Consumer_Distributor\"><End Role=\"Consumer_Distributor" +
-                "_Source\" EntitySet=\"Consumers\" /><End Role=\"Consumer_Distributor_Target\" EntityS" +
-                "et=\"Distributors\" /></AssociationSet><AssociationSet Name=\"Consumer_Measures\" As" +
-                "sociation=\"OpenResKit.DomainModel.Consumer_Measures\"><End Role=\"Consumer_Measure" +
-                "s_Source\" EntitySet=\"Consumers\" /><End Role=\"Consumer_Measures_Target\" EntitySet" +
-                "=\"Measures\" /></AssociationSet><AssociationSet Name=\"Room_Building\" Association=" +
-                "\"OpenResKit.DomainModel.Room_Building\"><End Role=\"Room_Building_Source\" EntitySe" +
-                "t=\"Rooms\" /><End Role=\"Room_Building_Target\" EntitySet=\"Buildings\" /></Associati" +
-                "onSet><AssociationSet Name=\"Distributor_Readings\" Association=\"OpenResKit.Domain" +
-                "Model.Distributor_Readings\"><End Role=\"Distributor_Readings_Source\" EntitySet=\"D" +
-                "istributors\" /><End Role=\"Distributor_Readings_Target\" EntitySet=\"Readings\" /></" +
-                "AssociationSet><AssociationSet Name=\"Distributor_Room\" Association=\"OpenResKit.D" +
-                "omainModel.Distributor_Room\"><End Role=\"Distributor_Room_Source\" EntitySet=\"Dist" +
-                "ributors\" /><End Role=\"Distributor_Room_Target\" EntitySet=\"";
+                "Room\" Role=\"Room_Building_Source\" Multiplicity=\"*\" /></Association><Association " +
+                "Name=\"Distributor_Readings\"><End Type=\"OpenResKit.DomainModel.Distributor\" Role=" +
+                "\"Distributor_Readings_Source\" Multiplicity=\"0..1\"><OnDelete Action=\"Cascade\" /><" +
+                "/End><End Type=\"OpenResKit.DomainModel.Reading\" Role=\"Distributor_Readings_Targe" +
+                "t\" Multiplicity=\"*\" /></Association><Association Name=\"Distributor_Room\"><End Ty" +
+                "pe=\"OpenResKit.DomainModel.Distributor\" Role=\"Distributor_Room_Source\" Multiplic" +
+                "ity=\"*\" /><End Type=\"OpenResKit.DomainModel.Room\" Role=\"Distributor_Room_Target\"" +
+                " Multiplicity=\"0..1\" /></Association><Association Name=\"ConsumerGroup_Consumers\"" +
+                "><End Type=\"OpenResKit.DomainModel.ConsumerGroup\" Role=\"ConsumerGroup_Consumers_" +
+                "Source\" Multiplicity=\"1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKi" +
+                "t.DomainModel.Consumer\" Role=\"ConsumerGroup_Consumers_Target\" Multiplicity=\"*\" /" +
+                "></Association><Association Name=\"ConsumerGroup_Measures\"><End Type=\"OpenResKit." +
+                "DomainModel.ConsumerGroup\" Role=\"ConsumerGroup_Measures_Source\" Multiplicity=\"0." +
+                ".1\" /><End Type=\"OpenResKit.DomainModel.Measure\" Role=\"ConsumerGroup_Measures_Ta" +
+                "rget\" Multiplicity=\"*\" /></Association><Association Name=\"SubMeasure_Responsible" +
+                "Subject\"><End Type=\"OpenResKit.DomainModel.ResponsibleSubject\" Role=\"SubMeasure_" +
+                "ResponsibleSubject_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainMod" +
+                "el.SubMeasure\" Role=\"SubMeasure_ResponsibleSubject_Source\" Multiplicity=\"*\" /></" +
+                "Association><Association Name=\"SubMeasure_ReleatedMeasure\"><End Type=\"OpenResKit" +
+                ".DomainModel.Measure\" Role=\"SubMeasure_ReleatedMeasure_Target\" Multiplicity=\"0.." +
+                "1\" /><End Type=\"OpenResKit.DomainModel.SubMeasure\" Role=\"SubMeasure_ReleatedMeas" +
+                "ure_Source\" Multiplicity=\"*\" /></Association><Association Name=\"Series_SeriesCol" +
+                "or\"><End Type=\"OpenResKit.DomainModel.Series\" Role=\"Series_SeriesColor_Source\" M" +
+                "ultiplicity=\"1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.DomainM" +
+                "odel.SeriesColor\" Role=\"Series_SeriesColor_Target\" Multiplicity=\"1\" /><Referenti" +
+                "alConstraint><Principal Role=\"Series_SeriesColor_Source\"><PropertyRef Name=\"Id\" " +
+                "/></Principal><Dependent Role=\"Series_SeriesColor_Target\"><PropertyRef Name=\"Id\"" +
+                " /></Dependent></ReferentialConstraint></Association><Association Name=\"Series_W" +
+                "eekDays\"><End Type=\"OpenResKit.DomainModel.Series\" Role=\"Series_WeekDays_Source\"" +
+                " Multiplicity=\"0..1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit.Do" +
+                "mainModel.DayOfWeek\" Role=\"Series_WeekDays_Target\" Multiplicity=\"*\" /></Associat" +
+                "ion><Association Name=\"ScheduledTask_AppointmentResponsible";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart4 = "Rooms\" /></AssociationSet><AssociationSet Name=\"ConsumerGroup_Consumers\" Associat" +
-                "ion=\"OpenResKit.DomainModel.ConsumerGroup_Consumers\"><End Role=\"ConsumerGroup_Co" +
-                "nsumers_Source\" EntitySet=\"ConsumerGroups\" /><End Role=\"ConsumerGroup_Consumers_" +
-                "Target\" EntitySet=\"Consumers\" /></AssociationSet><AssociationSet Name=\"ConsumerG" +
-                "roup_Measures\" Association=\"OpenResKit.DomainModel.ConsumerGroup_Measures\"><End " +
-                "Role=\"ConsumerGroup_Measures_Source\" EntitySet=\"ConsumerGroups\" /><End Role=\"Con" +
-                "sumerGroup_Measures_Target\" EntitySet=\"Measures\" /></AssociationSet><Association" +
-                "Set Name=\"Series_SeriesColor\" Association=\"OpenResKit.DomainModel.Series_SeriesC" +
-                "olor\"><End Role=\"Series_SeriesColor_Source\" EntitySet=\"Series\" /><End Role=\"Seri" +
-                "es_SeriesColor_Target\" EntitySet=\"SeriesColors\" /></AssociationSet><AssociationS" +
-                "et Name=\"Series_WeekDays\" Association=\"OpenResKit.DomainModel.Series_WeekDays\"><" +
-                "End Role=\"Series_WeekDays_Source\" EntitySet=\"Series\" /><End Role=\"Series_WeekDay" +
-                "s_Target\" EntitySet=\"DayOfWeeks\" /></AssociationSet><AssociationSet Name=\"Schedu" +
-                "ledTask_AppointmentResponsibleSubject\" Association=\"OpenResKit.DomainModel.Sched" +
-                "uledTask_AppointmentResponsibleSubject\"><End Role=\"ScheduledTask_AppointmentResp" +
-                "onsibleSubject_Source\" EntitySet=\"ScheduledTasks\" /><End Role=\"ScheduledTask_App" +
-                "ointmentResponsibleSubject_Target\" EntitySet=\"ResponsibleSubjects\" /></Associati" +
-                "onSet><AssociationSet Name=\"ScheduledTask_DueDate\" Association=\"OpenResKit.Domai" +
-                "nModel.ScheduledTask_DueDate\"><End Role=\"ScheduledTask_DueDate_Source\" EntitySet" +
-                "=\"ScheduledTasks\" /><End Role=\"ScheduledTask_DueDate_Target\" EntitySet=\"Appointm" +
-                "ents\" /></AssociationSet><AssociationSet Name=\"ScheduledTask_EntryDate\" Associat" +
-                "ion=\"OpenResKit.DomainModel.ScheduledTask_EntryDate\"><End Role=\"ScheduledTask_En" +
-                "tryDate_Source\" EntitySet=\"ScheduledTasks\" /><End Role=\"ScheduledTask_EntryDate_" +
-                "Target\" EntitySet=\"Appointments\" /></AssociationSet><AssociationSet Name=\"Schedu" +
-                "ledTask_EntryResponsibleSubject\" Association=\"OpenResKit.DomainModel.ScheduledTa" +
-                "sk_EntryResponsibleSubject\"><End Role=\"ScheduledTask_EntryResponsibleSubject_Sou" +
-                "rce\" EntitySet=\"ScheduledTasks\" /><End Role=\"ScheduledTask_EntryResponsibleSubje" +
-                "ct_Target\" EntitySet=\"ResponsibleSubjects\" /></AssociationSet><AssociationSet Na" +
-                "me=\"ScheduledTask_RelatedSeries\" Association=\"OpenResKit.DomainModel.ScheduledTa" +
-                "sk_RelatedSeries\"><End Role=\"ScheduledTask_RelatedSeries_Source\" EntitySet=\"Sche" +
-                "duledTasks\" /><End Role=\"ScheduledTask_RelatedSeries_Target\" EntitySet=\"Series\" " +
-                "/></AssociationSet><AssociationSet Name=\"Map_MapSource\" Association=\"OpenResKit." +
-                "DomainModel.Map_MapSource\"><End Role=\"Map_MapSource_Source\" EntitySet=\"Maps\" /><" +
-                "End Role=\"Map_MapSource_Target\" EntitySet=\"MapSources\" /></AssociationSet><Assoc" +
-                "iationSet Name=\"MapPosition_Map\" Association=\"OpenResKit.DomainModel.MapPosition" +
-                "_Map\"><End Role=\"MapPosition_Map_Source\" EntitySet=\"MapPositions\" /><End Role=\"M" +
-                "apPosition_Map_Target\" EntitySet=\"Maps\" /></AssociationSet></EntityContainer></S" +
-                "chema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart3 = "Subject\"><End Type=\"OpenResKit.DomainModel.ResponsibleSubject\" Role=\"ScheduledTas" +
+                "k_AppointmentResponsibleSubject_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenRes" +
+                "Kit.DomainModel.ScheduledTask\" Role=\"ScheduledTask_AppointmentResponsibleSubject" +
+                "_Source\" Multiplicity=\"*\" /></Association><Association Name=\"ScheduledTask_DueDa" +
+                "te\"><End Type=\"OpenResKit.DomainModel.Appointment\" Role=\"ScheduledTask_DueDate_T" +
+                "arget\" Multiplicity=\"1\"><OnDelete Action=\"Cascade\" /></End><End Type=\"OpenResKit" +
+                ".DomainModel.ScheduledTask\" Role=\"ScheduledTask_DueDate_Source\" Multiplicity=\"0." +
+                ".1\" /><ReferentialConstraint><Principal Role=\"ScheduledTask_DueDate_Target\"><Pro" +
+                "pertyRef Name=\"Id\" /></Principal><Dependent Role=\"ScheduledTask_DueDate_Source\">" +
+                "<PropertyRef Name=\"Id\" /></Dependent></ReferentialConstraint></Association><Asso" +
+                "ciation Name=\"ScheduledTask_EntryDate\"><End Type=\"OpenResKit.DomainModel.Appoint" +
+                "ment\" Role=\"ScheduledTask_EntryDate_Target\" Multiplicity=\"0..1\" /><End Type=\"Ope" +
+                "nResKit.DomainModel.ScheduledTask\" Role=\"ScheduledTask_EntryDate_Source\" Multipl" +
+                "icity=\"*\" /></Association><Association Name=\"ScheduledTask_EntryResponsibleSubje" +
+                "ct\"><End Type=\"OpenResKit.DomainModel.ResponsibleSubject\" Role=\"ScheduledTask_En" +
+                "tryResponsibleSubject_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenResKit.Domain" +
+                "Model.ScheduledTask\" Role=\"ScheduledTask_EntryResponsibleSubject_Source\" Multipl" +
+                "icity=\"*\" /></Association><Association Name=\"ScheduledTask_RelatedSeries\"><End T" +
+                "ype=\"OpenResKit.DomainModel.Series\" Role=\"ScheduledTask_RelatedSeries_Target\" Mu" +
+                "ltiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainModel.ScheduledTask\" Role=\"Sched" +
+                "uledTask_RelatedSeries_Source\" Multiplicity=\"*\" /></Association><Association Nam" +
+                "e=\"Map_MapSource\"><End Type=\"OpenResKit.DomainModel.MapSource\" Role=\"Map_MapSour" +
+                "ce_Target\" Multiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainModel.Map\" Role=\"Ma" +
+                "p_MapSource_Source\" Multiplicity=\"*\" /></Association><Association Name=\"MapPosit" +
+                "ion_Map\"><End Type=\"OpenResKit.DomainModel.Map\" Role=\"MapPosition_Map_Target\" Mu" +
+                "ltiplicity=\"0..1\" /><End Type=\"OpenResKit.DomainModel.MapPosition\" Role=\"MapPosi" +
+                "tion_Map_Source\" Multiplicity=\"*\" /></Association><EntityContainer Name=\"DomainM" +
+                "odelContext\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Measures\" Entity" +
+                "Type=\"OpenResKit.DomainModel.Measure\" /><EntitySet Name=\"ResponsibleSubjects\" En" +
+                "tityType=\"OpenResKit.DomainModel.ResponsibleSubject\" /><EntitySet Name=\"MeasureI" +
+                "mageSources\" EntityType=\"OpenResKit.DomainModel.MeasureImageSource\" /><EntitySet" +
+                " Name=\"Documents\" EntityType=\"OpenResKit.DomainModel.Document\" /><EntitySet Name" +
+                "=\"DocumentSources\" EntityType=\"OpenResKit.DomainModel.DocumentSource\" /><EntityS" +
+                "et Name=\"Buildings\" EntityType=\"OpenResKit.DomainModel.Building\" /><EntitySet Na" +
+                "me=\"Catalogs\" EntityType=\"OpenResKit.DomainModel.Catalog\" /><EntitySet Name=\"Con" +
+                "sumers\" EntityType=\"OpenResKit.DomainModel.Consumer\" /><EntitySet Name=\"Readings" +
+                "\" EntityType=\"OpenResKit.DomainModel.Reading\" /><EntitySet Name=\"Rooms\" EntityTy" +
+                "pe=\"OpenResKit.DomainModel.Room\" /><EntitySet Name=\"Distributors\" EntityType=\"Op" +
+                "enResKit.DomainModel.Distributor\" /><EntitySet Name=\"ConsumerGroups\" EntityType=" +
+                "\"OpenResKit.DomainModel.ConsumerGroup\" /><EntitySet Name=\"SubMeasures\" EntityTyp" +
+                "e=\"OpenResKit.DomainModel.SubMeasure\" /><EntitySet Name=\"Appointments\" EntityTyp" +
+                "e=\"OpenResKit.DomainModel.Appointment\" /><EntitySet Name=\"Series\" EntityType=\"Op" +
+                "enResKit.DomainModel.Series\" /><EntitySet Name=\"SeriesColors\" EntityType=\"OpenRe" +
+                "sKit.DomainModel.SeriesColor\" /><EntitySet Name=\"DayOfWeeks\" EntityType=\"OpenRes" +
+                "Kit.DomainModel.DayOfWeek\" /><EntitySet Name=\"ScheduledTasks\" EntityType=\"OpenRe" +
+                "sKit.DomainModel.ScheduledTask\" /><EntitySet Name=\"Maps\" EntityType=\"OpenResKit." +
+                "DomainModel.Map\" /><EntitySet Name=\"MapSources\" EntityType=\"OpenResKit.DomainMod" +
+                "el.MapSource\" /><EntitySet Name=\"MapPositions\" EntityType=\"OpenResKit.DomainMode" +
+                "l.MapPosition\" /><AssociationSet Name=\"Measure_ResponsibleSubject\" Association=\"" +
+                "OpenResKit.DomainModel.Measure_ResponsibleSubject\"><End Role=\"Measure_Responsibl" +
+                "eSubject_Source\" EntitySet=\"Measures\" /><End Role=\"Measure_ResponsibleSubject_Ta" +
+                "rget\" EntitySet=\"ResponsibleSubjects\" /></AssociationSet><AssociationSet Name=\"M" +
+                "easure_MeasureImageSource\" Association=\"OpenResKit.DomainModel.Measure_MeasureIm" +
+                "ageSource\"><End Role=\"Measure_MeasureImageSource_Source\" EntitySet=\"Measures\" />" +
+                "<End Role=\"Measure_MeasureImageSource_Target\" EntitySet=\"MeasureImageSources\" />" +
+                "</AssociationSet><AssociationSet Name=\"Measure_AttachedDocuments\" Association=\"O" +
+                "penResKit.DomainModel.Measure_AttachedDocuments\"><End Role=\"Measure_AttachedDocu" +
+                "ments_Source\" EntitySet=\"Measures\" /><End Role=\"Measure_AttachedDocuments_Target" +
+                "\" EntitySet=\"Documents\" /></AssociationSet><AssociationSet Name=\"Employee_Groups" +
+                "\" Association=\"OpenResKit.DomainModel.Employee_Groups\"><End Role=\"Employee_Group" +
+                "s_Source\" EntitySet=\"ResponsibleSubjects\" /><End Role=\"Employee_Groups_Target\" E" +
+                "ntitySet=\"ResponsibleSubjects\" /></AssociationSet><AssociationSet Name=\"Document" +
+                "_DocumentSource\" Association=\"OpenResKit.DomainModel.Document_DocumentSource\"><E" +
+                "nd Role=\"Document_DocumentSource_Source\" EntitySet=\"Documents\" /><End Role=\"Docu" +
+                "ment_DocumentSource_Target\" EntitySet=\"DocumentSources\" /></AssociationSet><Asso" +
+                "ciationSet Name=\"Catalog_Measures\" Association=\"OpenResKit.DomainModel.Catalog_M" +
+                "easures\"><End Role=\"Catalog_Measures_Source\" EntitySet=\"Catalogs\" /><End Role=\"C" +
+                "atalog_Measures_Target\" EntitySet=\"Measures\" /></AssociationSet><AssociationSet " +
+                "Name=\"Consumer_Readings\" Association=\"OpenResKit.DomainModel.Consumer_Readings\">" +
+                "<End Role=\"Consumer_Readings_Source\" EntitySet=\"Consumers\" /><End Role=\"Consumer" +
+                "_Readings_Target\" EntitySet=\"Readings\" /></AssociationSet><AssociationSet Name=\"" +
+                "Consumer_Room\" Association=\"OpenResKit.DomainModel.Consumer_Room\"><End Role=\"Con" +
+                "sumer_Room_Source\" EntitySet=\"Consumers\" /><End Role=\"Consumer_Room_Target\" Enti" +
+                "tySet=\"Rooms\" /></AssociationSet><AssociationSet Name=\"Consumer_Distributor\" Ass" +
+                "ociation=\"OpenResKit.DomainModel.Consumer_Distributor\"><End Role=\"Consumer_Distr" +
+                "ibutor_Source\" EntitySet=\"Consumers\" /><End Role=\"Consumer_Distributor_Target\" E" +
+                "ntitySet=\"Distributors\" /></AssociationSet><AssociationSet Name=\"Consumer_Measur" +
+                "es\" Association=\"OpenResKit.DomainModel.Consumer_Measures\"><End Role=\"Consumer_M" +
+                "easures_Source\" EntitySet=\"Consumers\" /><End Role=\"Consumer_Measures_Target\" Ent" +
+                "itySet=\"Measures\" /></AssociationSet><AssociationSet Name=\"Room_Building\" Associ" +
+                "ation=\"OpenResKit.DomainModel.Room_Building\"><End Role=\"Room_Building_Source\" En" +
+                "titySet=\"Rooms\" /><End Role=\"Room_Building_Target\" EntitySet=\"Buildings\" /></Ass" +
+                "ociationSet><AssociationSet Name=\"Distributor_Readings\" Association=\"OpenResKit." +
+                "DomainModel.Distributor_Readings\"><End Role=\"Distributor_Readings_Source\" Entity" +
+                "Set=\"Distributors\" /><End Role=\"Distributor_Readings_Target\" EntitySet=\"Readings" +
+                "\" /></AssociationSet><AssociationSet Name=\"Distributor_Room\" Association=\"OpenRe" +
+                "sKit.DomainModel.Distributor_Room\"><End Role=\"Distributor_Room_Source\" EntitySet" +
+                "=\"Distributors\" /><End Role=\"Distributor_Room_Target\" EntitySet=\"Rooms\" /></Asso" +
+                "ciationSet><AssociationSet Name=\"ConsumerGroup_Consumers\" Association=\"OpenResKi" +
+                "t.DomainModel.ConsumerGroup_Consumers\"><End Role=\"ConsumerGroup_Consumers_Source" +
+                "\" EntitySet=\"ConsumerGroups\" /><End Role=\"ConsumerGroup_Consumers_Target\" Entity" +
+                "Set=\"Consumers\" /></AssociationSet><AssociationSet Name=\"ConsumerGroup_Measures\"" +
+                " Association=\"OpenResKit.DomainModel.ConsumerGroup_Measures\"><End Role=\"Consumer" +
+                "Group_Measures_Source\" EntitySet=\"ConsumerGroups\" /><End Ro";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart4 = "le=\"ConsumerGroup_Measures_Target\" EntitySet=\"Measures\" /></AssociationSet><Assoc" +
+                "iationSet Name=\"SubMeasure_ResponsibleSubject\" Association=\"OpenResKit.DomainMod" +
+                "el.SubMeasure_ResponsibleSubject\"><End Role=\"SubMeasure_ResponsibleSubject_Sourc" +
+                "e\" EntitySet=\"SubMeasures\" /><End Role=\"SubMeasure_ResponsibleSubject_Target\" En" +
+                "titySet=\"ResponsibleSubjects\" /></AssociationSet><AssociationSet Name=\"SubMeasur" +
+                "e_ReleatedMeasure\" Association=\"OpenResKit.DomainModel.SubMeasure_ReleatedMeasur" +
+                "e\"><End Role=\"SubMeasure_ReleatedMeasure_Source\" EntitySet=\"SubMeasures\" /><End " +
+                "Role=\"SubMeasure_ReleatedMeasure_Target\" EntitySet=\"Measures\" /></AssociationSet" +
+                "><AssociationSet Name=\"Series_SeriesColor\" Association=\"OpenResKit.DomainModel.S" +
+                "eries_SeriesColor\"><End Role=\"Series_SeriesColor_Source\" EntitySet=\"Series\" /><E" +
+                "nd Role=\"Series_SeriesColor_Target\" EntitySet=\"SeriesColors\" /></AssociationSet>" +
+                "<AssociationSet Name=\"Series_WeekDays\" Association=\"OpenResKit.DomainModel.Serie" +
+                "s_WeekDays\"><End Role=\"Series_WeekDays_Source\" EntitySet=\"Series\" /><End Role=\"S" +
+                "eries_WeekDays_Target\" EntitySet=\"DayOfWeeks\" /></AssociationSet><AssociationSet" +
+                " Name=\"ScheduledTask_AppointmentResponsibleSubject\" Association=\"OpenResKit.Doma" +
+                "inModel.ScheduledTask_AppointmentResponsibleSubject\"><End Role=\"ScheduledTask_Ap" +
+                "pointmentResponsibleSubject_Source\" EntitySet=\"ScheduledTasks\" /><End Role=\"Sche" +
+                "duledTask_AppointmentResponsibleSubject_Target\" EntitySet=\"ResponsibleSubjects\" " +
+                "/></AssociationSet><AssociationSet Name=\"ScheduledTask_DueDate\" Association=\"Ope" +
+                "nResKit.DomainModel.ScheduledTask_DueDate\"><End Role=\"ScheduledTask_DueDate_Sour" +
+                "ce\" EntitySet=\"ScheduledTasks\" /><End Role=\"ScheduledTask_DueDate_Target\" Entity" +
+                "Set=\"Appointments\" /></AssociationSet><AssociationSet Name=\"ScheduledTask_EntryD" +
+                "ate\" Association=\"OpenResKit.DomainModel.ScheduledTask_EntryDate\"><End Role=\"Sch" +
+                "eduledTask_EntryDate_Source\" EntitySet=\"ScheduledTasks\" /><End Role=\"ScheduledTa" +
+                "sk_EntryDate_Target\" EntitySet=\"Appointments\" /></AssociationSet><AssociationSet" +
+                " Name=\"ScheduledTask_EntryResponsibleSubject\" Association=\"OpenResKit.DomainMode" +
+                "l.ScheduledTask_EntryResponsibleSubject\"><End Role=\"ScheduledTask_EntryResponsib" +
+                "leSubject_Source\" EntitySet=\"ScheduledTasks\" /><End Role=\"ScheduledTask_EntryRes" +
+                "ponsibleSubject_Target\" EntitySet=\"ResponsibleSubjects\" /></AssociationSet><Asso" +
+                "ciationSet Name=\"ScheduledTask_RelatedSeries\" Association=\"OpenResKit.DomainMode" +
+                "l.ScheduledTask_RelatedSeries\"><End Role=\"ScheduledTask_RelatedSeries_Source\" En" +
+                "titySet=\"ScheduledTasks\" /><End Role=\"ScheduledTask_RelatedSeries_Target\" Entity" +
+                "Set=\"Series\" /></AssociationSet><AssociationSet Name=\"Map_MapSource\" Association" +
+                "=\"OpenResKit.DomainModel.Map_MapSource\"><End Role=\"Map_MapSource_Source\" EntityS" +
+                "et=\"Maps\" /><End Role=\"Map_MapSource_Target\" EntitySet=\"MapSources\" /></Associat" +
+                "ionSet><AssociationSet Name=\"MapPosition_Map\" Association=\"OpenResKit.DomainMode" +
+                "l.MapPosition_Map\"><End Role=\"MapPosition_Map_Source\" EntitySet=\"MapPositions\" /" +
+                "><End Role=\"MapPosition_Map_Target\" EntitySet=\"Maps\" /></AssociationSet></Entity" +
+                "Container></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -2265,6 +2266,104 @@ namespace Ork.Energy.DomainModelService
         }
     }
     /// <summary>
+    /// There are no comments for OpenResKit.DomainModel.Building in the schema.
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("Buildings")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class Building : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// Create a new Building object.
+        /// </summary>
+        /// <param name="ID">Initial value of Id.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static Building CreateBuilding(int ID)
+        {
+            Building building = new Building();
+            building.Id = ID;
+            return building;
+        }
+        /// <summary>
+        /// There are no comments for Property Id in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// There are no comments for Property BuildingName in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string BuildingName
+        {
+            get
+            {
+                return this._BuildingName;
+            }
+            set
+            {
+                this.OnBuildingNameChanging(value);
+                this._BuildingName = value;
+                this.OnBuildingNameChanged();
+                this.OnPropertyChanged("BuildingName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _BuildingName;
+        partial void OnBuildingNameChanging(string value);
+        partial void OnBuildingNameChanged();
+        /// <summary>
+        /// There are no comments for Property Name in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
     /// There are no comments for OpenResKit.DomainModel.Catalog in the schema.
     /// </summary>
     /// <KeyProperties>
@@ -2369,142 +2468,6 @@ namespace Ork.Energy.DomainModelService
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceCollection<Measure> _Measures = new global::System.Data.Services.Client.DataServiceCollection<Measure>(null, global::System.Data.Services.Client.TrackingMode.None);
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// There are no comments for OpenResKit.DomainModel.SubMeasure in the schema.
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("SubMeasures")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
-    public partial class SubMeasure : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// Create a new SubMeasure object.
-        /// </summary>
-        /// <param name="ID">Initial value of Id.</param>
-        /// <param name="isCompleted">Initial value of IsCompleted.</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static SubMeasure CreateSubMeasure(int ID, bool isCompleted)
-        {
-            SubMeasure subMeasure = new SubMeasure();
-            subMeasure.Id = ID;
-            subMeasure.IsCompleted = isCompleted;
-            return subMeasure;
-        }
-        /// <summary>
-        /// There are no comments for Property Id in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _Id;
-        partial void OnIdChanging(int value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// There are no comments for Property Name in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Name
-        {
-            get
-            {
-                return this._Name;
-            }
-            set
-            {
-                this.OnNameChanging(value);
-                this._Name = value;
-                this.OnNameChanged();
-                this.OnPropertyChanged("Name");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Name;
-        partial void OnNameChanging(string value);
-        partial void OnNameChanged();
-        /// <summary>
-        /// There are no comments for Property IsCompleted in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public bool IsCompleted
-        {
-            get
-            {
-                return this._IsCompleted;
-            }
-            set
-            {
-                this.OnIsCompletedChanging(value);
-                this._IsCompleted = value;
-                this.OnIsCompletedChanged();
-                this.OnPropertyChanged("IsCompleted");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private bool _IsCompleted;
-        partial void OnIsCompletedChanging(bool value);
-        partial void OnIsCompletedChanged();
-        /// <summary>
-        /// There are no comments for ResponsibleSubject in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public ResponsibleSubject ResponsibleSubject
-        {
-            get
-            {
-                return this._ResponsibleSubject;
-            }
-            set
-            {
-                this._ResponsibleSubject = value;
-                this.OnPropertyChanged("ResponsibleSubject");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private ResponsibleSubject _ResponsibleSubject;
-        /// <summary>
-        /// There are no comments for ReleatedMeasure in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public Measure ReleatedMeasure
-        {
-            get
-            {
-                return this._ReleatedMeasure;
-            }
-            set
-            {
-                this._ReleatedMeasure = value;
-                this.OnPropertyChanged("ReleatedMeasure");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private Measure _ReleatedMeasure;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -3221,104 +3184,6 @@ namespace Ork.Energy.DomainModelService
         }
     }
     /// <summary>
-    /// There are no comments for OpenResKit.DomainModel.Building in the schema.
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("Buildings")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
-    public partial class Building : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// Create a new Building object.
-        /// </summary>
-        /// <param name="ID">Initial value of Id.</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static Building CreateBuilding(int ID)
-        {
-            Building building = new Building();
-            building.Id = ID;
-            return building;
-        }
-        /// <summary>
-        /// There are no comments for Property Id in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _Id;
-        partial void OnIdChanging(int value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// There are no comments for Property BuildingName in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string BuildingName
-        {
-            get
-            {
-                return this._BuildingName;
-            }
-            set
-            {
-                this.OnBuildingNameChanging(value);
-                this._BuildingName = value;
-                this.OnBuildingNameChanged();
-                this.OnPropertyChanged("BuildingName");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _BuildingName;
-        partial void OnBuildingNameChanging(string value);
-        partial void OnBuildingNameChanged();
-        /// <summary>
-        /// There are no comments for Property Name in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Name
-        {
-            get
-            {
-                return this._Name;
-            }
-            set
-            {
-                this.OnNameChanging(value);
-                this._Name = value;
-                this.OnNameChanged();
-                this.OnPropertyChanged("Name");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Name;
-        partial void OnNameChanging(string value);
-        partial void OnNameChanged();
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
     /// There are no comments for OpenResKit.DomainModel.Distributor in the schema.
     /// </summary>
     /// <KeyProperties>
@@ -3363,6 +3228,28 @@ namespace Ork.Energy.DomainModelService
         private int _Id;
         partial void OnIdChanging(int value);
         partial void OnIdChanged();
+        /// <summary>
+        /// There are no comments for Property Name in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
         /// <summary>
         /// There are no comments for Property IsMainDistributor in the schema.
         /// </summary>
@@ -3577,6 +3464,142 @@ namespace Ork.Energy.DomainModelService
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceCollection<Measure> _Measures = new global::System.Data.Services.Client.DataServiceCollection<Measure>(null, global::System.Data.Services.Client.TrackingMode.None);
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// There are no comments for OpenResKit.DomainModel.SubMeasure in the schema.
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("SubMeasures")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class SubMeasure : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// Create a new SubMeasure object.
+        /// </summary>
+        /// <param name="ID">Initial value of Id.</param>
+        /// <param name="isCompleted">Initial value of IsCompleted.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static SubMeasure CreateSubMeasure(int ID, bool isCompleted)
+        {
+            SubMeasure subMeasure = new SubMeasure();
+            subMeasure.Id = ID;
+            subMeasure.IsCompleted = isCompleted;
+            return subMeasure;
+        }
+        /// <summary>
+        /// There are no comments for Property Id in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// There are no comments for Property Name in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// There are no comments for Property IsCompleted in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsCompleted
+        {
+            get
+            {
+                return this._IsCompleted;
+            }
+            set
+            {
+                this.OnIsCompletedChanging(value);
+                this._IsCompleted = value;
+                this.OnIsCompletedChanged();
+                this.OnPropertyChanged("IsCompleted");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsCompleted;
+        partial void OnIsCompletedChanging(bool value);
+        partial void OnIsCompletedChanged();
+        /// <summary>
+        /// There are no comments for ResponsibleSubject in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public ResponsibleSubject ResponsibleSubject
+        {
+            get
+            {
+                return this._ResponsibleSubject;
+            }
+            set
+            {
+                this._ResponsibleSubject = value;
+                this.OnPropertyChanged("ResponsibleSubject");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private ResponsibleSubject _ResponsibleSubject;
+        /// <summary>
+        /// There are no comments for ReleatedMeasure in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public Measure ReleatedMeasure
+        {
+            get
+            {
+                return this._ReleatedMeasure;
+            }
+            set
+            {
+                this._ReleatedMeasure = value;
+                this.OnPropertyChanged("ReleatedMeasure");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private Measure _ReleatedMeasure;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
