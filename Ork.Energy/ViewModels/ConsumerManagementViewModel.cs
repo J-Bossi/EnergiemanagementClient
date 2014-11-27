@@ -385,6 +385,18 @@ namespace Ork.Energy.ViewModels
             NotifyOfPropertyChange(() => ConsumerGroups);
         }
 
+        public void SaveConsumer(object dataContext)
+        {
+            Save();
+            NotifyOfPropertyChange(() => Consumers);
+        }
+
+        public void SaveDistributor(object dataContext)
+        {
+            Save();
+            NotifyOfPropertyChange(()=> Distributors);
+        }
+
         private void CloseEditor()
         {
             m_EditItem.TryClose();
