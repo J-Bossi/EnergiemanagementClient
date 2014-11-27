@@ -190,6 +190,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ork.Energy.DomainModelService.DomainModelContext1.datasource" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
