@@ -20,6 +20,7 @@ namespace Ork.Energy.ViewModels
         public string Name
         {
             get { return m_Model.Name; }
+            
         }
 
         public ICollection<Reading> Readings

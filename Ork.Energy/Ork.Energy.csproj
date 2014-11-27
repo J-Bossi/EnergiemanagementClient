@@ -173,8 +173,14 @@
     <Compile Include="Views\ConsumerGroupModifyView.xaml.cs">
       <DependentUpon>ConsumerGroupModifyView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsumerModifyView.xaml.cs">
+      <DependentUpon>ConsumerModifyView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DistributorCardView.xaml.cs">
       <DependentUpon>DistributorCardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DistributorModifyView.xaml.cs">
+      <DependentUpon>DistributorModifyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MeasureGridEco.xaml.cs">
       <DependentUpon>MeasureGridEco.xaml</DependentUpon>
@@ -238,7 +244,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ConsumerModifyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DistributorCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DistributorModifyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

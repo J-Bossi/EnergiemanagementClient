@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
@@ -8,16 +9,19 @@ namespace Ork.Energy.ViewModels
     public class ConsumerModifyViewModel : Screen
     {
         private readonly Consumer m_Model;
+        private readonly IConsumerRepository m_Repository;
 
-        public ConsumerModifyViewModel(Consumer consumer)
+        public ConsumerModifyViewModel(Consumer consumer, [Import] IConsumerRepository consumerRepository)
         {
             DisplayName = "Verbraucher bearbeiten...";
             m_Model = consumer;
+            m_Repository = consumerRepository;
         }
 
         public virtual Room Room
         {
             get { return m_Model.Room; }
+            set { m_Model.Room = value; }
         }
 
         public virtual Distributor Distributor
@@ -27,7 +31,11 @@ namespace Ork.Energy.ViewModels
         }
 
 
-        public string Name { get { return m_Model.Name; } set { m_Model.Name = value; } }
+        public string Name
+        {
+            get { return m_Model.Name; }
+            set { m_Model.Name = value; }
+        }
 
         public DataServiceCollection<Measure> Measures
         {
@@ -69,5 +77,10 @@ namespace Ork.Energy.ViewModels
             get { return m_Model.Manufacturer; }
             set { m_Model.Manufacturer = value; }
         }
+
+        public IEnumerable<Distributor> AllDistributors
+        {
+            get { return m_Repository.Distributors; }
+        } 
     }
 }

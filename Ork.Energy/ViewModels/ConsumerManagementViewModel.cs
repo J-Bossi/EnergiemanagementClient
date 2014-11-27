@@ -60,6 +60,8 @@ namespace Ork.Energy.ViewModels
             get { return FilteredDistributors; }
         }
 
+
+
         private IEnumerable<ConsumerGroupViewModel> FilteredConsumerGroups
         {
             get
@@ -131,6 +133,8 @@ namespace Ork.Energy.ViewModels
         public string NewConsumerName { get; set; }
         public string NewDistributorName { get; set; }
         public ConsumerGroupViewModel SelectedConsumerGroup { get; set; }
+        public ConsumerViewModel SelectedConsumer { get; set; }
+        public DistributorViewModel SelectedDistributor { get; set; }
 
         public int Index
         {
@@ -192,6 +196,8 @@ namespace Ork.Energy.ViewModels
             return m_Distributors.Where(c => (((c.Name != null) && (c.Name.ToLower()
                 .Contains(searchText)))));
         }
+
+        
 
         private void Reload()
         {
@@ -326,6 +332,18 @@ namespace Ork.Energy.ViewModels
         {
             SelectedConsumerGroup = (ConsumerGroupViewModel) dataContext;
             OpenEditor(m_ConsumerViewModelFactory.CreateConsumerGroupModifyVM(SelectedConsumerGroup.Model));
+        }
+
+        public void OpenEditConsumerDialog(object dataContext)
+        {
+            SelectedConsumer = (ConsumerViewModel)dataContext;
+            OpenEditor(m_ConsumerViewModelFactory.CreateConsumerModifyVM(SelectedConsumer.Model));
+        }
+
+        public void OpenEditDistributorDialog(object dataContext)
+        {
+            SelectedDistributor = (DistributorViewModel)dataContext;
+            OpenEditor(m_ConsumerViewModelFactory.CreateDistributorModifyVM(SelectedDistributor.Model));
         }
 
         private void OpenEditor(object dataContext)

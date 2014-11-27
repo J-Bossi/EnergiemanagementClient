@@ -35,6 +35,12 @@ namespace Ork.Energy.ViewModels
         {
             get { return m_Model.Readings; }
             set { m_Model.Readings = value; }
-        } 
+        }
+
+        public Room Room
+        {
+            get { return m_Model.Room; }
+            set { m_Model.Room = value; }
+        }
     }
 }
