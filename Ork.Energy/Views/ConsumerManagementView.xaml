@@ -35,7 +35,7 @@
 
 
                 <ListBox ItemsSource="{Binding ConsumerGroups}" Grid.Row="1" BorderThickness="0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedConsumerGroup}" ScrollViewer.CanContentScroll="false">
 
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
@@ -102,6 +102,7 @@
                           MaxDropDownHeight="125"
                           DisplayMemberPath="Name" />
                 <ListBox ItemsSource="{Binding Distributors}" Grid.Row="1" BorderThickness="0"
+                         SelectedItem="{Binding SelectedDistributor}"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false">
 
                     <ListBox.ItemContainerStyle>
@@ -168,7 +169,7 @@
                           MaxDropDownHeight="125"
                           DisplayMemberPath="Name" />
                 <ListBox ItemsSource="{Binding Consumers}" Grid.Row="1" BorderThickness="0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false" SelectedItem="{Binding SelectedConsumer}">
 
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
@@ -203,6 +204,7 @@
                             Height="50"
                             Margin="2"
                             Style="{DynamicResource MetroCircleButtonStyle}"
+                            IsEnabled="{Binding CanAddConsumer}"
                             cal:Message.Attach="AddNewConsumer()">
                             <Rectangle Width="20"
                                        Height="20"

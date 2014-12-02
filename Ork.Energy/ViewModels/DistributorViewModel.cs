@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
@@ -6,10 +7,12 @@ namespace Ork.Energy.ViewModels
     public class DistributorViewModel
     {
         private readonly Distributor m_Model;
+        private readonly IConsumerRepository m_Repository;
 
-        public DistributorViewModel(Distributor distributor)
+        public DistributorViewModel(Distributor distributor, [Import] IConsumerRepository consumerRepository)
         {
             m_Model = distributor;
+            m_Repository = consumerRepository;
         }
 
         public Distributor Model

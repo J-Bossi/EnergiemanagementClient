@@ -1,14 +1,18 @@
-﻿using Ork.Energy.DomainModelService;
+﻿using System.ComponentModel.Composition;
+using System.Linq;
+using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
     public class ConsumerGroupViewModel
     {
         private readonly ConsumerGroup m_Model;
+        private readonly IConsumerRepository m_Repository;
 
-        public ConsumerGroupViewModel(ConsumerGroup consumerGroup)
+        public ConsumerGroupViewModel(ConsumerGroup consumerGroup, [Import] IConsumerRepository consumerRepository)
         {
             m_Model = consumerGroup;
+            m_Repository = consumerRepository;
         }
 
         public ConsumerGroup Model
@@ -30,7 +34,7 @@ namespace Ork.Energy.ViewModels
 
         public int RelatedConsumers
         {
-            get { return m_Model.Consumers.Count; }
+            get { return m_Repository.Consumers.Count(c => c.ConsumerGroup == Model); }
         }
     }
 }

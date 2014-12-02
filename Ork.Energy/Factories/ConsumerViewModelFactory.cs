@@ -18,7 +18,7 @@ namespace Ork.Energy.Factories
 
         public ConsumerGroupViewModel CreateFromExisting(ConsumerGroup consumerGroup)
         {
-            return new ConsumerGroupViewModel(consumerGroup);
+            return new ConsumerGroupViewModel(consumerGroup,m_ConsumerRepository);
         }
 
         public ConsumerViewModel CreateFromExisting(Consumer consumer)
@@ -28,7 +28,7 @@ namespace Ork.Energy.Factories
 
         public DistributorViewModel CreateFromExisting(Distributor distributor)
         {
-            return new DistributorViewModel(distributor);
+            return new DistributorViewModel(distributor, m_ConsumerRepository);
         }
 
         public ConsumerGroupModifyViewModel CreateConsumerGroupModifyVM(ConsumerGroup consumerGroup)

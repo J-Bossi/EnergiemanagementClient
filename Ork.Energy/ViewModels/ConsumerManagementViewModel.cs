@@ -23,12 +23,15 @@ namespace Ork.Energy.ViewModels
             new BindableCollection<DistributorViewModel>();
 
         private readonly IConsumerRepository m_Repository;
+        private ConsumerGroupViewModel m_ConsumerGroup;
+        private DistributorViewModel m_Distributor;
         private IScreen m_EditItem;
         private bool m_FlyoutActivated;
         private bool m_IsEnabled;
         private string m_SearchConsumerGroupText;
         private string m_SearchConsumerText;
         private string m_SearchDistributorText;
+
 
         [ImportingConstructor]
         public ConsumerManagementViewModel([Import] IConsumerRepository mRepository,
@@ -59,7 +62,6 @@ namespace Ork.Energy.ViewModels
         {
             get { return FilteredDistributors; }
         }
-
 
 
         private IEnumerable<ConsumerGroupViewModel> FilteredConsumerGroups
@@ -132,9 +134,40 @@ namespace Ork.Energy.ViewModels
         public string NewConsumerGroupName { get; set; }
         public string NewConsumerName { get; set; }
         public string NewDistributorName { get; set; }
-        public ConsumerGroupViewModel SelectedConsumerGroup { get; set; }
+
+        public ConsumerGroupViewModel SelectedConsumerGroup
+        {
+            get { return m_ConsumerGroup; }
+            set
+            {
+                m_ConsumerGroup = value;
+                NotifyOfPropertyChange(() => CanAddConsumer);
+            }
+        }
+
         public ConsumerViewModel SelectedConsumer { get; set; }
-        public DistributorViewModel SelectedDistributor { get; set; }
+
+        public DistributorViewModel SelectedDistributor
+        {
+            get { return m_Distributor; }
+            set
+            {
+                m_Distributor = value;
+                NotifyOfPropertyChange(() => CanAddConsumer);
+            }
+        }
+
+        public bool CanAddConsumer
+        {
+            get
+            {
+                if (SelectedConsumerGroup == null || SelectedDistributor == null)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
 
         public int Index
         {
@@ -197,7 +230,6 @@ namespace Ork.Energy.ViewModels
                 .Contains(searchText)))));
         }
 
-        
 
         private void Reload()
         {
@@ -336,13 +368,13 @@ namespace Ork.Energy.ViewModels
 
         public void OpenEditConsumerDialog(object dataContext)
         {
-            SelectedConsumer = (ConsumerViewModel)dataContext;
+            SelectedConsumer = (ConsumerViewModel) dataContext;
             OpenEditor(m_ConsumerViewModelFactory.CreateConsumerModifyVM(SelectedConsumer.Model));
         }
 
         public void OpenEditDistributorDialog(object dataContext)
         {
-            SelectedDistributor = (DistributorViewModel)dataContext;
+            SelectedDistributor = (DistributorViewModel) dataContext;
             OpenEditor(m_ConsumerViewModelFactory.CreateDistributorModifyVM(SelectedDistributor.Model));
         }
 
@@ -364,7 +396,7 @@ namespace Ork.Energy.ViewModels
         public void DeleteConsumer(object dataContext)
         {
             //TODO Delete ConsumerGroup and Check on Childs
-            m_Repository.Consumers.Remove(((ConsumerViewModel)dataContext).Model);
+            m_Repository.Consumers.Remove(((ConsumerViewModel) dataContext).Model);
             m_Repository.Save();
 
             NotifyOfPropertyChange(() => Consumers);
@@ -373,7 +405,7 @@ namespace Ork.Energy.ViewModels
         public void DeleteDistributor(object dataContext)
         {
             //TODO Delete ConsumerGroup and Check on Childs
-            m_Repository.Distributors.Remove(((DistributorViewModel)dataContext).Model);
+            m_Repository.Distributors.Remove(((DistributorViewModel) dataContext).Model);
             m_Repository.Save();
 
             NotifyOfPropertyChange(() => Distributors);
@@ -394,7 +426,7 @@ namespace Ork.Energy.ViewModels
         public void SaveDistributor(object dataContext)
         {
             Save();
-            NotifyOfPropertyChange(()=> Distributors);
+            NotifyOfPropertyChange(() => Distributors);
         }
 
         private void CloseEditor()
@@ -422,7 +454,8 @@ namespace Ork.Energy.ViewModels
 
         public void AddNewConsumer()
         {
-            m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName, Distributors.First().Model));
+            m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName, SelectedDistributor.Model,
+                SelectedConsumerGroup.Model));
             m_Repository.Save();
 
             //TODO maybe select last Consumer 

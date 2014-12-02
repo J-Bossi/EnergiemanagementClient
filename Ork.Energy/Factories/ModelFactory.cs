@@ -27,12 +27,13 @@ namespace Ork.Energy.Factories
             };
         }
 
-        public static Consumer CreateConsumer(string p1, Distributor distributor)
+        public static Consumer CreateConsumer(string p1, Distributor distributor, ConsumerGroup consumerGroup)
         {
             return new Consumer
             {
                 Name = p1,
-                Distributor = distributor
+                Distributor = distributor,
+                ConsumerGroup = consumerGroup
             };
         }
 

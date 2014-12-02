@@ -112,6 +112,7 @@
         <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Consumer_Readings" ToRole="Consumer_Readings_Target" FromRole="Consumer_Readings_Source" />
         <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.Consumer_Room" ToRole="Consumer_Room_Target" FromRole="Consumer_Room_Source" />
         <NavigationProperty Name="Distributor" Relationship="OpenResKit.DomainModel.Consumer_Distributor" ToRole="Consumer_Distributor_Target" FromRole="Consumer_Distributor_Source" />
+        <NavigationProperty Name="ConsumerGroup" Relationship="OpenResKit.DomainModel.Consumer_ConsumerGroup" ToRole="Consumer_ConsumerGroup_Target" FromRole="Consumer_ConsumerGroup_Source" />
         <NavigationProperty Name="Measures" Relationship="OpenResKit.DomainModel.Consumer_Measures" ToRole="Consumer_Measures_Target" FromRole="Consumer_Measures_Source" />
       </EntityType>
       <EntityType Name="Reading">
@@ -153,7 +154,6 @@
         <Property Name="GroupName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="GroupDescription" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <NavigationProperty Name="Consumers" Relationship="OpenResKit.DomainModel.ConsumerGroup_Consumers" ToRole="ConsumerGroup_Consumers_Target" FromRole="ConsumerGroup_Consumers_Source" />
         <NavigationProperty Name="Measures" Relationship="OpenResKit.DomainModel.ConsumerGroup_Measures" ToRole="ConsumerGroup_Measures_Target" FromRole="ConsumerGroup_Measures_Source" />
       </EntityType>
       <EntityType Name="SubMeasure">
@@ -294,6 +294,10 @@
         <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Distributor_Source" Multiplicity="*" />
         <End Type="OpenResKit.DomainModel.Distributor" Role="Consumer_Distributor_Target" Multiplicity="0..1" />
       </Association>
+      <Association Name="Consumer_ConsumerGroup">
+        <End Type="OpenResKit.DomainModel.ConsumerGroup" Role="Consumer_ConsumerGroup_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_ConsumerGroup_Source" Multiplicity="*" />
+      </Association>
       <Association Name="Consumer_Measures">
         <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Measures_Source" Multiplicity="0..1" />
         <End Type="OpenResKit.DomainModel.Measure" Role="Consumer_Measures_Target" Multiplicity="*" />
@@ -313,12 +317,6 @@
       <Association Name="Distributor_Room">
         <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Room_Source" Multiplicity="*" />
         <End Type="OpenResKit.DomainModel.Room" Role="Distributor_Room_Target" Multiplicity="0..1" />
-      </Association>
-      <Association Name="ConsumerGroup_Consumers">
-        <End Type="OpenResKit.DomainModel.ConsumerGroup" Role="ConsumerGroup_Consumers_Source" Multiplicity="1">
-          <OnDelete Action="Cascade" />
-        </End>
-        <End Type="OpenResKit.DomainModel.Consumer" Role="ConsumerGroup_Consumers_Target" Multiplicity="*" />
       </Association>
       <Association Name="ConsumerGroup_Measures">
         <End Type="OpenResKit.DomainModel.ConsumerGroup" Role="ConsumerGroup_Measures_Source" Multiplicity="0..1" />
@@ -448,6 +446,10 @@
           <End Role="Consumer_Distributor_Source" EntitySet="Consumers" />
           <End Role="Consumer_Distributor_Target" EntitySet="Distributors" />
         </AssociationSet>
+        <AssociationSet Name="Consumer_ConsumerGroup" Association="OpenResKit.DomainModel.Consumer_ConsumerGroup">
+          <End Role="Consumer_ConsumerGroup_Source" EntitySet="Consumers" />
+          <End Role="Consumer_ConsumerGroup_Target" EntitySet="ConsumerGroups" />
+        </AssociationSet>
         <AssociationSet Name="Consumer_Measures" Association="OpenResKit.DomainModel.Consumer_Measures">
           <End Role="Consumer_Measures_Source" EntitySet="Consumers" />
           <End Role="Consumer_Measures_Target" EntitySet="Measures" />
@@ -463,10 +465,6 @@
         <AssociationSet Name="Distributor_Room" Association="OpenResKit.DomainModel.Distributor_Room">
           <End Role="Distributor_Room_Source" EntitySet="Distributors" />
           <End Role="Distributor_Room_Target" EntitySet="Rooms" />
-        </AssociationSet>
-        <AssociationSet Name="ConsumerGroup_Consumers" Association="OpenResKit.DomainModel.ConsumerGroup_Consumers">
-          <End Role="ConsumerGroup_Consumers_Source" EntitySet="ConsumerGroups" />
-          <End Role="ConsumerGroup_Consumers_Target" EntitySet="Consumers" />
         </AssociationSet>
         <AssociationSet Name="ConsumerGroup_Measures" Association="OpenResKit.DomainModel.ConsumerGroup_Measures">
           <End Role="ConsumerGroup_Measures_Source" EntitySet="ConsumerGroups" />
