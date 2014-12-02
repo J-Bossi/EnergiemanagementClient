@@ -68,18 +68,24 @@ namespace Ork.Energy.ViewModels
         {
             get
             {
-                ConsumerGroupViewModel[] filteredConsumerGroups = SearchInConsumerGroupList()
-                    .ToArray();
+                IEnumerable<ConsumerGroupViewModel> filteredConsumerGroups = SearchInConsumerGroupList()
+                    //.Where(cg => FilteredConsumers.Select(c => c.Model.ConsumerGroup).Contains(cg.Model))
+                    ;
                 return filteredConsumerGroups;
             }
         }
 
         private IEnumerable<ConsumerViewModel> FilteredConsumers
         {
+            //Filters after SearchText and the available objects in other List. Only related Objects are shown
             get
             {
-                ConsumerViewModel[] filteredConsumers = SearchInConsumerList()
-                    .ToArray();
+                IEnumerable<ConsumerViewModel> filteredConsumers = SearchInConsumerList()
+                    .Where(
+                        c =>
+                            FilteredDistributors.Select(d => d.Model).Contains(c.Model.Distributor) &&
+                            (FilteredConsumerGroups.Select(cg => cg.Model).Contains(c.Model.ConsumerGroup)));
+
                 return filteredConsumers;
             }
         }
@@ -88,8 +94,10 @@ namespace Ork.Energy.ViewModels
         {
             get
             {
-                DistributorViewModel[] filteredDistributors = SearchInDistributorList()
-                    .ToArray();
+                IEnumerable<DistributorViewModel> filteredDistributors =
+                    SearchInDistributorList()
+                    //.Where(d => FilteredConsumers.Select(c => c.Model.Distributor).Contains(d.Model));
+                    ;
                 return filteredDistributors;
             }
         }
@@ -102,8 +110,8 @@ namespace Ork.Energy.ViewModels
             {
                 m_SearchConsumerGroupText = value;
                 NotifyOfPropertyChange(() => ConsumerGroups);
+
                 NotifyOfPropertyChange(() => Consumers);
-                NotifyOfPropertyChange(() => Distributors);
             }
         }
 
@@ -125,7 +133,7 @@ namespace Ork.Energy.ViewModels
             set
             {
                 m_SearchDistributorText = value;
-                NotifyOfPropertyChange(() => ConsumerGroups);
+
                 NotifyOfPropertyChange(() => Consumers);
                 NotifyOfPropertyChange(() => Distributors);
             }
@@ -142,8 +150,6 @@ namespace Ork.Energy.ViewModels
             {
                 m_ConsumerGroup = value;
                 NotifyOfPropertyChange(() => CanAddConsumer);
-                NotifyOfPropertyChange(() => Distributors);
-                NotifyOfPropertyChange(() => Consumers);
             }
         }
 
