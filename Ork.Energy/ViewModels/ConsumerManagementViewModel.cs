@@ -439,7 +439,7 @@ namespace Ork.Energy.ViewModels
             //TODO maybe select last Consumer Group
 
             //LoadData();
-            NotifyOfPropertyChange(() => ConsumerGroups);
+            NotifyOfPropertyChange(() => Distributors);
         }
     }
 }
