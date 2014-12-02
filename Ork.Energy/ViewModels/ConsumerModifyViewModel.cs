@@ -30,6 +30,12 @@ namespace Ork.Energy.ViewModels
             set { m_Model.Distributor = value; }
         }
 
+        public virtual ConsumerGroup ConsumerGroup
+        {
+            get { return m_Model.ConsumerGroup; }
+            set { m_Model.ConsumerGroup = value; }
+        }
+
 
         public string Name
         {
@@ -81,6 +87,11 @@ namespace Ork.Energy.ViewModels
         public IEnumerable<Distributor> AllDistributors
         {
             get { return m_Repository.Distributors; }
+        }
+
+        public IEnumerable<ConsumerGroup> AllConsumerGroups
+        {
+            get { return m_Repository.ConsumerGroups; }
         } 
     }
 }

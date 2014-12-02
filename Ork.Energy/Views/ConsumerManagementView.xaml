@@ -35,7 +35,8 @@
 
 
                 <ListBox ItemsSource="{Binding ConsumerGroups}" Grid.Row="1" BorderThickness="0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedConsumerGroup}" ScrollViewer.CanContentScroll="false">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectedItem="{Binding SelectedConsumerGroup}" ScrollViewer.CanContentScroll="false">
 
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
@@ -169,7 +170,8 @@
                           MaxDropDownHeight="125"
                           DisplayMemberPath="Name" />
                 <ListBox ItemsSource="{Binding Consumers}" Grid.Row="1" BorderThickness="0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false" SelectedItem="{Binding SelectedConsumer}">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false"
+                         SelectedItem="{Binding SelectedConsumer}">
 
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">

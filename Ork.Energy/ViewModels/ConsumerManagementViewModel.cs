@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
@@ -40,7 +41,7 @@ namespace Ork.Energy.ViewModels
             Dialogs = dialogs;
             m_Repository = mRepository;
             m_ConsumerViewModelFactory = mConsumerViewModelFactory;
-
+           
 
             m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
             Reload();
@@ -110,7 +111,7 @@ namespace Ork.Energy.ViewModels
             {
                 m_SearchConsumerGroupText = value;
                 NotifyOfPropertyChange(() => ConsumerGroups);
-
+                NotifyOfPropertyChange(() => Distributors);
                 NotifyOfPropertyChange(() => Consumers);
             }
         }
@@ -133,7 +134,7 @@ namespace Ork.Energy.ViewModels
             set
             {
                 m_SearchDistributorText = value;
-
+                NotifyOfPropertyChange(() => ConsumerGroups);
                 NotifyOfPropertyChange(() => Consumers);
                 NotifyOfPropertyChange(() => Distributors);
             }
@@ -288,11 +289,16 @@ namespace Ork.Energy.ViewModels
 
         private void CreateConsumerGroupViewModel(ConsumerGroup consumerGroup)
         {
-            m_ConsumerGroups.Add(m_ConsumerViewModelFactory.CreateFromExisting(consumerGroup));
+            var cgvm = m_ConsumerViewModelFactory.CreateFromExisting(consumerGroup);
+           
+            m_ConsumerGroups.Add(cgvm);
         }
+
+     
 
         private void CreateConsumerViewModel(Consumer consumer)
         {
+
             m_Consumers.Add(m_ConsumerViewModelFactory.CreateFromExisting(consumer));
         }
 
@@ -308,7 +314,8 @@ namespace Ork.Energy.ViewModels
                 case NotifyCollectionChangedAction.Add:
                     foreach (ConsumerGroup newConsumerGroup in eventArgs.NewItems.OfType<ConsumerGroup>())
                     {
-                        CreateConsumerGroupViewModel(newConsumerGroup);
+                       CreateConsumerGroupViewModel(newConsumerGroup);
+                       
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
@@ -331,6 +338,7 @@ namespace Ork.Energy.ViewModels
                 case NotifyCollectionChangedAction.Add:
                     foreach (Consumer consumer in eventArgs.NewItems.OfType<Consumer>())
                     {
+                       
                         CreateConsumerViewModel(consumer);
                     }
                     break;
