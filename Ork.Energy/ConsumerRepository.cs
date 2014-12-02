@@ -66,7 +66,7 @@ namespace Ork.Energy
             {
                 HasConnection = false;
                 string message = ex.Message;
-                message += message + Environment.NewLine + ex.InnerException.Message;
+                message += Environment.NewLine + ex.InnerException.Message;
             }
             RaiseEvent(ContextChanged);
         }
@@ -84,7 +84,7 @@ namespace Ork.Energy
         {
             Consumers = new DataServiceCollection<Consumer>(m_Context);
 
-            DataServiceQuery<Consumer> query = m_Context.Consumers;
+            DataServiceQuery<Consumer> query = m_Context.Consumers.Expand("OpenResKit.DomainModel.Consumer/ConsumerGroup").Expand("OpenResKit.DomainModel.Consumer/Distributor"); 
             Consumers.Load(query);
         }
 

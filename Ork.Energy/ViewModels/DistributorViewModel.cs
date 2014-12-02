@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
@@ -39,6 +40,11 @@ namespace Ork.Energy.ViewModels
         public Room Room
         {
             get { return m_Model.Room; }
+        }
+
+        public int RelatedConsumers
+        {
+            get { return m_Repository.Consumers.Count(c => c.Distributor == Model); }
         }
     }
 }

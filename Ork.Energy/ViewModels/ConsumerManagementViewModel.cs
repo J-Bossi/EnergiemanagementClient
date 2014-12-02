@@ -142,6 +142,8 @@ namespace Ork.Energy.ViewModels
             {
                 m_ConsumerGroup = value;
                 NotifyOfPropertyChange(() => CanAddConsumer);
+                NotifyOfPropertyChange(() => Distributors);
+                NotifyOfPropertyChange(() => Consumers);
             }
         }
 
@@ -462,6 +464,8 @@ namespace Ork.Energy.ViewModels
 
             //LoadData();
             NotifyOfPropertyChange(() => Consumers);
+            NotifyOfPropertyChange(() => ConsumerGroups);
+            NotifyOfPropertyChange(() => Distributors);
         }
 
         public void AddNewDistributor()

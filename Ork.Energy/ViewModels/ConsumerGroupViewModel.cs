@@ -36,5 +36,7 @@ namespace Ork.Energy.ViewModels
         {
             get { return m_Repository.Consumers.Count(c => c.ConsumerGroup == Model); }
         }
+
+
     }
 }
