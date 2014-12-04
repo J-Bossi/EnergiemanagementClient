@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -113,6 +114,7 @@ namespace Ork.Energy.ViewModels
                 NotifyOfPropertyChange(() => ConsumerGroups);
                 NotifyOfPropertyChange(() => Distributors);
                 NotifyOfPropertyChange(() => Consumers);
+           
             }
         }
 
@@ -125,6 +127,7 @@ namespace Ork.Energy.ViewModels
                 NotifyOfPropertyChange(() => ConsumerGroups);
                 NotifyOfPropertyChange(() => Consumers);
                 NotifyOfPropertyChange(() => Distributors);
+             
             }
         }
 
@@ -137,6 +140,7 @@ namespace Ork.Energy.ViewModels
                 NotifyOfPropertyChange(() => ConsumerGroups);
                 NotifyOfPropertyChange(() => Consumers);
                 NotifyOfPropertyChange(() => Distributors);
+              
             }
         }
 
@@ -430,19 +434,25 @@ namespace Ork.Energy.ViewModels
         public void SaveConsumerGroup(object dataContext)
         {
             Save();
+       
             NotifyOfPropertyChange(() => ConsumerGroups);
+        
         }
 
         public void SaveConsumer(object dataContext)
         {
             Save();
+          
             NotifyOfPropertyChange(() => Consumers);
+           
         }
 
         public void SaveDistributor(object dataContext)
         {
             Save();
+         
             NotifyOfPropertyChange(() => Distributors);
+        
         }
 
         private void CloseEditor()
@@ -461,11 +471,12 @@ namespace Ork.Energy.ViewModels
         {
             m_Repository.ConsumerGroups.Add(ModelFactory.CreateConsumerGroup(NewConsumerGroupName));
             m_Repository.Save();
-
+            NewConsumerGroupName = String.Empty;
             //TODO maybe select last Consumer Group
 
             //LoadData();
             NotifyOfPropertyChange(() => ConsumerGroups);
+            NotifyOfPropertyChange(() => NewConsumerGroupName);
         }
 
         public void AddNewConsumer()
@@ -473,6 +484,7 @@ namespace Ork.Energy.ViewModels
             m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName, SelectedDistributor.Model,
                 SelectedConsumerGroup.Model));
             m_Repository.Save();
+            NewConsumerName = String.Empty;
 
             //TODO maybe select last Consumer 
 
@@ -480,6 +492,7 @@ namespace Ork.Energy.ViewModels
             NotifyOfPropertyChange(() => Consumers);
             NotifyOfPropertyChange(() => ConsumerGroups);
             NotifyOfPropertyChange(() => Distributors);
+            NotifyOfPropertyChange(() => NewConsumerName);
         }
 
         public void AddNewDistributor()
@@ -487,10 +500,12 @@ namespace Ork.Energy.ViewModels
             m_Repository.Distributors.Add(ModelFactory.CreateDistributor(NewDistributorName));
             m_Repository.Save();
 
+            NewDistributorName = String.Empty;
             //TODO maybe select last Consumer Group
 
             //LoadData();
             NotifyOfPropertyChange(() => Distributors);
+            NotifyOfPropertyChange(() => NewDistributorName);
         }
     }
 }

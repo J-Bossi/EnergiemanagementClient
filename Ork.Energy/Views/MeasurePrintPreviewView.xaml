@@ -69,7 +69,7 @@
 
                         <TextBlock
                             Style="{DynamicResource LabelPrintControl}"
-                            Text="Katalog" />
+                            Text="Katalog / Verbrauchergruppe" />
                         <TextBox
                             Style="{DynamicResource EntryPrintControl}"
                             Text="{Binding SelectedCatalog.Name}"
@@ -78,7 +78,7 @@
 
                         <TextBlock
                             Style="{DynamicResource LabelPrintControl}"
-                            Text="Maßnahmenbeschreibung" />
+                            Text="Verteiler Aktion" />
                         <TextBox
                             Style="{DynamicResource EntryPrintControl}"
                             Text="{Binding Name}"
