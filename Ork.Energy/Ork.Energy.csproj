@@ -153,6 +153,10 @@
     <Compile Include="ViewModels\ConsumerGroupModifyViewModel.cs" />
     <Compile Include="ViewModels\ConsumerGroupViewModel.cs" />
     <Compile Include="ViewModels\ConsumerManagementViewModel.cs" />
+    <Compile Include="ViewModels\ConsumerModifyViewModel.cs" />
+    <Compile Include="ViewModels\ConsumerViewModel.cs" />
+    <Compile Include="ViewModels\DistributorModifyViewModel.cs" />
+    <Compile Include="ViewModels\DistributorViewModel.cs" />
     <Compile Include="ViewModels\MeasureAddViewModel.cs" />
     <Compile Include="ViewModels\MeasureEditViewModel.cs" />
     <Compile Include="ViewModels\MeasureManagementViewModel.cs" />
@@ -160,11 +164,23 @@
     <Compile Include="ViewModels\MeasureViewModel.cs" />
     <Compile Include="ViewModels\ResponsibleSubjectViewModel.cs" />
     <Compile Include="ViewModels\SubMeasureViewModel.cs" />
+    <Compile Include="Views\ConsumerCardView.xaml.cs">
+      <DependentUpon>ConsumerCardView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConsumerGroupCardView.xaml.cs">
       <DependentUpon>ConsumerGroupCardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ConsumerGroupModifyView.xaml.cs">
       <DependentUpon>ConsumerGroupModifyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConsumerModifyView.xaml.cs">
+      <DependentUpon>ConsumerModifyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DistributorCardView.xaml.cs">
+      <DependentUpon>DistributorCardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DistributorModifyView.xaml.cs">
+      <DependentUpon>DistributorModifyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MeasureGridEco.xaml.cs">
       <DependentUpon>MeasureGridEco.xaml</DependentUpon>
@@ -180,6 +196,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ork.Energy.DomainModelService.DomainModelContext1.datasource" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -211,6 +228,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ConsumerCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ConsumerGroupCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -222,6 +243,18 @@
     <Page Include="Views\ConsumerManagementView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ConsumerModifyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DistributorCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DistributorModifyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MeasureAddView.xaml">
       <SubType>Designer</SubType>

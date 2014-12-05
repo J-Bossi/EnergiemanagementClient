@@ -151,13 +151,13 @@
     <value>Verantwortlicher</value>
   </data>
   <data name="TitleMeasureAddViewModel" xml:space="preserve">
-    <value>Maßnahme hinzufügen...</value>
+    <value>Verteiler Aktion hinzufügen...</value>
   </data>
   <data name="Priorities" xml:space="preserve">
     <value>Priorität</value>
   </data>
   <data name="TitleMeasureEditViewModel" xml:space="preserve">
-    <value>Maßnahme bearbeiten...</value>
+    <value>Verteiler Aktion bearbeiten...</value>
   </data>
   <data name="Sure" xml:space="preserve">
     <value>Sicher?</value>

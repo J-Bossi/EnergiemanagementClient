@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="*" />
 
             </Grid.ColumnDefinitions>
-            <Grid Column="0" VerticalAlignment="Top">
+            <Grid Column="0" VerticalAlignment="Top" Margin="2 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -35,7 +35,8 @@
 
 
                 <ListBox ItemsSource="{Binding ConsumerGroups}" Grid.Row="1" BorderThickness="0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectedItem="{Binding SelectedConsumerGroup}" ScrollViewer.CanContentScroll="false">
 
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
@@ -85,7 +86,7 @@
             </Grid>
 
 
-            <Grid Column="1">
+            <Grid Column="1" VerticalAlignment="Top" Margin="2 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -93,17 +94,66 @@
                 </Grid.RowDefinitions>
                 <ComboBox HorizontalAlignment="Stretch"
                           Margin="0, 10, 0, 0"
-
+                          Text="{Binding SearchDistributorText}"
                           Grid.Row="0"
                           Style="{DynamicResource VirtualisedMetroComboBox}"
                           Controls:TextboxHelper.Watermark="Verteiler"
                           IsEditable="True"
-                          ItemsSource="{Binding ConsumerGroups}"
+                          ItemsSource="{Binding Distributors}"
                           MaxDropDownHeight="125"
-                          DisplayMemberPath="GroupName" />
+                          DisplayMemberPath="Name" />
+                <ListBox ItemsSource="{Binding Distributors}" Grid.Row="1" BorderThickness="0"
+                         SelectedItem="{Binding SelectedDistributor}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false">
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0 2 0 2" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Views:DistributorCardView HorizontalAlignment="Stretch"
+                                                       cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenEditDistributorDialog($dataContext)]" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Border VerticalAlignment="Top" Grid.Row="2" BorderBrush="{DynamicResource AccentColorBrush4}"
+                        BorderThickness="2" Margin="0 0 0 0" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            Margin="5"
+                            Controls:TextboxHelper.Watermark="Neuer Verteiler..." Grid.Column="0"
+                            Text="{Binding NewDistributorName, Mode=TwoWay}"
+                            HorizontalAlignment="Stretch" />
+                        <Button
+                            Grid.Column="1"
+                            Width="50"
+                            Height="50"
+                            Margin="2"
+                            Style="{DynamicResource MetroCircleButtonStyle}"
+                            cal:Message.Attach="AddNewDistributor()">
+                            <Rectangle Width="20"
+                                       Height="20"
+                                       Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+                                                 Visual="{DynamicResource appbar_add}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </Grid>
+                </Border>
             </Grid>
 
-            <Grid Column="2">
+            <Grid Column="2" VerticalAlignment="Top" Margin="2 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -111,14 +161,64 @@
                 </Grid.RowDefinitions>
                 <ComboBox HorizontalAlignment="Stretch"
                           Margin="0, 10, 0, 0"
-
+                          Text="{Binding SearchConsumerText}"
                           Grid.Row="0"
                           Style="{DynamicResource VirtualisedMetroComboBox}"
                           Controls:TextboxHelper.Watermark="Verbraucher"
                           IsEditable="True"
-                          ItemsSource="{Binding ConsumerGroups}"
+                          ItemsSource="{Binding Consumers}"
                           MaxDropDownHeight="125"
-                          DisplayMemberPath="GroupName" />
+                          DisplayMemberPath="Name" />
+                <ListBox ItemsSource="{Binding Consumers}" Grid.Row="1" BorderThickness="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="false"
+                         SelectedItem="{Binding SelectedConsumer}">
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0 2 0 2" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Views:ConsumerCardView HorizontalAlignment="Stretch"
+                                                    cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenEditConsumerDialog($dataContext)]" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Border VerticalAlignment="Top" Grid.Row="2" BorderBrush="{DynamicResource AccentColorBrush4}"
+                        BorderThickness="2" Margin="0 0 0 0" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            Margin="5"
+                            Controls:TextboxHelper.Watermark="Neuer Verbraucher..." Grid.Column="0"
+                            Text="{Binding NewConsumerName, Mode=TwoWay}"
+                            HorizontalAlignment="Stretch" />
+                        <Button
+                            Grid.Column="1"
+                            Width="50"
+                            Height="50"
+                            Margin="2"
+                            Style="{DynamicResource MetroCircleButtonStyle}"
+                            IsEnabled="{Binding CanAddConsumer}"
+                            cal:Message.Attach="AddNewConsumer()">
+                            <Rectangle Width="20"
+                                       Height="20"
+                                       Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+                                                 Visual="{DynamicResource appbar_add}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </Grid>
+                </Border>
             </Grid>
         </Grid>
         <ContentControl

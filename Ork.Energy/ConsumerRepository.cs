@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
-using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
-
 using Ork.Setting;
 
 namespace Ork.Energy
@@ -28,6 +26,7 @@ namespace Ork.Energy
         public DataServiceCollection<Building> Buildings { get; private set; }
         public DataServiceCollection<Distributor> Distributors { get; private set; }
         public DataServiceCollection<Reading> Readings { get; private set; }
+        public DataServiceCollection<Consumer> Consumers { get; private set; }
         public bool HasConnection { get; private set; }
 
         public void Save()
@@ -48,7 +47,7 @@ namespace Ork.Energy
 
         public event EventHandler ContextChanged;
         public event EventHandler SaveCompleted;
-   
+
 
         private void Initialize()
         {
@@ -58,6 +57,7 @@ namespace Ork.Energy
             {
                 LoadConsumerGroups();
                 LoadBuildings();
+                LoadConsumers();
                 LoadDistributors();
                 LoadReadings();
                 HasConnection = true;
@@ -65,34 +65,36 @@ namespace Ork.Energy
             catch (Exception ex)
             {
                 HasConnection = false;
-                var message = ex.Message;
-                message += message + Environment.NewLine + ex.InnerException.Message;
-
-                
+                string message = ex.Message;
+                message += Environment.NewLine + ex.InnerException.Message;
             }
             RaiseEvent(ContextChanged);
-
-          
-
-
         }
-
-
 
 
         private void LoadConsumerGroups()
         {
             ConsumerGroups = new DataServiceCollection<ConsumerGroup>(m_Context);
 
-            DataServiceQuery<ConsumerGroup> query = m_Context.ConsumerGroups.Expand("Consumers");
+            DataServiceQuery<ConsumerGroup> query = m_Context.ConsumerGroups;
             ConsumerGroups.Load(query);
         }
+
+        private void LoadConsumers()
+        {
+            Consumers = new DataServiceCollection<Consumer>(m_Context);
+
+            DataServiceQuery<Consumer> query = m_Context.Consumers.Expand("OpenResKit.DomainModel.Consumer/ConsumerGroup").Expand("OpenResKit.DomainModel.Consumer/Distributor"); 
+            Consumers.Load(query);
+        }
+
 
         private void LoadReadings()
         {
             Readings = new DataServiceCollection<Reading>(m_Context);
 
             DataServiceQuery<Reading> query = m_Context.Readings;
+            Readings.Load(query);
         }
 
         private void LoadDistributors()
@@ -100,6 +102,7 @@ namespace Ork.Energy
             Distributors = new DataServiceCollection<Distributor>(m_Context);
 
             DataServiceQuery<Distributor> query = m_Context.Distributors;
+            Distributors.Load(query);
         }
 
         private void LoadBuildings()
@@ -116,9 +119,5 @@ namespace Ork.Energy
                 eventHandler(this, new EventArgs());
             }
         }
-
-        
-
-       
     }
 }

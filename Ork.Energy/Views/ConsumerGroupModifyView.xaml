@@ -12,7 +12,7 @@
             <TextBox Text="{Binding GroupName}" />
             <TextBlock Text="Beschreibung" />
             <TextBox Text="{Binding GroupDescription}" TextWrapping="Wrap"
-                     Width="300"
+                     
                      Height="200"
                      AcceptsReturn="True" />
             <Button Style="{DynamicResource SquareButtonStyle}" cal:Message.Attach="SaveConsumerGroup($dataContext)"

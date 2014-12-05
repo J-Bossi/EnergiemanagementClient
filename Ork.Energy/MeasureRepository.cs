@@ -76,7 +76,7 @@ namespace Ork.Energy
         //LoadMeasureImageSources();
         HasConnection = true;
       }
-      catch (Exception)
+      catch (Exception e)
       {
         HasConnection = false;
       }

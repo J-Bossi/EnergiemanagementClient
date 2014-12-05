@@ -65,7 +65,7 @@
 
             <TextBlock
                 Style="{DynamicResource LabelControl}"
-                Text="Katalog" />
+                Text="Katalog / Verbrauchergruppe" />
             <ComboBox                
                 Style="{DynamicResource ComboBoxStyle}"
                 ItemsSource="{Binding Catalogs}"
@@ -81,7 +81,7 @@
 
             <TextBlock
                 Style="{DynamicResource LabelControl}"
-                Text="Maßnahmenbeschreibung" />
+                Text="Verteiler Aktion" />
             <TextBox
                 Style="{DynamicResource EntryControl}"
                 Text="{Binding Name}" Height="20" Margin="0,0,0,1" ToolTip="Name der Maßnahme" />
