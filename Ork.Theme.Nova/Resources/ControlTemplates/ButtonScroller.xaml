@@ -1,0 +1,138 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:cal="http://www.caliburnproject.org">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary
+      Source="../Brushes.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+
+  <Style
+    x:Key="repeatStyle"
+    TargetType="{x:Type RepeatButton}"
+    BasedOn="{StaticResource {x:Type RepeatButton}}">
+
+
+    <Setter
+      Property="Template">
+      <Setter.Value>
+        <ControlTemplate
+          TargetType="{x:Type RepeatButton}">
+          <Border
+            x:Name="Border"
+            BorderThickness="2"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{StaticResource TextForegroundColorBrush}">
+            <ContentPresenter
+              Margin="2,1,2,1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger
+              Property="IsMouseOver"
+              Value="false">
+              <Setter
+                Property="Background"
+                Value="{StaticResource TransparentBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsMouseOver"
+              Value="true">
+              <Setter
+                Property="Background"
+                Value="{StaticResource MediumControlBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsPressed"
+              Value="true">
+              <Setter
+                Property="Background"
+                Value="{StaticResource LightControlBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsEnabled"
+              Value="false">
+              <Setter
+                TargetName="Border"
+                Property="BorderBrush"
+                Value="{DynamicResource MediumControlBrush}" />
+              <Setter
+                Property="Foreground"
+                Value="{StaticResource MediumControlBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter
+      Property="Visibility"
+      Value="Visible" />
+
+
+    <Style.Triggers>
+      <DataTrigger
+        Value="Collapsed"
+        Binding="{Binding ElementName=scrollviewerInactive,Path=ComputedHorizontalScrollBarVisibility }">
+        <Setter
+          Property="Visibility"
+          Value="Collapsed" />
+      </DataTrigger>
+      <DataTrigger
+        Value="Hidden"
+        Binding="{Binding ElementName=scrollviewerInactive,Path=ComputedHorizontalScrollBarVisibility }">
+        <Setter
+          Property="Visibility"
+          Value="Hidden" />
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+
+  <ControlTemplate
+    x:Key="ListBoxScroller"
+    TargetType="{x:Type ListBox}">
+    <DockPanel>
+      <RepeatButton
+        x:Name="LineLeftButton"
+        DockPanel.Dock="Left"
+        Content="&lt;"
+        Style="{DynamicResource repeatStyle}"
+        Command="{x:Static ScrollBar.LineLeftCommand}"
+        CommandTarget="{Binding ElementName=scrollviewerActive}" />
+      <RepeatButton
+        x:Name="LineRightButton"
+        DockPanel.Dock="Right"
+        Content="&gt;"
+        Style="{DynamicResource repeatStyle}"
+        Command="{x:Static ScrollBar.LineRightCommand}"
+        CommandTarget="{Binding ElementName=scrollviewerActive}" />
+      <Border>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition
+              Height="0" />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+
+          <ScrollViewer
+            x:Name="scrollviewerInactive"
+            Grid.Row="0"
+            HorizontalScrollBarVisibility="Auto">
+            <ItemsPresenter />
+          </ScrollViewer>
+          <ScrollViewer
+            x:Name="scrollviewerActive"
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Hidden">
+            <ItemsPresenter />
+          </ScrollViewer>
+        </Grid>
+      </Border>
+    </DockPanel>
+  </ControlTemplate>
+
+
+</ResourceDictionary>

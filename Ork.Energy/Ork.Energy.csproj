@@ -295,7 +295,7 @@
       <Name>Ork.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ork.Setting\Ork.Setting.csproj">
-      <Project>{91FAFCFF-402B-4C28-B7C8-9FDC9A850455}</Project>
+      <Project>{91fafcff-402b-4c28-b7c8-9fdc9a850455}</Project>
       <Name>Ork.Setting</Name>
     </ProjectReference>
   </ItemGroup>

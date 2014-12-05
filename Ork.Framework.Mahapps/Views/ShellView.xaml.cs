@@ -17,7 +17,7 @@
 using System.Windows;
 using MahApps.Metro.Controls;
 
-namespace Ork.Framework.Views
+namespace Ork.Framework.Mahapps.Views
 {
   /// <summary>
   ///   Interaktionslogik für ShellView.xaml

@@ -1,0 +1,534 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:cal="http://www.caliburnproject.org">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary
+      Source="../Brushes.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style
+    x:Key="ButtonFocusVisual" />
+
+  <Style
+    TargetType="{x:Type Button}">
+    <Setter
+      Property="OverridesDefaultStyle"
+      Value="True" />
+    <Setter
+      Property="FocusVisualStyle"
+      Value="{StaticResource ButtonFocusVisual}" />
+    <Setter
+      Property="Foreground"
+      Value="{StaticResource TextForegroundColorBrush}" />
+    <Setter
+      Property="FontSize"
+      Value="14" />
+
+    <Setter
+      Property="Template">
+      <Setter.Value>
+        <ControlTemplate
+          TargetType="{x:Type Button}">
+          <Border
+            x:Name="Border"
+            BorderThickness="2"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{StaticResource TextForegroundColorBrush}">
+            <ContentPresenter
+              Margin="12"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center" />
+          </Border>
+          <ControlTemplate.Triggers>
+
+            <Trigger
+              Property="IsMouseOver"
+              Value="true">
+              <Setter
+                Property="Background"
+                Value="{StaticResource MediumControlBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsPressed"
+              Value="true">
+              <Setter
+                Property="Background"
+                Value="{StaticResource LightControlBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsEnabled"
+              Value="false">
+              <Setter
+                TargetName="Border"
+                Property="BorderBrush"
+                Value="{DynamicResource MediumControlBrush}" />
+              <Setter
+                Property="Foreground"
+                Value="{StaticResource MediumControlBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style
+    TargetType="{x:Type ToggleButton}">
+    <Setter
+      Property="OverridesDefaultStyle"
+      Value="True" />
+    <Setter
+      Property="FocusVisualStyle"
+      Value="{StaticResource ButtonFocusVisual}" />
+    <Setter
+      Property="Foreground"
+      Value="{StaticResource TextForegroundColorBrush}" />
+    <Setter
+      Property="FontSize"
+      Value="14" />
+
+    <Setter
+      Property="Template">
+      <Setter.Value>
+        <ControlTemplate
+          TargetType="{x:Type ToggleButton}">
+          <Border
+            x:Name="Border"
+            BorderThickness="2"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{StaticResource TextForegroundColorBrush}">
+            <ContentPresenter
+              Margin="12"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center" />
+          </Border>
+          <ControlTemplate.Triggers>
+
+            <Trigger
+              Property="IsMouseOver"
+              Value="true">
+              <Setter
+                Property="Background"
+                Value="{StaticResource MediumControlBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsPressed"
+              Value="true">
+              <Setter
+                Property="Background"
+                Value="{StaticResource LightControlBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsChecked"
+              Value="true">
+              <Setter
+                Property="Background"
+                Value="{StaticResource MediumControlBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsEnabled"
+              Value="false">
+              <Setter
+                TargetName="Border"
+                Property="BorderBrush"
+                Value="{DynamicResource MediumControlBrush}" />
+              <Setter
+                Property="Foreground"
+                Value="{StaticResource MediumControlBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+
+  <Style
+    x:Key="SaveButtonStyle"
+    BasedOn="{StaticResource {x:Type Button}}"
+    TargetType="{x:Type Button}">
+    <Setter
+      Property="OverridesDefaultStyle"
+      Value="True" />
+    <Style.Triggers>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="false"
+            Binding="{Binding IsDirty}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="{StaticResource WindowBackgroundColorBrush}" />
+      </MultiDataTrigger>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="false"
+            Binding="{Binding IsDirty}" />
+          <Condition
+            Value="true"
+            Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="{StaticResource MediumControlBrush}" />
+      </MultiDataTrigger>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="false"
+            Binding="{Binding IsDirty}" />
+          <Condition
+            Value="true"
+            Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsPressed}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="{StaticResource LightControlBrush}" />
+      </MultiDataTrigger>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="true"
+            Binding="{Binding IsDirty}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="#FF008000" />
+      </MultiDataTrigger>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="true"
+            Binding="{Binding IsDirty}" />
+          <Condition
+            Value="true"
+            Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="#009700" />
+      </MultiDataTrigger>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="true"
+            Binding="{Binding IsDirty}" />
+          <Condition
+            Value="true"
+            Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsPressed}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="#00B700" />
+      </MultiDataTrigger>
+
+    </Style.Triggers>
+  </Style>
+
+  <Style
+    x:Key="DeleteButtonStyle"
+    BasedOn="{StaticResource {x:Type Button}}"
+    TargetType="{x:Type Button}">
+    <Setter
+      Property="OverridesDefaultStyle"
+      Value="True" />
+    <Setter
+      Property="Background"
+      Value="#972020" />
+
+    <Style.Triggers>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="true"
+            Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="#FF6565" />
+      </MultiDataTrigger>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="true"
+            Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsPressed}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="#FF9797" />
+      </MultiDataTrigger>
+
+    </Style.Triggers>
+  </Style>
+
+  <Style
+    x:Key="SmallButton"
+    BasedOn="{StaticResource {x:Type Button}}"
+    TargetType="{x:Type Button}">
+    <Setter
+      Property="OverridesDefaultStyle"
+      Value="True" />
+    <Setter
+      Property="FontSize"
+      Value="12" />
+
+    <Setter
+      Property="Template">
+      <Setter.Value>
+        <ControlTemplate
+          TargetType="{x:Type Button}">
+          <Border
+            x:Name="Border"
+            BorderThickness="2"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{StaticResource TextForegroundColorBrush}">
+            <ContentPresenter
+              Margin="6,1,6,1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center" />
+          </Border>
+          <ControlTemplate.Triggers>
+
+            <Trigger
+              Property="IsMouseOver"
+              Value="true">
+              <Setter
+                Property="Background"
+                Value="{StaticResource MediumControlBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsPressed"
+              Value="true">
+              <Setter
+                Property="Background"
+                Value="{StaticResource LightControlBrush}" />
+            </Trigger>
+            <Trigger
+              Property="IsEnabled"
+              Value="false">
+              <Setter
+                TargetName="Border"
+                Property="BorderBrush"
+                Value="{DynamicResource MediumControlBrush}" />
+              <Setter
+                Property="Foreground"
+                Value="{StaticResource MediumControlBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style
+    x:Key="ButtonAsItem"
+    BasedOn="{StaticResource {x:Type Button}}"
+    TargetType="{x:Type Button}">
+    <Setter
+      Property="OverridesDefaultStyle"
+      Value="True" />
+    <Setter
+      Property="Background"
+      Value="Transparent" />
+
+    <Setter
+      Property="Template">
+      <Setter.Value>
+        <ControlTemplate
+          TargetType="{x:Type Button}">
+          <Border
+            x:Name="Border"
+            BorderThickness="0"
+            Background="{TemplateBinding Background}"
+            BorderBrush="Transparent"
+            Cursor="Hand">
+            <ContentPresenter
+              Margin="0,0,0,4"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Center" />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="true"
+            Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="{StaticResource HighlightWeakBrush}" />
+      </MultiDataTrigger>
+
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="true"
+            Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsPressed}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="{StaticResource HighlightBrush}" />
+      </MultiDataTrigger>
+
+      <MultiDataTrigger>
+        <MultiDataTrigger.Conditions>
+          <Condition
+            Value="true"
+            Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsFocused}" />
+        </MultiDataTrigger.Conditions>
+        <Setter
+          Property="Background"
+          Value="{StaticResource HighlightBrush}" />
+      </MultiDataTrigger>
+
+    </Style.Triggers>
+  </Style>
+
+
+  <Style
+    x:Key="UnstyledButtonStyle"
+    BasedOn="{StaticResource {x:Type Button}}"
+    TargetType="{x:Type Button}">
+    <Setter
+      Property="Template">
+      <Setter.Value>
+        <ControlTemplate
+          TargetType="{x:Type Button}">
+          <Border
+            x:Name="Border"
+            BorderThickness="0"
+            Background="#01FFFFFF"
+            BorderBrush="{StaticResource TextForegroundColorBrush}">
+            <ContentPresenter
+              Margin="0"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center" />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style
+    x:Key="FlyoutButton"
+    TargetType="{x:Type ToggleButton}">
+
+    <Setter
+      Property="OverridesDefaultStyle"
+      Value="true" />
+
+    <Setter
+      Property="FocusVisualStyle"
+      Value="{StaticResource ButtonFocusVisual}" />
+
+    <Setter
+      Property="Width"
+      Value="30" />
+
+    <Setter
+      Property="Background"
+      Value="Transparent" />
+
+    <Setter
+      Property="Template">
+
+      <Setter.Value>
+
+        <ControlTemplate
+          TargetType="{x:Type ToggleButton}">
+
+          <Border
+            Name="Border"
+            BorderThickness="0"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{StaticResource TextForegroundColorBrush}">
+            <ContentPresenter
+              Name="ButtonContent"
+              Margin="6"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              RenderTransformOrigin="0.5,0.5" />
+          </Border>
+
+          <ControlTemplate.Triggers>
+
+            <Trigger
+              Property="IsKeyboardFocused"
+              Value="true">
+              <Setter
+                TargetName="Border"
+                Property="BorderBrush"
+                Value="{StaticResource TextForegroundColorBrush}" />
+            </Trigger>
+
+            <Trigger
+              Property="IsMouseOver"
+              Value="true">
+              <Setter
+                Property="Foreground"
+                Value="Black" />
+            </Trigger>
+
+            <Trigger
+              Property="IsPressed"
+              Value="true">
+              <Setter
+                TargetName="Border"
+                Property="Background"
+                Value="{StaticResource PressedBrush}" />
+            </Trigger>
+
+            <Trigger
+              Property="IsChecked"
+              Value="True">
+              <Setter
+                TargetName="ButtonContent"
+                Property="RenderTransform">
+                <Setter.Value>
+                  <RotateTransform
+                    Angle="90" />
+                </Setter.Value>
+              </Setter>
+            </Trigger>
+
+            <Trigger
+              Property="IsChecked"
+              Value="False">
+              <Setter
+                TargetName="ButtonContent"
+                Property="RenderTransform">
+                <Setter.Value>
+                  <RotateTransform
+                    Angle="180" />
+                </Setter.Value>
+              </Setter>
+            </Trigger>
+
+          </ControlTemplate.Triggers>
+
+        </ControlTemplate>
+
+      </Setter.Value>
+
+    </Setter>
+
+  </Style>
+
+</ResourceDictionary>

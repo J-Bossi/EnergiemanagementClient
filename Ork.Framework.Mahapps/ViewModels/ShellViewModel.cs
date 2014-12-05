@@ -18,8 +18,9 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
+using Ork.Framework.Mahapps;
 
-namespace Ork.Framework.ViewModels
+namespace Ork.Framework.Mahapps.ViewModels
 {
   [Export(typeof (Ork.Framework.Mahapps.IShell))]
   public class ShellViewModel : Conductor<IWorkspace>.Collection.OneActive, IShell
@@ -29,7 +30,7 @@ namespace Ork.Framework.ViewModels
     [ImportingConstructor]
     public ShellViewModel([Import] IDialogManager dialogManager, [Import("ApplicationName")] string appName)
     {
-      DisplayName = appName + " aslfj";
+      DisplayName = appName;
       Dialogs = dialogManager;
       
       //ActivateItem(Items.First(i => i.IsEnabled));

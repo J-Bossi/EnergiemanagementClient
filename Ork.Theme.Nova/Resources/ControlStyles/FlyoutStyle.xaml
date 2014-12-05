@@ -1,0 +1,83 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:controls="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary
+      Source="../Brushes.xaml" />
+    <ResourceDictionary
+      Source="ButtonStyle.xaml" />
+    <ResourceDictionary
+      Source="PathStyle.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style
+    TargetType="{x:Type controls:Flyout}">
+    <Setter
+      Property="Background"
+      Value="{StaticResource WindowBackgroundColorBrush}" />
+    <Setter
+      Property="Foreground"
+      Value="{StaticResource TextForegroundColorBrush}" />
+    <Setter
+      Property="HorizontalContentAlignment"
+      Value="Stretch" />
+    <Setter
+      Property="VerticalContentAlignment"
+      Value="Stretch" />
+    <Setter
+      Property="Template">
+      <Setter.Value>
+        <ControlTemplate
+          TargetType="{x:Type controls:Flyout}">
+          <Grid>
+
+            <Border
+              Width="{TemplateBinding ActivationAreaWidth}"
+              Background="Transparent" />
+
+            <Grid
+              Width="{TemplateBinding FlyoutActualWidth}"
+              Background="{TemplateBinding Background}">
+
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+
+              <Grid.RowDefinitions>
+                <RowDefinition
+                  Height="Auto" />
+                <RowDefinition
+                  Height="*" />
+              </Grid.RowDefinitions>
+
+              <ToggleButton
+                Grid.Row="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Style="{DynamicResource FlyoutButton}"
+                Focusable="false"
+                IsChecked="{Binding Path=Pinned,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}">
+
+                <Path
+                  Width="18"
+                  Height="18"
+                  Fill="{TemplateBinding Foreground}"
+                  Style="{DynamicResource IconArrowWithCircle}" />
+
+              </ToggleButton>
+
+              <ContentPresenter
+                Grid.Row="1"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+            </Grid>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+</ResourceDictionary>

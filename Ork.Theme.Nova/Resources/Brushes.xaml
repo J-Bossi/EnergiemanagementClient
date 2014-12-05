@@ -1,0 +1,69 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <SolidColorBrush
+    x:Key="WindowBackgroundColorBrush"
+    Color="{DynamicResource WindowBackgroundColor}" />
+
+  <SolidColorBrush
+    x:Key="BlackColorBrush"
+    Color="Black" />
+
+  <SolidColorBrush
+    x:Key="PressedBrush"
+    Color="{DynamicResource WindowBackgroundColor}" />
+
+  <SolidColorBrush
+    x:Key="ScrollbarBackgroundColorBrush"
+    Color="{DynamicResource MediumControlColor}" />
+
+  <SolidColorBrush
+    x:Key="ScrollbarForegroundColorBrush"
+    Color="{DynamicResource LightControlColor}" />
+
+  <SolidColorBrush
+    x:Key="EntryControlBackgroundColorBrush"
+    Color="{DynamicResource WindowBackgroundColor}" />
+
+  <SolidColorBrush
+    x:Key="WorkspaceBackgroundColorBrush"
+    Color="{DynamicResource WorkspaceBackgroundColor}" />
+
+  <SolidColorBrush
+    x:Key="HighlightBrush"
+    Color="{DynamicResource HighlightColor}" />
+
+  <SolidColorBrush
+    x:Key="HighlightWeakBrush"
+    Color="{DynamicResource HighlightWeakColor}" />
+
+  <SolidColorBrush
+    x:Key="HighlightMediumBrush"
+    Color="{DynamicResource HighlightMediumColor}" />
+
+  <SolidColorBrush
+    x:Key="TransparentBrush"
+    Color="{DynamicResource Transparent}" />
+
+  <SolidColorBrush
+    x:Key="LightControlBrush"
+    Color="{DynamicResource LightControlColor}" />
+
+  <SolidColorBrush
+    x:Key="MediumControlBrush"
+    Color="{DynamicResource MediumControlColor}" />
+
+  <SolidColorBrush
+    x:Key="TextFocusBrush"
+    Color="{DynamicResource TextFocusColor}" />
+
+  <SolidColorBrush
+    x:Key="GlyphBrush"
+    Color="{DynamicResource TextForegroundColor}" />
+
+  <SolidColorBrush
+    x:Key="TextForegroundColorBrush"
+    Color="{DynamicResource TextForegroundColor}" />
+
+</ResourceDictionary>
