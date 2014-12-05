@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Energy", "Ork.Energy\Or
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.EnergyManagement", "Ork.EnergyManagement\Ork.EnergyManagement.csproj", "{D8F92964-822A-4E24-8393-BBAB0A57E2ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Framework.Mahapps", "Ork.Framework.Mahapps\Ork.Framework.Mahapps.csproj", "{9DFCE52E-4C7A-4E98-9394-933907B8E1EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{D8F92964-822A-4E24-8393-BBAB0A57E2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8F92964-822A-4E24-8393-BBAB0A57E2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8F92964-822A-4E24-8393-BBAB0A57E2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFCE52E-4C7A-4E98-9394-933907B8E1EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFCE52E-4C7A-4E98-9394-933907B8E1EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFCE52E-4C7A-4E98-9394-933907B8E1EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFCE52E-4C7A-4E98-9394-933907B8E1EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
