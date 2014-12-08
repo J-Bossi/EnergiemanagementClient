@@ -32,7 +32,7 @@ namespace Ork.Energy.ViewModels
 {
     public class MeasureAddViewModel : DocumentBase
     {
-        private readonly DomainModelService.Measure m_Model;
+      private readonly DomainModelService.EnergyMeasure m_Model;
         private readonly IEnumerable m_Priorities;
 
         private readonly IMeasureRepository m_Repository;
@@ -50,7 +50,7 @@ namespace Ork.Energy.ViewModels
         private Catalog m_SelectedCatalog;
 
         [ImportingConstructor]
-        public MeasureAddViewModel(DomainModelService.Measure model,
+        public MeasureAddViewModel(DomainModelService.EnergyMeasure model,
             IEnumerable<ResponsibleSubjectViewModel> responsibleSubjectViewModels,
         [Import] IMeasureRepository measureRepository,
             [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory, IEnumerable<Catalog> catalogs)
@@ -430,7 +430,7 @@ namespace Ork.Energy.ViewModels
             get { return m_Priorities; }
         }
 
-        public DomainModelService.Measure Model
+        public DomainModelService.EnergyMeasure Model
         {
             get { return m_Model; }
         }

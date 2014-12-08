@@ -615,14 +615,14 @@ namespace Ork.Energy.ViewModels
         private void CreateCatalogViewModel(Catalog catalog)
         {
             CatalogViewModel cvm = m_MeasureViewModelFactory.CreateFromExisting(catalog);
-            foreach (Measure measure in catalog.Measures)
+            foreach (EnergyMeasure measure in catalog.Measures)
             {
                 CreateMeasureViewModel(measure, cvm);
             }
             m_Catalogs.Add(cvm);
         }
 
-        private void CreateMeasureViewModel(Measure measure, CatalogViewModel cvm)
+        private void CreateMeasureViewModel(EnergyMeasure measure, CatalogViewModel cvm)
         {
             MeasureViewModel mvm = m_MeasureViewModelFactory.CreateFromExisting(measure, cvm);
             m_Measures.Add(mvm);

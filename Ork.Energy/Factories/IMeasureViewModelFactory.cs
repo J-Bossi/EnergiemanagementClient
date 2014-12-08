@@ -23,12 +23,12 @@ namespace Ork.Energy.Factories
   public interface IMeasureViewModelFactory
   {
     MeasureAddViewModel CreateAddViewModel();
-    MeasureEditViewModel CreateEditViewModel(DomainModelService.Measure measure, Action removeMeasureAction);
+    MeasureEditViewModel CreateEditViewModel(DomainModelService.EnergyMeasure measure, Action removeMeasureAction);
     CatalogAddViewModel CreateCatalogAddViewModel();
     CatalogEditViewModel CreateCatalogEditViewModel(CatalogViewModel catalogViewModel, Action removeCatalogAction);
     CatalogViewModel CreateFromExisting(Catalog catalog);
-    MeasureViewModel CreateFromExisting(DomainModelService.Measure measure, CatalogViewModel catalog = null);
+    MeasureViewModel CreateFromExisting(DomainModelService.EnergyMeasure measure, CatalogViewModel catalog = null);
 
-    MeasurePrintPreviewViewModel CreatePrintPreviewModel(Measure measure, Action removeCatalogAction);
+    MeasurePrintPreviewViewModel CreatePrintPreviewModel(EnergyMeasure measure, Action removeCatalogAction);
   }
 }

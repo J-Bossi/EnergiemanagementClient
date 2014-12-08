@@ -24,11 +24,11 @@ namespace Ork.Energy.ViewModels
 {
   public class MeasureViewModel
   {
-    private readonly DomainModelService.Measure m_Model;
+    private readonly EnergyMeasure m_Model;
 
 
 
-    public MeasureViewModel(DomainModelService.Measure measure, CatalogViewModel catalog)
+    public MeasureViewModel(DomainModelService.EnergyMeasure measure, CatalogViewModel catalog)
     {
       m_Model = measure;
       Catalog = catalog;
@@ -62,7 +62,7 @@ namespace Ork.Energy.ViewModels
         set { m_Model.Name = value; }
     }
 
-    public DomainModelService.Measure Model
+    public DomainModelService.EnergyMeasure Model
     {
       get { return m_Model; }
     }

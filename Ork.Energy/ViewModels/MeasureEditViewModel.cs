@@ -33,7 +33,7 @@ namespace Ork.Energy.ViewModels
         private readonly IEnumerable m_Stati;
 
         [ImportingConstructor]
-        public MeasureEditViewModel(DomainModelService.Measure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
+        public MeasureEditViewModel(DomainModelService.EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
          [Import] IMeasureRepository measureRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory, IEnumerable<Catalog> catalogs)
             : base(model, responsibleSubjectViewModels, measureRepository, subMeasureViewModelFactory, catalogs)
         {

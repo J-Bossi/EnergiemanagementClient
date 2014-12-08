@@ -34,7 +34,7 @@ namespace Ork.Energy.ViewModels
             get { return m_Model.Name; }
         }
 
-        public ICollection<Measure> Measures
+        public ICollection<EnergyMeasure> Measures
         {
             get { return m_Model.Measures; }
         }

@@ -42,22 +42,22 @@ namespace Ork.Energy.Factories
       m_SubMeasureViewModelFactory = subMeasureViewModelFactory;
     }
 
-    public MeasureViewModel CreateFromExisting(DomainModelService.Measure measure, CatalogViewModel catalog = null)
+    public MeasureViewModel CreateFromExisting(DomainModelService.EnergyMeasure measure, CatalogViewModel catalog = null)
     {
       return new MeasureViewModel(measure,  catalog);
     }
 
-    public MeasurePrintPreviewViewModel CreatePrintPreviewModel(Measure measure, Action removeMeasureAction)
+    public MeasurePrintPreviewViewModel CreatePrintPreviewModel(EnergyMeasure measure, Action removeMeasureAction)
       {
           return new MeasurePrintPreviewViewModel(measure, removeMeasureAction, CreateResponsibleSubjects(), m_MeasureRepository, m_SubMeasureViewModelFactory, m_MeasureRepository.Catalogs);
       }
 
       public MeasureAddViewModel CreateAddViewModel()
     {
-      return new MeasureAddViewModel(new DomainModelService.Measure(),CreateResponsibleSubjects(),  m_MeasureRepository, m_SubMeasureViewModelFactory, m_MeasureRepository.Catalogs);
+      return new MeasureAddViewModel(new DomainModelService.EnergyMeasure(), CreateResponsibleSubjects(), m_MeasureRepository, m_SubMeasureViewModelFactory, m_MeasureRepository.Catalogs);
     }
 
-    public MeasureEditViewModel CreateEditViewModel(DomainModelService.Measure measure, Action removeMeasureAction)
+      public MeasureEditViewModel CreateEditViewModel(DomainModelService.EnergyMeasure measure, Action removeMeasureAction)
     {
 
       return new MeasureEditViewModel(measure, removeMeasureAction, CreateResponsibleSubjects(),  m_MeasureRepository, m_SubMeasureViewModelFactory, m_MeasureRepository.Catalogs);

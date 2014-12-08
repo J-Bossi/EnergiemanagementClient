@@ -14,7 +14,7 @@ namespace Ork.Energy.ViewModels
     public class MeasurePrintPreviewViewModel : MeasureEditViewModel
     {
         [ImportingConstructor]
-        public MeasurePrintPreviewViewModel(DomainModelService.Measure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
+        public MeasurePrintPreviewViewModel(DomainModelService.EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
      [Import] IMeasureRepository measureRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory, IEnumerable<Catalog> catalogs)
       : base(model, removeMeasureAction, responsibleSubjectViewModels,  measureRepository, subMeasureViewModelFactory, catalogs)
     {
