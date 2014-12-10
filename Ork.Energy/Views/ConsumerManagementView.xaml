@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -27,7 +27,7 @@
                           Text="{Binding SearchConsumerGroupsText}"
                           Grid.Row="0"
                           Style="{DynamicResource VirtualisedMetroComboBox}"
-                          Controls:TextboxHelper.Watermark="Verbrauchergruppe"
+                          Controls:TextBoxHelper.Watermark="Verbrauchergruppe"
                           IsEditable="True"
                           ItemsSource="{Binding ConsumerGroups}"
                           MaxDropDownHeight="125"
@@ -62,7 +62,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBox
                             Margin="5"
-                            Controls:TextboxHelper.Watermark="Neue Verbrauchergruppe..." Grid.Column="0"
+                            Controls:TextBoxHelper.Watermark="Neue Verbrauchergruppe..." Grid.Column="0"
                             Text="{Binding NewConsumerGroupName, Mode=TwoWay}"
                             HorizontalAlignment="Stretch" />
                         <Button
@@ -97,7 +97,7 @@
                           Text="{Binding SearchDistributorText}"
                           Grid.Row="0"
                           Style="{DynamicResource VirtualisedMetroComboBox}"
-                          Controls:TextboxHelper.Watermark="Verteiler"
+                          Controls:TextBoxHelper.Watermark="Verteiler"
                           IsEditable="True"
                           ItemsSource="{Binding Distributors}"
                           MaxDropDownHeight="125"
@@ -130,7 +130,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBox
                             Margin="5"
-                            Controls:TextboxHelper.Watermark="Neuer Verteiler..." Grid.Column="0"
+                            Controls:TextBoxHelper.Watermark="Neuer Verteiler..." Grid.Column="0"
                             Text="{Binding NewDistributorName, Mode=TwoWay}"
                             HorizontalAlignment="Stretch" />
                         <Button
@@ -164,7 +164,7 @@
                           Text="{Binding SearchConsumerText}"
                           Grid.Row="0"
                           Style="{DynamicResource VirtualisedMetroComboBox}"
-                          Controls:TextboxHelper.Watermark="Verbraucher"
+                          Controls:TextBoxHelper.Watermark="Verbraucher"
                           IsEditable="True"
                           ItemsSource="{Binding Consumers}"
                           MaxDropDownHeight="125"
@@ -197,7 +197,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBox
                             Margin="5"
-                            Controls:TextboxHelper.Watermark="Neuer Verbraucher..." Grid.Column="0"
+                            Controls:TextBoxHelper.Watermark="Neuer Verbraucher..." Grid.Column="0"
                             Text="{Binding NewConsumerName, Mode=TwoWay}"
                             HorizontalAlignment="Stretch" />
                         <Button

@@ -7,7 +7,7 @@
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:controls1="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
                 xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
-             xmlns:oxy="http://oxyplot.codeplex.com"
+             xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:converters="clr-namespace:Ork.Energy.Converters"
              xmlns:converters1="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"

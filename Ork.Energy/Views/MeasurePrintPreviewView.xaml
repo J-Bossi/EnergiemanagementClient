@@ -1,453 +1,450 @@
 ﻿<UserControl
-    x:Class="Ork.Energy.Views.MeasurePrintPreviewView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-    xmlns:lex="http://wpflocalizeextension.codeplex.com"
-    xmlns:converters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
-    xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
-    xmlns:tkControls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
-    xmlns:views="clr-namespace:Ork.Energy.Views"
-    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    xmlns:controls="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
-    lex:LocalizeDictionary.DesignCulture="de"
-    lex:ResxLocalizationProvider.DefaultAssembly="Ork.Energy"
-    lex:ResxLocalizationProvider.DefaultDictionary="Translate"
-    mc:Ignorable="d"
-    d:DesignHeight="600"
-    d:DesignWidth="300">
+  x:Class="Ork.Energy.Views.MeasurePrintPreviewView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:converters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:tkControls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+  xmlns:cal="http://www.caliburnproject.org"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Energy"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="600"
+  d:DesignWidth="300">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
+  <UserControl.Resources>
+    <ResourceDictionary>
 
 
-            <converters:EnumLanguageConverter
-                x:Key="EnumLanguageConverter" />
+      <converters:EnumLanguageConverter
+        x:Key="EnumLanguageConverter" />
 
 
-        </ResourceDictionary>
+    </ResourceDictionary>
 
-    </UserControl.Resources>
+  </UserControl.Resources>
 
-    <ScrollViewer
-        x:Name="FullControl" VerticalScrollBarVisibility="Disabled">
-        <Grid
-            Margin="40 40 20 0">
-            <Grid.RowDefinitions>
-                <RowDefinition
-                    Height="Auto" />
-                <RowDefinition
-                    Height="*" />
-                <RowDefinition
-                    Height="Auto" />
-            </Grid.RowDefinitions>
+  <ScrollViewer
+    x:Name="FullControl"
+    VerticalScrollBarVisibility="Disabled">
+    <Grid
+      Margin="40 40 20 0">
+      <Grid.RowDefinitions>
+        <RowDefinition
+          Height="Auto" />
+        <RowDefinition
+          Height="*" />
+        <RowDefinition
+          Height="Auto" />
+      </Grid.RowDefinitions>
+      <TextBlock
+        Grid.Row="0"
+        Style="{DynamicResource LabelPrintControl}"
+        Text="Aktionsplan"
+        FontSize="26"
+        HorizontalAlignment="Left" />
+
+      <ScrollViewer
+        Grid.Row="1"
+        VerticalScrollBarVisibility="Disabled">
+
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition
+              Width="Auto" />
+            <ColumnDefinition
+              Width="*" />
+          </Grid.ColumnDefinitions>
+
+          <StackPanel
+            Grid.Column="0"
+            Width="500">
+
+
             <TextBlock
-                Grid.Row="0"
+              Style="{DynamicResource LabelPrintControl}"
+              Text="Katalog / Verbrauchergruppe" />
+            <TextBox
+              Style="{DynamicResource EntryPrintControl}"
+              Text="{Binding SelectedCatalog.Name}"
+              Margin="0,0,0,1" />
+
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="Verteiler Aktion" />
+            <TextBox
+              Style="{DynamicResource EntryPrintControl}"
+              Text="{Binding Name}"
+              Height="20"
+              Margin="0,0,0,1"
+              ToolTip="Name der Maßnahme" />
+
+            <UniformGrid
+              Columns="2"
+              Rows="2">
+              <TextBlock
                 Style="{DynamicResource LabelPrintControl}"
-                Text="Aktionsplan"
-                FontSize="26"
-                HorizontalAlignment="Left" />
-
-            <ScrollViewer
-                Grid.Row="1"
-                VerticalScrollBarVisibility="Disabled">
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            Width="Auto" />
-                        <ColumnDefinition
-                            Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel
-                        Grid.Column="0"
-                        Width="500">
-
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="Katalog / Verbrauchergruppe" />
-                        <TextBox
-                            Style="{DynamicResource EntryPrintControl}"
-                            Text="{Binding SelectedCatalog.Name}"
-                            Margin="0,0,0,1" />
-
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="Verteiler Aktion" />
-                        <TextBox
-                            Style="{DynamicResource EntryPrintControl}"
-                            Text="{Binding Name}"
-                            Height="20"
-                            Margin="0,0,0,1"
-                            ToolTip="Name der Maßnahme" />
-
-                        <UniformGrid
-                            Columns="2"
-                            Rows="2">
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Raum"
-                                Margin="0"
-                                Height="16" />
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Bereich"
-                                Margin="-37.6,0,-0.8,0"
-                                Height="16" />
-                            <TextBox
-                                Style="{DynamicResource EntryPrintControl}"
-                                Text="{Binding Room}"
-                                Margin="0,0,42.4,1" />
-                            <TextBox
-                                Style="{DynamicResource EntryPrintControl}"
-                                Text="{Binding Space}"
-                                Margin="-37.6,0,-0.8,1" />
-
-
-                        </UniformGrid>
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="Betrachtete Verbraucher"
-                            Height="16" />
-
-                        <TextBox
-                            Style="{DynamicResource EntryPrintControl}"
-                            Text="{Binding Consumer}"
-                            Margin="0,0,0,1"
-                            Height="20"
-                            ToolTip="Gerät, Maschine usw." />
-
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="Kenngröße (Einheit EnPI)" />
-                        <TextBox
-                            Style="{DynamicResource EntryPrintControl}"
-                            Text="{Binding Kenn}"
-                            Height="20"
-                            Margin="0,0,0,1" />
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="Verwendetes Messgerät" />
-                        <TextBox
-                            Style="{DynamicResource EntryPrintControl}"
-                            Text="{Binding MeterDevice}"
-                            Height="20"
-                            Margin="0,0,0,1"
-                            ToolTip="Für die Messung verwendetes Messgerät" />
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="Nötige Investition (in Euro)" />
-                        <TextBox
-                            Style="{DynamicResource EntryPrintControl}"
-                            Text="{Binding CostsNeeded}"
-                            Height="20"
-                            Margin="0,0,0,1"
-                            ToolTip="Investitionskosten für die Umsetzung der Maßnahme" />
-
-
-                        <UniformGrid
-                            Columns="2"
-                            Rows="6">
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Aktueller Verbrauchswert in Euro/Jahr"
-                                Width="220"
-                                HorizontalAlignment="Left"
-                                Height="16" />
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Aktueller Verbrauchswert in kWh/Jahr"
-                                Width="244"
-                                HorizontalAlignment="Right"
-                                Margin="0,0,-0.8,1" />
-                            <TextBox
-                                Style="{DynamicResource EntryPrintControl}"
-                                Text="{Binding SavedMoneyAktuell}"
-                                Width="245"
-                                HorizontalAlignment="Left"
-                                Height="20"
-                                Margin="0,0,0,1"
-                                ToolTip="Aktueller Verbrauchswert (€) vor Maßnahmeneinführung" />
-                            <TextBox
-                                Style="{DynamicResource EntryPrintControl}"
-                                Text="{Binding SavedWattAktuell}"
-                                Width="243"
-                                HorizontalAlignment="Right"
-                                Margin="0,0,0.2,1"
-                                ToolTip="Aktueller Verbrauchswert (kWh) vor Maßnahmeneinführung" />
-
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Zielverbrauchswert in Euro/Jahr"
-                                Width="256"
-                                HorizontalAlignment="Left"
-                                Height="16"
-                                Margin="0,0,-6.4,0" />
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Zielverbrauchswert in kWh/Jahr"
-                                Width="243"
-                                HorizontalAlignment="Right"
-                                Height="16"
-                                Margin="0,0,0.2,0" />
-
-                            <TextBox
-                                Style="{DynamicResource EntryPrintControl}"
-                                Text="{Binding SavedMoneyIst}"
-                                Width="245"
-                                HorizontalAlignment="Left"
-                                Height="20"
-                                Margin="0,0,0,1"
-                                ToolTip="Kalkulierter/prognostizierter Einsparungswert (€)" />
-                            <TextBox
-                                Style="{DynamicResource EntryPrintControl}"
-                                Text="{Binding SavedWattIst}"
-                                Width="243"
-                                HorizontalAlignment="Right"
-                                Margin="0,0,0.2,1"
-                                ToolTip="Kalkulierter/prognostizierter Einsparungswert (kWh)" />
-
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Wert der Einsparung in Euro/Jahr"
-                                Width="220"
-                                HorizontalAlignment="Left"
-                                Height="16" />
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Wert der Einsparung in kWh/Jahr"
-                                Width="234"
-                                HorizontalAlignment="Left"
-                                Height="16"
-                                Margin="6.4,0,0,0" />
-
-                            <TextBox
-                                Style="{DynamicResource EntryPrintControl}"
-                                Text="{Binding SavedMoneySoll}"
-                                Width="245"
-                                HorizontalAlignment="Left"
-                                Margin="0,0,0,1"
-                                ToolTip="Einsparung (€) nach abgeschlossener Maßnahme" />
-                            <TextBox
-                                Style="{DynamicResource EntryPrintControl}"
-                                Text="{Binding SavedWattSoll}"
-                                Width="243"
-                                HorizontalAlignment="Right"
-                                Margin="0,0,0.2,1"
-                                ToolTip="Einsparung (kWh) nach abgeschlossener Maßnahme" />
-
-                        </UniformGrid>
-
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="Ausfallkosten" />
-                        <TextBox
-                            Style="{DynamicResource EntryPrintControl}"
-                            Text="{Binding FailureCosts}"
-                            Margin="0,0,0,1"
-                            Height="20"
-                            ToolTip="Ausfallkosten die während der Durchführung der Maßnahme entstehen" />
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="Verweis" />
-                        <TextBox
-                            Style="{DynamicResource EntryPrintControl}"
-                            Text="{Binding ReferenceTo}"
-                            Margin="0,0,0,1"
-                            Height="20"
-                            ToolTip="z.B. ISO 50001" />
-
-
-                        <UniformGrid
-                            Columns="2"
-                            Rows="1">
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Untermaßnahmen"
-                                Margin="0,0,0,4" />
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="Erledigt"
-                                Margin="153.4,0,0.2,4" />
-                        </UniformGrid>
-
-                        <ListBox
-                            ItemsSource="{Binding SubMeasures}"
-                            Style="{DynamicResource FlyoutListBoxStyle}">
-
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <TextBlock
-                                            Style="{DynamicResource LabelPrintControl}"
-                                            Text="{Binding Name}"
-                                            TextWrapping="Wrap"
-                                            Width="280"
-                                            Margin="0,5,5,5" />
-                                        <TextBlock
-                                            Style="{DynamicResource LabelPrintControl}"
-                                            Text="{Binding ResponsibleSubjectViewModel.Infotext}"
-                                            TextWrapping="Wrap"
-                                            Width="120"
-                                            Height="20"
-                                            Margin="0,5,5,5"
-                                            HorizontalAlignment="Stretch" />
-                                        <CheckBox
-                                            Foreground="Black"
-                                            IsChecked="{Binding IsCompleted, Mode=TwoWay}"
-                                            Height="20"
-                                            Margin="0,5,5,5"
-                                            HorizontalAlignment="Stretch"
-                                            ToolTip="Erledigt / nicht erledigt" />
-
-
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="{lex:Loc DueDate}" />
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Margin="4"
-                            Text="{Binding DueDateString}" />
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="{lex:Loc ResponsibleSubject}" />
-
-                        <TextBox
-                            Style="{DynamicResource EntryPrintControl}"
-                            Text="{Binding ResponsibleSubjectName, Mode=OneWay }" />
-
-
-                        <TextBlock
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="{lex:Loc Priorities}" />
-
-                        <TextBlock
-                            Margin="4"
-                            Style="{DynamicResource LabelPrintControl}"
-                            Text="{Binding PriorityName}" />
-
-
-                    </StackPanel>
-                    <Grid
-                        Grid.Column="1"
-                        Margin="10,0,0,0"
-                        Width="350">
-                        <StackPanel>
-
-
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="{lex:Loc Description}" />
-
-                            <TextBox
-                                VerticalScrollBarVisibility="Auto"
-                                Style="{DynamicResource EntryPrintControl}"
-                                Text="{Binding Description}"
-                                TextWrapping="Wrap"
-                                AcceptsReturn="True" />
-
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Text="{lex:Loc Status}" />
-
-                            <TextBlock
-                                Style="{DynamicResource LabelPrintControl}"
-                                Name="ComboBoxStatus"
-                                Margin="4"
-                                Text="{Binding StatusName}" />
-
-
-                            <StackPanel
-                                Style="{DynamicResource AcomplishedStackPanelStyle}"
-                                Name="AcomplishedStackPanel">
-                                <TextBlock
-                                    Style="{DynamicResource LabelPrintControl}"
-                                    Text="{lex:Loc EntryDate}" />
-
-
-                                <TextBox
-                                    Style="{DynamicResource EntryPrintControl}"
-                                    Margin="4"
-                                    Text="{Binding EntryDateString, Mode=OneWay}" />
-
-                                <TextBlock
-                                    Style="{DynamicResource LabelPrintControl}"
-                                    Text="{lex:Loc Evaluation}" />
-
-                                <TextBox
-                                    VerticalScrollBarVisibility="Auto"
-                                    Style="{DynamicResource EntryPrintControl}"
-                                    Text="{Binding Evaluation, Mode=OneWay}"
-                                    TextWrapping="Wrap"
-                                    AcceptsReturn="True" />
-
-                                <TextBlock
-                                    Style="{DynamicResource LabelPrintControl}"
-                                    Text="{lex:Loc Efficiency}" />
-
-                                <tkControls:Rating
-                                    Margin="4 0 0 0"
-                                    ItemCount="5"
-                                    Height="50"
-                                    SelectionMode="Continuous"
-                                    IsReadOnly="False"
-                                    Value="{Binding EvaluationValue, Mode=OneWay}" />
-
-                            </StackPanel>
-
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </ScrollViewer>
-
-
-            <Grid
-                Margin="0 20 0 0"
-                Row="2"
-                ColumnSpan="2"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Bottom">
-
-
-                <StackPanel
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-
-                    <Button
-                        Margin="0 0 6 0"
-                        x:Name="PrintButton"
-                        Click="Print_Command"
-                        Content="{lex:Loc Print}" />
-                    <Button
-                        x:Name="BackButton"
-                        cal:Message.Attach="Back($dataContext)"
-                        Content="{lex:Loc Back}" />
-
-                </StackPanel>
-
-
-            </Grid>
-
+                Text="Raum"
+                Margin="0"
+                Height="16" />
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="Bereich"
+                Margin="-37.6,0,-0.8,0"
+                Height="16" />
+              <TextBox
+                Style="{DynamicResource EntryPrintControl}"
+                Text="{Binding Room}"
+                Margin="0,0,42.4,1" />
+              <TextBox
+                Style="{DynamicResource EntryPrintControl}"
+                Text="{Binding Space}"
+                Margin="-37.6,0,-0.8,1" />
+
+
+            </UniformGrid>
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="Betrachtete Verbraucher"
+              Height="16" />
+
+            <TextBox
+              Style="{DynamicResource EntryPrintControl}"
+              Text="{Binding Consumer}"
+              Margin="0,0,0,1"
+              Height="20"
+              ToolTip="Gerät, Maschine usw." />
+
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="Kenngröße (Einheit EnPI)" />
+            <TextBox
+              Style="{DynamicResource EntryPrintControl}"
+              Text="{Binding Kenn}"
+              Height="20"
+              Margin="0,0,0,1" />
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="Verwendetes Messgerät" />
+            <TextBox
+              Style="{DynamicResource EntryPrintControl}"
+              Text="{Binding MeterDevice}"
+              Height="20"
+              Margin="0,0,0,1"
+              ToolTip="Für die Messung verwendetes Messgerät" />
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="Nötige Investition (in Euro)" />
+            <TextBox
+              Style="{DynamicResource EntryPrintControl}"
+              Text="{Binding CostsNeeded}"
+              Height="20"
+              Margin="0,0,0,1"
+              ToolTip="Investitionskosten für die Umsetzung der Maßnahme" />
+
+
+            <UniformGrid
+              Columns="2"
+              Rows="6">
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="Aktueller Verbrauchswert in Euro/Jahr"
+                Width="220"
+                HorizontalAlignment="Left"
+                Height="16" />
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="Aktueller Verbrauchswert in kWh/Jahr"
+                Width="244"
+                HorizontalAlignment="Right"
+                Margin="0,0,-0.8,1" />
+              <TextBox
+                Style="{DynamicResource EntryPrintControl}"
+                Text="{Binding SavedMoneyAktuell}"
+                Width="245"
+                HorizontalAlignment="Left"
+                Height="20"
+                Margin="0,0,0,1"
+                ToolTip="Aktueller Verbrauchswert (€) vor Maßnahmeneinführung" />
+              <TextBox
+                Style="{DynamicResource EntryPrintControl}"
+                Text="{Binding SavedWattAktuell}"
+                Width="243"
+                HorizontalAlignment="Right"
+                Margin="0,0,0.2,1"
+                ToolTip="Aktueller Verbrauchswert (kWh) vor Maßnahmeneinführung" />
+
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="Zielverbrauchswert in Euro/Jahr"
+                Width="256"
+                HorizontalAlignment="Left"
+                Height="16"
+                Margin="0,0,-6.4,0" />
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="Zielverbrauchswert in kWh/Jahr"
+                Width="243"
+                HorizontalAlignment="Right"
+                Height="16"
+                Margin="0,0,0.2,0" />
+
+              <TextBox
+                Style="{DynamicResource EntryPrintControl}"
+                Text="{Binding SavedMoneyIst}"
+                Width="245"
+                HorizontalAlignment="Left"
+                Height="20"
+                Margin="0,0,0,1"
+                ToolTip="Kalkulierter/prognostizierter Einsparungswert (€)" />
+              <TextBox
+                Style="{DynamicResource EntryPrintControl}"
+                Text="{Binding SavedWattIst}"
+                Width="243"
+                HorizontalAlignment="Right"
+                Margin="0,0,0.2,1"
+                ToolTip="Kalkulierter/prognostizierter Einsparungswert (kWh)" />
+
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="Wert der Einsparung in Euro/Jahr"
+                Width="220"
+                HorizontalAlignment="Left"
+                Height="16" />
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="Wert der Einsparung in kWh/Jahr"
+                Width="234"
+                HorizontalAlignment="Left"
+                Height="16"
+                Margin="6.4,0,0,0" />
+
+              <TextBox
+                Style="{DynamicResource EntryPrintControl}"
+                Text="{Binding SavedMoneySoll}"
+                Width="245"
+                HorizontalAlignment="Left"
+                Margin="0,0,0,1"
+                ToolTip="Einsparung (€) nach abgeschlossener Maßnahme" />
+              <TextBox
+                Style="{DynamicResource EntryPrintControl}"
+                Text="{Binding SavedWattSoll}"
+                Width="243"
+                HorizontalAlignment="Right"
+                Margin="0,0,0.2,1"
+                ToolTip="Einsparung (kWh) nach abgeschlossener Maßnahme" />
+
+            </UniformGrid>
+
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="Ausfallkosten" />
+            <TextBox
+              Style="{DynamicResource EntryPrintControl}"
+              Text="{Binding FailureCosts}"
+              Margin="0,0,0,1"
+              Height="20"
+              ToolTip="Ausfallkosten die während der Durchführung der Maßnahme entstehen" />
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="Verweis" />
+            <TextBox
+              Style="{DynamicResource EntryPrintControl}"
+              Text="{Binding ReferenceTo}"
+              Margin="0,0,0,1"
+              Height="20"
+              ToolTip="z.B. ISO 50001" />
+
+
+            <UniformGrid
+              Columns="2"
+              Rows="1">
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="Untermaßnahmen"
+                Margin="0,0,0,4" />
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="Erledigt"
+                Margin="153.4,0,0.2,4" />
+            </UniformGrid>
+
+            <ListBox
+              ItemsSource="{Binding SubMeasures}"
+              Style="{DynamicResource FlyoutListBoxStyle}">
+
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <StackPanel
+                    Orientation="Horizontal">
+                    <TextBlock
+                      Style="{DynamicResource LabelPrintControl}"
+                      Text="{Binding Name}"
+                      TextWrapping="Wrap"
+                      Width="280"
+                      Margin="0,5,5,5" />
+                    <TextBlock
+                      Style="{DynamicResource LabelPrintControl}"
+                      Text="{Binding ResponsibleSubjectViewModel.Infotext}"
+                      TextWrapping="Wrap"
+                      Width="120"
+                      Height="20"
+                      Margin="0,5,5,5"
+                      HorizontalAlignment="Stretch" />
+                    <CheckBox
+                      Foreground="Black"
+                      IsChecked="{Binding IsCompleted, Mode=TwoWay}"
+                      Height="20"
+                      Margin="0,5,5,5"
+                      HorizontalAlignment="Stretch"
+                      ToolTip="Erledigt / nicht erledigt" />
+
+
+                  </StackPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="{lex:Loc DueDate}" />
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Margin="4"
+              Text="{Binding DueDateString}" />
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="{lex:Loc ResponsibleSubject}" />
+
+            <TextBox
+              Style="{DynamicResource EntryPrintControl}"
+              Text="{Binding ResponsibleSubjectName, Mode=OneWay }" />
+
+
+            <TextBlock
+              Style="{DynamicResource LabelPrintControl}"
+              Text="{lex:Loc Priorities}" />
+
+            <TextBlock
+              Margin="4"
+              Style="{DynamicResource LabelPrintControl}"
+              Text="{Binding PriorityName}" />
+
+
+          </StackPanel>
+          <Grid
+            Grid.Column="1"
+            Margin="10,0,0,0"
+            Width="350">
+            <StackPanel>
+
+
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="{lex:Loc Description}" />
+
+              <TextBox
+                VerticalScrollBarVisibility="Auto"
+                Style="{DynamicResource EntryPrintControl}"
+                Text="{Binding Description}"
+                TextWrapping="Wrap"
+                AcceptsReturn="True" />
+
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Text="{lex:Loc Status}" />
+
+              <TextBlock
+                Style="{DynamicResource LabelPrintControl}"
+                Name="ComboBoxStatus"
+                Margin="4"
+                Text="{Binding StatusName}" />
+
+
+              <StackPanel
+                Style="{DynamicResource AcomplishedStackPanelStyle}"
+                Name="AcomplishedStackPanel">
+                <TextBlock
+                  Style="{DynamicResource LabelPrintControl}"
+                  Text="{lex:Loc EntryDate}" />
+
+
+                <TextBox
+                  Style="{DynamicResource EntryPrintControl}"
+                  Margin="4"
+                  Text="{Binding EntryDateString, Mode=OneWay}" />
+
+                <TextBlock
+                  Style="{DynamicResource LabelPrintControl}"
+                  Text="{lex:Loc Evaluation}" />
+
+                <TextBox
+                  VerticalScrollBarVisibility="Auto"
+                  Style="{DynamicResource EntryPrintControl}"
+                  Text="{Binding Evaluation, Mode=OneWay}"
+                  TextWrapping="Wrap"
+                  AcceptsReturn="True" />
+
+                <TextBlock
+                  Style="{DynamicResource LabelPrintControl}"
+                  Text="{lex:Loc Efficiency}" />
+
+                <tkControls:Rating
+                  Margin="4 0 0 0"
+                  ItemCount="5"
+                  Height="50"
+                  SelectionMode="Continuous"
+                  IsReadOnly="False"
+                  Value="{Binding EvaluationValue, Mode=OneWay}" />
+
+              </StackPanel>
+
+            </StackPanel>
+          </Grid>
         </Grid>
-    </ScrollViewer>
+      </ScrollViewer>
+
+
+      <Grid
+        Margin="0 20 0 0"
+        Row="2"
+        ColumnSpan="2"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Bottom">
+
+
+        <StackPanel
+          Orientation="Horizontal"
+          HorizontalAlignment="Right">
+
+          <Button
+            Margin="0 0 6 0"
+            x:Name="PrintButton"
+            Click="Print_Command"
+            Content="{lex:Loc Print}" />
+          <Button
+            x:Name="BackButton"
+            cal:Message.Attach="Back($dataContext)"
+            Content="{lex:Loc Back}" />
+
+        </StackPanel>
+
+
+      </Grid>
+
+    </Grid>
+  </ScrollViewer>
 </UserControl>

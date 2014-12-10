@@ -276,7 +276,7 @@ namespace Ork.Energy.ViewModels
                 {
                     GenerateGraphData(measures);
                 }
-                m_Plot.RefreshPlot(true);
+                m_Plot.InvalidatePlot(true);
                 return m_Plot;
             }
         }
@@ -293,7 +293,7 @@ namespace Ork.Energy.ViewModels
                 {
                     GenerateEcoGraphData(measures);
                 }
-                m_Plot.RefreshPlot(true);
+                m_Plot.InvalidatePlot(true);
                 return m_Plot;
             }
         }
@@ -310,7 +310,7 @@ namespace Ork.Energy.ViewModels
                 {
                     GenerateEcoGraphData2(measures);
                 }
-                m_Plot.RefreshPlot(true);
+                m_Plot.InvalidatePlot(true);
                 return m_Plot;
             }
         }
@@ -657,7 +657,7 @@ namespace Ork.Energy.ViewModels
             m_Plot.LegendPlacement = LegendPlacement.Outside;
             m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
             m_Plot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
-            m_Plot.PlotAreaBorderThickness = 1;
+            m_Plot.PlotAreaBorderThickness = new OxyThickness(1);
 
 
             var monthArray = new string[6];
@@ -716,7 +716,7 @@ namespace Ork.Energy.ViewModels
             m_Plot.LegendPlacement = LegendPlacement.Outside;
             m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
             m_Plot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
-            m_Plot.PlotAreaBorderThickness = 1;
+            m_Plot.PlotAreaBorderThickness = new OxyThickness(1);
 
 
             string[] measureIdArray = Measures.Select(measure => measure.Id.ToString()).ToArray();
@@ -768,7 +768,7 @@ namespace Ork.Energy.ViewModels
             m_Plot.LegendPlacement = LegendPlacement.Outside;
             m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
             m_Plot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
-            m_Plot.PlotAreaBorderThickness = 1;
+            m_Plot.PlotAreaBorderThickness = new OxyThickness(1);
 
 
             string[] measureNamesArray = Measures.Select(measure => measure.Name).ToArray();

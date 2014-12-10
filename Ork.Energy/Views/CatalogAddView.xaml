@@ -4,8 +4,9 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+  xmlns:cal="http://www.caliburnproject.org"
   xmlns:lex="http://wpflocalizeextension.codeplex.com"
+
   lex:LocalizeDictionary.DesignCulture="de"
   lex:ResxLocalizationProvider.DefaultAssembly="Ork.Energy"
   lex:ResxLocalizationProvider.DefaultDictionary="Translate"

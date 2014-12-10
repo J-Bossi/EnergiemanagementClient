@@ -22,7 +22,7 @@ using Ork.Framework.Mahapps;
 
 namespace Ork.Framework.Mahapps.ViewModels
 {
-  [Export(typeof (Ork.Framework.Mahapps.IShell))]
+  [Export]
   public class ShellViewModel : Conductor<IWorkspace>.Collection.OneActive, IShell
   {
       int m_TabIndex = -1;

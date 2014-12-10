@@ -25,10 +25,11 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using Caliburn.Micro;
+using Ork.Framework.Mahapps.ViewModels;
 
 namespace Ork.Framework.Mahapps
 {
-  public class Bootstrapper : Bootstrapper<IShell>
+  public class Bootstrapper : BootstrapperBase
   {
     private const string ConsolePath = @"./";
     private IEnumerable<Assembly> m_Assemblies;
@@ -36,6 +37,11 @@ namespace Ork.Framework.Mahapps
     private CompositionContainer m_Container;
     private DirectoryCatalog m_DirectoryCatalog;
     private Mutex m_Mutex; //this have to stay here!
+
+    public Bootstrapper()
+    {
+      Initialize();
+    }
 
     public string ApplicationName
     {
@@ -61,7 +67,7 @@ namespace Ork.Framework.Mahapps
         return;
       }
 
-      base.OnStartup(sender, e);
+      DisplayRootViewFor<ShellViewModel>();
     }
 
     protected override void BuildUp(object instance)
