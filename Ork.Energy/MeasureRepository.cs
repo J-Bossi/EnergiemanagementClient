@@ -39,6 +39,7 @@ namespace Ork.Energy
     public bool HasConnection { get; private set; }
     public DataServiceCollection<ResponsibleSubject> ResponsibleSubjects { get; private set; }
     public DataServiceCollection<Catalog> Catalogs { get; private set; }
+    public DataServiceCollection<EnergyMeasure> EnergyMeasures { get; private set; } 
     //public DataServiceCollection<MeasureImageSource> MeasureImageSource { get; private set; } 
 
 
@@ -72,6 +73,7 @@ namespace Ork.Energy
         LoadResponsibleSubjects();
         //LoadMeasures();
         LoadCatalogs();
+   
         LoadSubMeasures();
         //LoadMeasureImageSources();
         HasConnection = true;
@@ -101,6 +103,8 @@ namespace Ork.Energy
                            .Expand("Measures/OpenResKit.DomainModel.Measure/AttachedDocuments/DocumentSource");
       Catalogs.Load(query);
     }
+
+
 
     private void LoadSubMeasures()
     {

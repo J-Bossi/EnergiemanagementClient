@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2013, HTW Berlin
+// Copyright (c) 2014, HTW Berlin
 
 #endregion
 
@@ -18,21 +18,18 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
-using Ork.Framework.Mahapps;
 
 namespace Ork.Framework.Mahapps.ViewModels
 {
   [Export]
   public class ShellViewModel : Conductor<IWorkspace>.Collection.OneActive, IShell
   {
-      int m_TabIndex = -1;
-
     [ImportingConstructor]
     public ShellViewModel([Import] IDialogManager dialogManager, [Import("ApplicationName")] string appName)
     {
       DisplayName = appName;
       Dialogs = dialogManager;
-      
+
       //ActivateItem(Items.First(i => i.IsEnabled));
       CloseStrategy = new ApplicationCloseStrategy();
     }
@@ -49,12 +46,6 @@ namespace Ork.Framework.Mahapps.ViewModels
         }
       }
     }
-
-      public int InitialTabSelection
-      {
-          get { return m_TabIndex; }
-          set { m_TabIndex = value; }
-      }
 
     public IDialogManager Dialogs { get; private set; }
   }

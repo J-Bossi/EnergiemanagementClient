@@ -70,6 +70,8 @@ namespace Ork.Framework.Mahapps
       DisplayRootViewFor<ShellViewModel>();
     }
 
+   
+
     protected override void BuildUp(object instance)
     {
       m_Container.SatisfyImportsOnce(instance);
