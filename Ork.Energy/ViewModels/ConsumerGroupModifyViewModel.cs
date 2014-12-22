@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.Generic;
+using System.Data.Services.Client;
+using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
@@ -19,10 +21,10 @@ namespace Ork.Energy.ViewModels
             set { m_Model.GroupName = value; }
         }
 
-        public string GroupDescription
+        public DataServiceCollection<ConsumerType> ConsumerTypes
         {
-            get { return m_Model.GroupDescription; }
-            set { m_Model.GroupDescription = value; }
+            get { return m_Model.ConsumerTypes; }
+            set { m_Model.ConsumerTypes = value; }
         }
     }
 }

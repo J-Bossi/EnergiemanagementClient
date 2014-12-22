@@ -43,11 +43,6 @@ namespace Ork.Energy.ViewModels
             set { m_Model.Name = value; }
         }
 
-        public DataServiceCollection<EnergyMeasure> Measures
-        {
-            get { return m_Model.Measures; }
-            set { m_Model.Measures = value; }
-        }
 
         public virtual long? PowerOutput
         {

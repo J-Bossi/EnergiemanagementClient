@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="*" />
 
             </Grid.ColumnDefinitions>
-            <Grid Column="0" VerticalAlignment="Top" Margin="2 0">
+            <Grid Column="1" VerticalAlignment="Top" Margin="2 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -86,7 +86,7 @@
             </Grid>
 
 
-            <Grid Column="1" VerticalAlignment="Top" Margin="2 0">
+            <Grid Column="0" VerticalAlignment="Top" Margin="2 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />

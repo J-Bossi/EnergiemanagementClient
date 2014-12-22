@@ -212,8 +212,7 @@ namespace Ork.Energy.ViewModels
 
 
             return m_ConsumerGroups.Where(c => (((c.GroupName != null) && (c.GroupName.ToLower()
-                .Contains(searchText)) || (c.GroupDescription != null) && (c.GroupDescription.ToLower()
-                    .Contains(searchText)))));
+                .Contains(searchText)))));
         }
 
         public IEnumerable<ConsumerViewModel> SearchInConsumerList()
