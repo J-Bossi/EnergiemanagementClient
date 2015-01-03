@@ -33,7 +33,7 @@ namespace Ork.Energy.Factories
 
         public ConsumerGroupModifyViewModel CreateConsumerGroupModifyVM(ConsumerGroup consumerGroup)
         {
-            return new ConsumerGroupModifyViewModel(consumerGroup);
+            return new ConsumerGroupModifyViewModel(consumerGroup, m_ConsumerRepository);
         }
 
         public ConsumerModifyViewModel CreateConsumerModifyVM(Consumer consumer)

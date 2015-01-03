@@ -304,7 +304,9 @@
         <End Type="OpenResKit.DomainModel.Room" Role="Distributor_Room_Target" Multiplicity="0..1" />
       </Association>
       <Association Name="ConsumerGroup_ConsumerTypes">
-        <End Type="OpenResKit.DomainModel.ConsumerGroup" Role="ConsumerGroup_ConsumerTypes_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.ConsumerGroup" Role="ConsumerGroup_ConsumerTypes_Source" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
         <End Type="OpenResKit.DomainModel.ConsumerType" Role="ConsumerGroup_ConsumerTypes_Target" Multiplicity="*" />
       </Association>
       <Association Name="SubMeasure_ResponsibleSubject">

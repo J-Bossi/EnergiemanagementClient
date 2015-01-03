@@ -43,11 +43,6 @@ namespace Ork.Energy.ViewModels
       set { m_Model.GroupName = value; }
     }
 
-    public DataServiceCollection<ConsumerType> ConsumerTypes
-    {
-      get { return m_Model.ConsumerTypes; }
-      set { m_Model.ConsumerTypes = value; }
-    }
 
     public int RelatedConsumers
     {

@@ -5,16 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel>
             <TextBlock Text="Name" />
             <TextBox Text="{Binding GroupName}" />
-            <TextBlock Text="Beschreibung" />
-            <TextBox Text="{Binding GroupDescription}" TextWrapping="Wrap"
-                     
-                     Height="200"
-                     AcceptsReturn="True" />
+            <TextBlock Text="Typenliste" />
+            <ListBox ItemsSource="{Binding ConsumerTypes}"  DisplayMemberPath="TypeName" />
+          <StackPanel Orientation="Horizontal">
+        <TextBox Text="{Binding ConsumerType}" TextWrapping="Wrap"
+                     HorizontalAlignment="Stretch"
+                    />
+        <Button Style="{DynamicResource SquareButtonStyle}" cal:Message.Attach="AddConsumerType" Content="Hinzufügen" HorizontalAlignment="Right"/>
+      </StackPanel>
+            
             <Button Style="{DynamicResource SquareButtonStyle}" cal:Message.Attach="SaveConsumerGroup($dataContext)"
                     Content="Speichern" />
         </StackPanel>

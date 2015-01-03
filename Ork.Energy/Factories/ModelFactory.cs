@@ -45,5 +45,13 @@ namespace Ork.Energy.Factories
         Name = p1
       };
     }
+
+    public static ConsumerType CreateConsumerType(string consumerType)
+    {
+      return new ConsumerType
+      {
+        TypeName = consumerType
+      };
+    }
   }
 }
