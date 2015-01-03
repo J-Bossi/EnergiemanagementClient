@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2014, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
@@ -98,7 +98,8 @@ namespace Ork.Energy
       Consumers = new DataServiceCollection<Consumer>(m_Context);
 
       DataServiceQuery<Consumer> query = m_Context.Consumers.Expand("OpenResKit.DomainModel.Consumer/ConsumerGroup")
-                                                  .Expand("OpenResKit.DomainModel.Consumer/Distributor");
+                                                  .Expand("OpenResKit.DomainModel.Consumer/Distributor")
+                                                  .Expand("OpenResKit.DomainModel.Consumer/ConsumerType");
       Consumers.Load(query);
     }
 
