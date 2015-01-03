@@ -9,9 +9,7 @@
 
   <Style
     TargetType="Label">
-    <Setter
-      Property="FontFamily"
-      Value="Segoe UI" />
+   
     <Setter
       Property="Foreground"
       Value="{StaticResource TextForegroundColorBrush}" />

@@ -11,9 +11,7 @@
     x:Key="EntryControl"
     TargetType="Control">
 
-    <Setter
-      Property="FontFamily"
-      Value="Segoe UI" />
+
 
     <Setter
       Property="FontSize"
@@ -97,9 +95,7 @@
     x:Key="AutoCompleteControl"
     TargetType="Control">
 
-    <Setter
-      Property="FontFamily"
-      Value="Segoe UI" />
+
 
     <Setter
       Property="FontSize"

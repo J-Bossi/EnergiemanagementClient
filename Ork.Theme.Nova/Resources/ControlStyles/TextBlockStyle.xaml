@@ -10,9 +10,7 @@
   <Style
     x:Key="TextBlockStyle"
     TargetType="TextBlock">
-    <Setter
-      Property="FontFamily"
-      Value="Segoe UI" />
+
     <Setter
       Property="Foreground"
       Value="{StaticResource TextForegroundColorBrush}" />

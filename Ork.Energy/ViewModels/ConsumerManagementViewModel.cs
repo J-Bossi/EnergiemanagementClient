@@ -192,7 +192,10 @@ namespace Ork.Energy.ViewModels
 
     public int Index
     {
-      get { return 400; }
+      get
+      {
+        return 400;
+      }
     }
 
     public bool IsEnabled
