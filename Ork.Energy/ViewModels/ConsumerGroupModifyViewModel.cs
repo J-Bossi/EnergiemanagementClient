@@ -14,13 +14,15 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
-using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
+using Screen = Caliburn.Micro.Screen;
 
 namespace Ork.Energy.ViewModels
 {
@@ -57,11 +59,14 @@ namespace Ork.Energy.ViewModels
 
     public void DeleteConsumerType(object dataContext)
     {
+      //TODO Remove Links
+      // m_Repository.Context.DeleteLinks
+      
+        m_Model.ConsumerTypes.Remove((ConsumerType) dataContext);
+        m_Repository.Save();
 
-      m_Model.ConsumerTypes.Remove((ConsumerType)dataContext);
-      m_Repository.Save();
-
-      NotifyOfPropertyChange(() => ConsumerTypes);
+        NotifyOfPropertyChange(() => ConsumerTypes);
+      
     }
 
   }
