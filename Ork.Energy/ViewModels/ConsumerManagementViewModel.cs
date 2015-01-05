@@ -443,14 +443,14 @@ namespace Ork.Energy.ViewModels
     {
       if (m_Repository.Links.Any(c => c.Target == (((DistributorViewModel) dataContext).Model)))
       {
-        var constraint = m_Repository.Links.Where(c => c.Target == (((DistributorViewModel)dataContext).Model));
+        var constraint = m_Repository.Links.Where(c => c.Target == (((DistributorViewModel) dataContext).Model));
         Dialogs.ShowMessageBox(
           "Der Verteiler kann nicht gelöscht werden, da folgende Verbraucher zu diesem Verteiler gehören: " +
           String.Join(" ", (constraint.Select(c => ((Consumer) c.Source).Name))), "Datenbankfehler");
       }
       else
       {
-        m_Repository.Distributors.Remove(((DistributorViewModel)dataContext).Model);
+        m_Repository.Distributors.Remove(((DistributorViewModel) dataContext).Model);
         m_Repository.Save();
 
         NotifyOfPropertyChange(() => Distributors);

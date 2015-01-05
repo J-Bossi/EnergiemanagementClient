@@ -24,7 +24,7 @@ using Ork.Setting;
 namespace Ork.Energy
 {
   [Export(typeof (IConsumerRepository))]
-  internal class ConsumerRepository : IConsumerRepository
+  public class ConsumerRepository : IConsumerRepository
   {
     private DomainModelContext m_Context;
     private readonly Func<DomainModelContext> m_CreateMethod;
