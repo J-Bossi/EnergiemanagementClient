@@ -19,22 +19,51 @@
       <TextBlock
         Text="Typenliste"
         Margin="0 0 0 3" />
-      <ListBox
-        ItemsSource="{Binding ConsumerTypes}"
-        DisplayMemberPath="TypeName" />
-      <StackPanel
-        Margin="0 3 0 3"
-        Orientation="Horizontal">
+      <ListView
+        ItemsSource="{Binding ConsumerTypes}">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                  Width="*" />
+                <ColumnDefinition
+                  Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <TextBlock
+                Text="{Binding TypeName}"
+                Grid.Column="0" />
+              <TextBlock
+                Margin="0 1 0 0"
+                Grid.Column="1"
+                FontFamily="Marlett"
+                Text="r"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch"
+                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action DeleteConsumerType($dataContext)]" />
+            </Grid>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+      <Grid
+        Margin="0 3 0 3">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition
+            Width="*" />
+          <ColumnDefinition
+            Width="Auto" />
+        </Grid.ColumnDefinitions>
+
         <TextBox
+          Grid.Column="0"
           Text="{Binding ConsumerType}"
-          TextWrapping="Wrap"
-          HorizontalAlignment="Stretch" />
+          TextWrapping="Wrap" />
         <Button
+          Grid.Column="1"
           Style="{DynamicResource SquareButtonStyle}"
           cal:Message.Attach="AddConsumerType"
-          Content="Hinzufügen"
-          HorizontalAlignment="Right" />
-      </StackPanel>
+          Content="Hinzufügen" />
+      </Grid>
 
       <Button
         Margin="0 3"

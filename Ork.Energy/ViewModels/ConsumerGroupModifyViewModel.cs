@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
+using System.Windows.Input;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 
@@ -41,7 +42,7 @@ namespace Ork.Energy.ViewModels
       set { m_Model.GroupName = value; }
     }
 
-    public IEnumerable<ConsumerType> ConsumerTypes
+    public DataServiceCollection<ConsumerType> ConsumerTypes
     {
       get { return m_Model.ConsumerTypes; }
      
@@ -53,5 +54,15 @@ namespace Ork.Energy.ViewModels
     {
      m_Model.ConsumerTypes.Add(new ConsumerType{TypeName = ConsumerType});
     }
+
+    public void DeleteConsumerType(object dataContext)
+    {
+
+      m_Model.ConsumerTypes.Remove((ConsumerType)dataContext);
+      m_Repository.Save();
+
+      NotifyOfPropertyChange(() => ConsumerTypes);
+    }
+
   }
 }

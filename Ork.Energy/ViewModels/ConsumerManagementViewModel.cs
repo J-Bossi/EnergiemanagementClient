@@ -20,6 +20,7 @@ using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 using Ork.Energy.Factories;
@@ -457,6 +458,9 @@ namespace Ork.Energy.ViewModels
       }
     }
 
+   
+
+    
     public void SaveConsumerGroup(object dataContext)
     {
       Save();
