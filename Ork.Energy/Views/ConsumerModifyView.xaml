@@ -5,48 +5,79 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:cal="http://www.caliburnproject.org"
-  mc:Ignorable="d"
-  d:DesignHeight="300"
-  d:DesignWidth="300">
+  mc:Ignorable="d">
   <Grid>
     <StackPanel>
       <TextBlock
         Text="Name" />
       <TextBox
-        Text="{Binding Name}" />
+        Text="{Binding Name}"
+        Margin="0 0 0 3" />
       <TextBlock
         Text="Raum" />
       <TextBox
         Text="{Binding Room}"
         TextWrapping="Wrap"
-        IsEnabled="False" />
+        IsEnabled="False"
+        Margin="0 0 0 3" />
+      <StackPanel
+        Orientation="Horizontal">
+        <TextBlock
+          Text="Eigenständiger Verbraucher"
+          VerticalAlignment="Center"
+          Margin="0 0 5 0" />
+        <CheckBox
+          IsChecked="{Binding IsMachine}"
+          Name="IsMachineCheckBox"
+          Margin="0 0 0 3" />
+      </StackPanel>
       <TextBlock
-        Text="Kommentar" />
+        Text="Verbraucherbezeichnung" />
       <TextBox
-        Text="{Binding Comment}"
-        TextWrapping="Wrap"
-        Height="200"
-        AcceptsReturn="True" />
+        Margin="0 0 0 3"
+        Text="{Binding Identifier}"
+        IsEnabled="{Binding ElementName=IsMachineCheckBox, Path=IsChecked}" />
+      <TextBlock
+        Text="Baujahr" />
+      <TextBox
+        Margin="0 0 0 3"
+        Text="{Binding Year}"
+        IsEnabled="{Binding ElementName=IsMachineCheckBox, Path=IsChecked}" />
+      <TextBlock
+        Text="Hersteller" />
+      <TextBox
+        Margin="0 0 0 3"
+        Text="{Binding Manufacturer}"
+        IsEnabled="{Binding ElementName=IsMachineCheckBox, Path=IsChecked}" />
+      <TextBlock
+        Text="Herstellerangabe Verbrauch" />
+      <TextBox
+        Margin="0 0 0 3"
+        Text="{Binding PowerOutput}"
+        IsEnabled="{Binding ElementName=IsMachineCheckBox, Path=IsChecked}" />
       <TextBlock
         Text="Verbrauchergruppe" />
       <ComboBox
         ItemsSource="{Binding AllConsumerGroups}"
         SelectedItem="{Binding ConsumerGroup}"
-        DisplayMemberPath="GroupName" />
-
+        DisplayMemberPath="GroupName"
+        Margin="0 0 0 3" />
       <TextBlock
         Text="Verbrauchergruppentyp" />
       <ComboBox
         ItemsSource="{Binding AllConsumerTypes}"
         SelectedItem="{Binding ConsumerType}"
-        DisplayMemberPath="TypeName" />
+        DisplayMemberPath="TypeName"
+        Margin="0 0 0 3" />
       <TextBlock
         Text="Verteiler" />
       <ComboBox
         ItemsSource="{Binding AllDistributors}"
         SelectedItem="{Binding Distributor}"
-        DisplayMemberPath="Name" />
+        DisplayMemberPath="Name"
+        Margin="0 0 0 3" />
       <Button
+        Margin="0 3"
         Style="{DynamicResource SquareButtonStyle}"
         cal:Message.Attach="SaveConsumer($dataContext)"
         Content="Speichern" />

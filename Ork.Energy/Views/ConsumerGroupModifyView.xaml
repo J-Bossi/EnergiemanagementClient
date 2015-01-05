@@ -1,27 +1,46 @@
-﻿<UserControl x:Class="Ork.Energy.Views.ConsumerGroupModifyView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:cal="http://www.caliburnproject.org"
-             mc:Ignorable="d"
-             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="Name" />
-            <TextBox Text="{Binding GroupName}" />
-            <TextBlock Text="Typenliste" />
-            <ListBox ItemsSource="{Binding ConsumerTypes}"  DisplayMemberPath="TypeName" />
-          <StackPanel Orientation="Horizontal">
-        <TextBox Text="{Binding ConsumerType}" TextWrapping="Wrap"
-                     HorizontalAlignment="Stretch"
-                    />
-        <Button Style="{DynamicResource SquareButtonStyle}" cal:Message.Attach="AddConsumerType" Content="Hinzufügen" HorizontalAlignment="Right"/>
+﻿<UserControl
+  x:Class="Ork.Energy.Views.ConsumerGroupModifyView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  mc:Ignorable="d"
+  xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+  <Grid>
+    <StackPanel>
+      <TextBlock
+        Text="Name" />
+      <TextBox
+        Text="{Binding GroupName}"
+        Margin="0 0 0 3" />
+      <TextBlock
+        Text="Typenliste"
+        Margin="0 0 0 3" />
+      <ListBox
+        ItemsSource="{Binding ConsumerTypes}"
+        DisplayMemberPath="TypeName" />
+      <StackPanel
+        Margin="0 3 0 3"
+        Orientation="Horizontal">
+        <TextBox
+          Text="{Binding ConsumerType}"
+          TextWrapping="Wrap"
+          HorizontalAlignment="Stretch" />
+        <Button
+          Style="{DynamicResource SquareButtonStyle}"
+          cal:Message.Attach="AddConsumerType"
+          Content="Hinzufügen"
+          HorizontalAlignment="Right" />
       </StackPanel>
-            
-            <Button Style="{DynamicResource SquareButtonStyle}" cal:Message.Attach="SaveConsumerGroup($dataContext)"
-                    Content="Speichern" />
-        </StackPanel>
-    </Grid>
+
+      <Button
+        Margin="0 3"
+        Style="{DynamicResource SquareButtonStyle}"
+        cal:Message.Attach="SaveConsumerGroup($dataContext)"
+        Content="Speichern" />
+    </StackPanel>
+  </Grid>
 </UserControl>
