@@ -52,14 +52,9 @@
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Name="Localid" Type="Edm.Int32" Nullable="false" />
-        <Property Name="LocalGr" Type="Edm.Int32" Nullable="false" />
-        <Property Name="LocalGnr" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <Property Name="InventoryNr" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <Property Name="LocalSerialNr" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Manufacturer" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="IsMachine" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Identifier" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <Property Name="Comment" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Year" Type="Edm.Int32" />
         <Property Name="PowerOutput" Type="Edm.Int64" />
         <Property Name="PowerCurrent" Type="Edm.Int64" />

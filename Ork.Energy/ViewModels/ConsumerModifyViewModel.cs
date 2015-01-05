@@ -75,12 +75,6 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Readings; }
     }
 
-    public virtual string Comment
-    {
-      get { return m_Model.Comment; }
-      set { m_Model.Comment = value; }
-    }
-
     public int? Year
     {
       get { return m_Model.Year; }
@@ -112,6 +106,18 @@ namespace Ork.Energy.ViewModels
     {
       get { return m_Model.ConsumerType; }
       set { m_Model.ConsumerType = value; }
+    }
+
+    public bool IsMachine
+    {
+      get { return m_Model.IsMachine; }
+      set { m_Model.IsMachine = value; }
+    }
+
+    public string Identifier
+    {
+      get { return m_Model.Identifier; }
+      set { m_Model.Identifier = value; }
     }
   }
 }

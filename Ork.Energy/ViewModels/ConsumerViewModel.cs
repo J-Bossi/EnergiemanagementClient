@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2014, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
@@ -64,11 +64,6 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Readings; }
     }
 
-    public virtual string Comment
-    {
-      get { return m_Model.Comment; }
-    }
-
     public int? Year
     {
       get { return m_Model.Year; }
@@ -77,6 +72,21 @@ namespace Ork.Energy.ViewModels
     public virtual string Manufacturer
     {
       get { return m_Model.Manufacturer; }
+    }
+
+    public bool IsMachine
+    {
+      get { return m_Model.IsMachine; }
+    }
+
+    public string Identifier
+    {
+      get { return m_Model.Identifier; }
+    }
+
+    public ConsumerType ConsumerType
+    {
+      get { return m_Model.ConsumerType; }
     }
   }
 }
