@@ -15,6 +15,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using Ork.Energy.DomainModelService;
@@ -83,6 +84,16 @@ namespace Ork.Energy
         message += Environment.NewLine + ex.InnerException.Message;
       }
       RaiseEvent(ContextChanged);
+    }
+
+    public IEnumerable<EntityDescriptor> Entities
+    {
+      get { return m_Context.Entities; }
+    }
+
+    public IEnumerable<LinkDescriptor> Links
+    {
+      get { return m_Context.Links; }
     }
 
     private void LoadConsumerGroups()

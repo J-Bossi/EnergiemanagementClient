@@ -192,10 +192,7 @@ namespace Ork.Energy.ViewModels
 
     public int Index
     {
-      get
-      {
-        return 400;
-      }
+      get { return 400; }
     }
 
     public bool IsEnabled
@@ -418,16 +415,24 @@ namespace Ork.Energy.ViewModels
 
     public void DeleteConsumerGroup(object dataContext)
     {
-      //TODO Delete ConsumerGroup and Check on Childs
-      m_Repository.ConsumerGroups.Remove(((ConsumerGroupViewModel) dataContext).Model);
-      m_Repository.Save();
+      if (m_Repository.Links.Any(c => c.Target == (((ConsumerGroupViewModel) dataContext).Model)))
+      {
+        var constraint = m_Repository.Links.Where(c => c.Target == (((ConsumerGroupViewModel) dataContext).Model));
+        Dialogs.ShowMessageBox(
+          "Die Verbrauchergruppe kann nicht gelöscht werden, da folgende Verbraucher zu dieser Verbrauchergruppe gehören: " +
+          String.Join(" ", (constraint.Select(c => ((Consumer) c.Source).Name))), "Datenbankfehler");
+      }
+      else
+      {
+        m_Repository.ConsumerGroups.Remove(((ConsumerGroupViewModel) dataContext).Model);
+        m_Repository.Save();
 
-      NotifyOfPropertyChange(() => ConsumerGroups);
+        NotifyOfPropertyChange(() => ConsumerGroups);
+      }
     }
 
     public void DeleteConsumer(object dataContext)
     {
-      //TODO Delete ConsumerGroup and Check on Childs
       m_Repository.Consumers.Remove(((ConsumerViewModel) dataContext).Model);
       m_Repository.Save();
 
@@ -436,11 +441,20 @@ namespace Ork.Energy.ViewModels
 
     public void DeleteDistributor(object dataContext)
     {
-      //TODO Delete ConsumerGroup and Check on Childs
-      m_Repository.Distributors.Remove(((DistributorViewModel) dataContext).Model);
-      m_Repository.Save();
+      if (m_Repository.Links.Any(c => c.Target == (((DistributorViewModel) dataContext).Model)))
+      {
+        var constraint = m_Repository.Links.Where(c => c.Target == (((DistributorViewModel)dataContext).Model));
+        Dialogs.ShowMessageBox(
+          "Der Verteiler kann nicht gelöscht werden, da folgende Verbraucher zu diesem Verteiler gehören: " +
+          String.Join(" ", (constraint.Select(c => ((Consumer) c.Source).Name))), "Datenbankfehler");
+      }
+      else
+      {
+        m_Repository.Distributors.Remove(((DistributorViewModel)dataContext).Model);
+        m_Repository.Save();
 
-      NotifyOfPropertyChange(() => Distributors);
+        NotifyOfPropertyChange(() => Distributors);
+      }
     }
 
     public void SaveConsumerGroup(object dataContext)

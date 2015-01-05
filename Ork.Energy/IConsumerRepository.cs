@@ -15,6 +15,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Client;
 using Ork.Energy.DomainModelService;
 
@@ -33,5 +34,8 @@ namespace Ork.Energy
     void Save();
     event EventHandler ContextChanged;
     event EventHandler SaveCompleted;
+
+    IEnumerable<EntityDescriptor> Entities { get; }
+    IEnumerable<LinkDescriptor> Links { get; }
   }
 }
