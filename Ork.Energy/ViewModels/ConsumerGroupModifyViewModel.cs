@@ -19,10 +19,9 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
-using System.Windows.Forms;
 using System.Windows.Input;
+using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
-using Screen = Caliburn.Micro.Screen;
 
 namespace Ork.Energy.ViewModels
 {

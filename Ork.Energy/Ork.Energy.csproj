@@ -191,6 +191,8 @@
     <Compile Include="ViewModels\MeasureManagementViewModel.cs" />
     <Compile Include="ViewModels\MeasurePrintPreviewViewModel.cs" />
     <Compile Include="ViewModels\MeasureViewModel.cs" />
+    <Compile Include="ViewModels\ReadingModifyViewModel.cs" />
+    <Compile Include="ViewModels\ReadingViewModel.cs" />
     <Compile Include="ViewModels\ResponsibleSubjectViewModel.cs" />
     <Compile Include="ViewModels\SubMeasureViewModel.cs" />
     <Compile Include="Views\ConsumerCardView.xaml.cs">
@@ -225,7 +227,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Ork.Energy.DomainModelService.DomainModelContext1.datasource" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

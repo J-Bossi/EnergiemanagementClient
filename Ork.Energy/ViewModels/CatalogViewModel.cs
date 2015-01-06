@@ -10,63 +10,61 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2013, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Linq;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
-    public class CatalogViewModel
+  public class CatalogViewModel
+  {
+    private readonly Catalog m_Model;
+
+    public CatalogViewModel(Catalog catalog)
     {
-        private readonly Catalog m_Model;
-
-        public CatalogViewModel(Catalog catalog)
-        {
-            m_Model = catalog;
-        }
-
-        public Catalog Model
-        {
-            get { return m_Model; }
-        }
-
-        public string Name
-        {
-            get { return m_Model.Name; }
-        }
-
-        public string Description
-        {
-            get { return m_Model.Description; }
-        }
-
-        public DataServiceCollection<Measure> Measures
-        {
-            get { return m_Model.Measures; }
-        }
-
-        public string FullDate
-        {
-            get
-            {
-                List<DateTime> dateList = m_Model.Measures.Select(measure => measure.DueDate)
-                    .ToList();
-                dateList.Sort();
-
-                if (dateList.Count == 0)
-                {
-                    return "";
-                }
-                return dateList.First()
-                    .ToShortDateString() + " - " + dateList.Last()
-                        .ToShortDateString();
-            }
-        }
+      m_Model = catalog;
     }
+
+    public Catalog Model
+    {
+      get { return m_Model; }
+    }
+
+    public string Name
+    {
+      get { return m_Model.Name; }
+    }
+
+    public string Description
+    {
+      get { return m_Model.Description; }
+    }
+
+    public DataServiceCollection<Measure> Measures
+    {
+      get { return m_Model.Measures; }
+    }
+
+    public string FullDate
+    {
+      get
+      {
+        var dateList = m_Model.Measures.Select(measure => measure.DueDate)
+                              .ToList();
+        dateList.Sort();
+
+        if (dateList.Count == 0)
+        {
+          return "";
+        }
+        return dateList.First()
+                       .ToShortDateString() + " - " + dateList.Last()
+                                                              .ToShortDateString();
+      }
+    }
+  }
 }
