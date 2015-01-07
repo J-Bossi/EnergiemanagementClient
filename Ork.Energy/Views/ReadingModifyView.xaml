@@ -1,0 +1,35 @@
+﻿<UserControl
+  x:Class="Ork.Energy.Views.ReadingModifyView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+  <Grid>
+    <StackPanel>
+      <DataGrid
+        ItemsSource="{Binding Readings}"
+        AutoGenerateColumns="False">
+        <DataGrid.Columns>
+          <DataGridTextColumn
+            Header="Ablesedatum"
+            Binding="{Binding ReadingDate}" />
+          <DataGridTextColumn
+            Header="Wert (kWh/a)"
+            Binding="{Binding CounterReading}" />
+        </DataGrid.Columns>
+      </DataGrid>
+      <TextBlock
+        Text="Wert (kWh/a)" />
+      <TextBox
+        Text="{Binding NewCounterReading}" />
+      <DatePicker
+        HorizontalAlignment="Stretch"
+        controls:TextBoxHelper.Watermark="Bitte ein Datum auswählen"
+        SelectedDate="{Binding NewReadingDate}" />
+    </StackPanel>
+  </Grid>
+</UserControl>

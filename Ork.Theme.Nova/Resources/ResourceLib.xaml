@@ -5,7 +5,7 @@
     <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
     <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
     <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/blue.xaml" />
+    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/orange.xaml" />
     <ResourceDictionary
                     Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/basedark.xaml" />
     <ResourceDictionary Source="Icons.xaml" />
@@ -13,10 +13,10 @@
       Source="Brushes.xaml" />
     <ResourceDictionary
       Source="Colors.xaml" />
-    <ResourceDictionary
-      Source="ControlStyles/CalendarStyle.xaml" />
-    <ResourceDictionary
-      Source="ControlStyles/DatePickerStyle.xaml" />
+    <!--<ResourceDictionary
+      Source="ControlStyles/CalendarStyle.xaml" />-->
+    <!--<ResourceDictionary
+      Source="ControlStyles/DatePickerStyle.xaml" />-->
     <ResourceDictionary
       Source="ControlStyles/TimePickerStyle.xaml" />
     <ResourceDictionary
@@ -41,8 +41,8 @@
       Source="ControlStyles/ToolTipStyle.xaml" />
     <ResourceDictionary
       Source="ControlStyles/CheckBoxStyle.xaml" />
-    <ResourceDictionary
-      Source="ControlStyles/DateTimePickerStyle.xaml" />
+    <!--<ResourceDictionary
+      Source="ControlStyles/DateTimePickerStyle.xaml" />-->
     <ResourceDictionary
       Source="ControlStyles/RadioButtonStyle.xaml" />
     <ResourceDictionary

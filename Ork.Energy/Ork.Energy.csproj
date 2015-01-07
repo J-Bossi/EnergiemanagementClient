@@ -225,6 +225,9 @@
     <Compile Include="Views\MeasurePrintPreviewView.xaml.cs">
       <DependentUpon>MeasurePrintPreviewView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReadingModifyView.xaml.cs">
+      <DependentUpon>ReadingModifyView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Ork.Energy.DomainModelService.DomainModelContext1.datasource" />
@@ -312,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MeasurePrintPreviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReadingModifyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

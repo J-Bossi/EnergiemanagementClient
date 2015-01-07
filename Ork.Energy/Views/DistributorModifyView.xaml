@@ -1,5 +1,6 @@
 ﻿<UserControl
   x:Class="Ork.Energy.Views.DistributorModifyView"
+  xmlns:Views="clr-namespace:Ork.Energy.Views"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,7 +10,12 @@
   d:DesignHeight="300"
   d:DesignWidth="300">
   <Grid>
-    <StackPanel>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <StackPanel
+      Grid.Column="0">
       <TextBlock
         Text="Name" />
       <TextBox
@@ -39,5 +45,6 @@
         cal:Message.Attach="SaveDistributor($dataContext)"
         Content="Speichern" />
     </StackPanel>
+    <Views:ReadingModifyView  cal:Bind.Model="{Binding}" Grid.Column="1" />
   </Grid>
 </UserControl>

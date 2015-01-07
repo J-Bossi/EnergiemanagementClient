@@ -24,25 +24,29 @@ namespace Ork.Energy.ViewModels
   public class ReadingModifyViewModel : Screen
   {
     private readonly Reading m_Model;
-    private readonly IConsumerRepository m_Repository;
+    
 
-    public ReadingModifyViewModel(Reading model, [Import] IConsumerRepository repository)
+    public ReadingModifyViewModel()
     {
-      m_Model = model;
-      m_Repository = repository;
-      DisplayName = "Messung bearbeiten...";
+      
+      
+     
+      
     }
 
-    public long CounterReading
+
+    public long NewCounterReading
     {
       get { return m_Model.CounterReading; }
       set { m_Model.CounterReading = value; }
     }
 
-    public DateTime ReadingDate
+    public DateTime NewReadingDate
     {
       get { return m_Model.ReadingDate; }
       set { m_Model.ReadingDate = value; }
     }
+
+
   }
 }

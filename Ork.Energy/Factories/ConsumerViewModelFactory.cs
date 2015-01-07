@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
+using System.Linq;
 using Ork.Energy.DomainModelService;
 using Ork.Energy.ViewModels;
 
@@ -45,5 +48,11 @@ namespace Ork.Energy.Factories
         {
             return new DistributorModifyViewModel(distributor);
         }
+
+      public static IEnumerable<ReadingViewModel> CreateReadingsViewModels(DataServiceCollection<Reading> readings)
+      {
+        return readings.Select(reading => new ReadingViewModel(reading))
+                       .ToList();
+      }
     }
 }

@@ -1,46 +1,59 @@
-﻿using System;
+﻿#region License
+
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. 
+// You may obtain a copy of the License at
+//  
+// http://www.apache.org/licenses/LICENSE-2.0.html
+//  
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  
+// Copyright (c) 2015, HTW Berlin
+
+#endregion
+
 using System.Collections.Generic;
-using System.Data.Services.Client;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
-    public class DistributorModifyViewModel : Screen
+  public class DistributorModifyViewModel : Screen
+  {
+    private readonly Distributor m_Model;
+    private ReadingModifyViewModel m_NewReadingViewModel;
+
+    public DistributorModifyViewModel(Distributor model)
     {
-        private readonly Distributor m_Model;
-
-        public DistributorModifyViewModel(Distributor model)
-        {
-            DisplayName = "Verteiler bearbeiten...";
-            m_Model = model;
-        }
-
-        public string Name
-        {
-            get { return m_Model.Name; }
-            set { m_Model.Name = value; }
-        }
-
-        public bool IsMainDistributor
-        {
-            get { return m_Model.IsMainDistributor; }
-            set { m_Model.IsMainDistributor = value; }
-        }
-
-        public DataServiceCollection<Reading> Readings
-        {
-            get { return m_Model.Readings; }
-            set { m_Model.Readings = value; }
-        }
-
-        public Room Room
-        {
-            get { return m_Model.Room; }
-            set { m_Model.Room = value; }
-        }
+      DisplayName = "Verteiler bearbeiten...";
+      m_Model = model;
+      Readings = Factories.ConsumerViewModelFactory.CreateReadingsViewModels(model.Readings);
+      ReadingModifyViewModel = new ReadingModifyViewModel();
     }
+
+    public string Name
+    {
+      get { return m_Model.Name; }
+      set { m_Model.Name = value; }
+    }
+
+    public bool IsMainDistributor
+    {
+      get { return m_Model.IsMainDistributor; }
+      set { m_Model.IsMainDistributor = value; }
+    }
+
+    public IEnumerable<ReadingViewModel> Readings { get; private set; }
+
+    public ReadingModifyViewModel ReadingModifyViewModel { get; set; }
+
+    public Room Room
+    {
+      get { return m_Model.Room; }
+      set { m_Model.Room = value; }
+    }
+  }
 }
