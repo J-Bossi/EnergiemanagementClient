@@ -20,7 +20,6 @@ using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 using Ork.Energy.Factories;
@@ -44,18 +43,17 @@ namespace Ork.Energy.ViewModels
       new BindableCollection<ConsumerGroupViewModel>();
 
     private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
-    private readonly IEnergyViewModelFactory m_ConsumerViewModelFactory;
     private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly IConsumerRepository m_Repository;
 
     [ImportingConstructor]
     public ConsumerManagementViewModel([Import] IConsumerRepository mRepository,
-                                       [Import] IEnergyViewModelFactory mConsumerViewModelFactory,
-                                       [Import] IDialogManager dialogs)
+                                       [Import] IEnergyViewModelFactory mEnergyViewModelFactory, [Import] IDialogManager dialogs)
     {
       Dialogs = dialogs;
       m_Repository = mRepository;
-      m_ConsumerViewModelFactory = mConsumerViewModelFactory;
+      m_EnergyViewModelFactory = mEnergyViewModelFactory;
 
       m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
       Reload();
@@ -312,19 +310,19 @@ namespace Ork.Energy.ViewModels
 
     private void CreateConsumerGroupViewModel(ConsumerGroup consumerGroup)
     {
-      var cgvm = m_ConsumerViewModelFactory.CreateFromExisting(consumerGroup);
+      var cgvm = m_EnergyViewModelFactory.CreateFromExisting(consumerGroup);
 
       m_ConsumerGroups.Add(cgvm);
     }
 
     private void CreateConsumerViewModel(Consumer consumer)
     {
-      m_Consumers.Add(m_ConsumerViewModelFactory.CreateFromExisting(consumer));
+      m_Consumers.Add(m_EnergyViewModelFactory.CreateFromExisting(consumer));
     }
 
     private void CreateDistributorViewModel(Distributor distributor)
     {
-      m_Distributors.Add(m_ConsumerViewModelFactory.CreateFromExisting(distributor));
+      m_Distributors.Add(m_EnergyViewModelFactory.CreateFromExisting(distributor));
     }
 
     private void AlterConsumerGroupCollection(object sender, NotifyCollectionChangedEventArgs eventArgs)
@@ -393,19 +391,19 @@ namespace Ork.Energy.ViewModels
     public void OpenEditConsumerGroupDialog(object dataContext)
     {
       SelectedConsumerGroup = (ConsumerGroupViewModel) dataContext;
-      OpenEditor(m_ConsumerViewModelFactory.CreateConsumerGroupModifyVM(SelectedConsumerGroup.Model));
+      OpenEditor(m_EnergyViewModelFactory.CreateConsumerGroupModifyVM(SelectedConsumerGroup.Model));
     }
 
     public void OpenEditConsumerDialog(object dataContext)
     {
       SelectedConsumer = (ConsumerViewModel) dataContext;
-      OpenEditor(m_ConsumerViewModelFactory.CreateConsumerModifyVM(SelectedConsumer.Model));
+      OpenEditor(m_EnergyViewModelFactory.CreateConsumerModifyVM(SelectedConsumer.Model));
     }
 
     public void OpenEditDistributorDialog(object dataContext)
     {
       SelectedDistributor = (DistributorViewModel) dataContext;
-      OpenEditor(m_ConsumerViewModelFactory.CreateDistributorModifyVM(SelectedDistributor.Model));
+      OpenEditor(m_EnergyViewModelFactory.CreateDistributorModifyVM(SelectedDistributor.Model));
     }
 
     private void OpenEditor(object dataContext)
@@ -458,9 +456,6 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-   
-
-    
     public void SaveConsumerGroup(object dataContext)
     {
       Save();

@@ -61,12 +61,17 @@ namespace Ork.Energy.Factories
 
     public ConsumerModifyViewModel CreateConsumerModifyVM(Consumer consumer)
     {
-      return new ConsumerModifyViewModel(consumer, m_ConsumerRepository);
+      return new ConsumerModifyViewModel(consumer, m_ConsumerRepository, this);
     }
 
     public DistributorModifyViewModel CreateDistributorModifyVM(Distributor distributor)
     {
-      return new DistributorModifyViewModel(distributor);
+      return new DistributorModifyViewModel(distributor, this);
+    }
+
+    public ReadingModifyViewModel CreateReadingModifyViewModel()
+    {
+      return new ReadingModifyViewModel();
     }
 
     public static IEnumerable<ReadingViewModel> CreateReadingsViewModels(DataServiceCollection<Reading> readings)

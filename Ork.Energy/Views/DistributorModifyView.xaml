@@ -45,6 +45,23 @@
         cal:Message.Attach="SaveDistributor($dataContext)"
         Content="Speichern" />
     </StackPanel>
-    <Views:ReadingModifyView  cal:Bind.Model="{Binding}" Grid.Column="1" />
+    <StackPanel
+      Grid.Column="1">
+      <DataGrid
+        ItemsSource="{Binding Readings}"
+        AutoGenerateColumns="False">
+        <DataGrid.Columns>
+          <DataGridTextColumn
+            Header="Ablesedatum"
+            Binding="{Binding ShortReadingDate}" />
+          <DataGridTextColumn
+            Header="Wert (kWh/a)"
+            Binding="{Binding CounterReading}" />
+        </DataGrid.Columns>
+      </DataGrid>
+      <ContentControl
+        x:Name="readingModifyVM" />
+    </StackPanel>
+
   </Grid>
 </UserControl>

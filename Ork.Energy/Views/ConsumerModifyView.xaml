@@ -5,9 +5,15 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:cal="http://www.caliburnproject.org"
+  xmlns:views="clr-namespace:Ork.Energy.Views"
   mc:Ignorable="d">
   <Grid>
-    <StackPanel>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <StackPanel
+      Grid.Column="0">
       <TextBlock
         Text="Name" />
       <TextBox
@@ -82,6 +88,22 @@
         cal:Message.Attach="SaveConsumer($dataContext)"
         Content="Speichern" />
     </StackPanel>
-
+    <StackPanel
+      Grid.Column="1">
+      <DataGrid
+        ItemsSource="{Binding Readings}"
+        AutoGenerateColumns="False">
+        <DataGrid.Columns>
+          <DataGridTextColumn
+            Header="Ablesedatum"
+            Binding="{Binding ShortReadingDate}" />
+          <DataGridTextColumn
+            Header="Wert (kWh/a)"
+            Binding="{Binding CounterReading}" />
+        </DataGrid.Columns>
+      </DataGrid>
+      <ContentControl
+        x:Name="readingModifyVM" />
+    </StackPanel>
   </Grid>
 </UserControl>

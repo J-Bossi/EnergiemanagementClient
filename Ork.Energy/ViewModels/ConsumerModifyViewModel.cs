@@ -16,22 +16,27 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Data.Services.Client;
+using System.Linq;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
+using Ork.Energy.Factories;
 
 namespace Ork.Energy.ViewModels
 {
   public class ConsumerModifyViewModel : Screen
   {
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly Consumer m_Model;
     private readonly IConsumerRepository m_Repository;
 
-    public ConsumerModifyViewModel(Consumer consumer, [Import] IConsumerRepository consumerRepository)
+    public ConsumerModifyViewModel(Consumer consumer, [Import] IConsumerRepository consumerRepository,
+                                   [Import] IEnergyViewModelFactory energyViewModelFactory)
     {
       DisplayName = "Verbraucher bearbeiten...";
       m_Model = consumer;
       m_Repository = consumerRepository;
+      m_EnergyViewModelFactory = energyViewModelFactory;
+      readingModifyVM = new ReadingModifyViewModel();
     }
 
     public virtual Room Room
@@ -39,6 +44,8 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Room; }
       set { m_Model.Room = value; }
     }
+
+    public ReadingModifyViewModel readingModifyVM { get; set; }
 
     public virtual Distributor Distributor
     {
@@ -70,9 +77,9 @@ namespace Ork.Energy.ViewModels
       set { m_Model.PowerCurrent = value; }
     }
 
-    public virtual DataServiceCollection<Reading> Readings
+    public virtual IEnumerable<ReadingViewModel> Readings
     {
-      get { return m_Model.Readings; }
+      get { return m_Model.Readings.Select(rvm => m_EnergyViewModelFactory.CreateFromExisting(rvm)); }
     }
 
     public int? Year
@@ -118,6 +125,13 @@ namespace Ork.Energy.ViewModels
     {
       get { return m_Model.Identifier; }
       set { m_Model.Identifier = value; }
+    }
+
+    public void AddNewReading(object dataContext)
+    {
+      m_Model.Readings.Add(ModelFactory.CreateReading(readingModifyVM.NewReadingDate, readingModifyVM.NewCounterReading));
+      readingModifyVM.ClearReadingFields();
+      NotifyOfPropertyChange(() => Readings);
     }
   }
 }

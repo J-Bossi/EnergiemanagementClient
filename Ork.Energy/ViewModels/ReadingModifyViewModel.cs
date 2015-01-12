@@ -1,4 +1,4 @@
-﻿#region License
+#region License
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License. 
@@ -15,38 +15,26 @@
 #endregion
 
 using System;
-using System.ComponentModel.Composition;
 using Caliburn.Micro;
-using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
   public class ReadingModifyViewModel : Screen
   {
-    private readonly Reading m_Model;
-    
-
     public ReadingModifyViewModel()
     {
-      
-      
-     
-      
+      NewReadingDate = DateTime.Now;
     }
 
+    public long NewCounterReading { get; set; }
+    public DateTime NewReadingDate { get; set; }
 
-    public long NewCounterReading
+    public void ClearReadingFields()
     {
-      get { return m_Model.CounterReading; }
-      set { m_Model.CounterReading = value; }
+      NewCounterReading = 0;
+      NewReadingDate = DateTime.Now;
+      NotifyOfPropertyChange(() => NewCounterReading);
+      NotifyOfPropertyChange(() => NewReadingDate);
     }
-
-    public DateTime NewReadingDate
-    {
-      get { return m_Model.ReadingDate; }
-      set { m_Model.ReadingDate = value; }
-    }
-
-
   }
 }
