@@ -63,6 +63,16 @@ namespace Ork.Energy
     public event EventHandler ContextChanged;
     public event EventHandler SaveCompleted;
 
+    public IEnumerable<EntityDescriptor> Entities
+    {
+      get { return m_Context.Entities; }
+    }
+
+    public IEnumerable<LinkDescriptor> Links
+    {
+      get { return m_Context.Links; }
+    }
+
     private void Initialize()
     {
       m_Context = m_CreateMethod();
@@ -86,16 +96,6 @@ namespace Ork.Energy
       RaiseEvent(ContextChanged);
     }
 
-    public IEnumerable<EntityDescriptor> Entities
-    {
-      get { return m_Context.Entities; }
-    }
-
-    public IEnumerable<LinkDescriptor> Links
-    {
-      get { return m_Context.Links; }
-    }
-
     private void LoadConsumerGroups()
     {
       ConsumerGroups = new DataServiceCollection<ConsumerGroup>(m_Context);
@@ -110,7 +110,8 @@ namespace Ork.Energy
 
       DataServiceQuery<Consumer> query = m_Context.Consumers.Expand("OpenResKit.DomainModel.Consumer/ConsumerGroup")
                                                   .Expand("OpenResKit.DomainModel.Consumer/Distributor")
-                                                  .Expand("OpenResKit.DomainModel.Consumer/ConsumerType");
+                                                  .Expand("OpenResKit.DomainModel.Consumer/ConsumerType")
+                                                  .Expand("Readings");
       Consumers.Load(query);
     }
 
@@ -134,7 +135,7 @@ namespace Ork.Energy
     {
       Distributors = new DataServiceCollection<Distributor>(m_Context);
 
-      DataServiceQuery<Distributor> query = m_Context.Distributors;
+      DataServiceQuery<Distributor> query = m_Context.Distributors.Expand("Readings");
       Distributors.Load(query);
     }
 

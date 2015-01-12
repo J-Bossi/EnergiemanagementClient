@@ -14,6 +14,7 @@
 
 #endregion
 
+using System;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.Factories
@@ -51,6 +52,15 @@ namespace Ork.Energy.Factories
       return new ConsumerType
       {
         TypeName = consumerType
+      };
+    }
+
+    public static Reading CreateReading(DateTime readingDate, long counterReading)
+    {
+      return new Reading
+      {
+        CounterReading = counterReading,
+        ReadingDate = readingDate
       };
     }
   }

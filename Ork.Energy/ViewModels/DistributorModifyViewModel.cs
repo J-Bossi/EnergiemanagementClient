@@ -14,24 +14,27 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
+using Ork.Energy.Factories;
 
 namespace Ork.Energy.ViewModels
 {
   public class DistributorModifyViewModel : Screen
   {
+    private Reading m_newReading;
+    private readonly IEnergyViewModelFactory m_ConsumerViewModelFactory;
     private readonly Distributor m_Model;
-    private ReadingModifyViewModel m_NewReadingViewModel;
 
     public DistributorModifyViewModel(Distributor model)
     {
       DisplayName = "Verteiler bearbeiten...";
       m_Model = model;
-      Readings = Factories.ConsumerViewModelFactory.CreateReadingsViewModels(model.Readings);
-      ReadingModifyViewModel = new ReadingModifyViewModel();
+      NewReadingDate = DateTime.Now;
+      m_ConsumerViewModelFactory = IoC.Get<IEnergyViewModelFactory>();
     }
 
     public string Name
@@ -46,14 +49,33 @@ namespace Ork.Energy.ViewModels
       set { m_Model.IsMainDistributor = value; }
     }
 
-    public IEnumerable<ReadingViewModel> Readings { get; private set; }
-
-    public ReadingModifyViewModel ReadingModifyViewModel { get; set; }
+    public IEnumerable<ReadingViewModel> Readings
+    {
+      get { return m_Model.Readings.Select(rvm => m_ConsumerViewModelFactory.CreateFromExisting(rvm)); }
+    }
 
     public Room Room
     {
       get { return m_Model.Room; }
       set { m_Model.Room = value; }
+    }
+
+    public long NewCounterReading { get; set; }
+    public DateTime NewReadingDate { get; set; }
+
+    public void AddNewReading(object dataContext)
+    {
+      m_Model.Readings.Add(ModelFactory.CreateReading(NewReadingDate, NewCounterReading));
+      ClearReadingFields();
+      NotifyOfPropertyChange(() => Readings);
+    }
+
+    private void ClearReadingFields()
+    {
+      NewCounterReading = 0;
+      NewReadingDate = DateTime.Now;
+      NotifyOfPropertyChange(() => NewCounterReading);
+      NotifyOfPropertyChange(() => NewReadingDate);
     }
   }
 }

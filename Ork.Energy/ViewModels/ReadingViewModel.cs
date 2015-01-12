@@ -42,5 +42,10 @@ namespace Ork.Energy.ViewModels
     {
       get { return m_Model.ReadingDate; }
     }
+
+    public string ShortReadingDate
+    {
+      get { return m_Model.ReadingDate.ToShortDateString(); }
+    }
   }
 }
