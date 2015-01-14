@@ -11,17 +11,19 @@
   d:DesignWidth="300">
   <Grid>
     <StackPanel>
-
       <TextBlock
+        Margin="0 0 0 3"
         Text="Wert (kWh/a)" />
-      <TextBox
-        Text="{Binding NewCounterReading}" />
+      <controls:NumericUpDown
+        Margin="0 0 0 3"
+        Value="{Binding NewCounterReading}"
+        TextAlignment="Left" />
       <DatePicker
+        Margin="0 0 0 3"
         HorizontalAlignment="Stretch"
         controls:TextBoxHelper.Watermark="Bitte ein Datum auswählen"
         SelectedDate="{Binding NewReadingDate}" />
       <Button
-        Margin="0 3"
         Style="{DynamicResource SquareButtonStyle}"
         cal:Message.Attach="AddNewReading($dataContext)"
         Content="Neu Ablesung speichern" />
