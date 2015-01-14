@@ -39,7 +39,7 @@
                         Height="50"
                         Margin="2"
                         Style="{DynamicResource MetroCircleButtonStyle}"
-                        cal:Message.Attach="DeleteDistributor($dataContext)">
+                        cal:Message.Attach="Delete($dataContext)">
                     <Rectangle Width="20"
                                Height="20"
                                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">

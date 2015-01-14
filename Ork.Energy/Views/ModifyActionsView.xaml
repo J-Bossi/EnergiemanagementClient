@@ -1,0 +1,65 @@
+﻿<UserControl
+  x:Class="Ork.Energy.Views.ModifyActionsView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  mc:Ignorable="d">
+  <Grid>
+    <StackPanel
+      Orientation="Horizontal">
+      <Button
+        Width="50"
+        Height="50"
+        Margin="2"
+        Style="{DynamicResource MetroCircleButtonStyle}"
+        cal:Message.Attach="Cancel($dataContext)">
+        <Rectangle
+          Width="20"
+          Height="20"
+          Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+          <Rectangle.OpacityMask>
+            <VisualBrush
+              Stretch="Fill"
+              Visual="{DynamicResource appbar_cancel}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Button>
+      <Button
+        Width="50"
+        Height="50"
+        Margin="2"
+        Style="{DynamicResource MetroCircleButtonStyle}"
+        cal:Message.Attach="Save($dataContext)">
+        <Rectangle
+          Width="20"
+          Height="20"
+          Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+          <Rectangle.OpacityMask>
+            <VisualBrush
+              Stretch="Fill"
+              Visual="{DynamicResource appbar_save}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Button>
+      <Button
+        Width="50"
+        Height="50"
+        Margin="2"
+        Style="{DynamicResource MetroCircleButtonStyle}"
+        cal:Message.Attach="Delete($dataContext)">
+        <Rectangle
+          Width="20"
+          Height="20"
+          Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+          <Rectangle.OpacityMask>
+            <VisualBrush
+              Stretch="Fill"
+              Visual="{DynamicResource appbar_delete}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Button>
+    </StackPanel>
+  </Grid>
+</UserControl>

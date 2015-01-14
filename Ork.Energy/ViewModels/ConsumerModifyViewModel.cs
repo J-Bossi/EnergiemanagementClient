@@ -39,6 +39,11 @@ namespace Ork.Energy.ViewModels
       ReadingAddVm = new ReadingAddViewModel();
     }
 
+    public Consumer Model
+    {
+      get { return m_Model; }
+    }
+
     public virtual Room Room
     {
       get { return m_Model.Room; }
@@ -79,7 +84,11 @@ namespace Ork.Energy.ViewModels
 
     public virtual IList<ReadingViewModel> Readings
     {
-      get { return m_Model.Readings.Select(rvm => m_EnergyViewModelFactory.CreateFromExisting(rvm)).ToList(); }
+      get
+      {
+        return m_Model.Readings.Select(rvm => m_EnergyViewModelFactory.CreateFromExisting(rvm))
+                      .ToList();
+      }
     }
 
     public int? Year
@@ -126,7 +135,6 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Identifier; }
       set { m_Model.Identifier = value; }
     }
-
 
 
     public void AddNewReading(object dataContext)

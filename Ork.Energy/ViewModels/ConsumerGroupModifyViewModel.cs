@@ -10,16 +10,12 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2014, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
-using System.Linq;
-using System.Windows.Input;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 
@@ -37,6 +33,11 @@ namespace Ork.Energy.ViewModels
       m_Model = model;
     }
 
+    public ConsumerGroup Model
+    {
+      get { return m_Model; }
+    }
+
     public string GroupName
     {
       get { return m_Model.GroupName; }
@@ -46,27 +47,27 @@ namespace Ork.Energy.ViewModels
     public DataServiceCollection<ConsumerType> ConsumerTypes
     {
       get { return m_Model.ConsumerTypes; }
-     
     }
 
     public string ConsumerType { get; set; }
 
     public void AddConsumerType()
     {
-     m_Model.ConsumerTypes.Add(new ConsumerType{TypeName = ConsumerType});
+      m_Model.ConsumerTypes.Add(new ConsumerType
+      {
+        TypeName = ConsumerType
+      });
     }
 
     public void DeleteConsumerType(object dataContext)
     {
       //TODO Remove Links
       // m_Repository.Context.DeleteLinks
-      
-        m_Model.ConsumerTypes.Remove((ConsumerType) dataContext);
-        m_Repository.Save();
 
-        NotifyOfPropertyChange(() => ConsumerTypes);
-      
+      m_Model.ConsumerTypes.Remove((ConsumerType) dataContext);
+      m_Repository.Save();
+
+      NotifyOfPropertyChange(() => ConsumerTypes);
     }
-
   }
 }

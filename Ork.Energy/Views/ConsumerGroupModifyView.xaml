@@ -7,9 +7,14 @@
   xmlns:cal="http://www.caliburnproject.org"
   mc:Ignorable="d"
   xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+  xmlns:views="clr-namespace:Ork.Energy.Views"
   d:DesignHeight="300"
   d:DesignWidth="300">
   <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
+    </Grid.RowDefinitions>
     <StackPanel>
       <TextBlock
         Text="Name" />
@@ -65,11 +70,9 @@
           Content="Hinzufügen" />
       </Grid>
 
-      <Button
-        Margin="0 3"
-        Style="{DynamicResource SquareButtonStyle}"
-        cal:Message.Attach="SaveConsumerGroup($dataContext)"
-        Content="Speichern" />
+
     </StackPanel>
+    <views:ModifyActionsView
+      Grid.Row="1" />
   </Grid>
 </UserControl>

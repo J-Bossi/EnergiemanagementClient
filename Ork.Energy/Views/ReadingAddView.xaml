@@ -18,7 +18,7 @@
         Margin="0 0 0 3"
         Value="{Binding NewCounterReading}"
         TextAlignment="Left"
-        Minimum="0"/>
+        Minimum="0" />
       <DatePicker
         Margin="0 0 0 3"
         HorizontalAlignment="Stretch"

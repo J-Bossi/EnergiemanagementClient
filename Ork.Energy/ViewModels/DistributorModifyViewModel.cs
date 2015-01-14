@@ -25,9 +25,9 @@ namespace Ork.Energy.ViewModels
 {
   public class DistributorModifyViewModel : Screen
   {
-    private Reading m_newReading;
     private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly Distributor m_Model;
+    private Reading m_newReading;
 
     public DistributorModifyViewModel(Distributor model, [Import] IEnergyViewModelFactory energyViewModelFactory)
     {
@@ -35,6 +35,11 @@ namespace Ork.Energy.ViewModels
       m_Model = model;
       m_EnergyViewModelFactory = energyViewModelFactory;
       ReadingAddVm = new ReadingAddViewModel();
+    }
+
+    public Distributor Model
+    {
+      get { return m_Model; }
     }
 
     public ReadingAddViewModel ReadingAddVm { get; set; }
@@ -53,7 +58,11 @@ namespace Ork.Energy.ViewModels
 
     public IList<ReadingViewModel> Readings
     {
-      get { return m_Model.Readings.Select(rvm => m_EnergyViewModelFactory.CreateFromExisting(rvm)).ToList(); }
+      get
+      {
+        return m_Model.Readings.Select(rvm => m_EnergyViewModelFactory.CreateFromExisting(rvm))
+                      .ToList();
+      }
     }
 
     public Room Room

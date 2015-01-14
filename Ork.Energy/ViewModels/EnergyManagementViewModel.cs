@@ -24,12 +24,20 @@ using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Framework;
+using Action = System.Action;
 
 namespace Ork.Energy.ViewModels
 {
   [Export(typeof (IWorkspace))]
-  public class ConsumerManagementViewModel : DocumentBase, IWorkspace
+  public class EnergyManagementViewModel : DocumentBase, IWorkspace
   {
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
+    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly IConsumerRepository m_Repository;
     private ConsumerGroupViewModel m_ConsumerGroup;
     private DistributorViewModel m_Distributor;
     private IScreen m_EditItem;
@@ -39,17 +47,9 @@ namespace Ork.Energy.ViewModels
     private string m_SearchConsumerText;
     private string m_SearchDistributorText;
 
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
-    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IConsumerRepository m_Repository;
-
     [ImportingConstructor]
-    public ConsumerManagementViewModel([Import] IConsumerRepository mRepository,
-                                       [Import] IEnergyViewModelFactory mEnergyViewModelFactory, [Import] IDialogManager dialogs)
+    public EnergyManagementViewModel([Import] IConsumerRepository mRepository,
+                                     [Import] IEnergyViewModelFactory mEnergyViewModelFactory, [Import] IDialogManager dialogs)
     {
       Dialogs = dialogs;
       m_Repository = mRepository;
@@ -58,6 +58,7 @@ namespace Ork.Energy.ViewModels
       m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
       Reload();
     }
+
 
     public new IDialogManager Dialogs { get; private set; }
 
@@ -80,7 +81,7 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        IEnumerable<ConsumerGroupViewModel> filteredConsumerGroups = SearchInConsumerGroupList()
+        var filteredConsumerGroups = SearchInConsumerGroupList()
           //.Where(cg => FilteredConsumers.Select(c => c.Model.ConsumerGroup).Contains(cg.Model))
           ;
         return filteredConsumerGroups;
@@ -92,7 +93,7 @@ namespace Ork.Energy.ViewModels
       //Filters after SearchText and the available objects in other List. Only related Objects are shown
       get
       {
-        IEnumerable<ConsumerViewModel> filteredConsumers = SearchInConsumerList()
+        var filteredConsumers = SearchInConsumerList()
           .Where(c => FilteredDistributors.Select(d => d.Model)
                                           .Contains(c.Model.Distributor) && (FilteredConsumerGroups.Select(cg => cg.Model)
                                                                                                    .Contains(
@@ -106,7 +107,7 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        IEnumerable<DistributorViewModel> filteredDistributors = SearchInDistributorList()
+        var filteredDistributors = SearchInDistributorList()
           //.Where(d => FilteredConsumers.Select(c => c.Model.Distributor).Contains(d.Model));
           ;
         return filteredDistributors;
@@ -229,7 +230,7 @@ namespace Ork.Energy.ViewModels
       {
         return m_ConsumerGroups;
       }
-      string searchText = SearchConsumerGroupsText.ToLower();
+      var searchText = SearchConsumerGroupsText.ToLower();
 
       return m_ConsumerGroups.Where(c => (((c.GroupName != null) && (c.GroupName.ToLower()
                                                                       .Contains(searchText)))));
@@ -241,7 +242,7 @@ namespace Ork.Energy.ViewModels
       {
         return m_Consumers;
       }
-      string searchText = SearchConsumerText.ToLower();
+      var searchText = SearchConsumerText.ToLower();
 
       return m_Consumers.Where(c => (((c.Name != null) && (c.Name.ToLower()
                                                             .Contains(searchText)) ||
@@ -255,7 +256,7 @@ namespace Ork.Energy.ViewModels
       {
         return m_Distributors;
       }
-      string searchText = SearchDistributorText.ToLower();
+      var searchText = SearchDistributorText.ToLower();
 
       return m_Distributors.Where(c => (((c.Name != null) && (c.Name.ToLower()
                                                                .Contains(searchText)))));
@@ -282,7 +283,7 @@ namespace Ork.Energy.ViewModels
     {
       m_ConsumerGroups.Clear();
       m_Repository.ConsumerGroups.CollectionChanged += AlterConsumerGroupCollection;
-      foreach (ConsumerGroup consumerGroup in m_Repository.ConsumerGroups)
+      foreach (var consumerGroup in m_Repository.ConsumerGroups)
       {
         CreateConsumerGroupViewModel(consumerGroup);
       }
@@ -292,7 +293,7 @@ namespace Ork.Energy.ViewModels
     {
       m_Consumers.Clear();
       m_Repository.Consumers.CollectionChanged += AlterConsumerCollection;
-      foreach (Consumer consumer in m_Repository.Consumers)
+      foreach (var consumer in m_Repository.Consumers)
       {
         CreateConsumerViewModel(consumer);
       }
@@ -302,7 +303,7 @@ namespace Ork.Energy.ViewModels
     {
       m_Distributors.Clear();
       m_Repository.Distributors.CollectionChanged += AlterDistributorCollection;
-      foreach (Distributor distributor in m_Repository.Distributors)
+      foreach (var distributor in m_Repository.Distributors)
       {
         CreateDistributorViewModel(distributor);
       }
@@ -330,13 +331,13 @@ namespace Ork.Energy.ViewModels
       switch (eventArgs.Action)
       {
         case NotifyCollectionChangedAction.Add:
-          foreach (ConsumerGroup newConsumerGroup in eventArgs.NewItems.OfType<ConsumerGroup>())
+          foreach (var newConsumerGroup in eventArgs.NewItems.OfType<ConsumerGroup>())
           {
             CreateConsumerGroupViewModel(newConsumerGroup);
           }
           break;
         case NotifyCollectionChangedAction.Remove:
-          foreach (ConsumerGroupViewModel oldConsumerGroup in
+          foreach (var oldConsumerGroup in
             eventArgs.OldItems.OfType<ConsumerGroup>()
                      .Select(oldConsumerGroup => m_ConsumerGroups.Single(cg => cg.Model == oldConsumerGroup)))
           {
@@ -351,13 +352,13 @@ namespace Ork.Energy.ViewModels
       switch (eventArgs.Action)
       {
         case NotifyCollectionChangedAction.Add:
-          foreach (Consumer consumer in eventArgs.NewItems.OfType<Consumer>())
+          foreach (var consumer in eventArgs.NewItems.OfType<Consumer>())
           {
             CreateConsumerViewModel(consumer);
           }
           break;
         case NotifyCollectionChangedAction.Remove:
-          foreach (ConsumerViewModel oldConsumer in
+          foreach (var oldConsumer in
             eventArgs.OldItems.OfType<Consumer>()
                      .Select(oldConsumer => m_Consumers.Single(c => c.Model == oldConsumer)))
           {
@@ -372,13 +373,13 @@ namespace Ork.Energy.ViewModels
       switch (eventArgs.Action)
       {
         case NotifyCollectionChangedAction.Add:
-          foreach (Distributor distributor in eventArgs.NewItems.OfType<Distributor>())
+          foreach (var distributor in eventArgs.NewItems.OfType<Distributor>())
           {
             CreateDistributorViewModel(distributor);
           }
           break;
         case NotifyCollectionChangedAction.Remove:
-          foreach (DistributorViewModel oldDistributor in
+          foreach (var oldDistributor in
             eventArgs.OldItems.OfType<Distributor>()
                      .Select(oldDistributor => m_Distributors.Single(c => c.Model == oldDistributor)))
           {
@@ -412,72 +413,60 @@ namespace Ork.Energy.ViewModels
       Dialogs.ShowDialog(m_EditItem);
     }
 
-    public void DeleteConsumerGroup(object dataContext)
+    private void DeleteConsumerGroup(ConsumerGroup dataContext)
     {
-      if (m_Repository.Links.Any(c => c.Target == (((ConsumerGroupViewModel) dataContext).Model)))
+      if (m_Repository.Links.Any(c => c.Target == (dataContext)))
       {
-        var constraint = m_Repository.Links.Where(c => c.Target == (((ConsumerGroupViewModel) dataContext).Model));
+        var constraint = m_Repository.Links.Where(c => c.Target == ((dataContext)));
         Dialogs.ShowMessageBox(
           "Die Verbrauchergruppe kann nicht gelöscht werden, da folgende Verbraucher zu dieser Verbrauchergruppe gehören: " +
           String.Join(" ", (constraint.Select(c => ((Consumer) c.Source).Name))), "Datenbankfehler");
       }
       else
       {
-        m_Repository.ConsumerGroups.Remove(((ConsumerGroupViewModel) dataContext).Model);
+        m_Repository.ConsumerGroups.Remove((dataContext));
         m_Repository.Save();
 
         NotifyOfPropertyChange(() => ConsumerGroups);
       }
     }
 
-    public void DeleteConsumer(object dataContext)
+    private void DeleteConsumer(Consumer dataContext)
     {
-      m_Repository.Consumers.Remove(((ConsumerViewModel) dataContext).Model);
+      m_Repository.Consumers.Remove(dataContext);
       m_Repository.Save();
 
       NotifyOfPropertyChange(() => Consumers);
     }
 
-    public void DeleteDistributor(object dataContext)
+    private void DeleteDistributor(Distributor dataContext)
     {
-      if (m_Repository.Links.Any(c => c.Target == (((DistributorViewModel) dataContext).Model)))
+      if (m_Repository.Links.Any(c => c.Target == (dataContext)))
       {
-        var constraint = m_Repository.Links.Where(c => c.Target == (((DistributorViewModel) dataContext).Model));
+        var constraint = m_Repository.Links.Where(c => c.Target == (dataContext));
         Dialogs.ShowMessageBox(
           "Der Verteiler kann nicht gelöscht werden, da folgende Verbraucher zu diesem Verteiler gehören: " +
           String.Join(" ", (constraint.Select(c => ((Consumer) c.Source).Name))), "Datenbankfehler");
       }
       else
       {
-        m_Repository.Distributors.Remove(((DistributorViewModel) dataContext).Model);
+        m_Repository.Distributors.Remove(dataContext);
         m_Repository.Save();
 
         NotifyOfPropertyChange(() => Distributors);
       }
     }
 
-    public void SaveConsumerGroup(object dataContext)
-    {
-      Save();
-    }
-
-    public void SaveConsumer(object dataContext)
-    {
-      Save();
-    }
-
-    public void SaveDistributor(object dataContext)
-    {
-      Save();
-    }
-
     private void CloseEditor()
     {
-      m_EditItem.TryClose();
+      if (m_EditItem != null)
+      {
+        m_EditItem.TryClose();
+      }
       m_EditItem = null;
     }
 
-    private void Save()
+    public void Save(object dataContext)
     {
       CloseEditor();
       m_Repository.Save();
@@ -485,6 +474,49 @@ namespace Ork.Energy.ViewModels
       NotifyOfPropertyChange(() => Consumers);
       NotifyOfPropertyChange(() => ConsumerGroups);
       NotifyOfPropertyChange(() => Distributors);
+    }
+
+
+    public void Cancel(object dataContext)
+    {
+      CloseEditor();
+    }
+
+    public void Delete(object dataContext)
+    {
+      CloseEditor();
+      var deletionDictionary = new Dictionary<Type, Action>()
+      {
+        {
+          typeof (DistributorModifyViewModel), () => DeleteDistributor(((DistributorModifyViewModel) dataContext).Model)
+        },
+        {
+          typeof (ConsumerGroupModifyViewModel), () => DeleteConsumerGroup(((ConsumerGroupModifyViewModel) dataContext).Model)
+        },
+        {
+          typeof (ConsumerModifyViewModel), () => DeleteConsumer(((ConsumerModifyViewModel) dataContext).Model)
+        },
+        {
+          typeof (DistributorViewModel), () => DeleteDistributor(((DistributorViewModel) dataContext).Model)
+        },
+        {
+          typeof (ConsumerGroupViewModel), () => DeleteConsumerGroup(((ConsumerGroupViewModel) dataContext).Model)
+        },
+        {
+          typeof (ConsumerViewModel), () => DeleteConsumer(((ConsumerViewModel) dataContext).Model)
+        },
+      };
+      deletionDictionary[dataContext.GetType()]();
+
+      UpdateView();
+      NotifyOfPropertyChange(() => Consumers);
+      NotifyOfPropertyChange(() => ConsumerGroups);
+      NotifyOfPropertyChange(() => Distributors);
+    }
+
+    private void DeleteObject<T>(object dataContext, T getType)
+    {
+      throw new NotImplementedException();
     }
 
     public void AddNewConsumerGroup()

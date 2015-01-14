@@ -12,6 +12,10 @@
       <ColumnDefinition />
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
+    </Grid.RowDefinitions>
     <StackPanel
       Grid.Column="0">
       <TextBlock
@@ -82,11 +86,7 @@
         SelectedItem="{Binding Distributor}"
         DisplayMemberPath="Name"
         Margin="0 0 0 3" />
-      <Button
-        Margin="0 3"
-        Style="{DynamicResource SquareButtonStyle}"
-        cal:Message.Attach="SaveConsumer($dataContext)"
-        Content="Speichern" />
+
     </StackPanel>
     <StackPanel
       Grid.Column="1">
@@ -94,5 +94,8 @@
       <ContentControl
         x:Name="ReadingAddVm" />
     </StackPanel>
+    <views:ModifyActionsView
+      Grid.Row="1"
+      Grid.ColumnSpan="2" />
   </Grid>
 </UserControl>

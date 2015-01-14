@@ -14,8 +14,13 @@
       <ColumnDefinition />
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
+    </Grid.RowDefinitions>
     <StackPanel
-      Grid.Column="0">
+      Grid.Column="0"
+      Grid.Row="0">
       <TextBlock
         Text="Name" />
       <TextBox
@@ -38,19 +43,17 @@
         <CheckBox
           IsChecked="{Binding IsMainDistributor}" />
       </StackPanel>
-
-      <Button
-        Margin="0 3"
-        Style="{DynamicResource SquareButtonStyle}"
-        cal:Message.Attach="SaveDistributor($dataContext)"
-        Content="Speichern" />
     </StackPanel>
     <StackPanel
-      Grid.Column="1">
+      Grid.Column="1"
+      Grid.Row="0">
       <Views:AllReadingsControlView />
       <ContentControl
         x:Name="ReadingAddVm" />
     </StackPanel>
+    <Views:ModifyActionsView
+      Grid.Row="1"
+      Grid.ColumnSpan="2" />
 
   </Grid>
 </UserControl>

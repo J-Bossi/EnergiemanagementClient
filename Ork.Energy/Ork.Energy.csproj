@@ -181,11 +181,12 @@
     <Compile Include="ViewModels\CatalogModifyViewModel.cs" />
     <Compile Include="ViewModels\ConsumerGroupModifyViewModel.cs" />
     <Compile Include="ViewModels\ConsumerGroupViewModel.cs" />
-    <Compile Include="ViewModels\ConsumerManagementViewModel.cs" />
+    <Compile Include="ViewModels\EnergyManagementViewModel.cs" />
     <Compile Include="ViewModels\ConsumerModifyViewModel.cs" />
     <Compile Include="ViewModels\ConsumerViewModel.cs" />
     <Compile Include="ViewModels\DistributorModifyViewModel.cs" />
     <Compile Include="ViewModels\DistributorViewModel.cs" />
+    <Compile Include="ViewModels\IModifyView.cs" />
     <Compile Include="ViewModels\MeasureAddViewModel.cs" />
     <Compile Include="ViewModels\MeasureEditViewModel.cs" />
     <Compile Include="ViewModels\MeasureManagementViewModel.cs" />
@@ -227,6 +228,9 @@
     </Compile>
     <Compile Include="Views\MeasurePrintPreviewView.xaml.cs">
       <DependentUpon>MeasurePrintPreviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModifyActionsView.xaml.cs">
+      <DependentUpon>ModifyActionsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ReadingAddView.xaml.cs">
       <DependentUpon>ReadingAddView.xaml</DependentUpon>
@@ -281,7 +285,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ConsumerManagementView.xaml">
+    <Page Include="Views\EnergyManagementView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -322,6 +326,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MeasurePrintPreviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModifyActionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

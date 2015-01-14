@@ -1,55 +1,78 @@
-﻿<UserControl x:Class="Ork.Energy.Views.ConsumerGroupCardView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:cal="http://www.caliburnproject.org"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <!--The Mahapps.Metro Control has a left Margin of 5px in the Content Presenter. These 5px are subtracted-->
-    <Border BorderBrush="{DynamicResource AccentColorBrush4}" BorderThickness="2" Margin="-5 0 0 0"
-            HorizontalAlignment="Stretch">
-        <Grid Background="Transparent">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Vertical" Grid.Column="0" Margin="5">
-                <TextBlock Text="{Binding GroupName}" TextTrimming="CharacterEllipsis" />
-      
-                <TextBlock Text="Anzahl Verbraucher" />
-                <TextBlock Text="{Binding RelatedConsumers}" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Column="1">
-                <Button Width="50"
-                        Height="50"
-                        Margin="2"
-                        Style="{DynamicResource MetroCircleButtonStyle}"
-                        cal:Message.Attach="OpenEditConsumerGroupDialog($dataContext)">
-                    <Rectangle Width="20"
-                               Height="20"
-                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                                         Visual="{DynamicResource appbar_edit}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Button>
-                <Button Width="50"
-                        Height="50"
-                        Margin="2"
-                        Style="{DynamicResource MetroCircleButtonStyle}"
-                        cal:Message.Attach="DeleteConsumerGroup($dataContext)">
-                    <Rectangle Width="20"
-                               Height="20"
-                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                                         Visual="{DynamicResource appbar_delete}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Button>
-            </StackPanel>
-        </Grid>
-    </Border>
+﻿<UserControl
+  x:Class="Ork.Energy.Views.ConsumerGroupCardView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+  <!--The Mahapps.Metro Control has a left Margin of 5px in the Content Presenter. These 5px are subtracted-->
+  <Border
+    BorderBrush="{DynamicResource AccentColorBrush4}"
+    BorderThickness="2"
+    Margin="-5 0 0 0"
+    HorizontalAlignment="Stretch">
+    <Grid
+      Background="Transparent">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition
+          Width="*" />
+        <ColumnDefinition
+          Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <StackPanel
+        Orientation="Vertical"
+        Grid.Column="0"
+        Margin="5">
+        <TextBlock
+          Text="{Binding GroupName}"
+          TextTrimming="CharacterEllipsis" />
+
+        <TextBlock
+          Text="Anzahl Verbraucher" />
+        <TextBlock
+          Text="{Binding RelatedConsumers}" />
+      </StackPanel>
+      <StackPanel
+        Orientation="Vertical"
+        Grid.Column="1">
+        <Button
+          Width="50"
+          Height="50"
+          Margin="2"
+          Style="{DynamicResource MetroCircleButtonStyle}"
+          cal:Message.Attach="OpenEditConsumerGroupDialog($dataContext)">
+          <Rectangle
+            Width="20"
+            Height="20"
+            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+            <Rectangle.OpacityMask>
+              <VisualBrush
+                Stretch="Fill"
+                Visual="{DynamicResource appbar_edit}" />
+            </Rectangle.OpacityMask>
+          </Rectangle>
+        </Button>
+        <Button
+          Width="50"
+          Height="50"
+          Margin="2"
+          Style="{DynamicResource MetroCircleButtonStyle}"
+          cal:Message.Attach="Delete($dataContext)">
+          <Rectangle
+            Width="20"
+            Height="20"
+            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+            <Rectangle.OpacityMask>
+              <VisualBrush
+                Stretch="Fill"
+                Visual="{DynamicResource appbar_delete}" />
+            </Rectangle.OpacityMask>
+          </Rectangle>
+        </Button>
+      </StackPanel>
+    </Grid>
+  </Border>
 </UserControl>
