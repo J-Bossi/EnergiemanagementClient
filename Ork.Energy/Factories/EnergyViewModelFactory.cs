@@ -69,9 +69,9 @@ namespace Ork.Energy.Factories
       return new DistributorModifyViewModel(distributor, this);
     }
 
-    public ReadingModifyViewModel CreateReadingModifyViewModel()
+    public ReadingAddViewModel CreateReadingModifyViewModel()
     {
-      return new ReadingModifyViewModel();
+      return new ReadingAddViewModel();
     }
 
     public static IEnumerable<ReadingViewModel> CreateReadingsViewModels(DataServiceCollection<Reading> readings)

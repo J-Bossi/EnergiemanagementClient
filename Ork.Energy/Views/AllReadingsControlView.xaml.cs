@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Ork.Energy.Views
 {
   /// <summary>
-  /// Interaction logic for ReadingModifyView.xaml
+  /// Interaction logic for AllReadingsControlView.xaml
   /// </summary>
-  public partial class ReadingModifyView : UserControl
+  public partial class AllReadingsControlView : UserControl
   {
-    public ReadingModifyView()
+    public AllReadingsControlView()
     {
       InitializeComponent();
     }

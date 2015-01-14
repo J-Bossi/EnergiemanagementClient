@@ -28,6 +28,6 @@ namespace Ork.Energy.Factories
     ConsumerGroupModifyViewModel CreateConsumerGroupModifyVM(ConsumerGroup consumerGroup);
     ConsumerModifyViewModel CreateConsumerModifyVM(Consumer consumer);
     DistributorModifyViewModel CreateDistributorModifyVM(Distributor distributor);
-    ReadingModifyViewModel CreateReadingModifyViewModel();
+    ReadingAddViewModel CreateReadingModifyViewModel();
   }
 }

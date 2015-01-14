@@ -19,9 +19,9 @@ using Caliburn.Micro;
 
 namespace Ork.Energy.ViewModels
 {
-  public class ReadingModifyViewModel : Screen
+  public class ReadingAddViewModel : Screen
   {
-    public ReadingModifyViewModel()
+    public ReadingAddViewModel()
     {
       NewReadingDate = DateTime.Now;
     }

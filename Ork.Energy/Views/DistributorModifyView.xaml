@@ -47,20 +47,9 @@
     </StackPanel>
     <StackPanel
       Grid.Column="1">
-      <DataGrid
-        ItemsSource="{Binding Readings}"
-        AutoGenerateColumns="False">
-        <DataGrid.Columns>
-          <DataGridTextColumn
-            Header="Ablesedatum"
-            Binding="{Binding ShortReadingDate}" />
-          <DataGridTextColumn
-            Header="Wert (kWh/a)"
-            Binding="{Binding CounterReading}" />
-        </DataGrid.Columns>
-      </DataGrid>
+      <Views:AllReadingsControlView />
       <ContentControl
-        x:Name="readingModifyVM" />
+        x:Name="ReadingAddVm" />
     </StackPanel>
 
   </Grid>

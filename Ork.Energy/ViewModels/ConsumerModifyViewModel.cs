@@ -36,7 +36,7 @@ namespace Ork.Energy.ViewModels
       m_Model = consumer;
       m_Repository = consumerRepository;
       m_EnergyViewModelFactory = energyViewModelFactory;
-      readingModifyVM = new ReadingModifyViewModel();
+      ReadingAddVm = new ReadingAddViewModel();
     }
 
     public virtual Room Room
@@ -45,7 +45,7 @@ namespace Ork.Energy.ViewModels
       set { m_Model.Room = value; }
     }
 
-    public ReadingModifyViewModel readingModifyVM { get; set; }
+    public ReadingAddViewModel ReadingAddVm { get; set; }
 
     public virtual Distributor Distributor
     {
@@ -77,9 +77,9 @@ namespace Ork.Energy.ViewModels
       set { m_Model.PowerCurrent = value; }
     }
 
-    public virtual IEnumerable<ReadingViewModel> Readings
+    public virtual IList<ReadingViewModel> Readings
     {
-      get { return m_Model.Readings.Select(rvm => m_EnergyViewModelFactory.CreateFromExisting(rvm)); }
+      get { return m_Model.Readings.Select(rvm => m_EnergyViewModelFactory.CreateFromExisting(rvm)).ToList(); }
     }
 
     public int? Year
@@ -127,10 +127,12 @@ namespace Ork.Energy.ViewModels
       set { m_Model.Identifier = value; }
     }
 
+
+
     public void AddNewReading(object dataContext)
     {
-      m_Model.Readings.Add(ModelFactory.CreateReading(readingModifyVM.NewReadingDate, readingModifyVM.NewCounterReading));
-      readingModifyVM.ClearReadingFields();
+      m_Model.Readings.Add(ModelFactory.CreateReading(ReadingAddVm.NewReadingDate, ReadingAddVm.NewCounterReading));
+      ReadingAddVm.ClearReadingFields();
       NotifyOfPropertyChange(() => Readings);
     }
   }

@@ -36,16 +36,19 @@ namespace Ork.Energy.ViewModels
     public long CounterReading
     {
       get { return m_Model.CounterReading; }
+      set { m_Model.CounterReading = value; }
     }
 
     public DateTime ReadingDate
     {
       get { return m_Model.ReadingDate; }
+      
     }
 
     public string ShortReadingDate
     {
       get { return m_Model.ReadingDate.ToShortDateString(); }
+      
     }
   }
 }

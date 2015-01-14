@@ -1,5 +1,5 @@
 ﻿<UserControl
-  x:Class="Ork.Energy.Views.ReadingModifyView"
+  x:Class="Ork.Energy.Views.ReadingAddView"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,7 +17,8 @@
       <controls:NumericUpDown
         Margin="0 0 0 3"
         Value="{Binding NewCounterReading}"
-        TextAlignment="Left" />
+        TextAlignment="Left"
+        Minimum="0"/>
       <DatePicker
         Margin="0 0 0 3"
         HorizontalAlignment="Stretch"
