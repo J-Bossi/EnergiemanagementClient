@@ -10,10 +10,10 @@ namespace Ork.Energy.Tests
 {
     internal class EnergyRepositoryTest
     {
-      private IConsumerRepository m_Repository;
+      private IEnergyRepository m_Repository;
 
       [ImportingConstructor]
-      public EnergyRepositoryTest([Import] IConsumerRepository mConsumerRepository)
+      public EnergyRepositoryTest([Import] IEnergyRepository mConsumerRepository)
       {
         m_Repository = mConsumerRepository;
       }

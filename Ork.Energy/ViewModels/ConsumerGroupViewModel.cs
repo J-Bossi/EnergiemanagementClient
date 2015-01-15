@@ -24,9 +24,9 @@ namespace Ork.Energy.ViewModels
   public class ConsumerGroupViewModel
   {
     private readonly ConsumerGroup m_Model;
-    private readonly IConsumerRepository m_Repository;
+    private readonly IEnergyRepository m_Repository;
 
-    public ConsumerGroupViewModel(ConsumerGroup consumerGroup, [Import] IConsumerRepository consumerRepository)
+    public ConsumerGroupViewModel(ConsumerGroup consumerGroup, [Import] IEnergyRepository consumerRepository)
     {
       m_Model = consumerGroup;
       m_Repository = consumerRepository;

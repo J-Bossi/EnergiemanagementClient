@@ -21,7 +21,7 @@ using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy
 {
-  public interface IConsumerRepository
+  public interface IEnergyRepository
 
   {
     DataServiceCollection<ConsumerGroup> ConsumerGroups { get; }

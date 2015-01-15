@@ -23,14 +23,14 @@ using Ork.Setting;
 
 namespace Ork.Energy
 {
-  [Export(typeof (IConsumerRepository))]
-  public class ConsumerRepository : IConsumerRepository
+  [Export(typeof (IEnergyRepository))]
+  public class EnergyRepository : IEnergyRepository
   {
     private DomainModelContext m_Context;
     private readonly Func<DomainModelContext> m_CreateMethod;
 
     [ImportingConstructor]
-    public ConsumerRepository([Import] ISettingsProvider settingsContainer, [Import] Func<DomainModelContext> createMethod)
+    public EnergyRepository([Import] ISettingsProvider settingsContainer, [Import] Func<DomainModelContext> createMethod)
     {
       m_CreateMethod = createMethod;
       settingsContainer.ConnectionStringUpdated += (s, e) => Initialize();

@@ -46,10 +46,10 @@ namespace Ork.Energy.ViewModels
     private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
     private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
     private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IConsumerRepository m_Repository;
+    private readonly IEnergyRepository m_Repository;
 
     [ImportingConstructor]
-    public EnergyManagementViewModel([Import] IConsumerRepository mRepository,
+    public EnergyManagementViewModel([Import] IEnergyRepository mRepository,
                                      [Import] IEnergyViewModelFactory mEnergyViewModelFactory, [Import] IDialogManager dialogs)
     {
       Dialogs = dialogs;

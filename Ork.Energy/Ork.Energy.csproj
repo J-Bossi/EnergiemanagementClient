@@ -134,7 +134,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsumerRepository.cs" />
+    <Compile Include="EnergyRepository.cs" />
     <Compile Include="Converters\DelayedToVisibiltyConverter.cs" />
     <Compile Include="Factories\EnergyViewModelFactory.cs" />
     <Compile Include="Factories\ContextFactory.cs" />
@@ -147,7 +147,7 @@
     <Compile Include="Factories\IContextFactory.cs" />
     <Compile Include="Factories\ISubMeasureViewModelFactory.cs" />
     <Compile Include="Factories\SubMeasureViewModelFactory.cs" />
-    <Compile Include="IConsumerRepository.cs" />
+    <Compile Include="IEnergyRepository.cs" />
     <Compile Include="IMeasureRepository.cs" />
     <Compile Include="Factories\IMeasureViewModelFactory.cs" />
     <Compile Include="ISubMeasureRepository.cs" />

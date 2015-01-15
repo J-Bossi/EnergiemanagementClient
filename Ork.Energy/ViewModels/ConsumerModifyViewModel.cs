@@ -27,9 +27,9 @@ namespace Ork.Energy.ViewModels
   {
     private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly Consumer m_Model;
-    private readonly IConsumerRepository m_Repository;
+    private readonly IEnergyRepository m_Repository;
 
-    public ConsumerModifyViewModel(Consumer consumer, [Import] IConsumerRepository consumerRepository,
+    public ConsumerModifyViewModel(Consumer consumer, [Import] IEnergyRepository consumerRepository,
                                    [Import] IEnergyViewModelFactory energyViewModelFactory)
     {
       DisplayName = "Verbraucher bearbeiten...";

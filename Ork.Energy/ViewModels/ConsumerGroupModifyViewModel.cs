@@ -25,9 +25,9 @@ namespace Ork.Energy.ViewModels
   public sealed class ConsumerGroupModifyViewModel : Screen
   {
     private readonly ConsumerGroup m_Model;
-    private readonly IConsumerRepository m_Repository;
+    private readonly IEnergyRepository m_Repository;
 
-    public ConsumerGroupModifyViewModel(ConsumerGroup model, [Import] IConsumerRepository consumerRepository)
+    public ConsumerGroupModifyViewModel(ConsumerGroup model, [Import] IEnergyRepository consumerRepository)
     {
       m_Repository = consumerRepository;
       DisplayName = "Verbrauchergruppe bearbeiten...";

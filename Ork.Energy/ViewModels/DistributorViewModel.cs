@@ -25,9 +25,9 @@ namespace Ork.Energy.ViewModels
   public class DistributorViewModel
   {
     private readonly Distributor m_Model;
-    private readonly IConsumerRepository m_Repository;
+    private readonly IEnergyRepository m_Repository;
 
-    public DistributorViewModel(Distributor distributor, [Import] IConsumerRepository consumerRepository)
+    public DistributorViewModel(Distributor distributor, [Import] IEnergyRepository consumerRepository)
     {
       m_Model = distributor;
       m_Repository = consumerRepository;

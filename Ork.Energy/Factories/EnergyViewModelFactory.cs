@@ -26,10 +26,10 @@ namespace Ork.Energy.Factories
   [Export(typeof (IEnergyViewModelFactory))]
   internal class EnergyViewModelFactory : IEnergyViewModelFactory
   {
-    private readonly IConsumerRepository m_ConsumerRepository;
+    private readonly IEnergyRepository m_ConsumerRepository;
 
     [ImportingConstructor]
-    public EnergyViewModelFactory([Import] IConsumerRepository mConsumerRepository)
+    public EnergyViewModelFactory([Import] IEnergyRepository mConsumerRepository)
     {
       m_ConsumerRepository = mConsumerRepository;
     }

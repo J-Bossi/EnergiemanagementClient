@@ -22,6 +22,7 @@
         Text="Name" />
       <TextBox
         Text="{Binding Name}"
+        AcceptsReturn="True"
         Margin="0 0 0 3" />
       <TextBlock
         Text="Raum" />
