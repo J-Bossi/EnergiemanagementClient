@@ -14,7 +14,8 @@
         Height="50"
         Margin="2"
         Style="{DynamicResource MetroCircleButtonStyle}"
-        cal:Message.Attach="Cancel($dataContext)">
+        cal:Message.Attach="Cancel($dataContext)"
+        ToolTip="Abbrechen">
         <Rectangle
           Width="20"
           Height="20"
@@ -31,7 +32,8 @@
         Height="50"
         Margin="2"
         Style="{DynamicResource MetroCircleButtonStyle}"
-        cal:Message.Attach="Save($dataContext)">
+        cal:Message.Attach="Save($dataContext)"
+        ToolTip="Speichern">
         <Rectangle
           Width="20"
           Height="20"
@@ -48,7 +50,8 @@
         Height="50"
         Margin="2"
         Style="{DynamicResource MetroCircleButtonStyle}"
-        cal:Message.Attach="Delete($dataContext)">
+        cal:Message.Attach="Delete($dataContext)"
+        ToolTip="Löschen">
         <Rectangle
           Width="20"
           Height="20"

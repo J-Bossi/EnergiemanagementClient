@@ -90,9 +90,10 @@
     </StackPanel>
     <StackPanel
       Grid.Column="1">
-      <views:AllReadingsControlView />
+
       <ContentControl
         x:Name="ReadingAddVm" />
+      <views:AllReadingsControlView />
     </StackPanel>
     <views:ModifyActionsView
       Grid.Row="1"

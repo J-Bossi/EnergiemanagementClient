@@ -10,24 +10,48 @@
   d:DesignHeight="300"
   d:DesignWidth="300">
   <Grid>
-    <StackPanel>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <StackPanel
+      Grid.Column="0">
       <TextBlock
-        Margin="0 0 0 3"
+       
         Text="Wert (kWh/a)" />
       <controls:NumericUpDown
         Margin="0 0 0 3"
         Value="{Binding NewCounterReading}"
         TextAlignment="Left"
         Minimum="0" />
+      <TextBlock
+        Text="Datum" />
       <DatePicker
         Margin="0 0 0 3"
         HorizontalAlignment="Stretch"
         controls:TextBoxHelper.Watermark="Bitte ein Datum auswählen"
         SelectedDate="{Binding NewReadingDate}" />
-      <Button
-        Style="{DynamicResource SquareButtonStyle}"
-        cal:Message.Attach="AddNewReading($dataContext)"
-        Content="Neu Ablesung speichern" />
     </StackPanel>
+    <Button
+      Grid.Column="1"
+      Width="50"
+      Height="50"
+      Margin="2"
+      VerticalAlignment="Center"
+      Style="{DynamicResource MetroCircleButtonStyle}"
+      cal:Message.Attach="AddNewReading($dataContext)"
+      ToolTip="Neue Ablesung hinzufügen">
+      <Rectangle
+        Width="20"
+        Height="20"
+        Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+        <Rectangle.OpacityMask>
+          <VisualBrush
+            Stretch="Fill"
+            Visual="{DynamicResource appbar_add}" />
+        </Rectangle.OpacityMask>
+      </Rectangle>
+    </Button>
+
   </Grid>
 </UserControl>

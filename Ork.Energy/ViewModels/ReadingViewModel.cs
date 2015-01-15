@@ -42,6 +42,7 @@ namespace Ork.Energy.ViewModels
     public DateTime ReadingDate
     {
       get { return m_Model.ReadingDate; }
+      set { m_Model.ReadingDate = value; }
       
     }
 

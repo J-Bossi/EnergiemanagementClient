@@ -13,10 +13,22 @@
       ItemsSource="{Binding Readings}"
       AutoGenerateColumns="False">
       <DataGrid.Columns>
-        <DataGridTextColumn
-          Header="Ablesedatum"
-          Binding="{Binding ShortReadingDate}"
-          IsReadOnly="True" />
+        <DataGridTemplateColumn
+          Header="Ablesedatum">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock
+                Text="{Binding ShortReadingDate}" />
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+          <DataGridTemplateColumn.CellEditingTemplate>
+            <DataTemplate>
+              <DatePicker
+                HorizontalAlignment="Stretch"
+                SelectedDate="{Binding ReadingDate, UpdateSourceTrigger=PropertyChanged}" />
+            </DataTemplate>
+          </DataGridTemplateColumn.CellEditingTemplate>
+        </DataGridTemplateColumn>
         <controls:DataGridNumericUpDownColumn
           Header="Wert (kWh/a)"
           Binding="{Binding CounterReading}"

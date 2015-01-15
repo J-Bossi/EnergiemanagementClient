@@ -181,8 +181,8 @@
     <Compile Include="ViewModels\CatalogModifyViewModel.cs" />
     <Compile Include="ViewModels\ConsumerGroupModifyViewModel.cs" />
     <Compile Include="ViewModels\ConsumerGroupViewModel.cs" />
-    <Compile Include="ViewModels\EnergyManagementViewModel.cs" />
     <Compile Include="ViewModels\ConsumerModifyViewModel.cs" />
+    <Compile Include="ViewModels\EnergyManagementViewModel.cs" />
     <Compile Include="ViewModels\ConsumerViewModel.cs" />
     <Compile Include="ViewModels\DistributorModifyViewModel.cs" />
     <Compile Include="ViewModels\DistributorViewModel.cs" />
