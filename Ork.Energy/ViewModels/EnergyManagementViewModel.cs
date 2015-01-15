@@ -31,13 +31,6 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class EnergyManagementViewModel : DocumentBase, IWorkspace
   {
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
-    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IConsumerRepository m_Repository;
     private ConsumerGroupViewModel m_ConsumerGroup;
     private DistributorViewModel m_Distributor;
     private IScreen m_EditItem;
@@ -46,6 +39,14 @@ namespace Ork.Energy.ViewModels
     private string m_SearchConsumerGroupText;
     private string m_SearchConsumerText;
     private string m_SearchDistributorText;
+
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
+    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly IConsumerRepository m_Repository;
 
     [ImportingConstructor]
     public EnergyManagementViewModel([Import] IConsumerRepository mRepository,
@@ -58,7 +59,6 @@ namespace Ork.Energy.ViewModels
       m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
       Reload();
     }
-
 
     public new IDialogManager Dialogs { get; private set; }
 
@@ -476,7 +476,6 @@ namespace Ork.Energy.ViewModels
       NotifyOfPropertyChange(() => Distributors);
     }
 
-
     public void Cancel(object dataContext)
     {
       CloseEditor();
@@ -485,28 +484,35 @@ namespace Ork.Energy.ViewModels
     public void Delete(object dataContext)
     {
       CloseEditor();
-      var deletionDictionary = new Dictionary<Type, Action>()
+      try
       {
+        var deletionDictionary = new Dictionary<Type, Action>()
         {
-          typeof (DistributorModifyViewModel), () => DeleteDistributor(((DistributorModifyViewModel) dataContext).Model)
-        },
-        {
-          typeof (ConsumerGroupModifyViewModel), () => DeleteConsumerGroup(((ConsumerGroupModifyViewModel) dataContext).Model)
-        },
-        {
-          typeof (ConsumerModifyViewModel), () => DeleteConsumer(((ConsumerModifyViewModel) dataContext).Model)
-        },
-        {
-          typeof (DistributorViewModel), () => DeleteDistributor(((DistributorViewModel) dataContext).Model)
-        },
-        {
-          typeof (ConsumerGroupViewModel), () => DeleteConsumerGroup(((ConsumerGroupViewModel) dataContext).Model)
-        },
-        {
-          typeof (ConsumerViewModel), () => DeleteConsumer(((ConsumerViewModel) dataContext).Model)
-        },
-      };
-      deletionDictionary[dataContext.GetType()]();
+          {
+            typeof (DistributorModifyViewModel), () => DeleteDistributor(((DistributorModifyViewModel) dataContext).Model)
+          },
+          {
+            typeof (ConsumerGroupModifyViewModel), () => DeleteConsumerGroup(((ConsumerGroupModifyViewModel) dataContext).Model)
+          },
+          {
+            typeof (ConsumerModifyViewModel), () => DeleteConsumer(((ConsumerModifyViewModel) dataContext).Model)
+          },
+          {
+            typeof (DistributorViewModel), () => DeleteDistributor(((DistributorViewModel) dataContext).Model)
+          },
+          {
+            typeof (ConsumerGroupViewModel), () => DeleteConsumerGroup(((ConsumerGroupViewModel) dataContext).Model)
+          },
+          {
+            typeof (ConsumerViewModel), () => DeleteConsumer(((ConsumerViewModel) dataContext).Model)
+          }
+        };
+        deletionDictionary[dataContext.GetType()]();
+      }
+      catch (KeyNotFoundException ex)
+      {
+        Console.WriteLine(ex);
+      }
 
       UpdateView();
       NotifyOfPropertyChange(() => Consumers);

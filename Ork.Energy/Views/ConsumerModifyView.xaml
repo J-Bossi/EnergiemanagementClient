@@ -86,12 +86,12 @@
         SelectedItem="{Binding Distributor}"
         DisplayMemberPath="Name"
         Margin="0 0 0 3" />
-
     </StackPanel>
     <StackPanel
-      Grid.Column="1">
-
+      Grid.Column="1"
+      Margin="16 0 0 0">
       <ContentControl
+        Margin="0 0 0 6"
         x:Name="ReadingAddVm" />
       <views:AllReadingsControlView />
     </StackPanel>

@@ -143,5 +143,12 @@ namespace Ork.Energy.ViewModels
       ReadingAddVm.ClearReadingFields();
       NotifyOfPropertyChange(() => Readings);
     }
+
+    public void DeleteReading(object dataContext)
+    {
+      m_Model.Readings.Remove(((ReadingViewModel)dataContext).Model);
+
+      NotifyOfPropertyChange(() => Readings);
+    }
   }
 }

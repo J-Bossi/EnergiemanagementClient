@@ -25,9 +25,9 @@ namespace Ork.Energy.ViewModels
 {
   public class DistributorModifyViewModel : Screen
   {
+    private Reading m_newReading;
     private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly Distributor m_Model;
-    private Reading m_newReading;
 
     public DistributorModifyViewModel(Distributor model, [Import] IEnergyViewModelFactory energyViewModelFactory)
     {
@@ -75,6 +75,13 @@ namespace Ork.Energy.ViewModels
     {
       m_Model.Readings.Add(ModelFactory.CreateReading(ReadingAddVm.NewReadingDate, ReadingAddVm.NewCounterReading));
       ReadingAddVm.ClearReadingFields();
+      NotifyOfPropertyChange(() => Readings);
+    }
+
+    public void DeleteReading(object dataContext)
+    {
+      m_Model.Readings.Remove(((ReadingViewModel) dataContext).Model);
+
       NotifyOfPropertyChange(() => Readings);
     }
   }

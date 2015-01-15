@@ -46,10 +46,12 @@
     </StackPanel>
     <StackPanel
       Grid.Column="1"
-      Grid.Row="0">
-      <Views:AllReadingsControlView />
+      Grid.Row="0"
+      Margin="16 0 0 0">
       <ContentControl
+        Margin="0 0 0 6"
         x:Name="ReadingAddVm" />
+      <Views:AllReadingsControlView />
     </StackPanel>
     <Views:ModifyActionsView
       Grid.Row="1"
