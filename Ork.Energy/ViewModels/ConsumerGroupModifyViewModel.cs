@@ -16,6 +16,7 @@
 
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
+using System.Linq;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 
@@ -61,9 +62,14 @@ namespace Ork.Energy.ViewModels
 
     public void DeleteConsumerType(object dataContext)
     {
-      //TODO Remove Links
-      // m_Repository.Context.DeleteLinks
-
+      if (m_Repository.Links.Any(c => c.Target == ((ConsumerType) dataContext)))
+      {
+        foreach (
+          Consumer relatedConsumers in m_Repository.Consumers.Where(c => c.ConsumerType == (((ConsumerType) dataContext))))
+        {
+          relatedConsumers.ConsumerType = null;
+        }
+      }
       m_Model.ConsumerTypes.Remove((ConsumerType) dataContext);
       m_Repository.Save();
 
