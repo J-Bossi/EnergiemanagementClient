@@ -14,6 +14,7 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -60,6 +61,23 @@ namespace Ork.Energy.ViewModels
     public int RelatedConsumers
     {
       get { return m_Repository.Consumers.Count(c => c.Distributor == Model); }
+    }
+
+    public String LastReadingDate
+    {
+      get
+      {
+        try
+        {
+          return m_Model.Readings.OrderByDescending(r => r.ReadingDate)
+                        .First()
+                        .ReadingDate.ToShortDateString();
+        }
+        catch (InvalidOperationException ex)
+        {
+          return "Keine Ablesung verfügbar";
+        }
+      }
     }
   }
 }

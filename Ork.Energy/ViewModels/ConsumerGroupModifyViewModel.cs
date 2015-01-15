@@ -22,7 +22,7 @@ using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
-  public class ConsumerGroupModifyViewModel : Screen
+  public sealed class ConsumerGroupModifyViewModel : Screen
   {
     private readonly ConsumerGroup m_Model;
     private readonly IConsumerRepository m_Repository;

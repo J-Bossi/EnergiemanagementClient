@@ -29,6 +29,12 @@
         <TextBlock
           Text="{Binding Name}"
           TextTrimming="CharacterEllipsis" />
+        <TextBlock>
+          <Run
+            Text="Letzte Messung: " />
+          <Run
+            Text="{Binding LastReadingDate, Mode=OneWay}" />
+        </TextBlock>
 
       </StackPanel>
       <StackPanel

@@ -18,8 +18,14 @@
                 <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
                 <TextBlock Text="Anzahl Verbraucher" />
                 <TextBlock Text="{Binding RelatedConsumers}" />
+        <TextBlock>
+          <Run
+            Text="Letzte Messung: " />
+          <Run
+            Text="{Binding LastReadingDate, Mode=OneWay}" />
+        </TextBlock>
 
-            </StackPanel>
+      </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1">
                 <Button Width="50"
                         Height="50"

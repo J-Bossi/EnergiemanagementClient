@@ -14,7 +14,9 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
@@ -87,6 +89,23 @@ namespace Ork.Energy.ViewModels
     public ConsumerType ConsumerType
     {
       get { return m_Model.ConsumerType; }
+    }
+
+    public String LastReadingDate
+    {
+      get
+      {
+        try
+        {
+          return m_Model.Readings.OrderByDescending(r => r.ReadingDate)
+                        .First()
+                        .ReadingDate.ToShortDateString();
+        }
+        catch (InvalidOperationException ex)
+        {
+          return "Keine Ablesung verfügbar";
+        }
+      }
     }
   }
 }
