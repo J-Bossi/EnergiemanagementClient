@@ -23,7 +23,9 @@ namespace Ork.Energy
   public interface IMeasureRepository
   {
     DataServiceCollection<ResponsibleSubject> ResponsibleSubjects { get; }
-    DataServiceCollection<Catalog> Catalogs { get; }
+    DataServiceCollection<EnergyMeasure> Measures { get; }
+    DataServiceCollection<ConsumerGroup> ConsumerGroups { get; }
+      //DataServiceCollection<Catalog> Catalogs { get; }
     DataServiceCollection<SubMeasure> SubMeasures { get; }
     bool HasConnection { get; }
     void Save();

@@ -10,13 +10,14 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2013, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
 using System;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
+using System.Linq;
 using Ork.Energy.DomainModelService;
 using Ork.Setting;
 
@@ -25,8 +26,8 @@ namespace Ork.Energy
   [Export(typeof (IMeasureRepository))]
   internal class MeasureRepository : IMeasureRepository
   {
-    private readonly Func<DomainModelContext> m_CreateMethod;
     private DomainModelContext m_Context;
+    private readonly Func<DomainModelContext> m_CreateMethod;
 
     [ImportingConstructor]
     public MeasureRepository([Import] ISettingsProvider settingsContainer, [Import] Func<DomainModelContext> createMethod)
@@ -38,15 +39,14 @@ namespace Ork.Energy
 
     public bool HasConnection { get; private set; }
     public DataServiceCollection<ResponsibleSubject> ResponsibleSubjects { get; private set; }
-    public DataServiceCollection<Catalog> Catalogs { get; private set; }
-    public DataServiceCollection<EnergyMeasure> EnergyMeasures { get; private set; } 
+    public DataServiceCollection<EnergyMeasure> Measures { get; private set; }
+    public DataServiceCollection<ConsumerGroup> ConsumerGroups { get; private set; }
     //public DataServiceCollection<MeasureImageSource> MeasureImageSource { get; private set; } 
 
 
     //public DataServiceCollection<DomainModelService.Measure> Measures { get; private set; }
     public event EventHandler ContextChanged;
     public event EventHandler SaveCompleted;
-
 
     public void Save()
     {
@@ -63,6 +63,7 @@ namespace Ork.Energy
                                                                         }, m_Context);
     }
 
+    public DataServiceCollection<SubMeasure> SubMeasures { get; private set; }
 
     private void Initialize()
     {
@@ -71,9 +72,9 @@ namespace Ork.Energy
       try
       {
         LoadResponsibleSubjects();
-        //LoadMeasures();
-        LoadCatalogs();
-   
+        LoadConsumerGroups();
+        LoadMeasures();
+
         LoadSubMeasures();
         //LoadMeasureImageSources();
         HasConnection = true;
@@ -94,26 +95,34 @@ namespace Ork.Energy
       ResponsibleSubjects.Load(query);
     }
 
-    private void LoadCatalogs()
+    private void LoadMeasures()
     {
-      Catalogs = new DataServiceCollection<Catalog>(m_Context);
-
-      var query = m_Context.Catalogs.Expand("Measures/OpenResKit.DomainModel.Measure/ResponsibleSubject")
-                           .Expand("Measures/OpenResKit.DomainModel.Measure/MeasureImageSource")
-                           .Expand("Measures/OpenResKit.DomainModel.Measure/AttachedDocuments/DocumentSource");
-      Catalogs.Load(query);
+      Measures = new DataServiceCollection<EnergyMeasure>(m_Context);
+      var query = m_Context.Measures.Expand("ResponsibleSubject")
+                           .Expand("AttachedDocuments/DocumentSource")
+                           .Expand("MeasureImageSource")
+                           .Expand("Room")
+                           .Expand("Consumer")
+                           .OfType<EnergyMeasure>();
+      Measures.Load(query);
     }
 
+    private void LoadConsumerGroups()
+    {
+      ConsumerGroups = new DataServiceCollection<ConsumerGroup>(m_Context);
 
+      DataServiceQuery<ConsumerGroup> query = m_Context.ConsumerGroups.Expand("ConsumerTypes");
+      ConsumerGroups.Load(query);
+    }
 
     private void LoadSubMeasures()
     {
-        SubMeasures = new DataServiceCollection<SubMeasure>(m_Context);
+      SubMeasures = new DataServiceCollection<SubMeasure>(m_Context);
 
-        var query = m_Context.SubMeasures.Expand("OpenResKit.DomainModel.SubMeasure/ReleatedMeasure").Expand("OpenResKit.DomainModel.SubMeasure/ResponsibleSubject");
-        SubMeasures.Load(query);
+      var query = m_Context.SubMeasures.Expand("OpenResKit.DomainModel.SubMeasure/ReleatedMeasure")
+                           .Expand("OpenResKit.DomainModel.SubMeasure/ResponsibleSubject");
+      SubMeasures.Load(query);
     }
-
 
     private void RaiseEvent(EventHandler eventHandler)
     {
@@ -122,6 +131,5 @@ namespace Ork.Energy
         eventHandler(this, new EventArgs());
       }
     }
-    public DataServiceCollection<SubMeasure> SubMeasures { get; private set; }
   }
 }

@@ -10,6 +10,7 @@
   xmlns:lex="http://wpflocalizeextension.codeplex.com"
   xmlns:views="clr-namespace:Ork.Energy.Views"
   xmlns:cal="http://www.caliburnproject.org"
+  xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
   lex:LocalizeDictionary.DesignCulture="de"
   lex:ResxLocalizationProvider.DefaultAssembly="Ork.Energy"
   lex:ResxLocalizationProvider.DefaultDictionary="Translate"
@@ -167,7 +168,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <AdornerDecorator
+        <TextBox
+          Grid.Row="0"
+          Margin="12 0 0 0"
+          Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+          controls:TextBoxHelper.Watermark="Filtere Verbrauchergruppen"
+          Style="{DynamicResource SearchMetroTextBox}" />
+        <!--<AdornerDecorator
           Grid.Row="0">
           <xctk:AutoSelectTextBox
             Style="{DynamicResource EntryControl}"
@@ -178,7 +185,7 @@
                 Foreground="{DynamicResource TextForegroundColorBrush}" />
             </global:WatermarkService.Watermark>
           </xctk:AutoSelectTextBox>
-        </AdornerDecorator>
+        </AdornerDecorator>-->
 
         <Button
           Grid.Row="1"
@@ -201,9 +208,9 @@
         </Button>
 
         <ListBox
-          ItemsSource="{Binding Catalogs}"
+          ItemsSource="{Binding ConsumerGroups}"
           Margin="12 0 0 12"
-          SelectedItem="{Binding SelectedCatalog}"
+          SelectedItem="{Binding SelectedConsumerGroups}"
           SelectedIndex="0"
           Grid.Row="2"
           Style="{DynamicResource FlyoutListBoxStyle}">
@@ -227,7 +234,7 @@
                             <Expander.Header>
                               <TextBlock
                                 Style="{DynamicResource TextBlockStyle}"
-                                Text="{Binding Name}"
+                                Text="{Binding GroupName}"
                                 FontSize="18"
                                 Margin="0 12 0 6" />
 
@@ -255,7 +262,7 @@
                 <TextBlock
                   Style="{DynamicResource TextBlockStyle}"
                   FontSize="16"
-                  Text="{Binding Name}"
+                  Text="{Binding GroupName}"
                   TextTrimming="CharacterEllipsis"
                   Margin="0 0 0 4" />
                 <TextBlock
@@ -268,12 +275,12 @@
           </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button
+        <!--<Button
           Grid.Row="3"
           Width="150"
           HorizontalAlignment="Right"
           Content="Katalog hinzufügen"
-          cal:Message.Attach="OpenCatalogAddDialog" />
+          cal:Message.Attach="OpenCatalogAddDialog" />-->
 
 
       </Grid>

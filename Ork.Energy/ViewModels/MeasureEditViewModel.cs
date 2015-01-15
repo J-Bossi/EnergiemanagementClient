@@ -34,8 +34,8 @@ namespace Ork.Energy.ViewModels
 
         [ImportingConstructor]
         public MeasureEditViewModel(DomainModelService.EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
-         [Import] IMeasureRepository measureRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory, IEnumerable<Catalog> catalogs)
-            : base(model, responsibleSubjectViewModels, measureRepository, subMeasureViewModelFactory, catalogs)
+         [Import] IMeasureRepository measureRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
+            : base(model, responsibleSubjectViewModels, measureRepository, subMeasureViewModelFactory)
         {
             DisplayName = TranslationProvider.Translate("TitleMeasureEditViewModel");
             m_Stati = Enum.GetValues(typeof(Status));

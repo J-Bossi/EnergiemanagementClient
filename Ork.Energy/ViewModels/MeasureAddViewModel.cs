@@ -53,7 +53,7 @@ namespace Ork.Energy.ViewModels
         public MeasureAddViewModel(DomainModelService.EnergyMeasure model,
             IEnumerable<ResponsibleSubjectViewModel> responsibleSubjectViewModels,
         [Import] IMeasureRepository measureRepository,
-            [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory, IEnumerable<Catalog> catalogs)
+            [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
         {
             m_Model = model;
             if (m_Model.CreationDate == new DateTime())
@@ -67,12 +67,6 @@ namespace Ork.Energy.ViewModels
 
             m_Repository = measureRepository;
             m_SubMeasureViewModelFactory = subMeasureViewModelFactory;
-            m_Catalogs = catalogs;
-            if (m_Catalogs.Any(c => c.Measures.Contains(m_Model)))
-            {
-                m_SelectedCatalog = m_Catalogs.Single(c => c.Measures.Contains(m_Model));
-            }
-
         }
 
 
@@ -116,34 +110,34 @@ namespace Ork.Energy.ViewModels
             }
         }
 
-        public IEnumerable<Catalog> Catalogs
-        {
-            get { return m_Catalogs; }
-        }
+        //public IEnumerable<Catalog> Catalogs
+        //{
+        //    get { return m_Catalogs; }
+        //}
 
-        public Catalog SelectedCatalog
-        {
-            get { return m_SelectedCatalog; }
-            set
-            {
-                m_SelectedCatalog = value;
-                SetNewCatalog();
-                NotifyOfPropertyChange(() => SelectedCatalog);
-            }
-        }
+        //public Catalog SelectedCatalog
+        //{
+        //    get { return m_SelectedCatalog; }
+        //    set
+        //    {
+        //        m_SelectedCatalog = value;
+        //        SetNewCatalog();
+        //        NotifyOfPropertyChange(() => SelectedCatalog);
+        //    }
+        //}
 
-        private void SetNewCatalog()
-        {
-            if (!m_Repository.Catalogs.Any(c => c.Measures.Contains(m_Model)))
-            {
-                return;
-            }
+        //private void SetNewCatalog()
+        //{
+        //    if (!m_Repository.Catalogs.Any(c => c.Measures.Contains(m_Model)))
+        //    {
+        //        return;
+        //    }
 
-            var oldCatalog = m_Repository.Catalogs.Single(c => c.Measures.Contains(m_Model));
+        //    var oldCatalog = m_Repository.Catalogs.Single(c => c.Measures.Contains(m_Model));
 
-            m_Repository.Catalogs.Single(c => c == SelectedCatalog).Measures.Add(m_Model);
-            NotifyOfPropertyChange(() => SelectedCatalog);
-        }
+        //    m_Repository.Catalogs.Single(c => c == SelectedCatalog).Measures.Add(m_Model);
+        //    NotifyOfPropertyChange(() => SelectedCatalog);
+        //}
 
 
         public bool CanMeasureAdd

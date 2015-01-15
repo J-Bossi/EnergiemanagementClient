@@ -42,25 +42,25 @@ namespace Ork.Energy.Factories
       m_SubMeasureViewModelFactory = subMeasureViewModelFactory;
     }
 
-    public MeasureViewModel CreateFromExisting(DomainModelService.EnergyMeasure measure, CatalogViewModel catalog = null)
+    public MeasureViewModel CreateFromExisting(DomainModelService.EnergyMeasure measure)
     {
-      return new MeasureViewModel(measure,  catalog);
+      return new MeasureViewModel(measure);
     }
 
     public MeasurePrintPreviewViewModel CreatePrintPreviewModel(EnergyMeasure measure, Action removeMeasureAction)
       {
-          return new MeasurePrintPreviewViewModel(measure, removeMeasureAction, CreateResponsibleSubjects(), m_MeasureRepository, m_SubMeasureViewModelFactory, m_MeasureRepository.Catalogs);
+          return new MeasurePrintPreviewViewModel(measure, removeMeasureAction, CreateResponsibleSubjects(), m_MeasureRepository, m_SubMeasureViewModelFactory);
       }
 
       public MeasureAddViewModel CreateAddViewModel()
     {
-      return new MeasureAddViewModel(new DomainModelService.EnergyMeasure(), CreateResponsibleSubjects(), m_MeasureRepository, m_SubMeasureViewModelFactory, m_MeasureRepository.Catalogs);
+      return new MeasureAddViewModel(new DomainModelService.EnergyMeasure(), CreateResponsibleSubjects(), m_MeasureRepository, m_SubMeasureViewModelFactory);
     }
 
       public MeasureEditViewModel CreateEditViewModel(DomainModelService.EnergyMeasure measure, Action removeMeasureAction)
     {
 
-      return new MeasureEditViewModel(measure, removeMeasureAction, CreateResponsibleSubjects(),  m_MeasureRepository, m_SubMeasureViewModelFactory, m_MeasureRepository.Catalogs);
+      return new MeasureEditViewModel(measure, removeMeasureAction, CreateResponsibleSubjects(),  m_MeasureRepository, m_SubMeasureViewModelFactory);
     }
 
     public CatalogAddViewModel CreateCatalogAddViewModel()

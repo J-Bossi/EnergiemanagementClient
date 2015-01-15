@@ -48,19 +48,24 @@ namespace Ork.Energy.ViewModels
     //private bool m_EcoPlotIsVisible2;
     private string m_SearchText;
     private string m_SearchTextMeasures;
-    private CatalogViewModel m_SelectedCatalog;
+    private ConsumerGroupViewModel m_SelectedConsumerGroup;
     private MeasureViewModel m_SelectedMeasure;
-    private readonly BindableCollection<CatalogViewModel> m_Catalogs = new BindableCollection<CatalogViewModel>();
+
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
     private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
     private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly IMeasureRepository m_Repository;
 
     [ImportingConstructor]
     public MeasureManagementViewModel([Import] IMeasureRepository contextRepository,
-                                      [Import] IMeasureViewModelFactory measureViewModelFactory)
+                                      [Import] IMeasureViewModelFactory measureViewModelFactory, [Import] IEnergyViewModelFactory energyViewModelFactory)
     {
       m_Repository = contextRepository;
       m_MeasureViewModelFactory = measureViewModelFactory;
+      m_EnergyViewModelFactory = energyViewModelFactory;
 
       m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
 
@@ -82,9 +87,9 @@ namespace Ork.Energy.ViewModels
       get
       {
         IEnumerable<MeasureViewModel> measure;
-        if (SelectedCatalog != null)
+        if (SelectedConsumerGroup != null)
         {
-          measure = m_Measures.Where(mvm => SelectedCatalog.Measures.Contains(mvm.Model))
+          measure = m_Measures.Where(mvm => mvm.Model.Consumer.ConsumerGroup == SelectedConsumerGroup.Model)
                               .ToArray();
         }
         else
@@ -97,19 +102,19 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-    public IEnumerable<CatalogViewModel> Catalogs
+    public IEnumerable<ConsumerGroupViewModel> ConsumerGroups
     {
-      get { return FilteredCatalogs; }
+      get { return FilteredConsumerGroups; }
     }
 
-    public IEnumerable<CatalogViewModel> FilteredCatalogs
+    public IEnumerable<ConsumerGroupViewModel> FilteredConsumerGroups
     {
       get
       {
-        CatalogViewModel[] filteredCatalogs = SearchInCatalogList()
-          .OrderBy(cat => cat.Name)
+        ConsumerGroupViewModel[] filteredConsumerGroups = SearchInConsumerGroupList()
+          .OrderBy(cat => cat.GroupName)
           .ToArray();
-        return filteredCatalogs;
+        return filteredConsumerGroups;
       }
     }
 
@@ -119,7 +124,7 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_SearchText = value;
-        NotifyOfPropertyChange(() => Catalogs);
+        NotifyOfPropertyChange(() => ConsumerGroups);
       }
     }
 
@@ -147,9 +152,9 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-    public CatalogViewModel SelectedCatalog // Zuständig für Sichtbarkeit in Maßnahmenübersicht
+    public ConsumerGroupViewModel SelectedConsumerGroup // Zuständig für Sichtbarkeit in Maßnahmenübersicht
     {
-      get { return m_SelectedCatalog; }
+      get { return m_SelectedConsumerGroup; }
       set
       {
         //if (value == null)
@@ -173,8 +178,8 @@ namespace Ork.Energy.ViewModels
         //    VisibleEcoPlot2 = false;
         //}
 
-        m_SelectedCatalog = value;
-        NotifyOfPropertyChange(() => SelectedCatalog);
+        m_SelectedConsumerGroup = value;
+        NotifyOfPropertyChange(() => SelectedConsumerGroup);
         NotifyOfPropertyChange(() => CanAdd);
         NotifyOfPropertyChange(() => PlotModel);
         NotifyOfPropertyChange(() => EcoPlotModel);
@@ -251,12 +256,9 @@ namespace Ork.Energy.ViewModels
 
     public bool CanAdd
     {
+      // TODO: Zuordnung einer Maßnahme zu einem Verbraucher muss sichergestellt werden... oder nicht?
       get
       {
-        if (SelectedCatalog == null)
-        {
-          return false;
-        }
         return true;
       }
     }
@@ -336,8 +338,9 @@ namespace Ork.Energy.ViewModels
 
     private string CalculateDateInterval()
     {
-      Measure[] measures = m_Catalogs.SelectMany(cat => cat.Measures)
-                                     .ToArray();
+      var measures = m_Repository.Measures;
+      //Measure[] measures = m_ConsumerGroups.SelectMany(cat => cat.Measures)
+      //                                     .ToArray();
       if (!measures.Any())
       {
         return TranslationProvider.Translate("NoneAvailable");
@@ -357,23 +360,23 @@ namespace Ork.Energy.ViewModels
                                          .Contains(searchText));
     }
 
-    private void AlterCatalogCollection(object sender, NotifyCollectionChangedEventArgs e)
+    private void AlterConsumerGroupCollection(object sender, NotifyCollectionChangedEventArgs e)
     {
       switch (e.Action)
       {
         case NotifyCollectionChangedAction.Add:
-          foreach (Catalog newItem in e.NewItems.OfType<Catalog>())
+          foreach (ConsumerGroup newItem in e.NewItems.OfType<ConsumerGroup>())
           {
-            CreateCatalogViewModel(newItem);
+            CreateConsumerGroupViewModel(newItem);
           }
           break;
         case NotifyCollectionChangedAction.Remove:
-          foreach (CatalogViewModel catalogViewModel in e.OldItems.OfType<Catalog>()
-                                                         .Select(oldItem => m_Catalogs.Single(r => r.Model == oldItem)))
+          foreach (ConsumerGroupViewModel consumerGroupViewModel in e.OldItems.OfType<ConsumerGroup>()
+                                                         .Select(oldItem => m_ConsumerGroups.Single(r => r.Model == oldItem)))
           {
-            m_Catalogs.Remove(catalogViewModel);
+            m_ConsumerGroups.Remove(consumerGroupViewModel);
             foreach (MeasureViewModel mvm in
-              m_Measures.Where(mvm => catalogViewModel.Measures.Contains(mvm.Model))
+              m_Measures.Where(mvm => mvm.Model.Consumer.ConsumerGroup == consumerGroupViewModel.Model)
                         .ToArray())
             {
               m_Measures.Remove(mvm);
@@ -381,33 +384,33 @@ namespace Ork.Energy.ViewModels
           }
           break;
       }
-      NotifyOfPropertyChange(() => Catalogs);
+      NotifyOfPropertyChange(() => ConsumerGroups);
     }
 
-    public void AddCatalog(object dataContext)
-    {
-      var catalogAddViewModel = ((CatalogAddViewModel) dataContext);
-      m_Repository.Catalogs.Add(catalogAddViewModel.Model);
-      Save();
-      SelectedCatalog = m_Catalogs.Last();
+    //public void AddCatalog(object dataContext)
+    //{
+    //  var catalogAddViewModel = ((CatalogAddViewModel) dataContext);
+    //  m_Repository.Catalogs.Add(catalogAddViewModel.Model);
+    //  Save();
+    //  SelectedCatalog = m_Catalogs.Last();
 
-      LoadData();
-      //NotifyOfPropertyChange(() => AllMeasures);
-      NotifyOfPropertyChange(() => Catalogs);
-    }
+    //  LoadData();
+    //  //NotifyOfPropertyChange(() => AllMeasures);
+    //  NotifyOfPropertyChange(() => Catalogs);
+    //}
 
-    public void RemoveCatalog() // Notiz: Läuft so bugfrei !
-    {
-      CatalogViewModel catalogViewModel = SelectedCatalog;
-      m_Repository.Catalogs.Remove(catalogViewModel.Model);
-      Save();
+    //public void RemoveCatalog() // Notiz: Läuft so bugfrei !
+    //{
+    //  CatalogViewModel catalogViewModel = SelectedCatalog;
+    //  m_Repository.Catalogs.Remove(catalogViewModel.Model);
+    //  Save();
 
-      SelectedCatalog = null;
+    //  SelectedCatalog = null;
 
-      LoadData();
-      NotifyOfPropertyChange(() => AllMeasures);
-      NotifyOfPropertyChange(() => Catalogs);
-    }
+    //  LoadData();
+    //  NotifyOfPropertyChange(() => AllMeasures);
+    //  NotifyOfPropertyChange(() => Catalogs);
+    //}
 
     public void RemoveMeasure()
     {
@@ -418,14 +421,15 @@ namespace Ork.Energy.ViewModels
       {
         m_Repository.SubMeasures.Remove(subMeasure);
       }
-      if (SelectedCatalog != null)
-      {
-        SelectedCatalog.Measures.Remove(measureViewModel.Model);
-      }
-      else
-      {
-        measureViewModel.Catalog.Measures.Remove(measureViewModel.Model);
-      }
+      //TODO : Anzeige überprüfen, siehe Trello
+      //if (SelectedConsumerGroup != null)
+      //{
+      //  SelectedCatalog.Measures.Remove(measureViewModel.Model);
+      //}
+      //else
+      //{
+      //  measureViewModel.Catalog.Measures.Remove(measureViewModel.Model);
+      //}
       m_Measures.Remove(measureViewModel);
 
       Save();
@@ -438,8 +442,8 @@ namespace Ork.Energy.ViewModels
     public void AddMeasure(object dataContext)
     {
       var measureAddViewModel = ((MeasureAddViewModel) dataContext);
-      SelectedCatalog.Measures.Add(measureAddViewModel.Model);
-      CreateMeasureViewModel(measureAddViewModel.Model, SelectedCatalog);
+      //SelectedCatalog.Measures.Add(measureAddViewModel.Model);
+      CreateMeasureViewModel(measureAddViewModel.Model);
       Save();
 
       NotifyOfPropertyChange(() => AllMeasures);
@@ -460,8 +464,8 @@ namespace Ork.Energy.ViewModels
       Save();
 
       NotifyOfPropertyChange(() => Measures);
-      NotifyOfPropertyChange(() => Catalogs);
-      NotifyOfPropertyChange(() => SelectedCatalog);
+      NotifyOfPropertyChange(() => ConsumerGroups);
+      NotifyOfPropertyChange(() => SelectedConsumerGroup);
       NotifyOfPropertyChange(() => AllMeasures);
       NotifyOfPropertyChange(() => PlotModel);
     }
@@ -474,29 +478,16 @@ namespace Ork.Energy.ViewModels
       OpenMeasureEditDialog(temp);
     }
 
-    public IEnumerable<CatalogViewModel> SearchInCatalogList()
+    public IEnumerable<ConsumerGroupViewModel> SearchInConsumerGroupList()
     {
       if (string.IsNullOrEmpty(SearchText))
       {
-        return m_Catalogs;
+        return m_ConsumerGroups;
       }
       string searchText = SearchText.ToLower();
 
-      return m_Catalogs.Where(c => (((c.Name != null) && (c.Name.ToLower()
-                                                           .Contains(searchText)) || c.Measures.Any(m =>
-                                                                                                    {
-                                                                                                      var employee =
-                                                                                                        m.ResponsibleSubject as
-                                                                                                          Employee;
-
-                                                                                                      return employee != null &&
-                                                                                                             (employee.LastName +
-                                                                                                              " " +
-                                                                                                              employee.FirstName)
-                                                                                                               .ToLower()
-                                                                                                               .Contains(
-                                                                                                                 searchText);
-                                                                                                    }))));
+      return m_ConsumerGroups.Where(c => (((c.GroupName != null) && (c.GroupName.ToLower()
+                                                                      .Contains(searchText)))));
     }
 
     private void OpenEditor(object dataContext)
@@ -523,11 +514,11 @@ namespace Ork.Energy.ViewModels
       OpenEditor(m_MeasureViewModelFactory.CreateCatalogAddViewModel());
     }
 
-    private void OpenCatalogEditDialog(object dataContext)
-    {
-      SelectedCatalog = (CatalogViewModel) dataContext;
-      OpenEditor(m_MeasureViewModelFactory.CreateCatalogEditViewModel((CatalogViewModel) dataContext, RemoveCatalog));
-    }
+    //private void OpenCatalogEditDialog(object dataContext)
+    //{
+    //  SelectedCatalog = (CatalogViewModel) dataContext;
+    //  OpenEditor(m_MeasureViewModelFactory.CreateCatalogEditViewModel((CatalogViewModel) dataContext, RemoveCatalog));
+    //}
 
     private void OpenMeasureEditDialog(MeasureViewModel measureViewModel)
     {
@@ -543,10 +534,7 @@ namespace Ork.Energy.ViewModels
       {
         return;
       }
-      if (dataContext is CatalogViewModel)
-      {
-        OpenCatalogEditDialog(dataContext);
-      }
+      if (dataContext is ConsumerGroupViewModel) {}
       else if (dataContext is MeasureManagementViewModel)
       {
         OpenMeasureEditDialog(SelectedMeasure);
@@ -587,44 +575,48 @@ namespace Ork.Energy.ViewModels
 
     public void ShowAllMeasures()
     {
-      SelectedCatalog = null;
+      SelectedConsumerGroup = null;
     }
 
     private void LoadData()
     {
       m_Measures.Clear();
-      m_Catalogs.Clear();
-      LoadCatalogs();
+      m_ConsumerGroups.Clear();
+      LoadConsumerGroups();
     }
 
-    private void LoadCatalogs()
+    private void LoadConsumerGroups()
     {
-      m_Repository.Catalogs.CollectionChanged += AlterCatalogCollection;
-      foreach (Catalog catalog in m_Repository.Catalogs)
+      m_Repository.ConsumerGroups.CollectionChanged += AlterConsumerGroupCollection;
+      foreach (ConsumerGroup cg in m_Repository.ConsumerGroups)
       {
-        CreateCatalogViewModel(catalog);
+        CreateConsumerGroupViewModel(cg);
+      
       }
       //LoadData();
       //NotifyOfPropertyChange(() => AllMeasures);
-      NotifyOfPropertyChange(() => Catalogs);
+      NotifyOfPropertyChange(() => ConsumerGroups);
     }
 
-    private void CreateCatalogViewModel(Catalog catalog)
+    private void CreateConsumerGroupViewModel(ConsumerGroup consumerGroup)
     {
-      CatalogViewModel cvm = m_MeasureViewModelFactory.CreateFromExisting(catalog);
-      foreach (var measure in catalog.Measures)
+      ConsumerGroupViewModel cgvm = m_EnergyViewModelFactory.CreateFromExisting(consumerGroup);
+    
+      //foreach (var measure in m_Repository.Measures.Where(m => m.Consumer.ConsumerGroup == consumerGroup))
+      //{
+      foreach (var measure in m_Repository.Measures)
       {
-        if (measure.GetType() == typeof (EnergyMeasure))
-        {
-          CreateMeasureViewModel((EnergyMeasure) measure, cvm);
-        }
+
+          CreateMeasureViewModel(measure);
+       
       }
-      m_Catalogs.Add(cvm);
+      m_ConsumerGroups.Add(cgvm);
+   
     }
 
-    private void CreateMeasureViewModel(EnergyMeasure measure, CatalogViewModel cvm)
+    private void CreateMeasureViewModel(EnergyMeasure measure)
     {
-      MeasureViewModel mvm = m_MeasureViewModelFactory.CreateFromExisting(measure, cvm);
+      MeasureViewModel mvm = m_MeasureViewModelFactory.CreateFromExisting(measure);
       m_Measures.Add(mvm);
     }
 
@@ -644,14 +636,14 @@ namespace Ork.Energy.ViewModels
 
       m_Plot.Axes.Clear();
       m_Plot.Series.Clear();
-      string catalogName = SelectedCatalog == null
+      string cgName = SelectedConsumerGroup == null
         ? TranslationProvider.Translate("AllMeasures")
-        : SelectedCatalog.Name;
+        : SelectedConsumerGroup.GroupName;
 
       var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
       var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
 
-      m_Plot.Title = catalogName;
+      m_Plot.Title = cgName;
       m_Plot.LegendOrientation = LegendOrientation.Horizontal;
       m_Plot.LegendPlacement = LegendPlacement.Outside;
       m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
@@ -700,14 +692,14 @@ namespace Ork.Energy.ViewModels
 
       m_Plot.Axes.Clear();
       m_Plot.Series.Clear();
-      string catalogName = SelectedCatalog == null
+      string cgName = SelectedConsumerGroup == null
         ? TranslationProvider.Translate("AllMeasures")
-        : SelectedCatalog.Name;
+        : SelectedConsumerGroup.GroupName;
 
       var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
       var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
 
-      m_Plot.Title = catalogName;
+      m_Plot.Title = cgName;
       m_Plot.LegendOrientation = LegendOrientation.Horizontal;
       m_Plot.LegendPlacement = LegendPlacement.Outside;
       m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
@@ -754,14 +746,14 @@ namespace Ork.Energy.ViewModels
 
       m_Plot.Axes.Clear();
       m_Plot.Series.Clear();
-      string catalogName = SelectedCatalog == null
+      string cgName = SelectedConsumerGroup == null
         ? TranslationProvider.Translate("AllMeasures")
-        : SelectedCatalog.Name;
+        : SelectedConsumerGroup.GroupName;
 
       var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
       var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
 
-      m_Plot.Title = catalogName;
+      m_Plot.Title = cgName;
       m_Plot.LegendOrientation = LegendOrientation.Horizontal;
       m_Plot.LegendPlacement = LegendPlacement.Outside;
       m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());

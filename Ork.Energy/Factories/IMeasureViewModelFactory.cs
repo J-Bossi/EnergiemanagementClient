@@ -27,7 +27,7 @@ namespace Ork.Energy.Factories
     CatalogAddViewModel CreateCatalogAddViewModel();
     CatalogEditViewModel CreateCatalogEditViewModel(CatalogViewModel catalogViewModel, Action removeCatalogAction);
     CatalogViewModel CreateFromExisting(Catalog catalog);
-    MeasureViewModel CreateFromExisting(DomainModelService.EnergyMeasure measure, CatalogViewModel catalog = null);
+    MeasureViewModel CreateFromExisting(DomainModelService.EnergyMeasure measure);
 
     MeasurePrintPreviewViewModel CreatePrintPreviewModel(EnergyMeasure measure, Action removeCatalogAction);
   }

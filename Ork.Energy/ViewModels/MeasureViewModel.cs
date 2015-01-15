@@ -10,13 +10,11 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2013, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Ork.Energy.DomainModelService;
 using Ork.Framework;
 
@@ -26,14 +24,9 @@ namespace Ork.Energy.ViewModels
   {
     private readonly EnergyMeasure m_Model;
 
-
-
-    public MeasureViewModel(DomainModelService.EnergyMeasure measure, CatalogViewModel catalog)
+    public MeasureViewModel(EnergyMeasure measure)
     {
       m_Model = measure;
-      Catalog = catalog;
-
-
     }
 
     public DateTime? CreationDate
@@ -53,16 +46,16 @@ namespace Ork.Energy.ViewModels
 
     public int Id
     {
-        get { return m_Model.Id; }
+      get { return m_Model.Id; }
     }
 
     public string Name
     {
       get { return m_Model.Name; }
-        set { m_Model.Name = value; }
+      set { m_Model.Name = value; }
     }
 
-    public DomainModelService.EnergyMeasure Model
+    public EnergyMeasure Model
     {
       get { return m_Model; }
     }
@@ -126,8 +119,6 @@ namespace Ork.Energy.ViewModels
       get { return TranslationProvider.Translate(((Status) Status).ToString()); }
     }
 
-
-
     public ResponsibleSubject ResponsibleSubject
     {
       get { return m_Model.ResponsibleSubject; }
@@ -152,78 +143,72 @@ namespace Ork.Energy.ViewModels
 
     public string Kenn
     {
-        get { return m_Model.Parameter; }
+      get { return m_Model.Parameter; }
     }
 
-    public string MeterDevice 
+    public string MeterDevice
     {
-        get { return m_Model.Meter; }
+      get { return m_Model.Meter; }
     }
 
-      public double SavedWattSoll
+    public double SavedWattSoll
+    {
+      get { return m_Model.SavedWattShould; }
+    }
+
+    public double SavedMoneySoll
+    {
+      get { return m_Model.SavedMoneyShould; }
+    }
+
+    public double SavedWattIst
+    {
+      get { return m_Model.SavedWattIs; }
+    }
+
+    public double SavedMoneyIst
+    {
+      get { return m_Model.SavedMoneyIs; }
+    }
+
+    public double SavedMoneyAktuell
+    {
+      get { return m_Model.SavedMoneyAtm; }
+    }
+
+    public double SavedWattAktuell
+    {
+      get { return m_Model.SavedWattAtm; }
+    }
+
+    public double SavedCO2
+    {
+      get { return m_Model.SavedWattShould * 0.61; }
+    }
+
+    public string ConsumerUnit
+    {
+      get { return m_Model.ConsumerUnit; }
+    }
+
+    public double Investment
+    {
+      get { return m_Model.Investment; }
+    }
+
+    public double Amortisationtime
+    {
+      get
       {
-          
-          get { return m_Model.SavedWattShould; }
+        return Math.Round((m_Model.Investment + m_Model.FailureMoney) / m_Model.SavedMoneyShould * 365, 0);
+        // Errechnet sich aus Investitionskosten+Ausfallkosten und Wert der Einsparung nach beendeter Maßnahme (SavedMoneySoll) * 365 Tage (für die Umrechnung)
       }
+    }
 
-      public double SavedMoneySoll
-      {
-
-          get { return m_Model.SavedMoneyShould; }
-      }
-
-      public double SavedWattIst
-      {
-
-          get { return m_Model.SavedWattIs; }
-      }
-
-      public double SavedMoneyIst
-      {
-          get { return m_Model.SavedMoneyIs; }
-      }
-
-      public double SavedMoneyAktuell
-      {
-          get { return m_Model.SavedMoneyAtm; }
-      }
-
-      public double SavedWattAktuell
-      {
-          get { return m_Model.SavedWattAtm; }
-      }
-
-      public double SavedCO2
-      {
-          get
-          {
-              return m_Model.SavedWattShould*0.61;
-          }
-      }
-
-      public string ConsumerUnit
-      {
-          get { return m_Model.ConsumerUnit; }
-          
-      }
-
-
-      public double Investment
-      {
-          get { return m_Model.Investment; }
-       
-      }
-
-      public double Amortisationtime
-      {
-          get 
-          {
-              return Math.Round((m_Model.Investment + m_Model.FailureMoney) / m_Model.SavedMoneyShould * 365, 0);       // Errechnet sich aus Investitionskosten+Ausfallkosten und Wert der Einsparung nach beendeter Maßnahme (SavedMoneySoll) * 365 Tage (für die Umrechnung)
-          }
-          
-      }
-
-      public CatalogViewModel Catalog { get; private set; }
+    public ConsumerGroup ConsumerGroup
+    {
+      get { return Model.Consumer.ConsumerGroup; }
+    }
 
     public string DueDateIsDelayed
     {
@@ -234,8 +219,6 @@ namespace Ork.Energy.ViewModels
     {
       get { return TranslationProvider.Translate("EntryDateIsDelayed"); }
     }
-
- 
 
     public bool Delayed
     {
@@ -268,7 +251,5 @@ namespace Ork.Energy.ViewModels
         }
       }
     }
-
-   
   }
 }
