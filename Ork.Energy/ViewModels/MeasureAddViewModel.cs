@@ -35,7 +35,7 @@ namespace Ork.Energy.ViewModels
       private readonly DomainModelService.EnergyMeasure m_Model;
         private readonly IEnumerable m_Priorities;
 
-        private readonly IMeasureRepository m_Repository;
+        private readonly IEnergyRepository m_Repository;
 
         private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
         private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
@@ -52,7 +52,7 @@ namespace Ork.Energy.ViewModels
         [ImportingConstructor]
         public MeasureAddViewModel(DomainModelService.EnergyMeasure model,
             IEnumerable<ResponsibleSubjectViewModel> responsibleSubjectViewModels,
-        [Import] IMeasureRepository measureRepository,
+        [Import] IEnergyRepository energyRepository,
             [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
         {
             m_Model = model;
@@ -65,7 +65,7 @@ namespace Ork.Energy.ViewModels
             m_ResponsibleSubjects = responsibleSubjectViewModels;
             DisplayName = TranslationProvider.Translate("TitleMeasureAddViewModel");
 
-            m_Repository = measureRepository;
+            m_Repository = energyRepository;
             m_SubMeasureViewModelFactory = subMeasureViewModelFactory;
         }
 

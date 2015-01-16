@@ -48,5 +48,24 @@ namespace Ork.Energy.ViewModels
     {
       get { return m_Repository.Consumers.Count(c => c.ConsumerGroup == Model); }
     }
+
+    public string FullDate
+    {
+      get
+      {
+        //var dateList = m_Repository.Measures.Select(measure => measure.DueDate)
+        //                      .ToList();
+        //dateList.Sort();
+
+        //if (dateList.Count == 0)
+        //{
+        //  return "";
+        //}
+        //return dateList.First()
+        //               .ToShortDateString() + " - " + dateList.Last()
+        //                                                      .ToShortDateString();
+        return "000";
+      }
+    }
   }
 }

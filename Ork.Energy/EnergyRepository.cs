@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
+using System.Linq;
 using Ork.Energy.DomainModelService;
 using Ork.Setting;
 
@@ -43,6 +44,9 @@ namespace Ork.Energy
     public DataServiceCollection<Reading> Readings { get; private set; }
     public DataServiceCollection<Consumer> Consumers { get; private set; }
     public DataServiceCollection<ConsumerType> ConsumerTypes { get; private set; }
+    public DataServiceCollection<ResponsibleSubject> ResponsibleSubjects { get; private set; }
+    public DataServiceCollection<EnergyMeasure> Measures { get; private set; }
+    public DataServiceCollection<SubMeasure> SubMeasures { get; private set; }
     public bool HasConnection { get; private set; }
 
     public void Save()
@@ -85,6 +89,9 @@ namespace Ork.Energy
         LoadDistributors();
         LoadReadings();
         LoadConsumerTypes();
+        LoadMeasures();
+        LoadSubMeasures();
+        LoadResponsibleSubjects();
         HasConnection = true;
       }
       catch (Exception ex)
@@ -113,6 +120,34 @@ namespace Ork.Energy
                                                   .Expand("OpenResKit.DomainModel.Consumer/ConsumerType")
                                                   .Expand("Readings");
       Consumers.Load(query);
+    }
+
+    private void LoadMeasures()
+    {
+      Measures = new DataServiceCollection<EnergyMeasure>(m_Context);
+      var query = m_Context.Measures.Expand("ResponsibleSubject")
+                           .Expand("AttachedDocuments/DocumentSource")
+                           .Expand("MeasureImageSource")
+                           .Expand("Room")
+                           .Expand("Consumer")
+                           .OfType<EnergyMeasure>();
+      Measures.Load(query);
+    }
+    private void LoadSubMeasures()
+    {
+      SubMeasures = new DataServiceCollection<SubMeasure>(m_Context);
+
+      var query = m_Context.SubMeasures.Expand("OpenResKit.DomainModel.SubMeasure/ReleatedMeasure")
+                           .Expand("OpenResKit.DomainModel.SubMeasure/ResponsibleSubject");
+      SubMeasures.Load(query);
+    }
+
+    private void LoadResponsibleSubjects()
+    {
+      ResponsibleSubjects = new DataServiceCollection<ResponsibleSubject>(m_Context);
+
+      var query = m_Context.ResponsibleSubjects.Expand("OpenResKit.DomainModel.Employee/Groups");
+      ResponsibleSubjects.Load(query);
     }
 
     private void LoadConsumerTypes()
@@ -144,6 +179,7 @@ namespace Ork.Energy
       Buildings = new DataServiceCollection<Building>(m_Context);
 
       DataServiceQuery<Building> query = m_Context.Buildings.Expand("OpenResKit.DomainModel.Rooms");
+      //TODO Load Buildings
     }
 
     private void RaiseEvent(EventHandler eventHandler)

@@ -34,18 +34,18 @@ namespace Ork.Energy.ViewModels
 
         [ImportingConstructor]
         public MeasureEditViewModel(DomainModelService.EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
-         [Import] IMeasureRepository measureRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
-            : base(model, responsibleSubjectViewModels, measureRepository, subMeasureViewModelFactory)
+         [Import] IEnergyRepository energyRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
+            : base(model, responsibleSubjectViewModels, energyRepository, subMeasureViewModelFactory)
         {
             DisplayName = TranslationProvider.Translate("TitleMeasureEditViewModel");
             m_Stati = Enum.GetValues(typeof(Status));
             m_RemoveMeasure = removeMeasureAction;
             SelectedResponsibleSubject = responsibleSubjectViewModels.Single(rsvm => model.ResponsibleSubject == rsvm.Model);
-            foreach (var sm in measureRepository.SubMeasures.Where(sm => sm.ReleatedMeasure == model))
+            foreach (var sm in energyRepository.SubMeasures.Where(sm => sm.ReleatedMeasure == model))
             {
                 sm.PropertyChanged += ListenToIsCompleted;
             }
-            measureRepository.SubMeasures.CollectionChanged += (s, e) =>
+            energyRepository.SubMeasures.CollectionChanged += (s, e) =>
             {
                 switch (e.Action)
                 {

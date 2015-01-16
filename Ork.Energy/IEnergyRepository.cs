@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2014, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
@@ -30,12 +30,16 @@ namespace Ork.Energy
     DataServiceCollection<Distributor> Distributors { get; }
     DataServiceCollection<Reading> Readings { get; }
     DataServiceCollection<ConsumerType> ConsumerTypes { get; }
+    DataServiceCollection<ResponsibleSubject> ResponsibleSubjects { get; }
+    DataServiceCollection<EnergyMeasure> Measures { get; }
+
+    DataServiceCollection<SubMeasure> SubMeasures { get; }
+
     bool HasConnection { get; }
+    IEnumerable<EntityDescriptor> Entities { get; }
+    IEnumerable<LinkDescriptor> Links { get; }
     void Save();
     event EventHandler ContextChanged;
     event EventHandler SaveCompleted;
-
-    IEnumerable<EntityDescriptor> Entities { get; }
-    IEnumerable<LinkDescriptor> Links { get; }
   }
 }

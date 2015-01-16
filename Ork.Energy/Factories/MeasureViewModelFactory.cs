@@ -27,16 +27,16 @@ namespace Ork.Energy.Factories
   [Export(typeof (IMeasureViewModelFactory))]
   internal class MeasureViewModelFactory : IMeasureViewModelFactory
   {
-    private readonly IMeasureRepository m_MeasureRepository;
+    private readonly IEnergyRepository m_MeasureRepository;
   
     private readonly IResponsibleSubjectViewModelFactory m_ResponsibleSubjectViewModelFactory;
     private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
 
     [ImportingConstructor]
-    public MeasureViewModelFactory([Import] IMeasureRepository measureRepository, [Import] IResponsibleSubjectViewModelFactory responsibleSubjectViewModelFactory,
+    public MeasureViewModelFactory([Import] IEnergyRepository energyRepository, [Import] IResponsibleSubjectViewModelFactory responsibleSubjectViewModelFactory,
        [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
     {
-        m_MeasureRepository = measureRepository;
+        m_MeasureRepository = energyRepository;
       m_ResponsibleSubjectViewModelFactory = responsibleSubjectViewModelFactory;
 
       m_SubMeasureViewModelFactory = subMeasureViewModelFactory;

@@ -57,10 +57,10 @@ namespace Ork.Energy.ViewModels
     private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
     private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
     private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IMeasureRepository m_Repository;
+    private readonly IEnergyRepository m_Repository;
 
     [ImportingConstructor]
-    public MeasureManagementViewModel([Import] IMeasureRepository contextRepository,
+    public MeasureManagementViewModel([Import] IEnergyRepository contextRepository,
                                       [Import] IMeasureViewModelFactory measureViewModelFactory, [Import] IEnergyViewModelFactory energyViewModelFactory)
     {
       m_Repository = contextRepository;
@@ -89,7 +89,7 @@ namespace Ork.Energy.ViewModels
         IEnumerable<MeasureViewModel> measure;
         if (SelectedConsumerGroup != null)
         {
-          measure = m_Measures.Where(mvm => mvm.Model.Consumer.ConsumerGroup == SelectedConsumerGroup.Model)
+          measure = m_Measures.Where(mvm => mvm.Model.Consumer != null && mvm.Model.Consumer.ConsumerGroup == SelectedConsumerGroup.Model)
                               .ToArray();
         }
         else

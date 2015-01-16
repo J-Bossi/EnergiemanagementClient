@@ -210,7 +210,7 @@
         <ListBox
           ItemsSource="{Binding ConsumerGroups}"
           Margin="12 0 0 12"
-          SelectedItem="{Binding SelectedConsumerGroups}"
+          SelectedItem="{Binding SelectedConsumerGroup}"
           SelectedIndex="0"
           Grid.Row="2"
           Style="{DynamicResource FlyoutListBoxStyle}">

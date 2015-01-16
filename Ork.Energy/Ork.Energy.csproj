@@ -148,10 +148,8 @@
     <Compile Include="Factories\ISubMeasureViewModelFactory.cs" />
     <Compile Include="Factories\SubMeasureViewModelFactory.cs" />
     <Compile Include="IEnergyRepository.cs" />
-    <Compile Include="IMeasureRepository.cs" />
     <Compile Include="Factories\IMeasureViewModelFactory.cs" />
     <Compile Include="ISubMeasureRepository.cs" />
-    <Compile Include="MeasureRepository.cs" />
     <Compile Include="Factories\MeasureViewModelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Languages\Translate.Designer.cs">

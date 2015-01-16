@@ -15,8 +15,8 @@ namespace Ork.Energy.ViewModels
     {
         [ImportingConstructor]
         public MeasurePrintPreviewViewModel(DomainModelService.EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
-     [Import] IMeasureRepository measureRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
-      : base(model, removeMeasureAction, responsibleSubjectViewModels,  measureRepository, subMeasureViewModelFactory)
+     [Import] IEnergyRepository energyRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
+      : base(model, removeMeasureAction, responsibleSubjectViewModels,  energyRepository, subMeasureViewModelFactory)
     {
       DisplayName = TranslationProvider.Translate("TitleMeasurePrintPreviewViewModel");
       //m_Stati = Enum.GetValues(typeof (Status));
