@@ -31,6 +31,13 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class EnergyManagementViewModel : DocumentBase, IWorkspace
   {
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
+    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly IEnergyRepository m_Repository;
     private ConsumerGroupViewModel m_ConsumerGroup;
     private DistributorViewModel m_Distributor;
     private IScreen m_EditItem;
@@ -39,14 +46,6 @@ namespace Ork.Energy.ViewModels
     private string m_SearchConsumerGroupText;
     private string m_SearchConsumerText;
     private string m_SearchDistributorText;
-
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
-    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IEnergyRepository m_Repository;
 
     [ImportingConstructor]
     public EnergyManagementViewModel([Import] IEnergyRepository mRepository,
@@ -413,12 +412,9 @@ namespace Ork.Energy.ViewModels
 
     private void DeleteConsumerGroup(ConsumerGroup dataContext)
     {
-      if (m_Repository.Links.Any(c => c.Target == (dataContext)))
+      if (ObjectHasConstraints(dataContext))
       {
-        var constraint = m_Repository.Links.Where(c => c.Target == ((dataContext)));
-        Dialogs.ShowMessageBox(
-          "Die Verbrauchergruppe kann nicht gelöscht werden, da folgende Verbraucher zu dieser Verbrauchergruppe gehören: " +
-          String.Join(" ", (constraint.Select(c => ((Consumer) c.Source).Name))), "Datenbankfehler");
+        ShowDeletionFailureDialog(dataContext);
       }
       else
       {
@@ -431,20 +427,31 @@ namespace Ork.Energy.ViewModels
 
     private void DeleteConsumer(Consumer dataContext)
     {
-      m_Repository.Consumers.Remove(dataContext);
-      m_Repository.Save();
+      if (ObjectHasConstraints(dataContext))
+      {
+        ShowDeletionFailureDialog(dataContext);
+      }
+      else
+      {
+        m_Repository.Consumers.Remove(dataContext);
+        m_Repository.Save();
+        NotifyOfPropertyChange(() => Consumers);
+      }
+    }
 
-      NotifyOfPropertyChange(() => Consumers);
+    private void ShowDeletionFailureDialog<T>(T dataContext)
+    {
+      var constraint = m_Repository.Links.Where(c => c.Target != null && c.Target.Equals(dataContext));
+      Dialogs.ShowMessageBox(
+        "Das Objekt kann nicht gelöscht werden, da folgendes andere Objekt abhängig ist. " +
+        String.Join(" ", (constraint.Select(c => (c.Source)))), "Datenbankfehler");
     }
 
     private void DeleteDistributor(Distributor dataContext)
     {
-      if (m_Repository.Links.Any(c => c.Target == (dataContext)))
+      if (ObjectHasConstraints(dataContext))
       {
-        var constraint = m_Repository.Links.Where(c => c.Target == (dataContext));
-        Dialogs.ShowMessageBox(
-          "Der Verteiler kann nicht gelöscht werden, da folgende Verbraucher zu diesem Verteiler gehören: " +
-          String.Join(" ", (constraint.Select(c => ((Consumer) c.Source).Name))), "Datenbankfehler");
+        ShowDeletionFailureDialog(dataContext);
       }
       else
       {
@@ -453,6 +460,11 @@ namespace Ork.Energy.ViewModels
 
         NotifyOfPropertyChange(() => Distributors);
       }
+    }
+
+    private bool ObjectHasConstraints(object dataContext)
+    {
+      return m_Repository.Links.Any(o => o.Target == dataContext);
     }
 
     private void CloseEditor()

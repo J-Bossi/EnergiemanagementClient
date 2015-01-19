@@ -95,15 +95,15 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        try
+        if (m_Model.Readings.Count == 0)
+        {
+          return "Keine Ablesung verfügbar";
+        }
+        else
         {
           return m_Model.Readings.OrderByDescending(r => r.ReadingDate)
                         .First()
                         .ReadingDate.ToShortDateString();
-        }
-        catch (InvalidOperationException ex)
-        {
-          return "Keine Ablesung verfügbar";
         }
       }
     }
