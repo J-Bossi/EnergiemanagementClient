@@ -58,6 +58,8 @@ namespace Ork.Energy.ViewModels
       {
         TypeName = ConsumerType
       });
+      ConsumerType = null;
+      NotifyOfPropertyChange(() => ConsumerType);
     }
 
     public void DeleteConsumerType(object dataContext)
