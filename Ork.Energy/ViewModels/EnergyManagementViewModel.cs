@@ -81,9 +81,7 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        var filteredConsumerGroups = SearchInConsumerGroupList()
-          //.Where(cg => FilteredConsumers.Select(c => c.Model.ConsumerGroup).Contains(cg.Model))
-          ;
+        var filteredConsumerGroups = SearchInConsumerGroupList();
         return filteredConsumerGroups;
       }
     }

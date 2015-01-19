@@ -39,6 +39,14 @@ namespace Ork.Energy.ViewModels
     //private bool m_DgvVisible;
     //private bool m_DgvVisibleCat;
     //private bool m_DgvVisibleEco;
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
+    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
+    private readonly IEnergyRepository m_Repository;
+
     private IScreen m_EditItem;
     private bool m_FlyoutActivated;
     private bool m_IsEnabled;
@@ -51,17 +59,10 @@ namespace Ork.Energy.ViewModels
     private ConsumerGroupViewModel m_SelectedConsumerGroup;
     private MeasureViewModel m_SelectedMeasure;
 
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
-    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IEnergyRepository m_Repository;
-
     [ImportingConstructor]
     public MeasureManagementViewModel([Import] IEnergyRepository contextRepository,
-                                      [Import] IMeasureViewModelFactory measureViewModelFactory, [Import] IEnergyViewModelFactory energyViewModelFactory)
+                                      [Import] IMeasureViewModelFactory measureViewModelFactory,
+                                      [Import] IEnergyViewModelFactory energyViewModelFactory)
     {
       m_Repository = contextRepository;
       m_MeasureViewModelFactory = measureViewModelFactory;
@@ -89,8 +90,10 @@ namespace Ork.Energy.ViewModels
         IEnumerable<MeasureViewModel> measure;
         if (SelectedConsumerGroup != null)
         {
-          measure = m_Measures.Where(mvm => mvm.Model.Consumer != null && mvm.Model.Consumer.ConsumerGroup == SelectedConsumerGroup.Model)
-                              .ToArray();
+          measure =
+            m_Measures.Where(
+              mvm => mvm.Model.Consumer != null && mvm.Model.Consumer.ConsumerGroup == SelectedConsumerGroup.Model)
+                      .ToArray();
         }
         else
         {
@@ -111,7 +114,7 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        ConsumerGroupViewModel[] filteredConsumerGroups = SearchInConsumerGroupList()
+        var filteredConsumerGroups = SearchInConsumerGroupList()
           .OrderBy(cat => cat.GroupName)
           .ToArray();
         return filteredConsumerGroups;
@@ -257,10 +260,7 @@ namespace Ork.Energy.ViewModels
     public bool CanAdd
     {
       // TODO: Zuordnung einer Maßnahme zu einem Verbraucher muss sichergestellt werden... oder nicht?
-      get
-      {
-        return true;
-      }
+      get { return true; }
     }
 
     public MeasureViewModel SelectedMeasure { get; set; }
@@ -272,7 +272,7 @@ namespace Ork.Energy.ViewModels
         //todo: optimize initialization
         InitializePlot();
 
-        MeasureViewModel[] measures = Measures.ToArray();
+        var measures = Measures.ToArray();
         if (measures.Any())
         {
           GenerateGraphData(measures);
@@ -289,7 +289,7 @@ namespace Ork.Energy.ViewModels
         //todo: optimize initialization
         InitializeEcoPlot();
 
-        MeasureViewModel[] measures = Measures.ToArray();
+        var measures = Measures.ToArray();
         if (measures.Any())
         {
           GenerateEcoGraphData(measures);
@@ -306,7 +306,7 @@ namespace Ork.Energy.ViewModels
         //todo: optimize initialization
         InitializeEcoPlot2();
 
-        MeasureViewModel[] measures = Measures.ToArray();
+        var measures = Measures.ToArray();
         if (measures.Any())
         {
           GenerateEcoGraphData2(measures);
@@ -345,9 +345,9 @@ namespace Ork.Energy.ViewModels
       {
         return TranslationProvider.Translate("NoneAvailable");
       }
-      DateTime[] dateList = measures.Select(measure => measure.DueDate)
-                                    .OrderBy(m => m)
-                                    .ToArray();
+      var dateList = measures.Select(measure => measure.DueDate)
+                             .OrderBy(m => m)
+                             .ToArray();
       return dateList.First()
                      .ToShortDateString() + " - " + dateList.Last()
                                                             .ToShortDateString();
@@ -355,7 +355,7 @@ namespace Ork.Energy.ViewModels
 
     private IEnumerable<MeasureViewModel> SearchInMeasureList(IEnumerable<MeasureViewModel> measureList)
     {
-      string searchText = m_SearchTextMeasures.ToLower();
+      var searchText = m_SearchTextMeasures.ToLower();
       return measureList.Where(mvm => mvm.ResponsibleSubjectName.ToLower()
                                          .Contains(searchText));
     }
@@ -365,18 +365,19 @@ namespace Ork.Energy.ViewModels
       switch (e.Action)
       {
         case NotifyCollectionChangedAction.Add:
-          foreach (ConsumerGroup newItem in e.NewItems.OfType<ConsumerGroup>())
+          foreach (var newItem in e.NewItems.OfType<ConsumerGroup>())
           {
             CreateConsumerGroupViewModel(newItem);
           }
           break;
         case NotifyCollectionChangedAction.Remove:
-          foreach (ConsumerGroupViewModel consumerGroupViewModel in e.OldItems.OfType<ConsumerGroup>()
-                                                         .Select(oldItem => m_ConsumerGroups.Single(r => r.Model == oldItem)))
+          foreach (var consumerGroupViewModel in e.OldItems.OfType<ConsumerGroup>()
+                                                  .Select(oldItem => m_ConsumerGroups.Single(r => r.Model == oldItem)))
           {
             m_ConsumerGroups.Remove(consumerGroupViewModel);
-            foreach (MeasureViewModel mvm in
-              m_Measures.Where(mvm => mvm.Model.Consumer.ConsumerGroup == consumerGroupViewModel.Model)
+            foreach (var mvm in
+              m_Measures.Where(
+                mvm => mvm.Model.Consumer != null && mvm.Model.Consumer.ConsumerGroup == consumerGroupViewModel.Model)
                         .ToArray())
             {
               m_Measures.Remove(mvm);
@@ -414,24 +415,16 @@ namespace Ork.Energy.ViewModels
 
     public void RemoveMeasure()
     {
-      MeasureViewModel measureViewModel = SelectedMeasure;
-      List<SubMeasure> allSubMeasures = m_Repository.SubMeasures.Where(sm => sm.ReleatedMeasure == measureViewModel.Model)
-                                                    .ToList();
-      foreach (SubMeasure subMeasure in allSubMeasures)
+      var measureViewModel = SelectedMeasure;
+      var allSubMeasures = m_Repository.SubMeasures.Where(sm => sm.ReleatedMeasure == measureViewModel.Model)
+                                       .ToList();
+      foreach (var subMeasure in allSubMeasures)
       {
         m_Repository.SubMeasures.Remove(subMeasure);
       }
-      //TODO : Anzeige überprüfen, siehe Trello
-      //if (SelectedConsumerGroup != null)
-      //{
-      //  SelectedCatalog.Measures.Remove(measureViewModel.Model);
-      //}
-      //else
-      //{
-      //  measureViewModel.Catalog.Measures.Remove(measureViewModel.Model);
-      //}
-      m_Measures.Remove(measureViewModel);
 
+      m_Measures.Remove(measureViewModel);
+      m_Repository.Measures.Remove(measureViewModel.Model);
       Save();
 
       NotifyOfPropertyChange(() => Measures);
@@ -442,7 +435,7 @@ namespace Ork.Energy.ViewModels
     public void AddMeasure(object dataContext)
     {
       var measureAddViewModel = ((MeasureAddViewModel) dataContext);
-      //SelectedCatalog.Measures.Add(measureAddViewModel.Model);
+
       CreateMeasureViewModel(measureAddViewModel.Model);
       Save();
 
@@ -472,7 +465,7 @@ namespace Ork.Energy.ViewModels
 
     public void Back(object dataContext)
     {
-      MeasureViewModel temp = SelectedMeasure;
+      var temp = SelectedMeasure;
       CloseEditor();
 
       OpenMeasureEditDialog(temp);
@@ -484,7 +477,7 @@ namespace Ork.Energy.ViewModels
       {
         return m_ConsumerGroups;
       }
-      string searchText = SearchText.ToLower();
+      var searchText = SearchText.ToLower();
 
       return m_ConsumerGroups.Where(c => (((c.GroupName != null) && (c.GroupName.ToLower()
                                                                       .Contains(searchText)))));
@@ -588,10 +581,9 @@ namespace Ork.Energy.ViewModels
     private void LoadConsumerGroups()
     {
       m_Repository.ConsumerGroups.CollectionChanged += AlterConsumerGroupCollection;
-      foreach (ConsumerGroup cg in m_Repository.ConsumerGroups)
+      foreach (var cg in m_Repository.ConsumerGroups)
       {
         CreateConsumerGroupViewModel(cg);
-      
       }
       //LoadData();
       //NotifyOfPropertyChange(() => AllMeasures);
@@ -600,23 +592,20 @@ namespace Ork.Energy.ViewModels
 
     private void CreateConsumerGroupViewModel(ConsumerGroup consumerGroup)
     {
-      ConsumerGroupViewModel cgvm = m_EnergyViewModelFactory.CreateFromExisting(consumerGroup);
-    
+      var cgvm = m_EnergyViewModelFactory.CreateFromExisting(consumerGroup);
+
       //foreach (var measure in m_Repository.Measures.Where(m => m.Consumer.ConsumerGroup == consumerGroup))
       //{
       foreach (var measure in m_Repository.Measures)
       {
-
-          CreateMeasureViewModel(measure);
-       
+        CreateMeasureViewModel(measure);
       }
       m_ConsumerGroups.Add(cgvm);
-   
     }
 
     private void CreateMeasureViewModel(EnergyMeasure measure)
     {
-      MeasureViewModel mvm = m_MeasureViewModelFactory.CreateFromExisting(measure);
+      var mvm = m_MeasureViewModelFactory.CreateFromExisting(measure);
       m_Measures.Add(mvm);
     }
 
@@ -636,7 +625,7 @@ namespace Ork.Energy.ViewModels
 
       m_Plot.Axes.Clear();
       m_Plot.Series.Clear();
-      string cgName = SelectedConsumerGroup == null
+      var cgName = SelectedConsumerGroup == null
         ? TranslationProvider.Translate("AllMeasures")
         : SelectedConsumerGroup.GroupName;
 
@@ -651,8 +640,8 @@ namespace Ork.Energy.ViewModels
       m_Plot.PlotAreaBorderThickness = new OxyThickness(1);
 
       var monthArray = new string[6];
-      int k = 0;
-      for (int i = -5; i < 1; i++)
+      var k = 0;
+      for (var i = -5; i < 1; i++)
       {
         monthArray[k++] = DateTime.Now.AddMonths(i)
                                   .ToString("MMM");
@@ -692,7 +681,7 @@ namespace Ork.Energy.ViewModels
 
       m_Plot.Axes.Clear();
       m_Plot.Series.Clear();
-      string cgName = SelectedConsumerGroup == null
+      var cgName = SelectedConsumerGroup == null
         ? TranslationProvider.Translate("AllMeasures")
         : SelectedConsumerGroup.GroupName;
 
@@ -706,8 +695,8 @@ namespace Ork.Energy.ViewModels
       m_Plot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
       m_Plot.PlotAreaBorderThickness = new OxyThickness(1);
 
-      string[] measureIdArray = Measures.Select(measure => measure.Id.ToString())
-                                        .ToArray();
+      var measureIdArray = Measures.Select(measure => measure.Id.ToString())
+                                   .ToArray();
 
       var categoryAxis = new CategoryAxis(TranslationProvider.Translate("Measure IDs"), new[]
       {
@@ -746,7 +735,7 @@ namespace Ork.Energy.ViewModels
 
       m_Plot.Axes.Clear();
       m_Plot.Series.Clear();
-      string cgName = SelectedConsumerGroup == null
+      var cgName = SelectedConsumerGroup == null
         ? TranslationProvider.Translate("AllMeasures")
         : SelectedConsumerGroup.GroupName;
 
@@ -760,10 +749,10 @@ namespace Ork.Energy.ViewModels
       m_Plot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
       m_Plot.PlotAreaBorderThickness = new OxyThickness(1);
 
-      string[] measureNamesArray = Measures.Select(measure => measure.Name)
-                                           .ToArray();
-      string[] measureIdArray = Measures.Select(measure => measure.Id.ToString())
-                                        .ToArray();
+      var measureNamesArray = Measures.Select(measure => measure.Name)
+                                      .ToArray();
+      var measureIdArray = Measures.Select(measure => measure.Id.ToString())
+                                   .ToArray();
 
       var categoryAxis = new CategoryAxis(TranslationProvider.Translate("Measure IDs"), new[]
       {
@@ -793,8 +782,7 @@ namespace Ork.Energy.ViewModels
       m_Plot.Axes.Add(valueAxis);
     }
 
-    private void GenerateGraphData(IEnumerable<MeasureViewModel> measures)
-      // Erzeugt Daten für organisatorische Grafik
+    private void GenerateGraphData(IEnumerable<MeasureViewModel> measures) // Erzeugt Daten für organisatorische Grafik
     {
       var columnDelayed = new ColumnSeries
       {
@@ -832,39 +820,39 @@ namespace Ork.Energy.ViewModels
         StrokeColor = OxyColors.Yellow,
       };
 
-      int counter = 0;
-      int total = 0;
+      var counter = 0;
+      var total = 0;
 
-      DateTime lastDayofMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(1)
-                                                                                          .Subtract(new TimeSpan(0, 0, 0, 1));
+      var lastDayofMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(1)
+                                                                                     .Subtract(new TimeSpan(0, 0, 0, 1));
 
-      IOrderedEnumerable<MeasureViewModel> sortedList = measures.Where(
+      var sortedList = measures.Where(
         m => (m.DueDate <= (lastDayofMonth)) && (m.DueDate >= (lastDayofMonth.Subtract(new TimeSpan(200, 0, 0, 0)))))
-                                                                .OrderBy(m => m.DueDate);
+                               .OrderBy(m => m.DueDate);
 
       var monthArray = new int[6];
-      int k = 0;
+      var k = 0;
 
-      for (int i = -5; i < 1; i++)
+      for (var i = -5; i < 1; i++)
       {
         monthArray[k++] = DateTime.Now.AddMonths(i)
                                   .Month;
       }
 
-      foreach (int month in monthArray)
+      foreach (var month in monthArray)
       {
-        int completed = measures.Count(m => m.Status == 2 && m.DueDate.Month == m.EntryDate.GetValueOrDefault()
+        var completed = measures.Count(m => m.Status == 2 && m.DueDate.Month == m.EntryDate.GetValueOrDefault()
                                                                                  .Month && m.EntryDate <= m.DueDate &&
                                             m.EntryDate.GetValueOrDefault()
                                              .Month == month);
-        int delayed = measures.Count(m => m.Status == 2 && m.EntryDate > m.DueDate && m.EntryDate.GetValueOrDefault()
+        var delayed = measures.Count(m => m.Status == 2 && m.EntryDate > m.DueDate && m.EntryDate.GetValueOrDefault()
                                                                                        .Month == month);
-        int completedPrior = measures.Count(m => m.Status == 2 && m.DueDate.Month > m.EntryDate.GetValueOrDefault()
+        var completedPrior = measures.Count(m => m.Status == 2 && m.DueDate.Month > m.EntryDate.GetValueOrDefault()
                                                                                      .Month && m.EntryDate <= m.DueDate &&
                                                  m.EntryDate.GetValueOrDefault()
                                                   .Month == month);
 
-        int planned = measures.Count(m => m.DueDate.Month == month);
+        var planned = measures.Count(m => m.DueDate.Month == month);
 
         columnCompleted.Items.Add(new ColumnItem(completed, counter));
         columnDelayed.Items.Add(new ColumnItem(delayed, counter));
@@ -912,7 +900,7 @@ namespace Ork.Energy.ViewModels
       double sumSavedMoney = 0;
       double investment = 0;
 
-      foreach (MeasureViewModel measure in measures)
+      foreach (var measure in measures)
       {
         sumSavedMoney += measure.SavedMoneySoll;
         investment += measure.Investment;
@@ -937,9 +925,9 @@ namespace Ork.Energy.ViewModels
         StrokeColor = OxyColors.GreenYellow
       };
 
-      int counter = 0;
+      var counter = 0;
       double savedC02 = 0;
-      foreach (MeasureViewModel measure in measures)
+      foreach (var measure in measures)
       {
         savedC02 += measure.SavedCO2;
 

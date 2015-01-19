@@ -207,7 +207,12 @@ namespace Ork.Energy.ViewModels
 
     public ConsumerGroup ConsumerGroup
     {
-      get { return Model.Consumer.ConsumerGroup; }
+      get { return m_Model.Consumer.ConsumerGroup; }
+    }
+
+    public string ConsumerName
+    {
+      get { return m_Model.Consumer.Name; }
     }
 
     public string DueDateIsDelayed
