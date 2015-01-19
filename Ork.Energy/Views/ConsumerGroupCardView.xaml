@@ -28,8 +28,9 @@
         Margin="5">
         <TextBlock
           Text="{Binding GroupName}"
-          TextTrimming="CharacterEllipsis" />
-
+          TextTrimming="CharacterEllipsis"
+          FontWeight="Bold"
+          Margin="0 0 0 3" />
         <TextBlock
           Text="Anzahl Verbraucher" />
         <TextBlock

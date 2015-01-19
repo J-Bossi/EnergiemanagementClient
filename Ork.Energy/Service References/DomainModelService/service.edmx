@@ -54,6 +54,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Comment" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="IsMainDistributor" Type="Edm.Boolean" Nullable="false" />
         <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Distributor_Readings" ToRole="Distributor_Readings_Target" FromRole="Distributor_Readings_Source" />
         <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.Distributor_Room" ToRole="Distributor_Room_Target" FromRole="Distributor_Room_Source" />

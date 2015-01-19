@@ -43,6 +43,11 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Name; }
     }
 
+    public string Comment
+    {
+      get { return m_Model.Comment; }
+    }
+
     public ICollection<Reading> Readings
     {
       get { return m_Model.Readings; }

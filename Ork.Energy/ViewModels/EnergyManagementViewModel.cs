@@ -64,17 +64,17 @@ namespace Ork.Energy.ViewModels
 
     public IEnumerable<ConsumerGroupViewModel> ConsumerGroups
     {
-      get { return FilteredConsumerGroups; }
+      get { return FilteredConsumerGroups.OrderBy(cg => cg.GroupName); }
     }
 
     public IEnumerable<ConsumerViewModel> Consumers
     {
-      get { return FilteredConsumers; }
+      get { return FilteredConsumers.OrderBy(c => c.Name); }
     }
 
     public IEnumerable<DistributorViewModel> Distributors
     {
-      get { return FilteredDistributors; }
+      get { return FilteredDistributors.OrderBy(d => d.Name); }
     }
 
     private IEnumerable<ConsumerGroupViewModel> FilteredConsumerGroups

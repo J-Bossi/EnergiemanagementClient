@@ -11,7 +11,7 @@
   d:DesignWidth="300">
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition />
+      <ColumnDefinition MinWidth="200" />
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
@@ -25,6 +25,12 @@
         Text="Name" />
       <TextBox
         Text="{Binding Name}"
+        AcceptsReturn="True"
+        Margin="0 0 0 3" />
+      <TextBlock
+        Text="Bemerkung" />
+      <TextBox
+        Text="{Binding Comment}"
         AcceptsReturn="True"
         Margin="0 0 0 3" />
       <TextBlock

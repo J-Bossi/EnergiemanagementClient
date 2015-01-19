@@ -50,6 +50,12 @@ namespace Ork.Energy.ViewModels
       set { m_Model.Name = value; }
     }
 
+    public string Comment
+    {
+      get { return m_Model.Comment; }
+      set { m_Model.Comment = value; }
+    }
+
     public bool IsMainDistributor
     {
       get { return m_Model.IsMainDistributor; }
