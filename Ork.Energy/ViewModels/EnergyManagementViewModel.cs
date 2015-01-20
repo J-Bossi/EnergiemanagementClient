@@ -159,7 +159,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_ConsumerGroup = value;
-        //NotifyOfPropertyChange(() => CanAddConsumer);
       }
     }
 
@@ -171,22 +170,9 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Distributor = value;
-       // NotifyOfPropertyChange(() => CanAddConsumer);
       }
     }
 
-    //public bool CanAddConsumer
-    //{
-    //  get
-    //  {
-    //    if (SelectedConsumerGroup == null ||
-    //        SelectedDistributor == null)
-    //    {
-    //      return false;
-    //    }
-    //    return true;
-    //  }
-    //}
 
     public int Index
     {
@@ -251,7 +237,6 @@ namespace Ork.Energy.ViewModels
       IsEnabled = m_Repository.HasConnection;
       if (IsEnabled)
       {
-        //TODO Load Data method, Show all Data method Notify of Property Chanfe
         LoadData();
       }
     }

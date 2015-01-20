@@ -30,7 +30,29 @@
           Text="{Binding Name}"
           TextTrimming="CharacterEllipsis"
           FontWeight="Bold"
-          Margin="0 0 0 3" />
+         
+          Margin="0 0 0 3">
+          <TextBlock.Style>
+            <Style>
+              <Style.Triggers>
+                <DataTrigger
+                  Binding="{Binding IsMainDistributor}"
+                  Value="True">
+                  <Setter
+                    Property="TextBlock.FontSize"
+                    Value="16" />
+                </DataTrigger>
+                <DataTrigger
+                  Binding="{Binding IsMainDistributor}"
+                  Value="False">
+                  <Setter
+                    Property="TextBlock.FontSize"
+                    Value="12" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </TextBlock.Style>
+        </TextBlock>
         <TextBlock
           Text="Anzahl Verbraucher" />
         <TextBlock
