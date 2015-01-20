@@ -67,7 +67,11 @@ namespace Ork.Energy.ViewModels
     public string Name
     {
       get { return m_Model.Name; }
-      set { m_Model.Name = value; }
+      set
+      {
+        m_Model.Name = value;
+        NotifyOfPropertyChange(() => Name);
+      }
     }
 
     public virtual long? PowerOutput
@@ -136,7 +140,6 @@ namespace Ork.Energy.ViewModels
       set { m_Model.Identifier = value; }
     }
 
-
     public void AddNewReading(object dataContext)
     {
       m_Model.Readings.Add(ModelFactory.CreateReading(ReadingAddVm.NewReadingDate, ReadingAddVm.NewCounterReading));
@@ -146,7 +149,7 @@ namespace Ork.Energy.ViewModels
 
     public void DeleteReading(object dataContext)
     {
-      m_Model.Readings.Remove(((ReadingViewModel)dataContext).Model);
+      m_Model.Readings.Remove(((ReadingViewModel) dataContext).Model);
 
       NotifyOfPropertyChange(() => Readings);
     }

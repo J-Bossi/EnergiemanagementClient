@@ -42,7 +42,11 @@ namespace Ork.Energy.ViewModels
     public string GroupName
     {
       get { return m_Model.GroupName; }
-      set { m_Model.GroupName = value; }
+      set
+      {
+        m_Model.GroupName = value;
+        NotifyOfPropertyChange(() => GroupName);
+      }
     }
 
     public DataServiceCollection<ConsumerType> ConsumerTypes

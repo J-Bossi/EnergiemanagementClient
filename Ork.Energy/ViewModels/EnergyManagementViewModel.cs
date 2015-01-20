@@ -31,13 +31,6 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class EnergyManagementViewModel : DocumentBase, IWorkspace
   {
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
-    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IEnergyRepository m_Repository;
     private ConsumerGroupViewModel m_ConsumerGroup;
     private DistributorViewModel m_Distributor;
     private IScreen m_EditItem;
@@ -46,6 +39,14 @@ namespace Ork.Energy.ViewModels
     private string m_SearchConsumerGroupText;
     private string m_SearchConsumerText;
     private string m_SearchDistributorText;
+
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
+    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly IEnergyRepository m_Repository;
 
     [ImportingConstructor]
     public EnergyManagementViewModel([Import] IEnergyRepository mRepository,
@@ -205,20 +206,6 @@ namespace Ork.Energy.ViewModels
     public string Title
     {
       get { return "Verbraucher"; }
-    }
-
-    public void UpdateView()
-    {
-      // Terrible Hack but the VMs wont update otherwise
-      var textConsumer = m_SearchConsumerText;
-      var textcg = m_SearchConsumerGroupText;
-      var textdist = m_SearchDistributorText;
-      SearchConsumerGroupsText = "1";
-      SearchConsumerText = "1";
-      SearchDistributorText = "1";
-      SearchConsumerGroupsText = textcg;
-      SearchConsumerText = textConsumer;
-      SearchDistributorText = textdist;
     }
 
     public IEnumerable<ConsumerGroupViewModel> SearchInConsumerGroupList()
@@ -480,7 +467,6 @@ namespace Ork.Energy.ViewModels
     {
       CloseEditor();
       m_Repository.Save();
-      UpdateView();
       NotifyOfPropertyChange(() => Consumers);
       NotifyOfPropertyChange(() => ConsumerGroups);
       NotifyOfPropertyChange(() => Distributors);
@@ -524,7 +510,7 @@ namespace Ork.Energy.ViewModels
         Console.WriteLine(ex);
       }
 
-      UpdateView();
+      // UpdateView();
       NotifyOfPropertyChange(() => Consumers);
       NotifyOfPropertyChange(() => ConsumerGroups);
       NotifyOfPropertyChange(() => Distributors);
@@ -542,7 +528,6 @@ namespace Ork.Energy.ViewModels
       NewConsumerGroupName = String.Empty;
       //TODO maybe select last Consumer Group
 
-      //LoadData();
       NotifyOfPropertyChange(() => ConsumerGroups);
       NotifyOfPropertyChange(() => NewConsumerGroupName);
     }
@@ -571,7 +556,6 @@ namespace Ork.Energy.ViewModels
       NewDistributorName = String.Empty;
       //TODO maybe select last Consumer Group
 
-      //LoadData();
       NotifyOfPropertyChange(() => Distributors);
       NotifyOfPropertyChange(() => NewDistributorName);
     }

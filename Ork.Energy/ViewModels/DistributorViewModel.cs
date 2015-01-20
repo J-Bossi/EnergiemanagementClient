@@ -16,13 +16,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
-  public class DistributorViewModel
+  public class DistributorViewModel : PropertyChangedBase
   {
     private readonly Distributor m_Model;
     private readonly IEnergyRepository m_Repository;
@@ -83,6 +85,11 @@ namespace Ork.Energy.ViewModels
                         .ReadingDate.ToShortDateString();
         }
       }
+    }
+
+    private void ModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+      NotifyOfPropertyChange(e.PropertyName);
     }
   }
 }

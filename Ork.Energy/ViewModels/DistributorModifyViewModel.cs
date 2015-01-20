@@ -47,7 +47,11 @@ namespace Ork.Energy.ViewModels
     public string Name
     {
       get { return m_Model.Name; }
-      set { m_Model.Name = value; }
+      set
+      {
+        m_Model.Name = value;
+        NotifyOfPropertyChange(() => Name);
+      }
     }
 
     public string Comment

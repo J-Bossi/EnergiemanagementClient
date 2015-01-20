@@ -16,12 +16,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {
-  public class ConsumerViewModel
+  public class ConsumerViewModel : PropertyChangedBase
 
   {
     private readonly Consumer m_Model;
@@ -106,6 +108,11 @@ namespace Ork.Energy.ViewModels
                         .ReadingDate.ToShortDateString();
         }
       }
+    }
+
+    private void ModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+      NotifyOfPropertyChange(e.PropertyName);
     }
   }
 }

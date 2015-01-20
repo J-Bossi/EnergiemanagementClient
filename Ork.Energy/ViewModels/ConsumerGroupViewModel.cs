@@ -14,14 +14,18 @@
 
 #endregion
 
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
+using Ork.Framework;
 
 namespace Ork.Energy.ViewModels
 {
-  public class ConsumerGroupViewModel
+  public class ConsumerGroupViewModel : PropertyChangedBase
   {
     private readonly ConsumerGroup m_Model;
     private readonly IEnergyRepository m_Repository;
@@ -40,7 +44,11 @@ namespace Ork.Energy.ViewModels
     public string GroupName
     {
       get { return m_Model.GroupName; }
-      set { m_Model.GroupName = value; }
+      set
+      {
+        m_Model.GroupName = value;
+        NotifyOfPropertyChange(() => GroupName);
+      }
     }
 
 
@@ -68,6 +76,12 @@ namespace Ork.Energy.ViewModels
         }
 
       }
+    }
+
+
+    private void ModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+      NotifyOfPropertyChange(e.PropertyName);
     }
   }
 }

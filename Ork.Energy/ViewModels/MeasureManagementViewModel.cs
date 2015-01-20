@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reflection;
@@ -36,17 +37,6 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class MeasureManagementViewModel : DocumentBase, IWorkspace
   {
-    //private bool m_DgvVisible;
-    //private bool m_DgvVisibleCat;
-    //private bool m_DgvVisibleEco;
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
-    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
-    private readonly IEnergyRepository m_Repository;
-
     private IScreen m_EditItem;
     private bool m_FlyoutActivated;
     private bool m_IsEnabled;
@@ -58,6 +48,16 @@ namespace Ork.Energy.ViewModels
     private string m_SearchTextMeasures;
     private ConsumerGroupViewModel m_SelectedConsumerGroup;
     private MeasureViewModel m_SelectedMeasure;
+    //private bool m_DgvVisible;
+    //private bool m_DgvVisibleCat;
+    //private bool m_DgvVisibleEco;
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
+    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
+    private readonly IEnergyRepository m_Repository;
 
     [ImportingConstructor]
     public MeasureManagementViewModel([Import] IEnergyRepository contextRepository,
@@ -367,7 +367,7 @@ namespace Ork.Energy.ViewModels
         case NotifyCollectionChangedAction.Add:
           foreach (var newItem in e.NewItems.OfType<ConsumerGroup>())
           {
-            CreateConsumerGroupViewModel(newItem);
+            m_ConsumerGroups.Add(CreateConsumerGroupViewModel(newItem));
           }
           break;
         case NotifyCollectionChangedAction.Remove:
@@ -375,43 +375,11 @@ namespace Ork.Energy.ViewModels
                                                   .Select(oldItem => m_ConsumerGroups.Single(r => r.Model == oldItem)))
           {
             m_ConsumerGroups.Remove(consumerGroupViewModel);
-            foreach (var mvm in
-              m_Measures.Where(
-                mvm => mvm.Model.Consumer != null && mvm.Model.Consumer.ConsumerGroup == consumerGroupViewModel.Model)
-                        .ToArray())
-            {
-              m_Measures.Remove(mvm);
-            }
           }
           break;
       }
       NotifyOfPropertyChange(() => ConsumerGroups);
     }
-
-    //public void AddCatalog(object dataContext)
-    //{
-    //  var catalogAddViewModel = ((CatalogAddViewModel) dataContext);
-    //  m_Repository.Catalogs.Add(catalogAddViewModel.Model);
-    //  Save();
-    //  SelectedCatalog = m_Catalogs.Last();
-
-    //  LoadData();
-    //  //NotifyOfPropertyChange(() => AllMeasures);
-    //  NotifyOfPropertyChange(() => Catalogs);
-    //}
-
-    //public void RemoveCatalog() // Notiz: Läuft so bugfrei !
-    //{
-    //  CatalogViewModel catalogViewModel = SelectedCatalog;
-    //  m_Repository.Catalogs.Remove(catalogViewModel.Model);
-    //  Save();
-
-    //  SelectedCatalog = null;
-
-    //  LoadData();
-    //  NotifyOfPropertyChange(() => AllMeasures);
-    //  NotifyOfPropertyChange(() => Catalogs);
-    //}
 
     public void RemoveMeasure()
     {
@@ -575,32 +543,41 @@ namespace Ork.Energy.ViewModels
     {
       m_Measures.Clear();
       m_ConsumerGroups.Clear();
+      ((INotifyPropertyChanged) m_ConsumerGroups).PropertyChanged += CGPropertyshavechanged;
       LoadConsumerGroups();
+      LoadMeasures();
+    }
+
+
+    private void CGPropertyshavechanged(object sender, PropertyChangedEventArgs e)
+    {
+      NotifyOfPropertyChange(() => ConsumerGroups);
     }
 
     private void LoadConsumerGroups()
     {
       m_Repository.ConsumerGroups.CollectionChanged += AlterConsumerGroupCollection;
+
       foreach (var cg in m_Repository.ConsumerGroups)
       {
-        CreateConsumerGroupViewModel(cg);
+      m_ConsumerGroups.Add(CreateConsumerGroupViewModel(cg));
       }
-      //LoadData();
-      //NotifyOfPropertyChange(() => AllMeasures);
+
       NotifyOfPropertyChange(() => ConsumerGroups);
     }
 
-    private void CreateConsumerGroupViewModel(ConsumerGroup consumerGroup)
+    private void LoadMeasures()
     {
-      var cgvm = m_EnergyViewModelFactory.CreateFromExisting(consumerGroup);
-
-      //foreach (var measure in m_Repository.Measures.Where(m => m.Consumer.ConsumerGroup == consumerGroup))
-      //{
       foreach (var measure in m_Repository.Measures)
       {
         CreateMeasureViewModel(measure);
       }
-      m_ConsumerGroups.Add(cgvm);
+      NotifyOfPropertyChange(() => Measures);
+    }
+
+    private ConsumerGroupViewModel CreateConsumerGroupViewModel(ConsumerGroup consumerGroup)
+    {
+      return m_EnergyViewModelFactory.CreateFromExisting(consumerGroup);
     }
 
     private void CreateMeasureViewModel(EnergyMeasure measure)
