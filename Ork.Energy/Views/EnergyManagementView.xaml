@@ -296,7 +296,6 @@
               Height="50"
               Margin="2"
               Style="{DynamicResource MetroCircleButtonStyle}"
-              IsEnabled="{Binding CanAddConsumer}"
               cal:Message.Attach="AddNewConsumer()">
               <Rectangle
                 Width="20"

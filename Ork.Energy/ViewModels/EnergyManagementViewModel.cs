@@ -159,7 +159,7 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_ConsumerGroup = value;
-        NotifyOfPropertyChange(() => CanAddConsumer);
+        //NotifyOfPropertyChange(() => CanAddConsumer);
       }
     }
 
@@ -171,22 +171,22 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Distributor = value;
-        NotifyOfPropertyChange(() => CanAddConsumer);
+       // NotifyOfPropertyChange(() => CanAddConsumer);
       }
     }
 
-    public bool CanAddConsumer
-    {
-      get
-      {
-        if (SelectedConsumerGroup == null ||
-            SelectedDistributor == null)
-        {
-          return false;
-        }
-        return true;
-      }
-    }
+    //public bool CanAddConsumer
+    //{
+    //  get
+    //  {
+    //    if (SelectedConsumerGroup == null ||
+    //        SelectedDistributor == null)
+    //    {
+    //      return false;
+    //    }
+    //    return true;
+    //  }
+    //}
 
     public int Index
     {
@@ -516,11 +516,6 @@ namespace Ork.Energy.ViewModels
       NotifyOfPropertyChange(() => Distributors);
     }
 
-    private void DeleteObject<T>(object dataContext, T getType)
-    {
-      throw new NotImplementedException();
-    }
-
     public void AddNewConsumerGroup()
     {
       m_Repository.ConsumerGroups.Add(ModelFactory.CreateConsumerGroup(NewConsumerGroupName));
@@ -534,18 +529,26 @@ namespace Ork.Energy.ViewModels
 
     public void AddNewConsumer()
     {
-      m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName, SelectedDistributor.Model,
-        SelectedConsumerGroup.Model));
-      m_Repository.Save();
-      NewConsumerName = String.Empty;
+      if (SelectedConsumerGroup == null ||
+          SelectedDistributor == null)
+      {
+        Dialogs.ShowMessageBox("Bitte wählen Sie einen Verteiler und einer Verbrauchergruppe aus.", "Unvollständige Auswahl");
+      }
+      else
+      {
+        m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName, SelectedDistributor.Model,
+          SelectedConsumerGroup.Model));
+        m_Repository.Save();
+        NewConsumerName = String.Empty;
 
-      //TODO maybe select last Consumer 
+        //TODO maybe select last Consumer 
 
-      //LoadData();
-      NotifyOfPropertyChange(() => Consumers);
-      NotifyOfPropertyChange(() => ConsumerGroups);
-      NotifyOfPropertyChange(() => Distributors);
-      NotifyOfPropertyChange(() => NewConsumerName);
+        //LoadData();
+        NotifyOfPropertyChange(() => Consumers);
+        NotifyOfPropertyChange(() => ConsumerGroups);
+        NotifyOfPropertyChange(() => Distributors);
+        NotifyOfPropertyChange(() => NewConsumerName);
+      }
     }
 
     public void AddNewDistributor()
