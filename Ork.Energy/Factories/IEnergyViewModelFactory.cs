@@ -25,6 +25,7 @@ namespace Ork.Energy.Factories
     ConsumerViewModel CreateFromExisting(Consumer consumer);
     DistributorViewModel CreateFromExisting(Distributor distributor);
     ReadingViewModel CreateFromExisting(Reading reading);
+    ConsumerTypeViewModel CreateFromExisting(ConsumerType consumerType);
     ConsumerGroupModifyViewModel CreateConsumerGroupModifyVM(ConsumerGroup consumerGroup);
     ConsumerModifyViewModel CreateConsumerModifyVM(Consumer consumer);
     DistributorModifyViewModel CreateDistributorModifyVM(Distributor distributor);

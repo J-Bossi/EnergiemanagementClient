@@ -54,9 +54,14 @@ namespace Ork.Energy.Factories
       return new ReadingViewModel(reading);
     }
 
+    public ConsumerTypeViewModel CreateFromExisting(ConsumerType consumerType)
+    {
+      return new ConsumerTypeViewModel(consumerType);
+    }
+
     public ConsumerGroupModifyViewModel CreateConsumerGroupModifyVM(ConsumerGroup consumerGroup)
     {
-      return new ConsumerGroupModifyViewModel(consumerGroup, m_ConsumerRepository);
+      return new ConsumerGroupModifyViewModel(consumerGroup, m_ConsumerRepository, this);
     }
 
     public ConsumerModifyViewModel CreateConsumerModifyVM(Consumer consumer)

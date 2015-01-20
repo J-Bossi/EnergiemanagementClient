@@ -25,7 +25,33 @@
       <TextBlock
         Text="Typenliste"
         Margin="0 0 0 3" />
-      <ListView
+      <DataGrid
+        ItemsSource="{Binding ConsumerTypes}"
+        AutoGenerateColumns="False"
+        HeadersVisibility="None"
+        CanUserAddRows="False"
+        
+        >
+        <DataGrid.Columns>
+          <DataGridTextColumn Binding="{Binding TypeName}" />
+          <DataGridTemplateColumn>
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock
+                  Margin="0 1 0 0"
+                  FontFamily="Marlett"
+                  Text="r"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Stretch"
+                  cal:Message.Attach="[Event MouseLeftButtonDown]=[Action DeleteConsumerType($dataContext)]" />
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+
+          </DataGridTemplateColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <!--<ListView
         ItemsSource="{Binding ConsumerTypes}">
         <ListView.ItemTemplate>
           <DataTemplate>
@@ -50,7 +76,7 @@
             </Grid>
           </DataTemplate>
         </ListView.ItemTemplate>
-      </ListView>
+      </ListView>-->
       <Grid
         Margin="0 3 0 3">
         <Grid.ColumnDefinitions>

@@ -14,23 +14,27 @@
 
 #endregion
 
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
 using Caliburn.Micro;
 using Ork.Energy.DomainModelService;
+using Ork.Energy.Factories;
 
 namespace Ork.Energy.ViewModels
 {
   public sealed class ConsumerGroupModifyViewModel : Screen
   {
     private readonly ConsumerGroup m_Model;
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly IEnergyRepository m_Repository;
 
-    public ConsumerGroupModifyViewModel(ConsumerGroup model, [Import] IEnergyRepository consumerRepository)
+    public ConsumerGroupModifyViewModel(ConsumerGroup model, [Import] IEnergyRepository consumerRepository, [Import] IEnergyViewModelFactory energyViewModelFactory)
     {
       m_Repository = consumerRepository;
       DisplayName = "Verbrauchergruppe bearbeiten...";
+      m_EnergyViewModelFactory = energyViewModelFactory;
       m_Model = model;
     }
 
@@ -49,9 +53,13 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-    public DataServiceCollection<ConsumerType> ConsumerTypes
+    public IEnumerable<ConsumerTypeViewModel> ConsumerTypes
     {
-      get { return m_Model.ConsumerTypes; }
+      get
+      {
+        return m_Model.ConsumerTypes.Select(ct => m_EnergyViewModelFactory.CreateFromExisting(ct))
+                      .OrderBy(ct => ct.TypeName);
+      }
     }
 
     public string ConsumerType { get; set; }
@@ -63,20 +71,21 @@ namespace Ork.Energy.ViewModels
         TypeName = ConsumerType
       });
       ConsumerType = null;
+      NotifyOfPropertyChange(() => ConsumerTypes);
       NotifyOfPropertyChange(() => ConsumerType);
     }
 
     public void DeleteConsumerType(object dataContext)
     {
-      if (m_Repository.Links.Any(c => c.Target == ((ConsumerType) dataContext)))
+      if (m_Repository.Links.Any(c => c.Target == ((ConsumerTypeViewModel) dataContext).Model))
       {
         foreach (
-          Consumer relatedConsumers in m_Repository.Consumers.Where(c => c.ConsumerType == (((ConsumerType) dataContext))))
+          Consumer relatedConsumers in m_Repository.Consumers.Where(c => c.ConsumerType == (((ConsumerTypeViewModel) dataContext).Model)))
         {
           relatedConsumers.ConsumerType = null;
         }
       }
-      m_Model.ConsumerTypes.Remove((ConsumerType) dataContext);
+      m_Model.ConsumerTypes.Remove(((ConsumerTypeViewModel) dataContext).Model);
       m_Repository.Save();
 
       NotifyOfPropertyChange(() => ConsumerTypes);
