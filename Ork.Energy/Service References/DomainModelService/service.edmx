@@ -26,6 +26,7 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Name="CounterReading" Type="Edm.Int64" Nullable="false" />
         <Property Name="ReadingDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="MeasuringDevice" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
       </EntityType>
       <EntityType Name="Room">
         <Key>

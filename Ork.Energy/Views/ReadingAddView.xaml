@@ -17,7 +17,6 @@
     <StackPanel
       Grid.Column="0">
       <TextBlock
-       
         Text="Wert (kWh/a)" />
       <controls:NumericUpDown
         Margin="0 0 0 3"
@@ -31,13 +30,19 @@
         HorizontalAlignment="Stretch"
         controls:TextBoxHelper.Watermark="Bitte ein Datum auswählen"
         SelectedDate="{Binding NewReadingDate}" />
+      <TextBlock
+        Text="Verwendetes Meßgerät" />
+      <TextBox
+        Margin="0 0 0 3"
+        Text="{Binding NewMeasuringDevice}" />
     </StackPanel>
     <Button
       Grid.Column="1"
       Width="50"
       Height="50"
       Margin="2"
-      VerticalAlignment="Center"
+      VerticalAlignment="Bottom"
+      HorizontalAlignment="Left"
       Style="{DynamicResource MetroCircleButtonStyle}"
       cal:Message.Attach="AddNewReading($dataContext)"
       ToolTip="Neue Ablesung hinzufügen">

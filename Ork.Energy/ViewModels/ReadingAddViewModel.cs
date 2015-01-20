@@ -28,13 +28,16 @@ namespace Ork.Energy.ViewModels
 
     public long NewCounterReading { get; set; }
     public DateTime NewReadingDate { get; set; }
+    public string NewMeasuringDevice { get; set; }
 
     public void ClearReadingFields()
     {
+      NewMeasuringDevice = String.Empty;
       NewCounterReading = 0;
       NewReadingDate = DateTime.Now;
       NotifyOfPropertyChange(() => NewCounterReading);
       NotifyOfPropertyChange(() => NewReadingDate);
+      NotifyOfPropertyChange(() => NewMeasuringDevice);
     }
   }
 }

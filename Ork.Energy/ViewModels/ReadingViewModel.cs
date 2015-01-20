@@ -46,6 +46,12 @@ namespace Ork.Energy.ViewModels
       
     }
 
+    public string MeasuringDevice
+    {
+      get { return m_Model.MeasuringDevice; }
+      set { m_Model.MeasuringDevice = value; }
+    }
+
     public string ShortReadingDate
     {
       get { return m_Model.ReadingDate.ToShortDateString(); }

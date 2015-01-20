@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2014, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
@@ -55,12 +55,13 @@ namespace Ork.Energy.Factories
       };
     }
 
-    public static Reading CreateReading(DateTime readingDate, long counterReading)
+    public static Reading CreateReading(DateTime readingDate, long counterReading, string measuringDevice)
     {
       return new Reading
       {
         CounterReading = counterReading,
-        ReadingDate = readingDate
+        ReadingDate = readingDate,
+        MeasuringDevice = measuringDevice
       };
     }
   }

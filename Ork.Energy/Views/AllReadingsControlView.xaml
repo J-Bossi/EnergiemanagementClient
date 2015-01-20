@@ -34,6 +34,9 @@
           Header="Wert (kWh/a)"
           Binding="{Binding CounterReading}"
           Minimum="0" />
+        <DataGridTextColumn
+          Header="Meßgerät"
+          Binding="{Binding MeasuringDevice}" />
         <DataGridTemplateColumn>
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
@@ -46,7 +49,6 @@
                 cal:Message.Attach="[Event MouseLeftButtonDown]=[Action DeleteReading($dataContext)]" />
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
-
         </DataGridTemplateColumn>
       </DataGrid.Columns>
     </DataGrid>

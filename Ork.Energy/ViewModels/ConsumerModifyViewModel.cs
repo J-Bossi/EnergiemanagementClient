@@ -142,7 +142,8 @@ namespace Ork.Energy.ViewModels
 
     public void AddNewReading(object dataContext)
     {
-      m_Model.Readings.Add(ModelFactory.CreateReading(ReadingAddVm.NewReadingDate, ReadingAddVm.NewCounterReading));
+      m_Model.Readings.Add(ModelFactory.CreateReading(ReadingAddVm.NewReadingDate, ReadingAddVm.NewCounterReading,
+        ReadingAddVm.NewMeasuringDevice));
       ReadingAddVm.ClearReadingFields();
       NotifyOfPropertyChange(() => Readings);
     }
