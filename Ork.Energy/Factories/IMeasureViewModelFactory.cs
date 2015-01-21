@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2013, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
@@ -23,11 +23,11 @@ namespace Ork.Energy.Factories
   public interface IMeasureViewModelFactory
   {
     MeasureAddViewModel CreateAddViewModel();
-    MeasureEditViewModel CreateEditViewModel(DomainModelService.EnergyMeasure measure, Action removeMeasureAction);
+    MeasureEditViewModel CreateEditViewModel(EnergyMeasure measure, Action removeMeasureAction);
     CatalogAddViewModel CreateCatalogAddViewModel();
     CatalogEditViewModel CreateCatalogEditViewModel(CatalogViewModel catalogViewModel, Action removeCatalogAction);
     CatalogViewModel CreateFromExisting(Catalog catalog);
-    MeasureViewModel CreateFromExisting(DomainModelService.EnergyMeasure measure);
+    MeasureViewModel CreateFromExisting(EnergyMeasure measure);
 
     MeasurePrintPreviewViewModel CreatePrintPreviewModel(EnergyMeasure measure, Action removeCatalogAction);
   }

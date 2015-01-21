@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2013, HTW Berlin
+// Copyright (c) 2015, HTW Berlin
 
 #endregion
 
@@ -26,7 +26,6 @@ namespace Ork.Energy.Converters
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       var delayed = (Boolean) value;
-
 
       if (delayed)
       {
