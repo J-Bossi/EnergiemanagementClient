@@ -33,7 +33,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <ComboBox
+        <TextBox
+          Grid.Row="0"
+          Margin="0, 10, 0, 0"
+          Text="{Binding SearchConsumerGroupsText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+          Controls:TextBoxHelper.Watermark="Suche Verbrauchergruppen"
+          Style="{DynamicResource SearchMetroTextBox}" />
+        <!--<ComboBox
           HorizontalAlignment="Stretch"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerGroupsText}"
@@ -44,7 +50,7 @@
           IsEditable="True"
           ItemsSource="{Binding ConsumerGroups}"
           MaxDropDownHeight="125"
-          DisplayMemberPath="GroupName" />
+          DisplayMemberPath="GroupName" />-->
 
 
         <ListBox
@@ -132,7 +138,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <ComboBox
+        <TextBox
+          Grid.Row="0"
+          Margin="0, 10, 0, 0"
+          Text="{Binding SearchDistributorText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+          Controls:TextBoxHelper.Watermark="Suche Verteiler"
+          Style="{DynamicResource SearchMetroTextBox}" />
+        <!--<ComboBox
           HorizontalAlignment="Stretch"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchDistributorText}"
@@ -143,7 +155,7 @@
           IsEditable="True"
           ItemsSource="{Binding Distributors}"
           MaxDropDownHeight="125"
-          DisplayMemberPath="Name" />
+          DisplayMemberPath="Name" />-->
         <ListBox
           ItemsSource="{Binding Distributors}"
           Grid.Row="1"
@@ -228,7 +240,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <ComboBox
+        <TextBox
+          Grid.Row="0"
+          Margin="0, 10, 0, 0"
+          Text="{Binding SearchConsumerText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+          Controls:TextBoxHelper.Watermark="Suche Verbraucher"
+          Style="{DynamicResource SearchMetroTextBox}" />
+        <!--<ComboBox
           HorizontalAlignment="Stretch"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerText}"
@@ -239,7 +257,7 @@
           IsEditable="True"
           ItemsSource="{Binding Consumers}"
           MaxDropDownHeight="125"
-          DisplayMemberPath="Name" />
+          DisplayMemberPath="Name" />-->
         <ListBox
           ItemsSource="{Binding Consumers}"
           Grid.Row="1"

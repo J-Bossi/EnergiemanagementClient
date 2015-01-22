@@ -31,6 +31,14 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class EnergyManagementViewModel : DocumentBase, IWorkspace
   {
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
+    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly IEnergyRepository m_Repository;
+    private ConsumerViewModel m_Consumer;
     private ConsumerGroupViewModel m_ConsumerGroup;
     private DistributorViewModel m_Distributor;
     private IScreen m_EditItem;
@@ -39,14 +47,6 @@ namespace Ork.Energy.ViewModels
     private string m_SearchConsumerGroupText;
     private string m_SearchConsumerText;
     private string m_SearchDistributorText;
-
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly BindableCollection<ConsumerViewModel> m_Consumers = new BindableCollection<ConsumerViewModel>();
-    private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IEnergyRepository m_Repository;
 
     [ImportingConstructor]
     public EnergyManagementViewModel([Import] IEnergyRepository mRepository,
@@ -81,8 +81,25 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        var filteredConsumerGroups = SearchInConsumerGroupList();
-        return filteredConsumerGroups;
+        var filteredConsumerGroups = m_ConsumerGroups;
+        if (SelectedConsumer != null)
+        {
+          return filteredConsumerGroups.Where(cg => cg.Model.Equals(SelectedConsumer.Model.ConsumerGroup));
+        }
+        if (SelectedDistributor != null)
+        {
+          var consumerList = m_Consumers.Where(cg => cg.Model.Distributor.Equals(SelectedDistributor.Model));
+          var returnList = new List<ConsumerGroupViewModel>();
+          foreach (var consumerViewModel in consumerList)
+          {
+            returnList.AddRange(filteredConsumerGroups.Where(cg => cg.Model.Equals(consumerViewModel.Model.ConsumerGroup)));
+          }
+          return returnList;
+        }
+
+        return filteredConsumerGroups.Where(d => m_Consumers.Select(c => c.Model.ConsumerGroup)
+                                                            .Contains(d.Model));
+        ;
       }
     }
 
@@ -92,10 +109,9 @@ namespace Ork.Energy.ViewModels
       get
       {
         var filteredConsumers = SearchInConsumerList()
-          .Where(c => FilteredDistributors.Select(d => d.Model)
-                                          .Contains(c.Model.Distributor) && (FilteredConsumerGroups.Select(cg => cg.Model)
-                                                                                                   .Contains(
-                                                                                                     c.Model.ConsumerGroup)));
+          .Where(c => m_Distributors.Select(d => d.Model)
+                                    .Contains(c.Model.Distributor) && (FilteredConsumerGroups.Select(cg => cg.Model)
+                                                                                             .Contains(c.Model.ConsumerGroup)));
 
         return filteredConsumers;
       }
@@ -106,8 +122,9 @@ namespace Ork.Energy.ViewModels
       get
       {
         var filteredDistributors = SearchInDistributorList()
-          //.Where(d => FilteredConsumers.Select(c => c.Model.Distributor).Contains(d.Model));
-          ;
+          .Where(d => m_Consumers.Select(c => c.Model.Distributor)
+                                 .Contains(d.Model));
+
         return filteredDistributors;
       }
     }
@@ -159,10 +176,41 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_ConsumerGroup = value;
+        if (SelectedConsumer != null)
+        {
+          m_Consumer = null;
+          NotifyOfPropertyChange(() => SelectedConsumer);
+        }
+        if (SelectedDistributor != null)
+        {
+          m_Distributor = null;
+          NotifyOfPropertyChange(() => SelectedDistributor);
+        }
+        NotifyOfPropertyChange(() => Consumers);
+        NotifyOfPropertyChange(() => Distributors);
       }
     }
 
-    public ConsumerViewModel SelectedConsumer { get; set; }
+    public ConsumerViewModel SelectedConsumer
+    {
+      get { return m_Consumer; }
+      set
+      {
+        m_Consumer = value;
+        if (SelectedDistributor != null)
+        {
+          m_Distributor = null;
+          NotifyOfPropertyChange(() => SelectedDistributor);
+        }
+        if (SelectedConsumerGroup != null)
+        {
+          m_ConsumerGroup = null;
+          NotifyOfPropertyChange(() => SelectedConsumerGroup);
+        }
+      NotifyOfPropertyChange(() => ConsumerGroups);
+      NotifyOfPropertyChange(() => Distributors);
+      }
+    }
 
     public DistributorViewModel SelectedDistributor
     {
@@ -170,6 +218,18 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Distributor = value;
+        if (SelectedConsumerGroup != null)
+        {
+          m_ConsumerGroup = null;
+          NotifyOfPropertyChange(() => SelectedConsumerGroup);
+        }
+        if (SelectedConsumer != null)
+        {
+          m_Consumer = null;
+          NotifyOfPropertyChange(() => SelectedConsumer);
+        }
+        NotifyOfPropertyChange(() => ConsumerGroups);
+        NotifyOfPropertyChange(() => Consumers);
       }
     }
 
