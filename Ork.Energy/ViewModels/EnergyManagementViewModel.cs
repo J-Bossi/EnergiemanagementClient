@@ -64,17 +64,17 @@ namespace Ork.Energy.ViewModels
 
     public IEnumerable<ConsumerGroupViewModel> ConsumerGroups
     {
-      get { return FilteredConsumerGroups.OrderBy(cg => cg.GroupName); }
+      get { return SearchInConsumerGroupList(FilteredConsumerGroups.OrderBy(cg => cg.GroupName)); }
     }
 
     public IEnumerable<ConsumerViewModel> Consumers
     {
-      get { return FilteredConsumers.OrderBy(c => c.Name); }
+      get { return SearchInConsumerList(FilteredConsumers.OrderBy(c => c.Name)); }
     }
 
     public IEnumerable<DistributorViewModel> Distributors
     {
-      get { return FilteredDistributors.OrderBy(d => d.Name); }
+      get { return SearchInDistributorList(FilteredDistributors.OrderBy(d => d.Name)); }
     }
 
     private IEnumerable<ConsumerGroupViewModel> FilteredConsumerGroups
@@ -97,9 +97,7 @@ namespace Ork.Energy.ViewModels
           return returnList;
         }
 
-        return filteredConsumerGroups.Where(d => m_Consumers.Select(c => c.Model.ConsumerGroup)
-                                                            .Contains(d.Model));
-        ;
+        return filteredConsumerGroups;
       }
     }
 
@@ -108,12 +106,12 @@ namespace Ork.Energy.ViewModels
       //Filters after SearchText and the available objects in other List. Only related Objects are shown
       get
       {
-        var filteredConsumers = SearchInConsumerList()
-          .Where(c => m_Distributors.Select(d => d.Model)
-                                    .Contains(c.Model.Distributor) && (FilteredConsumerGroups.Select(cg => cg.Model)
-                                                                                             .Contains(c.Model.ConsumerGroup)));
+        var filteredConsumers = m_Consumers;
 
-        return filteredConsumers;
+
+        return filteredConsumers.Where(c => FilteredDistributors.Select(d => d.Model)
+                                    .Contains(c.Model.Distributor) && (FilteredConsumerGroups.Select(cg => cg.Model)
+                                                                                             .Contains(c.Model.ConsumerGroup))); 
       }
     }
 
@@ -121,11 +119,27 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        var filteredDistributors = SearchInDistributorList()
-          .Where(d => m_Consumers.Select(c => c.Model.Distributor)
-                                 .Contains(d.Model));
+        var filteredDistributors = m_Distributors;
+        if (SelectedConsumer != null)
+        {
+          return filteredDistributors.Where((d => d.Model.Equals(SelectedConsumer.Model.Distributor)));
+        }
+        if (SelectedConsumerGroup != null)
+        {
+          var consumerList = m_Consumers.Where(cg => cg.Model.ConsumerGroup.Equals(SelectedConsumerGroup.Model));
+          var returnList = new List<DistributorViewModel>();
+          foreach (var consumerViewModel in consumerList)
+          {
+            returnList.AddRange(filteredDistributors.Where(d => d.Model.Equals(consumerViewModel.Model.Distributor)));
+          }
+          return returnList;
+        }
+
 
         return filteredDistributors;
+
+
+
       }
     }
 
@@ -207,8 +221,8 @@ namespace Ork.Energy.ViewModels
           m_ConsumerGroup = null;
           NotifyOfPropertyChange(() => SelectedConsumerGroup);
         }
-      NotifyOfPropertyChange(() => ConsumerGroups);
-      NotifyOfPropertyChange(() => Distributors);
+        NotifyOfPropertyChange(() => ConsumerGroups);
+        NotifyOfPropertyChange(() => Distributors);
       }
     }
 
@@ -254,41 +268,41 @@ namespace Ork.Energy.ViewModels
       get { return "Verbraucher"; }
     }
 
-    public IEnumerable<ConsumerGroupViewModel> SearchInConsumerGroupList()
+    public IEnumerable<ConsumerGroupViewModel> SearchInConsumerGroupList(IEnumerable<ConsumerGroupViewModel> filteredConsumerGroups)
     {
       if (string.IsNullOrEmpty(SearchConsumerGroupsText))
       {
-        return m_ConsumerGroups;
+        return filteredConsumerGroups;
       }
       var searchText = SearchConsumerGroupsText.ToLower();
 
-      return m_ConsumerGroups.Where(c => (((c.GroupName != null) && (c.GroupName.ToLower()
+      return filteredConsumerGroups.Where(c => (((c.GroupName != null) && (c.GroupName.ToLower()
                                                                       .Contains(searchText)))));
     }
 
-    public IEnumerable<ConsumerViewModel> SearchInConsumerList()
+    public IEnumerable<ConsumerViewModel> SearchInConsumerList(IEnumerable<ConsumerViewModel> filteredConsumers)
     {
       if (string.IsNullOrEmpty(SearchConsumerText))
       {
-        return m_Consumers;
+        return filteredConsumers;
       }
       var searchText = SearchConsumerText.ToLower();
 
-      return m_Consumers.Where(c => (((c.Name != null) && (c.Name.ToLower()
+      return filteredConsumers.Where(c => (((c.Name != null) && (c.Name.ToLower()
                                                             .Contains(searchText)) ||
                                       (c.Manufacturer != null) && (c.Manufacturer.ToLower()
                                                                     .Contains(searchText)))));
     }
 
-    public IEnumerable<DistributorViewModel> SearchInDistributorList()
+    public IEnumerable<DistributorViewModel> SearchInDistributorList(IEnumerable<DistributorViewModel> filteredDistributors)
     {
       if (string.IsNullOrEmpty(SearchDistributorText))
       {
-        return m_Distributors;
+        return filteredDistributors;
       }
       var searchText = SearchDistributorText.ToLower();
 
-      return m_Distributors.Where(c => (((c.Name != null) && (c.Name.ToLower()
+      return filteredDistributors.Where(c => (((c.Name != null) && (c.Name.ToLower()
                                                                .Contains(searchText)))));
     }
 
