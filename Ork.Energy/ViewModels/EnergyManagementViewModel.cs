@@ -190,18 +190,20 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_ConsumerGroup = value;
-        if (SelectedConsumer != null)
-        {
-          m_Consumer = null;
-          NotifyOfPropertyChange(() => SelectedConsumer);
-        }
-        if (SelectedDistributor != null)
-        {
-          m_Distributor = null;
-          NotifyOfPropertyChange(() => SelectedDistributor);
-        }
-        NotifyOfPropertyChange(() => Consumers);
-        NotifyOfPropertyChange(() => Distributors);
+        //if (SelectedConsumer != null)
+        //{
+        //  m_Consumer = null;
+        //  NotifyOfPropertyChange(() => SelectedConsumer);
+        //  NotifyOfPropertyChange(() => Consumers);
+        //}
+        //if (SelectedDistributor != null)
+        //{
+        //  m_Distributor = null;
+        //  NotifyOfPropertyChange(() => SelectedDistributor);
+        //  NotifyOfPropertyChange(() => Distributors);
+        //}
+        
+        
       }
     }
 
@@ -211,18 +213,20 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Consumer = value;
-        if (SelectedDistributor != null)
-        {
-          m_Distributor = null;
-          NotifyOfPropertyChange(() => SelectedDistributor);
-        }
-        if (SelectedConsumerGroup != null)
-        {
-          m_ConsumerGroup = null;
-          NotifyOfPropertyChange(() => SelectedConsumerGroup);
-        }
-        NotifyOfPropertyChange(() => ConsumerGroups);
-        NotifyOfPropertyChange(() => Distributors);
+        //if (SelectedDistributor != null)
+        //{
+        //  m_Distributor = null;
+        //  NotifyOfPropertyChange(() => SelectedDistributor);
+        //  NotifyOfPropertyChange(() => Distributors);
+        //}
+        //if (SelectedConsumerGroup != null)
+        //{
+        //  m_ConsumerGroup = null;
+        //  NotifyOfPropertyChange(() => SelectedConsumerGroup);
+        //  NotifyOfPropertyChange(() => ConsumerGroups);
+        //}
+   
+
       }
     }
 
@@ -232,18 +236,20 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Distributor = value;
-        if (SelectedConsumerGroup != null)
-        {
-          m_ConsumerGroup = null;
-          NotifyOfPropertyChange(() => SelectedConsumerGroup);
-        }
-        if (SelectedConsumer != null)
-        {
-          m_Consumer = null;
-          NotifyOfPropertyChange(() => SelectedConsumer);
-        }
-        NotifyOfPropertyChange(() => ConsumerGroups);
-        NotifyOfPropertyChange(() => Consumers);
+        //if (SelectedConsumerGroup != null)
+        //{
+        //  m_ConsumerGroup = null;
+        //  NotifyOfPropertyChange(() => SelectedConsumerGroup);
+        //  NotifyOfPropertyChange(() => ConsumerGroups);
+        //}
+        //if (SelectedConsumer != null)
+        //{
+        //  m_Consumer = null;
+        //  NotifyOfPropertyChange(() => SelectedConsumer);
+        //  NotifyOfPropertyChange(() => Consumers);
+        //}
+  
+    
       }
     }
 

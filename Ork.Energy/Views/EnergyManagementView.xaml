@@ -33,13 +33,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox
+        <!--<TextBox
           Grid.Row="0"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerGroupsText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
           Controls:TextBoxHelper.Watermark="Suche Verbrauchergruppen"
-          Style="{DynamicResource SearchMetroTextBox}" />
-        <!--<ComboBox
+          Style="{DynamicResource SearchMetroTextBox}" />-->
+        <ComboBox
           HorizontalAlignment="Stretch"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerGroupsText}"
@@ -49,8 +49,10 @@
           Controls:TextBoxHelper.ClearTextButton="True"
           IsEditable="True"
           ItemsSource="{Binding ConsumerGroups}"
+          
+          SelectedItem="{Binding SelectedConsumerGroup}"
           MaxDropDownHeight="125"
-          DisplayMemberPath="GroupName" />-->
+          DisplayMemberPath="GroupName" />
 
 
         <ListBox
@@ -58,8 +60,7 @@
           Grid.Row="1"
           BorderThickness="0"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-          SelectedItem="{Binding SelectedConsumerGroup}"
-          ScrollViewer.CanContentScroll="false">
+          ScrollViewer.CanContentScroll="false"><!--SelectedItem="{Binding SelectedConsumerGroup}"-->
 
           <ListBox.ItemContainerStyle>
             <Style
@@ -138,13 +139,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox
+        <!--<TextBox
           Grid.Row="0"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchDistributorText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
           Controls:TextBoxHelper.Watermark="Suche Verteiler"
-          Style="{DynamicResource SearchMetroTextBox}" />
-        <!--<ComboBox
+          Style="{DynamicResource SearchMetroTextBox}" />-->
+        <ComboBox
           HorizontalAlignment="Stretch"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchDistributorText}"
@@ -154,15 +155,15 @@
           Controls:TextBoxHelper.ClearTextButton="True"
           IsEditable="True"
           ItemsSource="{Binding Distributors}"
+          SelectedItem="{Binding SelectedDistributor}"
           MaxDropDownHeight="125"
-          DisplayMemberPath="Name" />-->
+          DisplayMemberPath="Name" />
         <ListBox
           ItemsSource="{Binding Distributors}"
           Grid.Row="1"
           BorderThickness="0"
-          SelectedItem="{Binding SelectedDistributor}"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-          ScrollViewer.CanContentScroll="false">
+          ScrollViewer.CanContentScroll="false"><!--SelectedItem="{Binding SelectedDistributor}"-->
 
           <ListBox.ItemContainerStyle>
             <Style
@@ -240,13 +241,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox
+        <!--<TextBox
           Grid.Row="0"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
           Controls:TextBoxHelper.Watermark="Suche Verbraucher"
-          Style="{DynamicResource SearchMetroTextBox}" />
-        <!--<ComboBox
+          Style="{DynamicResource SearchMetroTextBox}" />-->
+        <ComboBox
           HorizontalAlignment="Stretch"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerText}"
@@ -256,15 +257,15 @@
           Controls:TextBoxHelper.ClearTextButton="True"
           IsEditable="True"
           ItemsSource="{Binding Consumers}"
+          SelectedItem="{Binding SelectedConsumer}"
           MaxDropDownHeight="125"
-          DisplayMemberPath="Name" />-->
+          DisplayMemberPath="Name" />
         <ListBox
           ItemsSource="{Binding Consumers}"
           Grid.Row="1"
           BorderThickness="0"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-          ScrollViewer.CanContentScroll="false"
-          SelectedItem="{Binding SelectedConsumer}">
+          ScrollViewer.CanContentScroll="false"><!--SelectedItem="{Binding SelectedConsumer}"-->
 
           <ListBox.ItemContainerStyle>
             <Style
