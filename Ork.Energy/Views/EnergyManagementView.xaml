@@ -48,8 +48,7 @@
           Controls:TextBoxHelper.Watermark="Verbrauchergruppe"
           Controls:TextBoxHelper.ClearTextButton="True"
           IsEditable="True"
-          ItemsSource="{Binding ConsumerGroups}"
-          
+          ItemsSource="{Binding ConsumerGroups}"        
           SelectedItem="{Binding SelectedConsumerGroup}"
           MaxDropDownHeight="125"
           DisplayMemberPath="GroupName" />
@@ -60,7 +59,8 @@
           Grid.Row="1"
           BorderThickness="0"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-          ScrollViewer.CanContentScroll="false"><!--SelectedItem="{Binding SelectedConsumerGroup}"-->
+          ScrollViewer.CanContentScroll="false"
+          SelectedItem="{Binding ClickedConsumerGroup}">
 
           <ListBox.ItemContainerStyle>
             <Style
@@ -163,7 +163,8 @@
           Grid.Row="1"
           BorderThickness="0"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-          ScrollViewer.CanContentScroll="false"><!--SelectedItem="{Binding SelectedDistributor}"-->
+          ScrollViewer.CanContentScroll="false"
+          SelectedItem="{Binding ClickedDistributor}">
 
           <ListBox.ItemContainerStyle>
             <Style

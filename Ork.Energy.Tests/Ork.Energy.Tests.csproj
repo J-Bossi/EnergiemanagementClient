@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="EnergyRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchFilterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
