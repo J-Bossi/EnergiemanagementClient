@@ -350,6 +350,10 @@
       <Project>{91fafcff-402b-4c28-b7c8-9fdc9a850455}</Project>
       <Name>Ork.Setting</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ork.Theme.Nova\Ork.Theme.Nova.csproj">
+      <Project>{61AC62F6-2336-4624-95EB-DA96769468E6}</Project>
+      <Name>Ork.Theme.Nova</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -56,8 +56,8 @@ namespace Ork.Energy.Tests
    
       m_EnergyManagementViewModel = new EnergyManagementViewModel(m_Repository.Object, m_EnergyViewModelFactoryMock.Object, m_DialogManagerMock.Object);
 
-      m_EnergyManagementViewModel.ClickedConsumerGroup = new ConsumerGroupViewModel(new ConsumerGroup() {GroupName = "Consumer"}, m_Repository.Object);
-      m_EnergyManagementViewModel.ClickedDistributor = new DistributorViewModel(new Distributor(){Name = "Verteiler"}, m_Repository.Object);
+      m_EnergyManagementViewModel.SelectedConsumerGroup = new ConsumerGroupViewModel(new ConsumerGroup() {GroupName = "Consumer"}, m_Repository.Object);
+      m_EnergyManagementViewModel.SelectedDistributor = new DistributorViewModel(new Distributor(){Name = "Verteiler"}, m_Repository.Object);
       m_EnergyManagementViewModel.NewConsumerName = "NeuerVerbraucher";
  
       m_EnergyManagementViewModel.AddNewConsumer();

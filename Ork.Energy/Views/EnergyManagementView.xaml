@@ -7,6 +7,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
   xmlns:cal="http://www.caliburnproject.org"
+  xmlns:customControls="clr-namespace:Ork.Theme.Nova.Resources.CustomControls;assembly=Ork.Theme.Nova"
   mc:Ignorable="d"
   d:DesignHeight="300"
   d:DesignWidth="300">
@@ -33,13 +34,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <!--<TextBox
+        <TextBox
           Grid.Row="0"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerGroupsText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
           Controls:TextBoxHelper.Watermark="Suche Verbrauchergruppen"
-          Style="{DynamicResource SearchMetroTextBox}" />-->
-        <ComboBox
+          Style="{DynamicResource SearchMetroTextBox}" />
+        <!--<ComboBox
           HorizontalAlignment="Stretch"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerGroupsText}"
@@ -51,7 +52,7 @@
           ItemsSource="{Binding ConsumerGroups}"        
           SelectedItem="{Binding SelectedConsumerGroup}"
           MaxDropDownHeight="125"
-          DisplayMemberPath="GroupName" />
+          DisplayMemberPath="GroupName" />-->
 
 
         <ListBox
@@ -60,7 +61,8 @@
           BorderThickness="0"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
           ScrollViewer.CanContentScroll="false"
-          SelectedItem="{Binding ClickedConsumerGroup}">
+          customControls:ListBoxSelectionBehavior.ClickSelection="True"
+          SelectedItem="{Binding SelectedConsumerGroup}">
 
           <ListBox.ItemContainerStyle>
             <Style
@@ -78,9 +80,12 @@
 
           <ListBox.ItemTemplate>
             <DataTemplate>
+
               <Views:ConsumerGroupCardView
                 HorizontalAlignment="Stretch"
                 cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenEditConsumerGroupDialog($dataContext)]" />
+
+
             </DataTemplate>
           </ListBox.ItemTemplate>
         </ListBox>
@@ -139,13 +144,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <!--<TextBox
+        <TextBox
           Grid.Row="0"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchDistributorText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
           Controls:TextBoxHelper.Watermark="Suche Verteiler"
-          Style="{DynamicResource SearchMetroTextBox}" />-->
-        <ComboBox
+          Style="{DynamicResource SearchMetroTextBox}" />
+        <!--<ComboBox
           HorizontalAlignment="Stretch"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchDistributorText}"
@@ -157,14 +162,15 @@
           ItemsSource="{Binding Distributors}"
           SelectedItem="{Binding SelectedDistributor}"
           MaxDropDownHeight="125"
-          DisplayMemberPath="Name" />
+          DisplayMemberPath="Name" />-->
         <ListBox
           ItemsSource="{Binding Distributors}"
           Grid.Row="1"
           BorderThickness="0"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
           ScrollViewer.CanContentScroll="false"
-          SelectedItem="{Binding ClickedDistributor}">
+          customControls:ListBoxSelectionBehavior.ClickSelection="True"
+          SelectedItem="{Binding SelectedDistributor}">
 
           <ListBox.ItemContainerStyle>
             <Style
@@ -242,13 +248,13 @@
           <RowDefinition
             Height="Auto" />
         </Grid.RowDefinitions>
-        <!--<TextBox
+        <TextBox
           Grid.Row="0"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
           Controls:TextBoxHelper.Watermark="Suche Verbraucher"
-          Style="{DynamicResource SearchMetroTextBox}" />-->
-        <ComboBox
+          Style="{DynamicResource SearchMetroTextBox}" />
+        <!--<ComboBox
           HorizontalAlignment="Stretch"
           Margin="0, 10, 0, 0"
           Text="{Binding SearchConsumerText}"
@@ -260,12 +266,13 @@
           ItemsSource="{Binding Consumers}"
           SelectedItem="{Binding SelectedConsumer}"
           MaxDropDownHeight="125"
-          DisplayMemberPath="Name" />
+          DisplayMemberPath="Name" />-->
         <ListBox
           ItemsSource="{Binding Consumers}"
           Grid.Row="1"
           BorderThickness="0"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          customControls:ListBoxSelectionBehavior.ClickSelection="True"
           ScrollViewer.CanContentScroll="false"><!--SelectedItem="{Binding SelectedConsumer}"-->
 
           <ListBox.ItemContainerStyle>

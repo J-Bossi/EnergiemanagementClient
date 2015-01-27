@@ -31,6 +31,16 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class EnergyManagementViewModel : DocumentBase, IWorkspace
   {
+    private IScreen m_EditItem;
+    private bool m_FlyoutActivated;
+    private bool m_IsEnabled;
+    private string m_SearchConsumerGroupText;
+    private string m_SearchConsumerText;
+    private string m_SearchDistributorText;
+    private DistributorViewModel m_SelectedDistributor;
+    private ConsumerViewModel m_SelectedConsumer;
+    private ConsumerGroupViewModel m_SelectedConsumerGroup;
+
     private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
       new BindableCollection<ConsumerGroupViewModel>();
 
@@ -38,12 +48,6 @@ namespace Ork.Energy.ViewModels
     private readonly BindableCollection<DistributorViewModel> m_Distributors = new BindableCollection<DistributorViewModel>();
     private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly IEnergyRepository m_Repository;
-    private IScreen m_EditItem;
-    private bool m_FlyoutActivated;
-    private bool m_IsEnabled;
-    private string m_SearchConsumerGroupText;
-    private string m_SearchConsumerText;
-    private string m_SearchDistributorText;
 
     [ImportingConstructor]
     public EnergyManagementViewModel([Import] IEnergyRepository mRepository,
@@ -79,10 +83,7 @@ namespace Ork.Energy.ViewModels
       get
       {
         var filteredConsumerGroups = m_ConsumerGroups;
-        if (SelectedConsumer != null)
-        {
-          return filteredConsumerGroups.Where(cg => cg.Model.Equals(SelectedConsumer.Model.ConsumerGroup));
-        }
+        
         if (SelectedDistributor != null)
         {
           var consumerList = m_Consumers.Where(cg => cg.Model.Distributor.Equals(SelectedDistributor.Model));
@@ -104,11 +105,22 @@ namespace Ork.Energy.ViewModels
       get
       {
         var filteredConsumers = m_Consumers;
+        if (SelectedConsumerGroup == null &&
+            SelectedDistributor == null)
+        {
+          return filteredConsumers;
+        }
+        if (SelectedConsumerGroup != null)
+        {
+          return filteredConsumers.Where(c => c.Model.ConsumerGroup.Equals(SelectedConsumerGroup.Model));
+        }
+        if (SelectedDistributor != null)
+        {
+          return filteredConsumers.Where(c => c.Model.Distributor.Equals(SelectedDistributor.Model));
+        }
 
-        return filteredConsumers.Where(c => FilteredDistributors.Select(d => d.Model)
-                                                                .Contains(c.Model.Distributor) &&
-                                            (FilteredConsumerGroups.Select(cg => cg.Model)
-                                                                   .Contains(c.Model.ConsumerGroup)));
+        return filteredConsumers.Where(c => c.Model.Distributor.Equals(SelectedDistributor.Model) &&
+                                            c.Model.ConsumerGroup.Equals(SelectedConsumerGroup.Model));
       }
     }
 
@@ -117,10 +129,7 @@ namespace Ork.Energy.ViewModels
       get
       {
         var filteredDistributors = m_Distributors;
-        if (SelectedConsumer != null)
-        {
-          return filteredDistributors.Where((d => d.Model.Equals(SelectedConsumer.Model.Distributor)));
-        }
+
         if (SelectedConsumerGroup != null)
         {
           var consumerList = m_Consumers.Where(cg => cg.Model.ConsumerGroup.Equals(SelectedConsumerGroup.Model));
@@ -144,8 +153,6 @@ namespace Ork.Energy.ViewModels
         m_SearchConsumerGroupText = value;
 
         NotifyOfPropertyChange(() => ConsumerGroups);
-        NotifyOfPropertyChange(() => Distributors);
-        NotifyOfPropertyChange(() => Consumers);
       }
     }
 
@@ -155,9 +162,9 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_SearchConsumerText = value;
-        NotifyOfPropertyChange(() => ConsumerGroups);
+
         NotifyOfPropertyChange(() => Consumers);
-        NotifyOfPropertyChange(() => Distributors);
+
       }
     }
 
@@ -167,8 +174,7 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_SearchDistributorText = value;
-        NotifyOfPropertyChange(() => ConsumerGroups);
-        NotifyOfPropertyChange(() => Consumers);
+
         NotifyOfPropertyChange(() => Distributors);
       }
     }
@@ -176,16 +182,38 @@ namespace Ork.Energy.ViewModels
     public string NewConsumerGroupName { get; set; }
     public string NewConsumerName { get; set; }
     public string NewDistributorName { get; set; }
+    public ConsumerGroupViewModel SelectedConsumerGroup
+    {
+      get { return m_SelectedConsumerGroup; }
+      set
+      {
+        m_SelectedConsumerGroup = value;
+        NotifyOfPropertyChange(() => Consumers);
+        NotifyOfPropertyChange(() => Distributors);
+      }
+    }
 
-    public ConsumerGroupViewModel SelectedConsumerGroup { get; set; }
+    public ConsumerViewModel SelectedConsumer
+    {
+      get { return m_SelectedConsumer; } 
+      set
+      {
+        m_SelectedConsumer = value;
+        NotifyOfPropertyChange(() => ConsumerGroups);
+        NotifyOfPropertyChange(() => Distributors);
+      }
+    }
 
-    public ConsumerViewModel SelectedConsumer { get; set; }
-
-    public DistributorViewModel SelectedDistributor { get; set; }
-    public DistributorViewModel ClickedDistributor { get; set; }
-
-    public ConsumerGroupViewModel ClickedConsumerGroup { get; set; }
-
+    public DistributorViewModel SelectedDistributor
+    {
+      get { return m_SelectedDistributor; }
+      set
+      {
+        m_SelectedDistributor = value;
+        NotifyOfPropertyChange(() => ConsumerGroups);
+        NotifyOfPropertyChange(() => Consumers);
+      }
+    }
 
     public int Index
     {
@@ -523,15 +551,15 @@ namespace Ork.Energy.ViewModels
 
     public void AddNewConsumer()
     {
-      if (ClickedConsumerGroup == null ||
-          ClickedDistributor == null)
+      if (SelectedConsumerGroup == null ||
+          SelectedDistributor == null)
       {
         Dialogs.ShowMessageBox("Bitte wählen Sie einen Verteiler und einer Verbrauchergruppe aus.", "Unvollständige Auswahl");
       }
       else
       {
-        m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName, ClickedDistributor.Model,
-          ClickedConsumerGroup.Model));
+        m_Repository.Consumers.Add(ModelFactory.CreateConsumer(NewConsumerName, SelectedDistributor.Model,
+          SelectedConsumerGroup.Model));
         m_Repository.Save();
         NewConsumerName = String.Empty;
         NotifyOfPropertyChange(() => Consumers);
