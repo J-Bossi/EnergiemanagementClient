@@ -70,7 +70,7 @@ namespace Ork.Energy.Tests
     {
       Assert.IsTrue(m_EnergyManagementViewModel.Consumers.Count() == 1);
     }
-
+   
 
   }
 }
