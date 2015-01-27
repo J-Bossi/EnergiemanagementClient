@@ -4,12 +4,12 @@
 
   <Color
     x:Key="TextForegroundColor">
-    White
+    Black
   </Color>
 
   <Color
     x:Key="TextFocusColor">
-    LightGray
+    Aqua
   </Color>
 
   <Color
@@ -19,37 +19,38 @@
 
   <Color
     x:Key="WindowBackgroundColor">
-    #0084FF
-  </Color>
-
-  <Color
-    x:Key="WorkspaceBackgroundColor">
     WhiteSmoke
   </Color>
 
   <Color
+    x:Key="WorkspaceBackgroundColor">
+    LightGray
+  </Color>
+
+  <Color
     x:Key="HighlightWeakColor">
-    BurlyWood
+    #66FA6800
   </Color>
 
   <Color
     x:Key="HighlightMediumColor">
-    #783000
+    #99FA6800
   </Color>
 
   <Color
     x:Key="HighlightColor">
-    #0084FF
+    #CCFA6800
   </Color>
 
   <Color
     x:Key="LightControlColor">
-    #8DC8FF
+    #99FA6800
   </Color>
 
   <Color
     x:Key="MediumControlColor">
-    #63B2FC
+    #CCFA6800
   </Color>
 
 </ResourceDictionary>
+

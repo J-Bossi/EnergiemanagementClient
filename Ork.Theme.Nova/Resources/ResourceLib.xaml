@@ -7,12 +7,12 @@
     <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
     <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/orange.xaml" />
     <ResourceDictionary
-                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/basedark.xaml" />
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/baselight.xaml" />
     <ResourceDictionary Source="Icons.xaml" />
     <ResourceDictionary
       Source="Brushes.xaml" />
     <ResourceDictionary
-      Source="Colors.xaml" />
+      Source="ColorsLight.xaml" />
     <!--<ResourceDictionary
       Source="ControlStyles/CalendarStyle.xaml" />-->
     <!--<ResourceDictionary
