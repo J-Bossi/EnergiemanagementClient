@@ -35,8 +35,8 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Name="RoomNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Floor" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Level" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Space" Type="Edm.Int64" Nullable="false" />
+        <Property Name="Height" Type="Edm.Int64" Nullable="false" />
         <Property Name="RoomInformation" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="RoomUsage" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="Building" Relationship="OpenResKit.DomainModel.Room_Building" ToRole="Room_Building_Target" FromRole="Room_Building_Source" />
@@ -46,7 +46,6 @@
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Name="BuildingName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
       </EntityType>
       <EntityType Name="Distributor">
