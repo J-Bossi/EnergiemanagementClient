@@ -61,7 +61,11 @@ namespace Ork.Energy.ViewModels
     public virtual ConsumerGroup ConsumerGroup
     {
       get { return m_Model.ConsumerGroup; }
-      set { m_Model.ConsumerGroup = value; }
+      set
+      {
+        m_Model.ConsumerGroup = value; 
+        NotifyOfPropertyChange(() => AllConsumerTypes);
+      }
     }
 
     public string Name
