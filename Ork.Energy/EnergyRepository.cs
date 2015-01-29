@@ -178,7 +178,7 @@ namespace Ork.Energy
     {
       Buildings = new DataServiceCollection<Building>(m_Context);
 
-      DataServiceQuery<Building> query = m_Context.Buildings.Expand("OpenResKit.DomainModel.Rooms");
+      DataServiceQuery<Building> query = m_Context.Buildings.Expand("Rooms");
       Buildings.Load(query);
     }
 

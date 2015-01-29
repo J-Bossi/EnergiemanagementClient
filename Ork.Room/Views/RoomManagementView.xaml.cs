@@ -18,7 +18,7 @@ namespace Ork.RoomBook.Views
   /// <summary>
   /// Interaction logic for RoomManagementView.xaml
   /// </summary>
-  public partial class RoomManagementView 
+  public partial class RoomManagementView : UserControl
   {
     public RoomManagementView()
     {

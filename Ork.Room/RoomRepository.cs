@@ -77,7 +77,7 @@ namespace Ork.RoomBook
     {
       Buildings = new DataServiceCollection<Building>(m_Context);
 
-      var query = m_Context.Buildings.Expand("OpenResKit.DomainModel.Rooms");
+      var query = m_Context.Buildings.Expand("Rooms");
       Buildings.Load(query);
     }
 

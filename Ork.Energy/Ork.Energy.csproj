@@ -149,7 +149,6 @@
     <Compile Include="Factories\SubMeasureViewModelFactory.cs" />
     <Compile Include="IEnergyRepository.cs" />
     <Compile Include="Factories\IMeasureViewModelFactory.cs" />
-    <Compile Include="ISubMeasureRepository.cs" />
     <Compile Include="Factories\MeasureViewModelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Languages\Translate.Designer.cs">
@@ -172,7 +171,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.datasvcmap</DependentUpon>
     </Compile>
-    <Compile Include="SubMeasureRepository.cs" />
     <Compile Include="ViewModels\CatalogAddViewModel.cs" />
     <Compile Include="ViewModels\CatalogEditViewModel.cs" />
     <Compile Include="ViewModels\CatalogViewModel.cs" />
