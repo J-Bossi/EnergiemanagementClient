@@ -30,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Theme.Nova", "Ork.Theme
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Energy.Tests", "Ork.Energy.Tests\Ork.Energy.Tests.csproj", "{4DAF0E35-66D0-4735-835A-AF9EAD11F66A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Room", "Ork.Room\Ork.Room.csproj", "{273BAC46-4A45-4EF3-B1E8-39873F41A47C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.RoomBook", "Ork.Room\Ork.RoomBook.csproj", "{273BAC46-4A45-4EF3-B1E8-39873F41A47C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

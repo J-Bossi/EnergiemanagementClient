@@ -346,9 +346,9 @@
       <Project>{d2cc3b92-c255-4756-9222-2c14db339a73}</Project>
       <Name>Ork.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ork.Room\Ork.Room.csproj">
+    <ProjectReference Include="..\Ork.Room\Ork.RoomBook.csproj">
       <Project>{273bac46-4a45-4ef3-b1e8-39873f41a47c}</Project>
-      <Name>Ork.Room</Name>
+      <Name>Ork.RoomBook</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ork.Setting\Ork.Setting.csproj">
       <Project>{91fafcff-402b-4c28-b7c8-9fdc9a850455}</Project>

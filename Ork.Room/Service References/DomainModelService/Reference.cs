@@ -9,8 +9,8 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 29.01.2015 01:02:07
-namespace Ork.Room.DomainModelService
+// Generation date: 29.01.2015 14:49:24
+namespace Ork.RoomBook.DomainModelService
 {
     
     /// <summary>
@@ -39,7 +39,7 @@ namespace Ork.Room.DomainModelService
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected global::System.Type ResolveTypeFromName(string typeName)
         {
-            global::System.Type resolvedType = this.DefaultResolveType(typeName, "OpenResKit.DomainModel", "Ork.Room.DomainModelService");
+            global::System.Type resolvedType = this.DefaultResolveType(typeName, "OpenResKit.DomainModel", "Ork.RoomBook.DomainModelService");
             if ((resolvedType != null))
             {
                 return resolvedType;
@@ -54,7 +54,7 @@ namespace Ork.Room.DomainModelService
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected string ResolveNameFromType(global::System.Type clientType)
         {
-            if (clientType.Namespace.Equals("Ork.Room.DomainModelService", global::System.StringComparison.Ordinal))
+            if (clientType.Namespace.Equals("Ork.RoomBook.DomainModelService", global::System.StringComparison.Ordinal))
             {
                 return string.Concat("OpenResKit.DomainModel.", clientType.Name);
             }
