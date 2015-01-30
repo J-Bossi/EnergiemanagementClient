@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 29.01.2015 23:12:26
+// Generation date: 30.01.2015 02:24:12
 namespace Ork.RoomBook.DomainModelService
 {
     

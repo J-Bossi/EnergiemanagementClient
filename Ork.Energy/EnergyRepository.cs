@@ -94,11 +94,9 @@ namespace Ork.Energy
         LoadResponsibleSubjects();
         HasConnection = true;
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         HasConnection = false;
-        string message = ex.Message;
-        message += Environment.NewLine + ex.InnerException.Message;
       }
       RaiseEvent(ContextChanged);
     }

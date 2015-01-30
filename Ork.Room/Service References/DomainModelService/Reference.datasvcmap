@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2ddfeacb-2400-48c2-b0b6-cff4553be2bc" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="dba452ce-854a-44bf-92e3-1fed49bea230" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
   <MetadataSources>
     <MetadataSource Address="http://localhost:7000/OpenResKitHub/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="76cb6623-1ee6-48e6-8ad5-940e3b7a9b25" SourceId="1" SourceUrl="http://localhost:7000/OpenResKitHub/" />
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="2a462503-5991-4e82-afe3-92c96da9d514" SourceId="1" SourceUrl="http://localhost:7000/OpenResKitHub/" />
   </Metadata>
   <Extensions />
   <Parameters>
