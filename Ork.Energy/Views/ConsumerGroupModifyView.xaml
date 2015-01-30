@@ -29,9 +29,7 @@
         ItemsSource="{Binding ConsumerTypes}"
         AutoGenerateColumns="False"
         HeadersVisibility="None"
-        CanUserAddRows="False"
-        
-        >
+        CanUserAddRows="False">
         <DataGrid.Columns>
           <DataGridTextColumn Binding="{Binding TypeName}" />
           <DataGridTemplateColumn>
