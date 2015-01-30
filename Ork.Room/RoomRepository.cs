@@ -39,6 +39,11 @@ namespace Ork.RoomBook
     public DataServiceCollection<Building> Buildings { get; private set; }
     public bool HasConnection { get; private set; }
 
+    public void DeleteObject(object objectToDelete)
+    {
+      m_Context.DeleteObject(objectToDelete);
+    }
+
     public void Save()
     {
       if (m_Context.ApplyingChanges)

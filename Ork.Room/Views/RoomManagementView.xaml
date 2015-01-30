@@ -10,7 +10,14 @@
   d:DesignHeight="300"
   d:DesignWidth="300">
   <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="*" />
+      <RowDefinition
+        Height="Auto" />
+    </Grid.RowDefinitions>
     <DataGrid
+      Grid.Row="0"
       ItemsSource="{Binding Rooms}"
       AutoGenerateColumns="False"
       CanUserAddRows="True">
@@ -32,8 +39,59 @@
         <controls:DataGridNumericUpDownColumn
           Header="Volumen"
           Binding="{Binding RoomVolume, Mode=OneWay}" />
+        <DataGridTemplateColumn>
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock
+                Margin="0 1 0 0"
+                FontFamily="Marlett"
+                Text="r"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch"
+                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action DeleteRoom($dataContext)]" />
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
 
       </DataGrid.Columns>
     </DataGrid>
+    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+    <Button
+        Width="50"
+        Height="50"
+        Margin="2"
+        Style="{DynamicResource MetroCircleButtonStyle}"
+        cal:Message.Attach="Cancel($dataContext)"
+        ToolTip="Abbrechen">
+      <Rectangle
+          Width="20"
+          Height="20"
+          Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+        <Rectangle.OpacityMask>
+          <VisualBrush
+              Stretch="Fill"
+              Visual="{DynamicResource appbar_cancel}" />
+        </Rectangle.OpacityMask>
+      </Rectangle>
+    </Button>
+    <Button
+        Width="50"
+        Height="50"
+        Margin="2"
+        Style="{DynamicResource MetroCircleButtonStyle}"
+        cal:Message.Attach="Save($dataContext)"
+        ToolTip="Speichern">
+      <Rectangle
+          Width="20"
+          Height="20"
+          Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+        <Rectangle.OpacityMask>
+          <VisualBrush
+              Stretch="Fill"
+              Visual="{DynamicResource appbar_save}" />
+        </Rectangle.OpacityMask>
+      </Rectangle>
+    </Button>
+    </StackPanel>
   </Grid>
 </UserControl>
