@@ -17,6 +17,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
+using System.Linq;
 using Ork.RoomBook.DomainModelService;
 using Ork.Setting;
 
@@ -42,28 +43,33 @@ namespace Ork.RoomBook
 
     public void DeleteObject(object objectToDelete)
     {
-      
       m_Context.DeleteObject(objectToDelete);
     }
 
     public void ClearPendingChanges()
     {
-
-      foreach (LinkDescriptor link in m_Context.Links)
-
-        if (link.State != EntityStates.Unchanged && link.State != EntityStates.Detached)
-
-          m_Context.DetachLink(link.Source, link.SourceProperty, link.Target);
-
-
-
-      foreach (EntityDescriptor entity in m_Context.Entities)
-
-        if (entity.State != EntityStates.Unchanged && entity.State != EntityStates.Detached)
-
-          m_Context.Detach(entity.Entity);
-      Initialize();
-
+      // Discard all Pending changes without reloading the context. Actually calling Initialize() would do the same
+      foreach (
+        var link in m_Context.Links.Where(link => link.State != EntityStates.Unchanged && link.State != EntityStates.Detached))
+      {
+        m_Context.DetachLink(link.Source, link.SourceProperty, link.Target);
+      }
+      foreach (
+        var entity in
+          m_Context.Entities.Where(entity => entity.State != EntityStates.Unchanged && entity.State != EntityStates.Detached))
+      {
+        m_Context.Detach(entity.Entity);
+      }
+      try
+      {
+        LoadRooms();
+        HasConnection = true;
+      }
+      catch (Exception ex)
+      {
+        HasConnection = false;
+      }
+      RaiseEvent(ContextChanged);
     }
 
     public void Save()
@@ -106,7 +112,6 @@ namespace Ork.RoomBook
       Rooms = new DataServiceCollection<Room>(m_Context);
       var query = m_Context.Rooms;
       Rooms.Load(query);
-      
     }
 
     private void RaiseEvent(EventHandler eventHandler)
