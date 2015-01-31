@@ -37,6 +37,7 @@ namespace Ork.RoomBook
     }
 
     public DataServiceCollection<Building> Buildings { get; private set; }
+    public DataServiceCollection<Room> Rooms { get; private set; }
     public bool HasConnection { get; private set; }
 
     public void DeleteObject(object objectToDelete)
@@ -69,6 +70,7 @@ namespace Ork.RoomBook
       try
       {
         LoadBuildings();
+        LoadRooms();
         HasConnection = true;
       }
       catch (Exception ex)
@@ -84,6 +86,13 @@ namespace Ork.RoomBook
 
       var query = m_Context.Buildings.Expand("Rooms");
       Buildings.Load(query);
+    }
+
+    private void LoadRooms()
+    {
+      Rooms = new DataServiceCollection<Room>(m_Context);
+      var query = m_Context.Rooms;
+      Rooms.Load(query);
     }
 
     private void RaiseEvent(EventHandler eventHandler)
