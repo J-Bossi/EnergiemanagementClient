@@ -14,11 +14,12 @@
 
 #endregion
 
+using Ork.Framework;
 using Ork.RoomBook.DomainModelService;
 
 namespace Ork.RoomBook.ViewModels
 {
-  public class RoomViewModel
+  public class RoomViewModel : DocumentBase
   {
     private readonly Room m_Model;
 
@@ -52,13 +53,21 @@ namespace Ork.RoomBook.ViewModels
     public long Space
     {
       get { return m_Model.Space; }
-      set { m_Model.Space = value; }
+      set
+      {
+        m_Model.Space = value;
+        NotifyOfPropertyChange(() => RoomVolume);
+      }
     }
 
     public long Height
     {
       get { return m_Model.Height; }
-      set { m_Model.Height = value; }
+      set
+      {
+        m_Model.Height = value;
+        NotifyOfPropertyChange(() => RoomVolume);
+      }
     }
 
     public string RoomInformation
