@@ -25,7 +25,7 @@ namespace Ork.RoomBook
     DataServiceCollection<Room> Rooms { get; }
     bool HasConnection { get; }
     void DeleteObject(object deletionObject);
-
+    void ClearPendingChanges();
     void Save();
     event EventHandler ContextChanged;
     event EventHandler SaveCompleted;

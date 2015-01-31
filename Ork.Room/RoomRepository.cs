@@ -42,7 +42,28 @@ namespace Ork.RoomBook
 
     public void DeleteObject(object objectToDelete)
     {
+      
       m_Context.DeleteObject(objectToDelete);
+    }
+
+    public void ClearPendingChanges()
+    {
+
+      foreach (LinkDescriptor link in m_Context.Links)
+
+        if (link.State != EntityStates.Unchanged && link.State != EntityStates.Detached)
+
+          m_Context.DetachLink(link.Source, link.SourceProperty, link.Target);
+
+
+
+      foreach (EntityDescriptor entity in m_Context.Entities)
+
+        if (entity.State != EntityStates.Unchanged && entity.State != EntityStates.Detached)
+
+          m_Context.Detach(entity.Entity);
+      Initialize();
+
     }
 
     public void Save()
@@ -85,6 +106,7 @@ namespace Ork.RoomBook
       Rooms = new DataServiceCollection<Room>(m_Context);
       var query = m_Context.Rooms;
       Rooms.Load(query);
+      
     }
 
     private void RaiseEvent(EventHandler eventHandler)
