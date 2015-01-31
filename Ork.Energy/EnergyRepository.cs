@@ -27,8 +27,8 @@ namespace Ork.Energy
   [Export(typeof (IEnergyRepository))]
   public class EnergyRepository : IEnergyRepository
   {
-    private DomainModelContext m_Context;
     private readonly Func<DomainModelContext> m_CreateMethod;
+    private DomainModelContext m_Context;
 
     [ImportingConstructor]
     public EnergyRepository([Import] ISettingsProvider settingsContainer, [Import] Func<DomainModelContext> createMethod)
@@ -39,7 +39,6 @@ namespace Ork.Energy
     }
 
     public DataServiceCollection<ConsumerGroup> ConsumerGroups { get; private set; }
-    public DataServiceCollection<Building> Buildings { get; private set; }
     public DataServiceCollection<Distributor> Distributors { get; private set; }
     public DataServiceCollection<Reading> Readings { get; private set; }
     public DataServiceCollection<Consumer> Consumers { get; private set; }
@@ -56,12 +55,12 @@ namespace Ork.Energy
         return;
       }
 
-      IAsyncResult result = m_Context.BeginSaveChanges(SaveChangesOptions.Batch, c =>
-                                                                                 {
-                                                                                   var dmc = (DomainModelContext) c.AsyncState;
-                                                                                   dmc.EndSaveChanges(c);
-                                                                                   RaiseEvent(SaveCompleted);
-                                                                                 }, m_Context);
+      var result = m_Context.BeginSaveChanges(SaveChangesOptions.Batch, c =>
+                                                                        {
+                                                                          var dmc = (DomainModelContext) c.AsyncState;
+                                                                          dmc.EndSaveChanges(c);
+                                                                          RaiseEvent(SaveCompleted);
+                                                                        }, m_Context);
     }
 
     public event EventHandler ContextChanged;
@@ -84,7 +83,6 @@ namespace Ork.Energy
       try
       {
         LoadConsumerGroups();
-        LoadBuildings();
         LoadConsumers();
         LoadDistributors();
         LoadReadings();
@@ -105,7 +103,7 @@ namespace Ork.Energy
     {
       ConsumerGroups = new DataServiceCollection<ConsumerGroup>(m_Context);
 
-      DataServiceQuery<ConsumerGroup> query = m_Context.ConsumerGroups.Expand("ConsumerTypes");
+      var query = m_Context.ConsumerGroups.Expand("ConsumerTypes");
       ConsumerGroups.Load(query);
     }
 
@@ -113,10 +111,10 @@ namespace Ork.Energy
     {
       Consumers = new DataServiceCollection<Consumer>(m_Context);
 
-      DataServiceQuery<Consumer> query = m_Context.Consumers.Expand("OpenResKit.DomainModel.Consumer/ConsumerGroup")
-                                                  .Expand("OpenResKit.DomainModel.Consumer/Distributor")
-                                                  .Expand("OpenResKit.DomainModel.Consumer/ConsumerType")
-                                                  .Expand("Readings");
+      var query = m_Context.Consumers.Expand("OpenResKit.DomainModel.Consumer/ConsumerGroup")
+                           .Expand("OpenResKit.DomainModel.Consumer/Distributor")
+                           .Expand("OpenResKit.DomainModel.Consumer/ConsumerType")
+                           .Expand("Readings");
       Consumers.Load(query);
     }
 
@@ -131,6 +129,7 @@ namespace Ork.Energy
                            .OfType<EnergyMeasure>();
       Measures.Load(query);
     }
+
     private void LoadSubMeasures()
     {
       SubMeasures = new DataServiceCollection<SubMeasure>(m_Context);
@@ -152,7 +151,7 @@ namespace Ork.Energy
     {
       ConsumerTypes = new DataServiceCollection<ConsumerType>(m_Context);
 
-      DataServiceQuery<ConsumerType> query = m_Context.ConsumerTypes;
+      var query = m_Context.ConsumerTypes;
       ConsumerTypes.Load(query);
     }
 
@@ -160,7 +159,7 @@ namespace Ork.Energy
     {
       Readings = new DataServiceCollection<Reading>(m_Context);
 
-      DataServiceQuery<Reading> query = m_Context.Readings;
+      var query = m_Context.Readings;
       Readings.Load(query);
     }
 
@@ -168,16 +167,8 @@ namespace Ork.Energy
     {
       Distributors = new DataServiceCollection<Distributor>(m_Context);
 
-      DataServiceQuery<Distributor> query = m_Context.Distributors.Expand("Readings");
+      var query = m_Context.Distributors.Expand("Readings");
       Distributors.Load(query);
-    }
-
-    private void LoadBuildings()
-    {
-      Buildings = new DataServiceCollection<Building>(m_Context);
-
-      DataServiceQuery<Building> query = m_Context.Buildings.Expand("Rooms");
-      Buildings.Load(query);
     }
 
     private void RaiseEvent(EventHandler eventHandler)

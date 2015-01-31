@@ -33,6 +33,7 @@
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Building" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="RoomNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Floor" Type="Edm.Int32" Nullable="false" />
         <Property Name="Space" Type="Edm.Int64" Nullable="false" />
@@ -103,14 +104,6 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
-      </EntityType>
-      <EntityType Name="Building">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <NavigationProperty Name="Rooms" Relationship="OpenResKit.DomainModel.Building_Rooms" ToRole="Building_Rooms_Target" FromRole="Building_Rooms_Source" />
       </EntityType>
       <EntityType Name="SubMeasure">
         <Key>
@@ -299,12 +292,6 @@
         </End>
         <End Type="OpenResKit.DomainModel.Document" Role="Document_DocumentSource_Source" Multiplicity="0..1" />
       </Association>
-      <Association Name="Building_Rooms">
-        <End Type="OpenResKit.DomainModel.Building" Role="Building_Rooms_Source" Multiplicity="1">
-          <OnDelete Action="Cascade" />
-        </End>
-        <End Type="OpenResKit.DomainModel.Room" Role="Building_Rooms_Target" Multiplicity="*" />
-      </Association>
       <Association Name="SubMeasure_ResponsibleSubject">
         <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="SubMeasure_ResponsibleSubject_Target" Multiplicity="0..1" />
         <End Type="OpenResKit.DomainModel.SubMeasure" Role="SubMeasure_ResponsibleSubject_Source" Multiplicity="*" />
@@ -412,7 +399,6 @@
         <EntitySet Name="MeasureImageSources" EntityType="OpenResKit.DomainModel.MeasureImageSource" />
         <EntitySet Name="Documents" EntityType="OpenResKit.DomainModel.Document" />
         <EntitySet Name="DocumentSources" EntityType="OpenResKit.DomainModel.DocumentSource" />
-        <EntitySet Name="Buildings" EntityType="OpenResKit.DomainModel.Building" />
         <EntitySet Name="SubMeasures" EntityType="OpenResKit.DomainModel.SubMeasure" />
         <EntitySet Name="Measures" EntityType="OpenResKit.DomainModel.Measure" />
         <EntitySet Name="Catalogs" EntityType="OpenResKit.DomainModel.Catalog" />
@@ -463,10 +449,6 @@
         <AssociationSet Name="Document_DocumentSource" Association="OpenResKit.DomainModel.Document_DocumentSource">
           <End Role="Document_DocumentSource_Source" EntitySet="Documents" />
           <End Role="Document_DocumentSource_Target" EntitySet="DocumentSources" />
-        </AssociationSet>
-        <AssociationSet Name="Building_Rooms" Association="OpenResKit.DomainModel.Building_Rooms">
-          <End Role="Building_Rooms_Source" EntitySet="Buildings" />
-          <End Role="Building_Rooms_Target" EntitySet="Rooms" />
         </AssociationSet>
         <AssociationSet Name="SubMeasure_ResponsibleSubject" Association="OpenResKit.DomainModel.SubMeasure_ResponsibleSubject">
           <End Role="SubMeasure_ResponsibleSubject_Source" EntitySet="SubMeasures" />

@@ -22,10 +22,9 @@ namespace Ork.RoomBook
 {
   public interface IRoomRepository
   {
-    DataServiceCollection<Building> Buildings { get; }
-    DataServiceCollection<Room> Rooms { get; } 
-    void DeleteObject(object deletionObject);
+    DataServiceCollection<Room> Rooms { get; }
     bool HasConnection { get; }
+    void DeleteObject(object deletionObject);
 
     void Save();
     event EventHandler ContextChanged;

@@ -25,7 +25,6 @@ namespace Ork.Energy
 
   {
     DataServiceCollection<ConsumerGroup> ConsumerGroups { get; }
-    DataServiceCollection<Building> Buildings { get; }
     DataServiceCollection<Consumer> Consumers { get; }
     DataServiceCollection<Distributor> Distributors { get; }
     DataServiceCollection<Reading> Readings { get; }

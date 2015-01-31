@@ -36,7 +36,7 @@ namespace Ork.RoomBook
       Initialize();
     }
 
-    public DataServiceCollection<Building> Buildings { get; private set; }
+
     public DataServiceCollection<Room> Rooms { get; private set; }
     public bool HasConnection { get; private set; }
 
@@ -69,7 +69,6 @@ namespace Ork.RoomBook
 
       try
       {
-        LoadBuildings();
         LoadRooms();
         HasConnection = true;
       }
@@ -80,13 +79,6 @@ namespace Ork.RoomBook
       RaiseEvent(ContextChanged);
     }
 
-    private void LoadBuildings()
-    {
-      Buildings = new DataServiceCollection<Building>(m_Context);
-
-      var query = m_Context.Buildings.Expand("Rooms");
-      Buildings.Load(query);
-    }
 
     private void LoadRooms()
     {

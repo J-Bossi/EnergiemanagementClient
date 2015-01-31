@@ -28,11 +28,6 @@ namespace Ork.Energy.Tests
       get { throw new NotImplementedException(); }
     }
 
-    public DataServiceCollection<Building> Buildings
-    {
-      get { throw new NotImplementedException(); }
-    }
-
     public DataServiceCollection<Consumer> Consumers
     {
       get { throw new NotImplementedException(); }
