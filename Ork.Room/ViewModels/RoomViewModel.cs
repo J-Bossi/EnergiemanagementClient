@@ -50,7 +50,7 @@ namespace Ork.RoomBook.ViewModels
       set { m_Model.Floor = value; }
     }
 
-    public long Space
+    public float? Space
     {
       get { return m_Model.Space; }
       set
@@ -60,7 +60,7 @@ namespace Ork.RoomBook.ViewModels
       }
     }
 
-    public long Height
+    public float? Height
     {
       get { return m_Model.Height; }
       set
@@ -70,19 +70,19 @@ namespace Ork.RoomBook.ViewModels
       }
     }
 
-    public string RoomInformation
-    {
-      get { return m_Model.RoomInformation; }
-      set { m_Model.RoomInformation = value; }
-    }
+    //public string RoomInformation
+    //{
+    //  get { return m_Model.RoomInformation; }
+    //  set { m_Model.RoomInformation = value; }
+    //}
 
-    public string RoomUsage
-    {
-      get { return m_Model.RoomUsage; }
-      set { m_Model.RoomUsage = value; }
-    }
+    //public string RoomUsage
+    //{
+    //  get { return m_Model.RoomUsage; }
+    //  set { m_Model.RoomUsage = value; }
+    //}
 
-    public long RoomVolume
+    public float? RoomVolume
     {
       get { return (m_Model.Space * m_Model.Height); }
     }

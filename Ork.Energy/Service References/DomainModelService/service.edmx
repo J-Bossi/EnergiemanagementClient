@@ -36,10 +36,47 @@
         <Property Name="Building" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="RoomNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Floor" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Space" Type="Edm.Int64" Nullable="false" />
-        <Property Name="Height" Type="Edm.Int64" Nullable="false" />
-        <Property Name="RoomInformation" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <Property Name="RoomUsage" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Level" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Space" Type="Edm.Single" />
+        <Property Name="Height" Type="Edm.Single" />
+        <NavigationProperty Name="RoomInformation" Relationship="OpenResKit.DomainModel.Room_RoomInformation" ToRole="Room_RoomInformation_Target" FromRole="Room_RoomInformation_Source" />
+        <NavigationProperty Name="Flooring" Relationship="OpenResKit.DomainModel.Room_Flooring" ToRole="Room_Flooring_Target" FromRole="Room_Flooring_Source" />
+        <NavigationProperty Name="CleaningInterval" Relationship="OpenResKit.DomainModel.Room_CleaningInterval" ToRole="Room_CleaningInterval_Target" FromRole="Room_CleaningInterval_Source" />
+      </EntityType>
+      <EntityType Name="RoomUsage">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Group" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Key" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Example" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="UsageGroup" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Flooring">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="FloorCovering" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Manufacturer" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Material" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Color" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Info" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="CleaningMethod" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ApprovedDetergents" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Cleaning">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="CleaningPerWeek" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="External" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Internal" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Special" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Weekdays" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Rota" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
       </EntityType>
       <EntityType Name="Distributor">
         <Key>
@@ -266,6 +303,18 @@
         <End Type="OpenResKit.DomainModel.ConsumerType" Role="Consumer_ConsumerType_Target" Multiplicity="0..1" />
         <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_ConsumerType_Source" Multiplicity="*" />
       </Association>
+      <Association Name="Room_RoomInformation">
+        <End Type="OpenResKit.DomainModel.RoomUsage" Role="Room_RoomInformation_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Room" Role="Room_RoomInformation_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Room_Flooring">
+        <End Type="OpenResKit.DomainModel.Flooring" Role="Room_Flooring_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Room" Role="Room_Flooring_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Room_CleaningInterval">
+        <End Type="OpenResKit.DomainModel.Cleaning" Role="Room_CleaningInterval_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Room" Role="Room_CleaningInterval_Source" Multiplicity="*" />
+      </Association>
       <Association Name="Distributor_Readings">
         <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Readings_Source" Multiplicity="0..1">
           <OnDelete Action="Cascade" />
@@ -392,6 +441,9 @@
         <EntitySet Name="Consumers" EntityType="OpenResKit.DomainModel.Consumer" />
         <EntitySet Name="Readings" EntityType="OpenResKit.DomainModel.Reading" />
         <EntitySet Name="Rooms" EntityType="OpenResKit.DomainModel.Room" />
+        <EntitySet Name="RoomUsages" EntityType="OpenResKit.DomainModel.RoomUsage" />
+        <EntitySet Name="Floorings" EntityType="OpenResKit.DomainModel.Flooring" />
+        <EntitySet Name="Cleanings" EntityType="OpenResKit.DomainModel.Cleaning" />
         <EntitySet Name="Distributors" EntityType="OpenResKit.DomainModel.Distributor" />
         <EntitySet Name="ConsumerGroups" EntityType="OpenResKit.DomainModel.ConsumerGroup" />
         <EntitySet Name="ConsumerTypes" EntityType="OpenResKit.DomainModel.ConsumerType" />
@@ -429,6 +481,18 @@
         <AssociationSet Name="Consumer_ConsumerType" Association="OpenResKit.DomainModel.Consumer_ConsumerType">
           <End Role="Consumer_ConsumerType_Source" EntitySet="Consumers" />
           <End Role="Consumer_ConsumerType_Target" EntitySet="ConsumerTypes" />
+        </AssociationSet>
+        <AssociationSet Name="Room_RoomInformation" Association="OpenResKit.DomainModel.Room_RoomInformation">
+          <End Role="Room_RoomInformation_Source" EntitySet="Rooms" />
+          <End Role="Room_RoomInformation_Target" EntitySet="RoomUsages" />
+        </AssociationSet>
+        <AssociationSet Name="Room_Flooring" Association="OpenResKit.DomainModel.Room_Flooring">
+          <End Role="Room_Flooring_Source" EntitySet="Rooms" />
+          <End Role="Room_Flooring_Target" EntitySet="Floorings" />
+        </AssociationSet>
+        <AssociationSet Name="Room_CleaningInterval" Association="OpenResKit.DomainModel.Room_CleaningInterval">
+          <End Role="Room_CleaningInterval_Source" EntitySet="Rooms" />
+          <End Role="Room_CleaningInterval_Target" EntitySet="Cleanings" />
         </AssociationSet>
         <AssociationSet Name="Distributor_Readings" Association="OpenResKit.DomainModel.Distributor_Readings">
           <End Role="Distributor_Readings_Source" EntitySet="Distributors" />

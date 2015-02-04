@@ -1,0 +1,62 @@
+﻿<UserControl
+  x:Class="Ork.Framework.Mahapps.Views.DialogConductorView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:converters1="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:controls1="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+
+      <converters1:NullToCollapsedConverter
+        x:Key="NullToCollapsed" />
+
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Border
+    Background="#77000000"
+    Visibility="{Binding ActiveItem, Mode=TwoWay, Converter={StaticResource NullToCollapsed}}"
+    IsHitTestVisible="True">
+
+    <ScrollViewer
+      VerticalScrollBarVisibility="Auto"
+      HorizontalScrollBarVisibility="Auto">
+      <StackPanel
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="{DynamicResource WindowBackgroundColorBrush}">
+
+        <Grid
+          Margin="18 18 18 0"
+          HorizontalAlignment="Stretch">
+
+          <TextBlock
+            x:Name="ActiveItem_DisplayName"
+            HorizontalAlignment="Left"
+            Style="{DynamicResource HeaderTextBlockStyle}"
+            Foreground="{DynamicResource TextForegroundColorBrush}" />
+
+          <!--<Button
+          VerticalAlignment="Top"
+          HorizontalAlignment="Right"
+          Style="{DynamicResource FlyoutButton}">
+
+          <Path
+            Style="{DynamicResource IconCancel}"
+            Fill="{StaticResource TextForegroundColorBrush}" />
+
+        </Button>-->
+
+        </Grid>
+
+        <controls1:CustomTransitionControl
+          x:Name="ActiveItem"
+          Margin="18"
+          HorizontalContentAlignment="Stretch"
+          VerticalContentAlignment="Stretch" />
+
+      </StackPanel>
+    </ScrollViewer>
+  </Border>
+</UserControl>
