@@ -76,16 +76,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\ContextFactory.cs" />
-    <Compile Include="Factories\IContextFactory.cs" />
     <Compile Include="IRoomRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomRepository.cs" />
-    <Compile Include="Service References\DomainModelService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.datasvcmap</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\RoomManagementViewModel.cs" />
     <Compile Include="ViewModels\RoomViewModel.cs" />
     <Compile Include="Views\RoomManagementView.xaml.cs">
@@ -93,13 +86,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Service References\DomainModelService\service.edmx" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ork.Energy.Domain\Ork.Energy.Domain.csproj">
+      <Project>{BF0D7E98-E2F2-4D80-9535-1D6C717125EA}</Project>
+      <Name>Ork.Energy.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ork.Framework\Ork.Framework.csproj">
       <Project>{d2cc3b92-c255-4756-9222-2c14db339a73}</Project>
       <Name>Ork.Framework</Name>
@@ -114,17 +107,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ServiceReferenceMetadataStorage Include="Service References\DomainModelService\">
-      <Type>datasvcmap</Type>
-    </ServiceReferenceMetadataStorage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\DomainModelService\Reference.datasvcmap">
-      <Generator>DataServicesCoreClientGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

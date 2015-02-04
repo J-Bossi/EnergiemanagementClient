@@ -5,7 +5,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Framework;
 
@@ -14,7 +14,7 @@ namespace Ork.Energy.ViewModels
     public class MeasurePrintPreviewViewModel : MeasureEditViewModel
     {
         [ImportingConstructor]
-        public MeasurePrintPreviewViewModel(DomainModelService.EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
+        public MeasurePrintPreviewViewModel(EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
      [Import] IEnergyRepository energyRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
       : base(model, removeMeasureAction, responsibleSubjectViewModels,  energyRepository, subMeasureViewModelFactory)
     {

@@ -1,15 +1,16 @@
 ﻿using Caliburn.Micro;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
 
 namespace Ork.Energy.ViewModels
 {
     public class SubMeasureViewModel : PropertyChangedBase
     {
-         private readonly DomainModelService.SubMeasure m_Model;
+         private readonly SubMeasure m_Model;
         private IResponsibleSubjectViewModelFactory m_ResponsibleSubjectViewModelFactory;
 
 
-        public SubMeasureViewModel(DomainModelService.SubMeasure submeasure, IResponsibleSubjectViewModelFactory responsibleSubjectViewModelFactory)
+        public SubMeasureViewModel(SubMeasure submeasure, IResponsibleSubjectViewModelFactory responsibleSubjectViewModelFactory)
     {
       m_Model = submeasure;
         m_ResponsibleSubjectViewModelFactory = responsibleSubjectViewModelFactory;
@@ -27,7 +28,7 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Name; }
     }
 
-    public DomainModelService.SubMeasure Model
+    public SubMeasure Model
     {
       get { return m_Model; }
     }
@@ -42,7 +43,7 @@ namespace Ork.Energy.ViewModels
         }
     }
 
-    public DomainModelService.Measure RelatedMeasure
+    public Measure RelatedMeasure
     {
         get { return m_Model.ReleatedMeasure; }
     }

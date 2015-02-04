@@ -17,7 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Client;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 
 namespace Ork.Energy.Tests
 {

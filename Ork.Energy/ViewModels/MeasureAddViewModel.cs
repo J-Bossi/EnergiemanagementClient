@@ -23,7 +23,7 @@ using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Framework;
 using Ork.Framework.Utilities;

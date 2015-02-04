@@ -16,7 +16,7 @@
 
 using System;
 using System.Data.Services.Client;
-using Ork.RoomBook.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 
 namespace Ork.RoomBook
 {

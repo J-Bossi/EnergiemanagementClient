@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {

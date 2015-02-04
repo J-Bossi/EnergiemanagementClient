@@ -22,7 +22,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Moq;
 using NUnit.Framework;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Energy.ViewModels;
 using Ork.Framework;

@@ -20,7 +20,7 @@ using System.Data.Services.Client;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Caliburn.Micro;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Framework;
 
 namespace Ork.Energy.ViewModels

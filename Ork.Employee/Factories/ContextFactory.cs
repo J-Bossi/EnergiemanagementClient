@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  
-// Copyright (c) 2015, HTW Berlin
+// Copyright (c) 2013, HTW Berlin
 
 #endregion
 
@@ -18,10 +18,10 @@ using System;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Net;
-using Ork.RoomBook.DomainModelService;
+using Ork.Employee.DomainModelService;
 using Ork.Setting;
 
-namespace Ork.Energy.Factories
+namespace Ork.Employee.Factories
 {
   public class ContextFactory : IContextFactory
   {
@@ -32,6 +32,7 @@ namespace Ork.Energy.Factories
     {
       m_SettingsProvider = settingsProvider;
     }
+
 
     [Export]
     public DomainModelContext CreateContext()

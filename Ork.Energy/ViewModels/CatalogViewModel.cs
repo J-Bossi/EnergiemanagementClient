@@ -16,7 +16,7 @@
 
 using System.Data.Services.Client;
 using System.Linq;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {

@@ -18,7 +18,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
-using Ork.RoomBook.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Setting;
 
 namespace Ork.RoomBook
@@ -54,9 +54,8 @@ namespace Ork.RoomBook
       {
         m_Context.DetachLink(link.Source, link.SourceProperty, link.Target);
       }
-      foreach (
-        var entity in
-          m_Context.Entities.Where(entity => entity.State != EntityStates.Unchanged && entity.State != EntityStates.Detached))
+      foreach (var entity in
+        m_Context.Entities.Where(entity => entity.State != EntityStates.Unchanged && entity.State != EntityStates.Detached))
       {
         m_Context.Detach(entity.Entity);
       }

@@ -15,7 +15,7 @@
 #endregion
 
 using Caliburn.Micro;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 
 namespace Ork.Energy.ViewModels
 {

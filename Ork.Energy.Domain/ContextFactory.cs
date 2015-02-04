@@ -18,7 +18,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Net;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Setting;
 
 namespace Ork.Energy.Factories

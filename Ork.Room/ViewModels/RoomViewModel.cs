@@ -14,8 +14,8 @@
 
 #endregion
 
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Framework;
-using Ork.RoomBook.DomainModelService;
 
 namespace Ork.RoomBook.ViewModels
 {

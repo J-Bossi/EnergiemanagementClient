@@ -15,7 +15,7 @@
 #endregion
 
 using System;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Framework;
 
 namespace Ork.Energy.ViewModels

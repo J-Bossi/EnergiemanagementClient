@@ -17,7 +17,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.ViewModels;
 
 namespace Ork.Energy.Factories

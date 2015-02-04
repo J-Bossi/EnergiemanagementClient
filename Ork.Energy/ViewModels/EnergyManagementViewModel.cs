@@ -21,7 +21,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Framework;
 using Action = System.Action;

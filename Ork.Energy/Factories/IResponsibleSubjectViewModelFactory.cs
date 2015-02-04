@@ -14,7 +14,7 @@
 
 #endregion
 
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.ViewModels;
 
 namespace Ork.Energy.Factories

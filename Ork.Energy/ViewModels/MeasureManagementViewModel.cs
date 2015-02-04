@@ -25,7 +25,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Caliburn.Micro;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Framework;
 using OxyPlot;
@@ -37,6 +37,13 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class MeasureManagementViewModel : DocumentBase, IWorkspace
   {
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
+    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
+    private readonly IEnergyRepository m_Repository;
     private IScreen m_EditItem;
     private bool m_FlyoutActivated;
     private bool m_IsEnabled;
@@ -51,13 +58,6 @@ namespace Ork.Energy.ViewModels
     //private bool m_DgvVisible;
     //private bool m_DgvVisibleCat;
     //private bool m_DgvVisibleEco;
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
-    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
-    private readonly IEnergyRepository m_Repository;
 
     [ImportingConstructor]
     public MeasureManagementViewModel([Import] IEnergyRepository contextRepository,
@@ -560,7 +560,7 @@ namespace Ork.Energy.ViewModels
 
       foreach (var cg in m_Repository.ConsumerGroups)
       {
-      m_ConsumerGroups.Add(CreateConsumerGroupViewModel(cg));
+        m_ConsumerGroups.Add(CreateConsumerGroupViewModel(cg));
       }
 
       NotifyOfPropertyChange(() => ConsumerGroups);

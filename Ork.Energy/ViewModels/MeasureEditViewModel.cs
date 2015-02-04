@@ -21,7 +21,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Ork.Energy.DomainModelService;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Framework;
 
@@ -33,7 +33,7 @@ namespace Ork.Energy.ViewModels
         private readonly IEnumerable m_Stati;
 
         [ImportingConstructor]
-        public MeasureEditViewModel(DomainModelService.EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
+        public MeasureEditViewModel(EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
          [Import] IEnergyRepository energyRepository, [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
             : base(model, responsibleSubjectViewModels, energyRepository, subMeasureViewModelFactory)
         {
