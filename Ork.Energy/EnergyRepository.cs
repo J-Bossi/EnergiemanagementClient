@@ -46,6 +46,7 @@ namespace Ork.Energy
     public DataServiceCollection<ResponsibleSubject> ResponsibleSubjects { get; private set; }
     public DataServiceCollection<EnergyMeasure> Measures { get; private set; }
     public DataServiceCollection<SubMeasure> SubMeasures { get; private set; }
+    public DataServiceCollection<Room> Rooms { get; private set; } 
     public bool HasConnection { get; private set; }
 
     public void Save()
@@ -90,6 +91,7 @@ namespace Ork.Energy
         LoadMeasures();
         LoadSubMeasures();
         LoadResponsibleSubjects();
+        LoadRooms();
         HasConnection = true;
       }
       catch (Exception)
@@ -116,6 +118,13 @@ namespace Ork.Energy
                            .Expand("OpenResKit.DomainModel.Consumer/ConsumerType")
                            .Expand("Readings");
       Consumers.Load(query);
+    }
+
+    private void LoadRooms()
+    {
+      Rooms = new DataServiceCollection<Room>(m_Context);
+      var query = m_Context.Rooms.Expand("RoomInformation");
+      Rooms.Load(query);
     }
 
     private void LoadMeasures()

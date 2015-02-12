@@ -58,6 +58,11 @@ namespace Ork.Energy.Tests
       get { throw new NotImplementedException(); }
     }
 
+    public DataServiceCollection<Room> Rooms
+    {
+      get { throw new NotImplementedException(); }
+    }
+
     public DataServiceCollection<SubMeasure> SubMeasures
     {
       get { throw new NotImplementedException(); }

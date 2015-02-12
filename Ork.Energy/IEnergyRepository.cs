@@ -31,9 +31,8 @@ namespace Ork.Energy
     DataServiceCollection<ConsumerType> ConsumerTypes { get; }
     DataServiceCollection<ResponsibleSubject> ResponsibleSubjects { get; }
     DataServiceCollection<EnergyMeasure> Measures { get; }
-
+    DataServiceCollection<Room> Rooms { get; }
     DataServiceCollection<SubMeasure> SubMeasures { get; }
-
     bool HasConnection { get; }
     IEnumerable<EntityDescriptor> Entities { get; }
     IEnumerable<LinkDescriptor> Links { get; }
