@@ -109,7 +109,7 @@ namespace Ork.RoomBook
     private void LoadRooms()
     {
       Rooms = new DataServiceCollection<Room>(m_Context);
-      var query = m_Context.Rooms;
+      var query = m_Context.Rooms.Expand("RoomInformation");
       Rooms.Load(query);
     }
 
