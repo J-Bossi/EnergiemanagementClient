@@ -94,13 +94,13 @@
             Text="Bereich"
             Margin="-37.6,0,-0.8,0"
             Height="16" />
-          <TextBox
-            Style="{DynamicResource EntryControl}"
-            Text="{Binding Room}"
+          <TextBlock
+
+            Text="{Binding Room, Mode=OneWay}"
             Margin="0,0,42.4,1" />
-          <TextBox
-            Style="{DynamicResource EntryControl}"
-            Text="{Binding Space}"
+          <TextBlock
+
+            Text="{Binding Building, Mode=OneWay}"
             Margin="-37.6,0,-0.8,1" />
 
 

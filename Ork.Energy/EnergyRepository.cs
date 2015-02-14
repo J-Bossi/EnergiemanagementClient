@@ -116,7 +116,9 @@ namespace Ork.Energy
       var query = m_Context.Consumers.Expand("OpenResKit.DomainModel.Consumer/ConsumerGroup")
                            .Expand("OpenResKit.DomainModel.Consumer/Distributor")
                            .Expand("OpenResKit.DomainModel.Consumer/ConsumerType")
-                           .Expand("Readings");
+                           .Expand("Readings")
+                           .Expand("Room")
+                           ;
       Consumers.Load(query);
     }
 

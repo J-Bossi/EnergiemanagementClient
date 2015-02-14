@@ -233,35 +233,26 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.DueDate.ToShortDateString(); }
     }
 
-    public string Room // Property für Raumnummer, z.B: B.EG.11
+    public string Room
     {
-      get { return m_Model.RoomNumber; }
-      set
+      get
       {
-        m_Model.RoomNumber = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
+        return m_Model.Consumer != null
+          ? m_Model.Consumer.Room.RoomNumber
+          : "Kein Raum verfügbar";
       }
     }
 
-    public string Space // Property für Bereich/Abteilung
+    public string Building
     {
-      get { return m_Model.Department; }
-      set
+      get
       {
-        m_Model.Department = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
+        return m_Model.Consumer != null
+          ? m_Model.Consumer.Room.Building
+          : "Kein Gebäude verfügbar";
       }
     }
 
-    public string House // Property für Gebäude
-    {
-      get { return m_Model.Building; }
-      set
-      {
-        m_Model.Building = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
-      }
-    }
 
     public string ConsumerUnit // Property für Verbraucher, z.B: M25
     {
@@ -282,7 +273,6 @@ namespace Ork.Energy.ViewModels
     public ICollection<Consumer> Consumers
     {
       get { return m_Repository.Consumers; }
-      
     }
 
     public string ConsumerGroupName
