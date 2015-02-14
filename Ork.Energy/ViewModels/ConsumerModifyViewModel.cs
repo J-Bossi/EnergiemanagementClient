@@ -20,7 +20,6 @@ using System.Linq;
 using Caliburn.Micro;
 using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
-using Ork.RoomBook.ViewModels;
 
 namespace Ork.Energy.ViewModels
 {
@@ -45,16 +44,16 @@ namespace Ork.Energy.ViewModels
       get { return m_Model; }
     }
 
-    public virtual Room Room
+    public Room Room
     {
       get { return m_Model.Room; }
       set { m_Model.Room = value; }
     }
 
-    public virtual IEnumerable<Room> Rooms
+    public IEnumerable<Room> Rooms
     {
       get { return m_Repository.Rooms; }
-    } 
+    }
 
     public ReadingAddViewModel ReadingAddVm { get; set; }
 
@@ -69,7 +68,7 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.ConsumerGroup; }
       set
       {
-        m_Model.ConsumerGroup = value; 
+        m_Model.ConsumerGroup = value;
         NotifyOfPropertyChange(() => AllConsumerTypes);
       }
     }

@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
 using Ork.Energy.Domain.DomainModelService;
@@ -27,10 +28,12 @@ namespace Ork.Energy.ViewModels
 
   {
     private readonly Consumer m_Model;
+    private readonly IEnergyRepository m_Repository;
 
-    public ConsumerViewModel(Consumer consumer)
+    public ConsumerViewModel(Consumer consumer, [Import] IEnergyRepository consumerRepository)
     {
       m_Model = consumer;
+      m_Repository = consumerRepository;
     }
 
     public Consumer Model
@@ -41,6 +44,11 @@ namespace Ork.Energy.ViewModels
     public virtual Room Room
     {
       get { return m_Model.Room; }
+    }
+
+    public string RoomName
+    {
+      get { return m_Model.Room.RoomNumber; }
     }
 
     public virtual Distributor Distributor

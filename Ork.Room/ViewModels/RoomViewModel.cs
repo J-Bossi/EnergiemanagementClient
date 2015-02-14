@@ -30,7 +30,12 @@ namespace Ork.RoomBook.ViewModels
 
     public RoomViewModel()
     {
-      m_Model = new Room();
+      m_Model = new Room
+      {
+        Building = "",
+
+      };
+      
     }
 
     public Room Model
@@ -71,11 +76,9 @@ namespace Ork.RoomBook.ViewModels
     {
       get
       {
-        if (m_Model.Height.Equals(null))
-        {
-          return 0;
-        }
-        return m_Model.Height;
+        return m_Model.Height.Equals(null)
+          ? 0
+          : m_Model.Height;
       }
       set
       {
@@ -86,7 +89,12 @@ namespace Ork.RoomBook.ViewModels
 
     public string RoomInformation
     {
-      get { return m_Model.RoomInformation.UsageGroup; }
+      get
+      {
+        return m_Model.RoomInformation != null
+          ? m_Model.RoomInformation.UsageGroup
+          : "";
+      }
     }
 
     public float? RoomVolume

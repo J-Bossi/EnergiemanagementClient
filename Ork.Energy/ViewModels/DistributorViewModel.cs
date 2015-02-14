@@ -55,6 +55,11 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Readings; }
     }
 
+    public ICollection<Room> Rooms
+    {
+      get { return m_Repository.Rooms; }
+    }
+
     public bool IsMainDistributor
     {
       get { return m_Model.IsMainDistributor; }
@@ -63,6 +68,11 @@ namespace Ork.Energy.ViewModels
     public Room Room
     {
       get { return m_Model.Room; }
+    }
+
+    public string RoomName
+    {
+      get { return m_Model.Room.RoomNumber; }
     }
 
     public int RelatedConsumers

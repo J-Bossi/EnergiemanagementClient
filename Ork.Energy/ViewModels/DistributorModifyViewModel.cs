@@ -25,15 +25,18 @@ namespace Ork.Energy.ViewModels
 {
   public class DistributorModifyViewModel : Screen
   {
-    private Reading m_newReading;
     private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly Distributor m_Model;
+    private readonly IEnergyRepository m_Repository;
+    private Reading m_newReading;
 
-    public DistributorModifyViewModel(Distributor model, [Import] IEnergyViewModelFactory energyViewModelFactory)
+    public DistributorModifyViewModel(Distributor model, [Import] IEnergyRepository consumerRepository,
+                                      [Import] IEnergyViewModelFactory energyViewModelFactory)
     {
       DisplayName = "Verteiler bearbeiten...";
       m_Model = model;
       m_EnergyViewModelFactory = energyViewModelFactory;
+      m_Repository = consumerRepository;
       ReadingAddVm = new ReadingAddViewModel();
     }
 
@@ -79,6 +82,11 @@ namespace Ork.Energy.ViewModels
     {
       get { return m_Model.Room; }
       set { m_Model.Room = value; }
+    }
+
+    public IEnumerable<Room> Rooms
+    {
+      get { return m_Repository.Rooms; }
     }
 
     public void AddNewReading(object dataContext)

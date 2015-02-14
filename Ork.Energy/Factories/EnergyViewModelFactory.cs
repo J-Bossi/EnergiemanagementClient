@@ -41,7 +41,7 @@ namespace Ork.Energy.Factories
 
     public ConsumerViewModel CreateFromExisting(Consumer consumer)
     {
-      return new ConsumerViewModel(consumer);
+      return new ConsumerViewModel(consumer, m_ConsumerRepository);
     }
 
     public DistributorViewModel CreateFromExisting(Distributor distributor)
@@ -71,7 +71,7 @@ namespace Ork.Energy.Factories
 
     public DistributorModifyViewModel CreateDistributorModifyVM(Distributor distributor)
     {
-      return new DistributorModifyViewModel(distributor, this);
+      return new DistributorModifyViewModel(distributor, m_ConsumerRepository, this);
     }
 
     public ReadingAddViewModel CreateReadingModifyViewModel()
