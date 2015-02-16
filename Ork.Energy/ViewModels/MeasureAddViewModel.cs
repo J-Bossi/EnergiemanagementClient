@@ -126,11 +126,6 @@ namespace Ork.Energy.ViewModels
     //}
 
 
-    public bool CanMeasureAdd
-    {
-      get { return !(m_Model.Name == "" | m_Model.Description == "" | m_Model.ResponsibleSubject == null); }
-    }
-
     public IEnumerable<SubMeasureViewModel> SubMeasures
     {
       get
@@ -146,7 +141,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.Name = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -212,7 +206,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.Description = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -253,7 +246,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.ConsumerUnit = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -286,7 +278,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.Parameter = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -296,7 +287,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.Meter = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -306,7 +296,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.Investment = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -316,7 +305,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.SavedMoneyShould = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -326,7 +314,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.SavedMoneyIs = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -336,7 +323,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.SavedWattIs = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -346,7 +332,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.SavedWattShould = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -356,7 +341,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.SavedMoneyAtm = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -366,7 +350,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.SavedWattAtm = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -378,7 +361,6 @@ namespace Ork.Energy.ViewModels
     //    set
     //    {
     //        m_Model.PaybackTime = value;
-    //        NotifyOfPropertyChange(() => CanMeasureAdd);
     //    }
     //}
 
@@ -388,7 +370,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.FailureMoney = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -398,7 +379,6 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.Reference = value;
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -446,7 +426,6 @@ namespace Ork.Energy.ViewModels
         m_SelectedResponsibleSubject = value;
         m_Model.ResponsibleSubject = value.Model;
         NotifyOfPropertyChange(() => m_Model.ResponsibleSubject);
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 
@@ -561,7 +540,6 @@ namespace Ork.Energy.ViewModels
     {
       if (e.PropertyName == "IsSelected")
       {
-        NotifyOfPropertyChange(() => CanMeasureAdd);
       }
     }
 

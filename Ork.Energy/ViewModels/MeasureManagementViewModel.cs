@@ -31,19 +31,13 @@ using Ork.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+using MessageBoxOptions = Ork.Framework.MessageBoxOptions;
 
 namespace Ork.Energy.ViewModels
 {
   [Export(typeof (IWorkspace))]
   public class MeasureManagementViewModel : DocumentBase, IWorkspace
   {
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
-    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
-    private readonly IEnergyRepository m_Repository;
     private IScreen m_EditItem;
     private bool m_FlyoutActivated;
     private bool m_IsEnabled;
@@ -55,6 +49,14 @@ namespace Ork.Energy.ViewModels
     private string m_SearchTextMeasures;
     private ConsumerGroupViewModel m_SelectedConsumerGroup;
     private MeasureViewModel m_SelectedMeasure;
+
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
+    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
+    private readonly IEnergyRepository m_Repository;
     //private bool m_DgvVisible;
     //private bool m_DgvVisibleCat;
     //private bool m_DgvVisibleEco;
@@ -259,7 +261,6 @@ namespace Ork.Energy.ViewModels
 
     public bool CanAdd
     {
-      // TODO: Zuordnung einer Maßnahme zu einem Verbraucher muss sichergestellt werden... oder nicht?
       get { return true; }
     }
 
@@ -403,15 +404,23 @@ namespace Ork.Energy.ViewModels
     public void AddMeasure(object dataContext)
     {
       var measureAddViewModel = ((MeasureAddViewModel) dataContext);
+      if (measureAddViewModel.SelectedResponsibleSubject == null)
+      {
+        Dialogs.ShowMessageBox("Bitte einen Verantwortlichen auswählen.", "Fehler", MessageBoxOptions.Ok,
+          box => OpenEditor(measureAddViewModel));
+      }
+      else
+      {
+        CreateMeasureViewModel(measureAddViewModel.Model);
 
-      CreateMeasureViewModel(measureAddViewModel.Model);
-      Save();
+        Save();
 
-      NotifyOfPropertyChange(() => AllMeasures);
-      NotifyOfPropertyChange(() => Measures);
-      NotifyOfPropertyChange(() => PlotModel);
-      NotifyOfPropertyChange(() => EcoPlotModel);
-      NotifyOfPropertyChange(() => EcoPlotModel2);
+        NotifyOfPropertyChange(() => AllMeasures);
+        NotifyOfPropertyChange(() => Measures);
+        NotifyOfPropertyChange(() => PlotModel);
+        NotifyOfPropertyChange(() => EcoPlotModel);
+        NotifyOfPropertyChange(() => EcoPlotModel2);
+      }
     }
 
     private void Save()
@@ -547,7 +556,6 @@ namespace Ork.Energy.ViewModels
       LoadConsumerGroups();
       LoadMeasures();
     }
-
 
     private void CGPropertyshavechanged(object sender, PropertyChangedEventArgs e)
     {

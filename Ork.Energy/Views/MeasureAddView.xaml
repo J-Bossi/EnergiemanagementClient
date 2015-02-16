@@ -25,8 +25,7 @@
         HorizontalAlignment="Left">
         <Button
           cal:Message.Attach="AddMeasure($dataContext)"
-          Content="Maßnahme jetzt hinzufügen"
-          IsEnabled="{Binding CanMeasureAdd}" />
+          Content="Maßnahme jetzt hinzufügen"/>
         <Button
           cal:Message.Attach="Cancel"
           Content="{lex:Loc Abort}"

@@ -97,7 +97,6 @@ namespace Ork.Energy.ViewModels
             set
             {
                 Model.EntryDate = value.Value;
-                NotifyOfPropertyChange(() => CanMeasureAdd);
             }
         }
 
