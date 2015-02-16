@@ -30,7 +30,6 @@
           Text="{Binding Name}"
           TextTrimming="CharacterEllipsis"
           FontWeight="Bold"
-         
           Margin="0 0 0 3">
           <TextBlock.Style>
             <Style>
@@ -47,7 +46,7 @@
                   Value="False">
                   <Setter
                     Property="TextBlock.FontSize"
-                    Value="12" />
+                    Value="14" />
                 </DataTrigger>
               </Style.Triggers>
             </Style>
