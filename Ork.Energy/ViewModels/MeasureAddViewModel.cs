@@ -252,7 +252,13 @@ namespace Ork.Energy.ViewModels
     public Consumer Consumer
     {
       get { return m_Model.Consumer; }
-      set { m_Model.Consumer = value; }
+      set
+      {
+        m_Model.Consumer = value; 
+        NotifyOfPropertyChange(() => Room);
+        NotifyOfPropertyChange(() => Building);
+        NotifyOfPropertyChange(() => ConsumerGroupName);
+      }
     }
 
     public ICollection<Consumer> Consumers
