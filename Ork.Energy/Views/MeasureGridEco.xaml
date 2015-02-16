@@ -145,8 +145,9 @@
 
                 <toolkit:DataGridTextColumn
                         Header="Betrachteter Verbraucher"
-                        Binding="{Binding ConsumerUnit, Mode=OneWay}"
-                        Width="45*" >
+                        Binding="{Binding ConsumerName, Mode=OneWay}"
+                        Width="45*" 
+                  >
                     
                 </toolkit:DataGridTextColumn>
 

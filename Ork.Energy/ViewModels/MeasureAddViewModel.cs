@@ -32,22 +32,18 @@ namespace Ork.Energy.ViewModels
 {
   public class MeasureAddViewModel : DocumentBase
   {
-    private readonly EnergyMeasure m_Model;
-    private readonly IEnumerable m_Priorities;
-
-    private readonly IEnergyRepository m_Repository;
-
-    private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
-    private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
-    private readonly IEnumerable<SubMeasureViewModel> m_SubMeasureViewModels;
     private string _newSubMeasureName;
     private ResponsibleSubjectViewModel _newSubMeasureResponsibleSubject;
-
-
     private IEnumerable<Catalog> m_Catalogs;
     private string m_ResponsibleSubjectSearchText = string.Empty;
     private Catalog m_SelectedCatalog;
     private ResponsibleSubjectViewModel m_SelectedResponsibleSubject;
+    private readonly EnergyMeasure m_Model;
+    private readonly IEnumerable m_Priorities;
+    private readonly IEnergyRepository m_Repository;
+    private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
+    private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
+    private readonly IEnumerable<SubMeasureViewModel> m_SubMeasureViewModels;
 
     [ImportingConstructor]
     public MeasureAddViewModel(EnergyMeasure model, IEnumerable<ResponsibleSubjectViewModel> responsibleSubjectViewModels,
@@ -67,7 +63,6 @@ namespace Ork.Energy.ViewModels
       m_Repository = energyRepository;
       m_SubMeasureViewModelFactory = subMeasureViewModelFactory;
     }
-
 
     public IEnumerable<ResponsibleSubjectViewModel> AllResponsibleSubjects
     {
@@ -155,7 +150,6 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-
     public MeasureImageSource MeasureImageSource
     {
       get { return m_Model.MeasureImageSource; }
@@ -237,7 +231,7 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        return m_Model.Consumer != null
+        return m_Model.Consumer != null && m_Model.Consumer.Room != null
           ? m_Model.Consumer.Room.RoomNumber
           : "Kein Raum verfügbar";
       }
@@ -247,12 +241,11 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        return m_Model.Consumer != null
+        return m_Model.Consumer != null && m_Model.Consumer.Room != null
           ? m_Model.Consumer.Room.Building
           : "Kein Gebäude verfügbar";
       }
     }
-
 
     public string ConsumerUnit // Property für Verbraucher, z.B: M25
     {
@@ -377,7 +370,6 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-
     // Rechnung nun korrekt -> Automatische Werterscheinung, nachdem "nötige Investition" und "Wert der Einsparung" eingegeben sind
     // Dennoch Korrekturbedarf!
     //public double Amortisationtime // Property für Amortisationszeit
@@ -420,7 +412,6 @@ namespace Ork.Energy.ViewModels
     {
       get { return TranslationProvider.Translate(((Priority) Priority).ToString()); }
     }
-
 
     public IEnumerable Priorities
     {
@@ -559,7 +550,6 @@ namespace Ork.Energy.ViewModels
 
       Process.Start(Path.GetTempPath() + context.Name);
     }
-
 
     public void DeleteDocument(Document context)
     {

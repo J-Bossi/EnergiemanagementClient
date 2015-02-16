@@ -212,7 +212,12 @@ namespace Ork.Energy.ViewModels
 
     public string ConsumerName
     {
-      get { return m_Model.Consumer.Name; }
+      get
+      {
+        return m_Model.Consumer != null
+          ? m_Model.Consumer.Name
+          : "";
+      }
     }
 
     public string DueDateIsDelayed
