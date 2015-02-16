@@ -412,7 +412,7 @@ namespace Ork.Energy.ViewModels
       else
       {
         CreateMeasureViewModel(measureAddViewModel.Model);
-
+        m_Repository.Measures.Add(measureAddViewModel.Model);
         Save();
 
         NotifyOfPropertyChange(() => AllMeasures);
