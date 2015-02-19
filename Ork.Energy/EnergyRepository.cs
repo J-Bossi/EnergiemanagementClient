@@ -117,8 +117,7 @@ namespace Ork.Energy
                            .Expand("OpenResKit.DomainModel.Consumer/Distributor")
                            .Expand("OpenResKit.DomainModel.Consumer/ConsumerType")
                            .Expand("Readings")
-                           .Expand("Room")
-                           ;
+                           .Expand("Room");
       Consumers.Load(query);
     }
 
@@ -135,8 +134,9 @@ namespace Ork.Energy
       var query = m_Context.Measures.Expand("ResponsibleSubject")
                            .Expand("AttachedDocuments/DocumentSource")
                            .Expand("MeasureImageSource")
-                           .Expand("Room")
                            .Expand("Consumer")
+                           .Expand("ConsumptionActual")
+                           .Expand("ConsumptionNormative")
                            .OfType<EnergyMeasure>();
       Measures.Load(query);
     }

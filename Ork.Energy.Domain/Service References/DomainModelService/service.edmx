@@ -173,7 +173,6 @@
       <EntityType Name="EnergyMeasure" BaseType="OpenResKit.DomainModel.Measure">
         <Property Name="RoomNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Department" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <Property Name="Building" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="ConsumerUnit" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Parameter" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Meter" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -184,12 +183,11 @@
         <Property Name="SavedWattAtm" Type="Edm.Double" Nullable="false" />
         <Property Name="SavedWattShould" Type="Edm.Double" Nullable="false" />
         <Property Name="SavedWattIs" Type="Edm.Double" Nullable="false" />
-        <Property Name="SavedCo2" Type="Edm.Double" Nullable="false" />
-        <Property Name="PaybackTime" Type="Edm.Double" Nullable="false" />
         <Property Name="FailureMoney" Type="Edm.Double" Nullable="false" />
-        <Property Name="ElectricityCosts" Type="Edm.Double" Nullable="false" />
         <Property Name="Reference" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="Consumer" Relationship="OpenResKit.DomainModel.EnergyMeasure_Consumer" ToRole="EnergyMeasure_Consumer_Target" FromRole="EnergyMeasure_Consumer_Source" />
+        <NavigationProperty Name="ConsumptionActual" Relationship="OpenResKit.DomainModel.EnergyMeasure_ConsumptionActual" ToRole="EnergyMeasure_ConsumptionActual_Target" FromRole="EnergyMeasure_ConsumptionActual_Source" />
+        <NavigationProperty Name="ConsumptionNormative" Relationship="OpenResKit.DomainModel.EnergyMeasure_ConsumptionNormative" ToRole="EnergyMeasure_ConsumptionNormative_Target" FromRole="EnergyMeasure_ConsumptionNormative_Source" />
         <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.EnergyMeasure_Room" ToRole="EnergyMeasure_Room_Target" FromRole="EnergyMeasure_Room_Source" />
       </EntityType>
       <EntityType Name="Catalog">
@@ -369,6 +367,14 @@
         <End Type="OpenResKit.DomainModel.Consumer" Role="EnergyMeasure_Consumer_Target" Multiplicity="0..1" />
         <End Type="OpenResKit.DomainModel.EnergyMeasure" Role="EnergyMeasure_Consumer_Source" Multiplicity="*" />
       </Association>
+      <Association Name="EnergyMeasure_ConsumptionActual">
+        <End Type="OpenResKit.DomainModel.Reading" Role="EnergyMeasure_ConsumptionActual_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.EnergyMeasure" Role="EnergyMeasure_ConsumptionActual_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="EnergyMeasure_ConsumptionNormative">
+        <End Type="OpenResKit.DomainModel.Reading" Role="EnergyMeasure_ConsumptionNormative_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.EnergyMeasure" Role="EnergyMeasure_ConsumptionNormative_Source" Multiplicity="*" />
+      </Association>
       <Association Name="EnergyMeasure_Room">
         <End Type="OpenResKit.DomainModel.EnergyMeasure" Role="EnergyMeasure_Room_Source" Multiplicity="*" />
         <End Type="OpenResKit.DomainModel.Room" Role="EnergyMeasure_Room_Target" Multiplicity="0..1" />
@@ -525,6 +531,14 @@
         <AssociationSet Name="EnergyMeasure_Consumer" Association="OpenResKit.DomainModel.EnergyMeasure_Consumer">
           <End Role="EnergyMeasure_Consumer_Source" EntitySet="Measures" />
           <End Role="EnergyMeasure_Consumer_Target" EntitySet="Consumers" />
+        </AssociationSet>
+        <AssociationSet Name="EnergyMeasure_ConsumptionActual" Association="OpenResKit.DomainModel.EnergyMeasure_ConsumptionActual">
+          <End Role="EnergyMeasure_ConsumptionActual_Source" EntitySet="Measures" />
+          <End Role="EnergyMeasure_ConsumptionActual_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="EnergyMeasure_ConsumptionNormative" Association="OpenResKit.DomainModel.EnergyMeasure_ConsumptionNormative">
+          <End Role="EnergyMeasure_ConsumptionNormative_Source" EntitySet="Measures" />
+          <End Role="EnergyMeasure_ConsumptionNormative_Target" EntitySet="Readings" />
         </AssociationSet>
         <AssociationSet Name="EnergyMeasure_Room" Association="OpenResKit.DomainModel.EnergyMeasure_Room">
           <End Role="EnergyMeasure_Room_Source" EntitySet="Measures" />

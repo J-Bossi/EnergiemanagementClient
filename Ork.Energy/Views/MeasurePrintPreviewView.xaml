@@ -98,11 +98,11 @@
                 Height="16" />
               <TextBox
                 Style="{DynamicResource EntryPrintControl}"
-                Text="{Binding Room}"
+                Text="{Binding Room , Mode=OneWay}"
                 Margin="0,0,42.4,1" />
               <TextBox
                 Style="{DynamicResource EntryPrintControl}"
-                Text="{Binding Space}"
+                Text="{Binding Building , Mode=OneWay}"
                 Margin="-37.6,0,-0.8,1" />
 
 
