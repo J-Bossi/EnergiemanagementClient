@@ -25,6 +25,7 @@ using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Framework;
 using Action = System.Action;
+using MessageBoxOptions = Ork.Framework.MessageBoxOptions;
 
 namespace Ork.Energy.ViewModels
 {
@@ -490,11 +491,28 @@ namespace Ork.Energy.ViewModels
 
     public void Save(object dataContext)
     {
+      if (dataContext.GetType() == typeof (ConsumerModifyViewModel) &&
+          AlreadyExistsInRepository(((ConsumerModifyViewModel)dataContext).Model))
+      {
+        Dialogs.ShowMessageBox("Dieser Verbraucher existiert bereits in der Datenbank.", "Fehler", MessageBoxOptions.Ok,
+  box => OpenEditor(dataContext));
+      }
+      else {
+
       CloseEditor();
+
       m_Repository.Save();
       NotifyOfPropertyChange(() => Consumers);
       NotifyOfPropertyChange(() => ConsumerGroups);
       NotifyOfPropertyChange(() => Distributors);
+      }
+    }
+
+    private bool AlreadyExistsInRepository(Consumer consumer)
+    {
+      return
+        m_Repository.Consumers.Any(
+          c => c.Name == consumer.Name && c.ConsumerGroup == consumer.ConsumerGroup && c.Distributor == consumer.Distributor && c != consumer);
     }
 
     public void Cancel(object dataContext)
@@ -535,7 +553,6 @@ namespace Ork.Energy.ViewModels
         Console.WriteLine(ex);
       }
 
-      // UpdateView();
       NotifyOfPropertyChange(() => Consumers);
       NotifyOfPropertyChange(() => ConsumerGroups);
       NotifyOfPropertyChange(() => Distributors);
