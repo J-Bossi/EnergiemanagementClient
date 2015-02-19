@@ -15,7 +15,7 @@
       AutoGenerateColumns="False">
       <DataGrid.Columns>
         <DataGridTemplateColumn
-          Header="Ablesedatum">
+          Header="Auswertungsdatum">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <TextBlock
