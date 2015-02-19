@@ -27,8 +27,8 @@ namespace Ork.RoomBook.ViewModels
   public class RoomManagementViewModel : DocumentBase, IWorkspace
   {
     private readonly IRoomRepository m_Repository;
+    private readonly BindableCollection<RoomViewModel> m_Rooms = new BindableCollection<RoomViewModel>();
     private bool m_IsEnabled;
-    private BindableCollection<RoomViewModel> m_Rooms = new BindableCollection<RoomViewModel>();
 
     [ImportingConstructor]
     public RoomManagementViewModel([Import] IRoomRepository mRepository, [Import] IDialogManager dialogs)
@@ -36,7 +36,7 @@ namespace Ork.RoomBook.ViewModels
       Dialogs = dialogs;
       m_Repository = mRepository;
       m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
-      
+
       Reload();
       m_Rooms.CollectionChanged += RoomsOnCollectionChanged;
     }
@@ -133,9 +133,11 @@ namespace Ork.RoomBook.ViewModels
 
     public void DeleteRoom(object dataContext)
     {
-      m_Rooms.Remove((RoomViewModel) dataContext);
-
-      NotifyOfPropertyChange(() => Rooms);
+      if (dataContext.GetType() == typeof (RoomViewModel))
+      {
+        m_Rooms.Remove((RoomViewModel) dataContext);
+        NotifyOfPropertyChange(() => Rooms);
+      }
     }
 
     public void Save(object dataContext)
