@@ -55,23 +55,14 @@
         </MultiBinding>
       </Grid.Margin>
 
-      <AdornerDecorator
-        Grid.Row="0"
+      <TextBox
+          Grid.Row="0"
+          Margin="10 10 0 0"
         HorizontalAlignment="Left"
-        Width="300"
-        Margin="10 10 0 0">
-        <xctk:AutoSelectTextBox
-          Style="{DynamicResource EntryControl}"
-          Text="{Binding SearchTextMeasures, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
-          <global:WatermarkService.Watermark>
+          Text="{Binding SearchTextMeasures, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}"
+          controls:TextBoxHelper.Watermark="Filtere Mitarbeiter"
+          Style="{DynamicResource SearchMetroTextBox}" />
 
-            <TextBlock
-              Text="{lex:Loc Ork.Energy:Translate:FilterResponsible}"
-              Foreground="{DynamicResource TextForegroundColorBrush}" />
-
-          </global:WatermarkService.Watermark>
-        </xctk:AutoSelectTextBox>
-      </AdornerDecorator>
 
       <TabControl
         Grid.Row="1"
