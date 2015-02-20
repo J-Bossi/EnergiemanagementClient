@@ -9,6 +9,7 @@
   xmlns:controls1="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
   xmlns:converters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
   xmlns:cal="http://www.caliburnproject.org"
+  xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
   lex:LocalizeDictionary.DesignCulture="de"
   lex:ResxLocalizationProvider.DefaultAssembly="Ork.Energy"
   lex:ResxLocalizationProvider.DefaultDictionary="Translate"
@@ -97,8 +98,10 @@
         <Grid
           Margin="0 0 0 3">
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition
+              Width="*" />
+            <ColumnDefinition
+              Width="*" />
           </Grid.ColumnDefinitions>
           <StackPanel
             Grid.Column="0"
@@ -132,10 +135,13 @@
 
         <Grid>
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition
+              Width="*" />
+            <ColumnDefinition
+              Width="*" />
           </Grid.ColumnDefinitions>
-          <StackPanel Grid.Column="0"
+          <StackPanel
+            Grid.Column="0"
             Margin=" 0 0 10 0">
             <TextBlock
               Margin="0 0 0 3"
@@ -152,7 +158,8 @@
               Margin="0 0 0 3"
               ToolTip="Ausfallkosten die während der Durchführung der Maßnahme entstehen" />
           </StackPanel>
-          <StackPanel Grid.Column="1">
+          <StackPanel
+            Grid.Column="1">
             <TextBlock
               Margin="0 0 0 3"
               Text="Aktueller Verbrauchswert in Euro/Jahr" />
@@ -274,7 +281,8 @@
 
       <StackPanel
         Grid.Column="1"
-        Margin="10 0 0 0">
+        Margin="10 0 0 0"
+        Orientation="Vertical">
 
 
         <TextBlock
@@ -377,104 +385,83 @@
           Width="122" />
 
 
-        <StackPanel
-          Orientation="Horizontal"
-          Margin="0,5,0,0">
-          <TextBlock
-            Style="{DynamicResource LabelControl}"
-            Text="Name der neuen Untermaßnahme" />
-          <TextBlock
-            Style="{DynamicResource LabelControl}"
-            Text="Verantwortlicher"
-            HorizontalAlignment="Left" />
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition
+              Width="*" />
+            <ColumnDefinition
+              Width="*" />
+          </Grid.ColumnDefinitions>
+          <StackPanel
+            Grid.Column="0"
+            Margin="0 0 0 10">
+            <TextBlock
+              Text="Name der Untermaßnahme" />
+            <TextBox
+              TextWrapping="Wrap"
+              AcceptsReturn="True"
+              Text="{Binding NewSubMeasureName}" />
+          </StackPanel>
+          <StackPanel
+            Grid.Column="1">
+            <TextBlock
+              Text="Verantwortlicher" />
+            <ComboBox
+              ItemsSource="{Binding AllResponsibleSubjects}"
+              SelectedItem="{Binding NewSubMeasureResponsibleSubject}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock
+                    Text="{Binding Infotext}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+        </Grid>
+        <Button
+          Content="Hinzufügen"
+          Style="{DynamicResource SmallButton}"
+          IsEnabled="{Binding SubMeasureAddAllowed}"
+          cal:Message.Attach="AddSubMeasure"
+          Height="20"
+          Width="83"
+          Margin="20,0,0,1" />
 
-        </StackPanel>
-
-
-        <UniformGrid
-          Columns="2"
-          Rows="1">
-          <TextBlock
-            Style="{DynamicResource LabelControl}"
-            Text="Untermaßnahmen" />
-          <TextBlock
-            Style="{DynamicResource LabelControl}"
-            Text="Erledigt" />
-        </UniformGrid>
-
-        <ListBox
+        <DataGrid
           ItemsSource="{Binding SubMeasures}"
-          Style="{DynamicResource FlyoutListBoxStyle}">
+          AutoGenerateColumns="False">
+          <DataGrid.Columns>
+            <DataGridTextColumn
+              Header="Name"
+              Binding="{Binding Name}" />
+            <DataGridComboBoxColumn
+              Header="Verantwortlich"
+              SelectedItemBinding="{Binding ResponsibleSubject}"
+              DisplayMemberPath="Infotext"
+              ItemsSource="{Binding AllResponsibleSubjects}" />
+            <DataGridCheckBoxColumn
+              Header="Abgeschlossen"
+              Binding="{Binding IsCompleted}" />
 
-          <ListBox.ItemTemplate>
-            <DataTemplate>
-              <StackPanel
-                Orientation="Horizontal">
-                <TextBlock
-                  Text="{Binding Name}"
-                  TextWrapping="Wrap"
-                  Width="280"
-                  Margin="0,5,5,5" />
-                <TextBlock
-                  Text="{Binding ResponsibleSubjectViewModel.Infotext}"
-                  TextWrapping="Wrap"
-                  Width="120"
-                  Height="20"
-                  Margin="0,5,5,5"
-                  HorizontalAlignment="Stretch" />
-                <CheckBox
-                  IsChecked="{Binding IsCompleted, Mode=TwoWay}"
-                  Height="20"
-                  Margin="0,5,5,5"
-                  HorizontalAlignment="Stretch"
-                  ToolTip="Erledigt / nicht erledigt" />
-                <Button
-                  Style="{DynamicResource SmallButton}"
-                  Content="Löschen"
-                  cal:Message.Attach="RemoveSubMeasure($datacontext)"
-                  Height="20"
-                  Margin="0,5"
-                  HorizontalAlignment="Stretch" />
 
-              </StackPanel>
-            </DataTemplate>
-          </ListBox.ItemTemplate>
-        </ListBox>
-        <StackPanel
-          Orientation="Horizontal">
-          <TextBox
-            Width="250"
-            TextWrapping="Wrap"
-            AcceptsReturn="True"
-            VerticalScrollBarVisibility="Visible"
-            Style="{DynamicResource EntryControl}"
-            Text="{Binding NewSubMeasureName}"
-            Height="40"
-            Margin="0,0,5,1" />
-          <ComboBox
-            Style="{DynamicResource ComboBoxStyle}"
-            ItemsSource="{Binding AllResponsibleSubjects}"
-            SelectedItem="{Binding NewSubMeasureResponsibleSubject}"
-            Height="20"
-            Width="135"
-            Margin="0,0,0,1">
-            <ComboBox.ItemTemplate>
-              <DataTemplate>
-                <TextBlock
-                  Text="{Binding Infotext}" />
-              </DataTemplate>
-            </ComboBox.ItemTemplate>
-          </ComboBox>
-          <Button
-            Content="Hinzufügen"
-            Style="{DynamicResource SmallButton}"
-            IsEnabled="{Binding SubMeasureAddAllowed}"
-            cal:Message.Attach="AddSubMeasure"
-            Height="20"
-            Width="83"
-            Margin="20,0,0,1" />
+            <DataGridTemplateColumn>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock
+                    Margin="0 1 0 0"
+                    FontFamily="Marlett"
+                    Text="r"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Stretch"
+                    cal:Message.Attach="[Event MouseLeftButtonDown]=[Action RemoveSubMeasure($dataContext)]" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
 
-        </StackPanel>
+          </DataGrid.Columns>
+        </DataGrid>
+
+
       </StackPanel>
 
 

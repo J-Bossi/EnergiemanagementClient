@@ -23,6 +23,7 @@ using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using Caliburn.Micro;
 using Ork.Energy.Domain.DomainModelService;
 using Ork.Energy.Factories;
 using Ork.Framework;
@@ -43,7 +44,7 @@ namespace Ork.Energy.ViewModels
     private readonly IEnergyRepository m_Repository;
     private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
     private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
-    private readonly IEnumerable<SubMeasureViewModel> m_SubMeasureViewModels;
+    private readonly IList<SubMeasureViewModel> m_SubMeasureViewModels;
 
     [ImportingConstructor]
     public MeasureAddViewModel(EnergyMeasure model, IEnumerable<ResponsibleSubjectViewModel> responsibleSubjectViewModels,
@@ -62,6 +63,8 @@ namespace Ork.Energy.ViewModels
 
       m_Repository = energyRepository;
       m_SubMeasureViewModelFactory = subMeasureViewModelFactory;
+      m_SubMeasureViewModels = m_Repository.SubMeasures.Where(smvm => smvm.ReleatedMeasure == m_Model)
+                                                                .Select(m_SubMeasureViewModelFactory.CreateFromExisting).ToList();
     }
 
     public IEnumerable<ResponsibleSubjectViewModel> AllResponsibleSubjects
@@ -126,12 +129,12 @@ namespace Ork.Energy.ViewModels
     //}
 
 
-    public IEnumerable<SubMeasureViewModel> SubMeasures
+    public IList<SubMeasureViewModel> SubMeasures
     {
       get
       {
-        return m_Repository.SubMeasures.Where(smvm => smvm.ReleatedMeasure == m_Model)
-                           .Select(m_SubMeasureViewModelFactory.CreateFromExisting);
+        return m_SubMeasureViewModels;
+
       }
     }
 
