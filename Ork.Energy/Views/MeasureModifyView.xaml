@@ -34,7 +34,8 @@
 
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition />
+      <ColumnDefinition
+        Width="400" />
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
 
@@ -229,14 +230,8 @@
                 Text="Verantwortlicher" />
               <ComboBox
                 ItemsSource="{Binding AllResponsibleSubjects}"
-                SelectedItem="{Binding NewSubMeasureResponsibleSubject}">
-                <ComboBox.ItemTemplate>
-                  <DataTemplate>
-                    <TextBlock
-                      Text="{Binding Infotext}" />
-                  </DataTemplate>
-                </ComboBox.ItemTemplate>
-              </ComboBox>
+                SelectedItem="{Binding NewSubMeasureResponsibleSubject}"
+                DisplayMemberPath="Infotext" />
             </StackPanel>
             <Button
               Grid.Column="1"
@@ -271,11 +266,9 @@
             <DataGridTextColumn
               Header="Name"
               Binding="{Binding Name}" />
-            <DataGridComboBoxColumn
+            <DataGridTextColumn
               Header="Verantwortlich"
-              SelectedItemBinding="{Binding ResponsibleSubject}"
-              DisplayMemberPath="Infotext"
-              ItemsSource="{Binding AllResponsibleSubjects}" />
+              Binding="{Binding ResponsibleSubject.Infotext, Mode=OneWay}" />
             <DataGridCheckBoxColumn
               Header="Abgeschlossen"
               Binding="{Binding IsCompleted}" />
