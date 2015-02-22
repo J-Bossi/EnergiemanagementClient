@@ -17,6 +17,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
@@ -44,7 +46,7 @@ namespace Ork.Energy.ViewModels
     private readonly IEnergyRepository m_Repository;
     private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
     private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
-    private readonly IList<SubMeasureViewModel> m_SubMeasureViewModels;
+    private BindableCollection<SubMeasureViewModel> m_SubMeasureViewModels = new BindableCollection<SubMeasureViewModel>();
 
     [ImportingConstructor]
     public MeasureAddViewModel(EnergyMeasure model, IEnumerable<ResponsibleSubjectViewModel> responsibleSubjectViewModels,
@@ -63,8 +65,18 @@ namespace Ork.Energy.ViewModels
 
       m_Repository = energyRepository;
       m_SubMeasureViewModelFactory = subMeasureViewModelFactory;
-      m_SubMeasureViewModels = m_Repository.SubMeasures.Where(smvm => smvm.ReleatedMeasure == m_Model)
-                                                                .Select(m_SubMeasureViewModelFactory.CreateFromExisting).ToList();
+
+      LoadSubMeasures();
+      m_SubMeasureViewModels.CollectionChanged += SubMeasuresOnCollectionChanged;
+
+    }
+
+    private void LoadSubMeasures()
+    {
+      foreach (var subMeasure in m_Repository.SubMeasures.Where(smvm => smvm.ReleatedMeasure == m_Model))
+      {
+        m_SubMeasureViewModels.Add(m_SubMeasureViewModelFactory.CreateFromExisting(subMeasure));
+      }
     }
 
     public IEnumerable<ResponsibleSubjectViewModel> AllResponsibleSubjects
@@ -129,7 +141,7 @@ namespace Ork.Energy.ViewModels
     //}
 
 
-    public IList<SubMeasureViewModel> SubMeasures
+    public IObservableCollection<SubMeasureViewModel> SubMeasures
     {
       get
       {
@@ -460,15 +472,9 @@ namespace Ork.Energy.ViewModels
       var subMeasure = dataContext as SubMeasureViewModel;
       if (subMeasure != null)
       {
-        m_Repository.SubMeasures.Remove(subMeasure.Model);
+        m_SubMeasureViewModels.Remove(subMeasure);
       }
       NotifyOfPropertyChange(() => SubMeasures);
-    }
-
-    private SubMeasureViewModel[] CreateSubMeasures()
-    {
-      return
-        Enumerable.ToArray<SubMeasureViewModel>(m_Repository.SubMeasures.Select(m_SubMeasureViewModelFactory.CreateFromExisting));
     }
 
     public void AddSubMeasure()
@@ -479,9 +485,33 @@ namespace Ork.Energy.ViewModels
         Name = NewSubMeasureName,
         ResponsibleSubject = NewSubMeasureResponsibleSubject.Model
       };
-      m_Repository.SubMeasures.Add(subMeasure);
-      m_Repository.Save();
+      m_SubMeasureViewModels.Add(m_SubMeasureViewModelFactory.CreateFromExisting(subMeasure));
+
       NotifyOfPropertyChange(() => SubMeasures);
+    }
+
+    private void SubMeasuresOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
+    {
+      switch (eventArgs.Action)
+      {
+        case NotifyCollectionChangedAction.Add:
+          foreach (var sm in eventArgs.NewItems.OfType<SubMeasureViewModel>())
+          {
+            if (m_Repository.SubMeasures.Contains(sm.Model)) { }
+            else
+            {
+              m_Repository.SubMeasures.Add(sm.Model);
+            }
+          }
+          break;
+        case NotifyCollectionChangedAction.Remove:
+          foreach (var oldsm in
+            eventArgs.OldItems.OfType<SubMeasureViewModel>())
+          {
+            m_Repository.SubMeasures.Remove(oldsm.Model);
+          }
+          break;
+      }
     }
 
     public void SetImage()
