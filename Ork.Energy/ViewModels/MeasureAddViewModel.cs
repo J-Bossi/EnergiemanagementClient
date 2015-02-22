@@ -373,17 +373,20 @@ namespace Ork.Energy.ViewModels
         m_Model.SavedWattAtm = value;
       }
     }
+    //Amortisationszeit in Tagen (sic)
+    public double AmortisationTime
+    {
+      get
+      {
+        return Math.Round((CostsNeeded + FailureCosts) / SavedMoney *365, 0);
+      }
+    }
 
-    // Rechnung nun korrekt -> Automatische Werterscheinung, nachdem "nötige Investition" und "Wert der Einsparung" eingegeben sind
-    // Dennoch Korrekturbedarf!
-    //public double Amortisationtime // Property für Amortisationszeit
-    //{
-    //    get { return CostsNeeded / SavedMoneyIst; } // Einsparung_Soll oder Einsparung_Ist ???
-    //    set
-    //    {
-    //        m_Model.PaybackTime = value;
-    //    }
-    //}
+    public double SavedMoney
+    {
+      get { return SavedMoneyIst-SavedMoneyAktuell; }
+    }
+
 
     public double FailureCosts // Property für Ausfallkosten
     {
