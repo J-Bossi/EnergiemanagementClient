@@ -83,13 +83,13 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-    public virtual long? PowerOutput
+    public virtual double? PowerOutput
     {
       get { return m_Model.PowerOutput; }
       set { m_Model.PowerOutput = value; }
     }
 
-    public virtual long? PowerCurrent
+    public virtual double? PowerCurrent
     {
       get { return m_Model.PowerCurrent; }
       set { m_Model.PowerCurrent = value; }

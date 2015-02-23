@@ -17,7 +17,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -35,18 +34,21 @@ namespace Ork.Energy.ViewModels
 {
   public class MeasureAddViewModel : DocumentBase
   {
+    private readonly EnergyMeasure m_Model;
+    private readonly IEnumerable m_Priorities;
+    private readonly IEnergyRepository m_Repository;
+    private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
+    private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
+
+    private readonly BindableCollection<SubMeasureViewModel> m_SubMeasureViewModels =
+      new BindableCollection<SubMeasureViewModel>();
+
     private string _newSubMeasureName;
     private ResponsibleSubjectViewModel _newSubMeasureResponsibleSubject;
     private IEnumerable<Catalog> m_Catalogs;
     private string m_ResponsibleSubjectSearchText = string.Empty;
     private Catalog m_SelectedCatalog;
     private ResponsibleSubjectViewModel m_SelectedResponsibleSubject;
-    private readonly EnergyMeasure m_Model;
-    private readonly IEnumerable m_Priorities;
-    private readonly IEnergyRepository m_Repository;
-    private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
-    private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
-    private BindableCollection<SubMeasureViewModel> m_SubMeasureViewModels = new BindableCollection<SubMeasureViewModel>();
 
     [ImportingConstructor]
     public MeasureAddViewModel(EnergyMeasure model, IEnumerable<ResponsibleSubjectViewModel> responsibleSubjectViewModels,
@@ -68,15 +70,6 @@ namespace Ork.Energy.ViewModels
 
       LoadSubMeasures();
       m_SubMeasureViewModels.CollectionChanged += SubMeasuresOnCollectionChanged;
-
-    }
-
-    private void LoadSubMeasures()
-    {
-      foreach (var subMeasure in m_Repository.SubMeasures.Where(smvm => smvm.ReleatedMeasure == m_Model))
-      {
-        m_SubMeasureViewModels.Add(m_SubMeasureViewModelFactory.CreateFromExisting(subMeasure));
-      }
     }
 
     public IEnumerable<ResponsibleSubjectViewModel> AllResponsibleSubjects
@@ -143,20 +136,13 @@ namespace Ork.Energy.ViewModels
 
     public IObservableCollection<SubMeasureViewModel> SubMeasures
     {
-      get
-      {
-        return m_SubMeasureViewModels;
-
-      }
+      get { return m_SubMeasureViewModels; }
     }
 
     public string Name
     {
       get { return m_Model.Name; }
-      set
-      {
-        m_Model.Name = value;
-      }
+      set { m_Model.Name = value; }
     }
 
     public MeasureImageSource MeasureImageSource
@@ -218,10 +204,7 @@ namespace Ork.Energy.ViewModels
     public string Description
     {
       get { return m_Model.Description; }
-      set
-      {
-        m_Model.Description = value;
-      }
+      set { m_Model.Description = value; }
     }
 
     public DateTime DueDate
@@ -258,10 +241,7 @@ namespace Ork.Energy.ViewModels
     public string ConsumerUnit // Property für Verbraucher, z.B: M25
     {
       get { return m_Model.ConsumerUnit; }
-      set
-      {
-        m_Model.ConsumerUnit = value;
-      }
+      set { m_Model.ConsumerUnit = value; }
     }
 
     public Consumer Consumer
@@ -269,7 +249,7 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Consumer; }
       set
       {
-        m_Model.Consumer = value; 
+        m_Model.Consumer = value;
         NotifyOfPropertyChange(() => Room);
         NotifyOfPropertyChange(() => Building);
         NotifyOfPropertyChange(() => ConsumerGroupName);
@@ -296,114 +276,96 @@ namespace Ork.Energy.ViewModels
     public string Kenn // Property für Kenngröße (Einheit EnPI), z.B: kWh
     {
       get { return m_Model.Parameter; }
-      set
-      {
-        m_Model.Parameter = value;
-      }
+      set { m_Model.Parameter = value; }
     }
 
     public string MeterDevice // Property für verwendetes Messgerät
     {
       get { return m_Model.Meter; }
-      set
-      {
-        m_Model.Meter = value;
-      }
+      set { m_Model.Meter = value; }
     }
 
     public double CostsNeeded // Property für nötige Investition btw GeplanteKosten
     {
       get { return m_Model.Investment; }
-      set
-      {
-        m_Model.Investment = value;
-      }
+      set { m_Model.Investment = value; }
     }
 
-    public double SavedMoneySoll // Property für Wert der Einsparung bzw GeldEinsparung
+    public double CalculatedMoneySaving
     {
       get { return m_Model.SavedMoneyShould; }
-      set
-      {
-        m_Model.SavedMoneyShould = value;
-      }
+
     }
 
-    public double SavedMoneyIst // Property für Wert der Einsparung bzw. GeldEinsparung
-    {
-      get { return m_Model.SavedMoneyIs; }
-      set
-      {
-        m_Model.SavedMoneyIs = value;
-      }
-    }
-
-    public double SavedWattIst // Property für Wert der Einsparung in kWh (Ist)
-    {
-      get { return m_Model.SavedWattIs; }
-      set
-      {
-        m_Model.SavedWattIs = value;
-      }
-    }
-
-    public double SavedWattSoll // Property für Wert der Einsparung in kWh (Soll)
+    public double CalculatedConsumptionSaving
     {
       get { return m_Model.SavedWattShould; }
-      set
-      {
-        m_Model.SavedWattShould = value;
-      }
+     
     }
 
-    public double SavedMoneyAktuell // Property für aktuellen Ist-Verbrauchswert in €
+    public double CalculatedSpending
+    {
+      get { return CurrentSpending - CalculatedMoneySaving; }
+      set { m_Model.SavedMoneyShould = CurrentSpending - value; }
+    }
+
+    public double ActualMoneySaving
+    {
+      get { return CurrentSpending - ActualSpending; }
+    }
+
+    public double CalculatedConsumption
+    {
+      get { return CurrentConsumption - CalculatedConsumptionSaving; }
+      set { m_Model.SavedWattShould = CurrentConsumption - value; }
+    }
+
+    public double ActualConsumptionSaving
+    {
+      get { return CurrentConsumption - ActualConsumption; }
+    }
+
+    public double ActualSpending // Tatsächlicher Verbauchswert nach Abschluss der Maßnahme
+    {
+      get { return m_Model.SavedMoneyIs; }
+      set { m_Model.SavedMoneyIs = value; }
+    }
+
+    public double CurrentConsumption
+    {
+      get { return m_Model.ConsumptionActual.CounterReading; }
+    }
+
+    public double ActualConsumption
+    {
+      get { return m_Model.ConsumptionNormative.CounterReading; }
+    }
+
+
+    public double CurrentSpending // Property für aktuellen Ist-Verbrauchswert in €
     {
       get { return m_Model.SavedMoneyAtm; }
-      set
-      {
-        m_Model.SavedMoneyAtm = value;
-      }
+      set { m_Model.SavedMoneyAtm = value; }
     }
 
-    public double SavedWattAktuell // Property für aktuellen Ist-Verbrauchswert in kWh
-    {
-      get { return m_Model.SavedWattAtm; }
-      set
-      {
-        m_Model.SavedWattAtm = value;
-      }
-    }
+
     //Amortisationszeit in Tagen (sic)
     public double AmortisationTime
     {
-      get
-      {
-        return Math.Round((CostsNeeded + FailureCosts) / SavedMoney *365, 0);
-      }
-    }
-
-    public double SavedMoney
-    {
-      get { return SavedMoneyIst-SavedMoneyAktuell; }
+      get { return Math.Round((CostsNeeded + FailureCosts) / CalculatedMoneySaving * 365, 0); }
     }
 
 
     public double FailureCosts // Property für Ausfallkosten
     {
       get { return m_Model.FailureMoney; }
-      set
-      {
-        m_Model.FailureMoney = value;
-      }
+      set { m_Model.FailureMoney = value; }
     }
 
     public string ReferenceTo // Property für Verweis
     {
       get { return m_Model.Reference; }
-      set
-      {
-        m_Model.Reference = value;
-      }
+      set { m_Model.Reference = value; }
     }
 
     public int Priority
@@ -470,6 +432,14 @@ namespace Ork.Energy.ViewModels
       }
     }
 
+    private void LoadSubMeasures()
+    {
+      foreach (var subMeasure in m_Repository.SubMeasures.Where(smvm => smvm.ReleatedMeasure == m_Model))
+      {
+        m_SubMeasureViewModels.Add(m_SubMeasureViewModelFactory.CreateFromExisting(subMeasure));
+      }
+    }
+
     public void RemoveSubMeasure(object dataContext)
     {
       var subMeasure = dataContext as SubMeasureViewModel;
@@ -500,7 +470,7 @@ namespace Ork.Energy.ViewModels
         case NotifyCollectionChangedAction.Add:
           foreach (var sm in eventArgs.NewItems.OfType<SubMeasureViewModel>())
           {
-            if (m_Repository.SubMeasures.Contains(sm.Model)) { }
+            if (m_Repository.SubMeasures.Contains(sm.Model)) {}
             else
             {
               m_Repository.SubMeasures.Add(sm.Model);
@@ -580,9 +550,7 @@ namespace Ork.Energy.ViewModels
 
     protected void RelatedElementViewModelIsSelected(object sender, PropertyChangedEventArgs e)
     {
-      if (e.PropertyName == "IsSelected")
-      {
-      }
+      if (e.PropertyName == "IsSelected") {}
     }
 
     private IEnumerable<ResponsibleSubjectViewModel> SearchInResponsibleObjectList()

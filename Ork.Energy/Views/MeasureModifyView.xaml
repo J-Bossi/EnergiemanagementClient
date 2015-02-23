@@ -158,6 +158,34 @@
             Text="{Binding FailureCosts}"
             Margin="0 0 0 3"
             ToolTip="Ausfallkosten die während der Durchführung der Maßnahme entstehen" />
+          <UniformGrid
+        Rows="3">
+            <TextBlock
+          Margin="0 0 2 3">
+          <Run
+            Text="Amortisationszeit: " />
+          <Run
+            Text="{Binding AmortisationTime, Mode=OneWay}" />
+            </TextBlock>
+            <TextBlock
+          Margin="0,0,2,0">
+          <Run
+            Text="Kalkulierte Einsparung: " />
+          <Run
+            Text="{Binding CalculatedMoneySaving}" />
+          <Run
+            Text="(€)" />
+            </TextBlock>
+            <TextBlock
+          Margin="0,0,2,0">
+          <Run
+            Text="Tatsächliche Einsparung: " />
+          <Run
+            Text="{Binding ActualMoneySaving}" />
+          <Run
+            Text="(€)" />
+            </TextBlock>
+          </UniformGrid>
         </StackPanel>
         <StackPanel
           Grid.Column="1">
@@ -166,37 +194,25 @@
             Text="Aktueller Verbrauchswert in Euro/Jahr" />
           <TextBox
             Margin="0 0 0 3"
-            Text="{Binding SavedMoneyAktuell}"
+            Text="{Binding CurrentSpending}"
             ToolTip="Aktueller Verbrauchswert (€) vor Maßnahmeneinführung" />
-
           <TextBlock
-            Text="Zielverbrauchswert in Euro/Jahr"
+            Text="Prognostizierter Verbrauchswert in Euro/Jahr"
             Margin="0 0 0 3" />
           <TextBox
-            Text="{Binding SavedMoneyIst}"
-            ToolTip="Kalkulierter/prognostizierter Einsparungswert (€)"
+            Text="{Binding CalculatedSpending}"
+            ToolTip="Verbrauchswert nach Abschluss der Maßnahme Einsparungswert (€)"
+            Margin="0 0 0 3" />
+          <TextBlock
+            Text="Tatsächlicher Verbrauchswert in Euro/Jahr"
+            Margin="0 0 0 3" />
+          <TextBox
+            Text="{Binding ActualSpending}"
+            ToolTip="Verbrauchswert nach Abschluss der Maßnahme Einsparungswert (€)"
             Margin="0 0 0 3" />
         </StackPanel>
       </Grid>
-      <UniformGrid
-        Columns="2">
-        <TextBlock
-          Margin="0 0 0 3">
-          <Run
-            Text="Amortisationszeit: " />
-          <Run
-            Text="{Binding AmortisationTime, Mode=OneWay}" />
-        </TextBlock>
-        <TextBlock
-          Margin="0,0,0,10">
-          <Run
-            Text="Einsparung: " />
-          <Run
-            Text="{Binding SavedMoney, Mode=OneWay}" />
-          <Run
-            Text="(€)" />
-        </TextBlock>
-      </UniformGrid>
+
       <StackPanel>
         <Grid>
           <Grid.ColumnDefinitions>

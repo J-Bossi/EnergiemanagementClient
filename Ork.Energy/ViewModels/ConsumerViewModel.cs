@@ -61,12 +61,12 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Name; }
     }
 
-    public virtual long? PowerOutput
+    public virtual double? PowerOutput
     {
       get { return m_Model.PowerOutput; }
     }
 
-    public virtual long? PowerCurrent
+    public virtual double? PowerCurrent
     {
       get { return m_Model.PowerCurrent; }
     }

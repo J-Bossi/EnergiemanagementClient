@@ -10,8 +10,8 @@
         <Property Name="IsMachine" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Identifier" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Name="Year" Type="Edm.Int32" />
-        <Property Name="PowerOutput" Type="Edm.Int64" />
-        <Property Name="PowerCurrent" Type="Edm.Int64" />
+        <Property Name="PowerOutput" Type="Edm.Double" />
+        <Property Name="PowerCurrent" Type="Edm.Double" />
         <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Consumer_Readings" ToRole="Consumer_Readings_Target" FromRole="Consumer_Readings_Source" />
         <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.Consumer_Room" ToRole="Consumer_Room_Target" FromRole="Consumer_Room_Source" />
@@ -24,7 +24,7 @@
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Name="CounterReading" Type="Edm.Int64" Nullable="false" />
+        <Property Name="CounterReading" Type="Edm.Double" Nullable="false" />
         <Property Name="ReadingDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="MeasuringDevice" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
       </EntityType>

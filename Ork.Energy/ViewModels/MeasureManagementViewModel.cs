@@ -887,7 +887,7 @@ namespace Ork.Energy.ViewModels
 
       foreach (var measure in measures)
       {
-        sumSavedMoney += measure.SavedMoneySoll;
+        sumSavedMoney += measure.CalculatedMoneySaving;
         investment += measure.Investment;
       }
 

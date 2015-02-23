@@ -33,7 +33,7 @@ namespace Ork.Energy.ViewModels
       get { return m_Model; }
     }
 
-    public long CounterReading
+    public double CounterReading
     {
       get { return m_Model.CounterReading; }
       set { m_Model.CounterReading = value; }

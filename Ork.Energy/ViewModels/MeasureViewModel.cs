@@ -151,34 +151,34 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.Meter; }
     }
 
-    public double SavedWattSoll
+    public double CalculatedConsumptionSaving
     {
       get { return m_Model.SavedWattShould; }
     }
 
-    public double SavedMoneySoll
+    public double CalculatedMoneySaving
     {
       get { return m_Model.SavedMoneyShould; }
     }
 
-    public double SavedWattIst
-    {
-      get { return m_Model.SavedWattIs; }
-    }
-
-    public double SavedMoneyIst
+    public double ActualSpending
     {
       get { return m_Model.SavedMoneyIs; }
     }
 
-    public double SavedMoneyAktuell
+    public double CurrentSpending
     {
       get { return m_Model.SavedMoneyAtm; }
     }
 
-    public double SavedWattAktuell
+    public double ActualConsumption
     {
-      get { return m_Model.SavedWattAtm; }
+      get { return m_Model.ConsumptionNormative.CounterReading; }
+    }
+
+    public double CurrentConsumption
+    {
+      get { return m_Model.ConsumptionActual.CounterReading; }
     }
 
     public double SavedCO2
@@ -201,7 +201,7 @@ namespace Ork.Energy.ViewModels
       get
       {
         return Math.Round((m_Model.Investment + m_Model.FailureMoney) / m_Model.SavedMoneyShould * 365, 0);
-        // Errechnet sich aus Investitionskosten+Ausfallkosten und Wert der Einsparung nach beendeter Maßnahme (SavedMoneySoll) * 365 Tage (für die Umrechnung)
+        // Errechnet sich aus Investitionskosten+Ausfallkosten und Wert der Einsparung nach beendeter Maßnahme (CalculatedMoneySaving) * 365 Tage (für die Umrechnung)
       }
     }
 
