@@ -144,7 +144,7 @@
           Header="Betrachteter Verbraucher"
           Binding="{Binding ConsumerName,  Mode=OneWay}"
           Width="45*" />
-        
+
 
         <controls:DataGridTemplateColumn
           Header="{lex:Loc Ork.Energy:Translate:Planning}"

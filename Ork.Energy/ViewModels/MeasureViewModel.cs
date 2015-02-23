@@ -176,6 +176,16 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.ConsumptionNormative.CounterReading; }
     }
 
+    public double ActualMoneySaving
+    {
+      get { return CurrentSpending - ActualSpending; }
+    }
+
+    public double ActualConsumptionSaving
+    {
+      get { return CurrentConsumption - ActualConsumption; }
+    }
+
     public double CurrentConsumption
     {
       get { return m_Model.ConsumptionActual.CounterReading; }

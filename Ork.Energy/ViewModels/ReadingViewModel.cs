@@ -55,7 +55,11 @@ namespace Ork.Energy.ViewModels
     public string ShortReadingDate
     {
       get { return m_Model.ReadingDate.ToShortDateString(); }
-      
+    }
+
+    public string ValueAndDate
+    {
+      get { return m_Model.CounterReading + "kWh/a | " + ShortReadingDate; }
     }
   }
 }

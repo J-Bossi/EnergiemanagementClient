@@ -20,13 +20,13 @@ using Ork.Energy.ViewModels;
 
 namespace Ork.Energy.Factories
 {
-  [Export(typeof (ISubMeasureViewModelFactory))]
-  internal class SubMeasureViewModelFactory : ISubMeasureViewModelFactory
+  [Export(typeof (IViewModelFactory))]
+  internal class ViewModelFactory : IViewModelFactory
   {
     private readonly IResponsibleSubjectViewModelFactory m_ResponsibleSubjectViewModelFactory;
 
     [ImportingConstructor]
-    public SubMeasureViewModelFactory([Import] IResponsibleSubjectViewModelFactory responsibleSubjectViewModelFactory)
+    public ViewModelFactory([Import] IResponsibleSubjectViewModelFactory responsibleSubjectViewModelFactory)
     {
       m_ResponsibleSubjectViewModelFactory = responsibleSubjectViewModelFactory;
     }
@@ -34,6 +34,11 @@ namespace Ork.Energy.Factories
     public SubMeasureViewModel CreateFromExisting(SubMeasure subMeasure)
     {
       return new SubMeasureViewModel(subMeasure, m_ResponsibleSubjectViewModelFactory);
+    }
+
+    public ReadingViewModel CreateFromExisting(Reading reading)
+    {
+      return new ReadingViewModel(reading);
     }
   }
 }

@@ -19,8 +19,9 @@ using Ork.Energy.ViewModels;
 
 namespace Ork.Energy.Factories
 {
-  public interface ISubMeasureViewModelFactory
+  public interface IViewModelFactory
   {
     SubMeasureViewModel CreateFromExisting(SubMeasure subMeasure);
+    ReadingViewModel CreateFromExisting(Reading reading);
   }
 }

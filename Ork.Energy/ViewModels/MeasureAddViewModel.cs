@@ -36,12 +36,17 @@ namespace Ork.Energy.ViewModels
   {
     private readonly EnergyMeasure m_Model;
     private readonly IEnumerable m_Priorities;
+
+    private readonly BindableCollection<ReadingViewModel> m_RelatedReadingsViewModels =
+      new BindableCollection<ReadingViewModel>();
+
     private readonly IEnergyRepository m_Repository;
     private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
-    private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
 
     private readonly BindableCollection<SubMeasureViewModel> m_SubMeasureViewModels =
       new BindableCollection<SubMeasureViewModel>();
+
+    private readonly IViewModelFactory m_ViewModelFactory;
 
     private string _newSubMeasureName;
     private ResponsibleSubjectViewModel _newSubMeasureResponsibleSubject;
@@ -52,8 +57,7 @@ namespace Ork.Energy.ViewModels
 
     [ImportingConstructor]
     public MeasureAddViewModel(EnergyMeasure model, IEnumerable<ResponsibleSubjectViewModel> responsibleSubjectViewModels,
-                               [Import] IEnergyRepository energyRepository,
-                               [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
+                               [Import] IEnergyRepository energyRepository, [Import] IViewModelFactory viewModelFactory)
     {
       m_Model = model;
       if (m_Model.CreationDate == new DateTime())
@@ -66,9 +70,10 @@ namespace Ork.Energy.ViewModels
       DisplayName = TranslationProvider.Translate("TitleMeasureAddViewModel");
 
       m_Repository = energyRepository;
-      m_SubMeasureViewModelFactory = subMeasureViewModelFactory;
+      m_ViewModelFactory = viewModelFactory;
 
       LoadSubMeasures();
+      LoadRelatedReadings();
       m_SubMeasureViewModels.CollectionChanged += SubMeasuresOnCollectionChanged;
     }
 
@@ -103,36 +108,6 @@ namespace Ork.Energy.ViewModels
         NotifyOfPropertyChange(() => SubMeasureAddAllowed);
       }
     }
-
-    //public IEnumerable<Catalog> Catalogs
-    //{
-    //    get { return m_Catalogs; }
-    //}
-
-    //public Catalog SelectedCatalog
-    //{
-    //    get { return m_SelectedCatalog; }
-    //    set
-    //    {
-    //        m_SelectedCatalog = value;
-    //        SetNewCatalog();
-    //        NotifyOfPropertyChange(() => SelectedCatalog);
-    //    }
-    //}
-
-    //private void SetNewCatalog()
-    //{
-    //    if (!m_Repository.Catalogs.Any(c => c.Measures.Contains(m_Model)))
-    //    {
-    //        return;
-    //    }
-
-    //    var oldCatalog = m_Repository.Catalogs.Single(c => c.Measures.Contains(m_Model));
-
-    //    m_Repository.Catalogs.Single(c => c == SelectedCatalog).Measures.Add(m_Model);
-    //    NotifyOfPropertyChange(() => SelectedCatalog);
-    //}
-
 
     public IObservableCollection<SubMeasureViewModel> SubMeasures
     {
@@ -294,13 +269,11 @@ namespace Ork.Energy.ViewModels
     public double CalculatedMoneySaving
     {
       get { return m_Model.SavedMoneyShould; }
-
     }
 
     public double CalculatedConsumptionSaving
     {
       get { return m_Model.SavedWattShould; }
-     
     }
 
     public double CalculatedSpending
@@ -333,12 +306,39 @@ namespace Ork.Energy.ViewModels
 
     public double CurrentConsumption
     {
-      get { return m_Model.ConsumptionActual.CounterReading; }
+      get
+      {
+        if (m_Model.ConsumptionActual != null)
+        {
+          return m_Model.ConsumptionActual.CounterReading;
+        }
+        return 0;
+      }
     }
 
     public double ActualConsumption
     {
-      get { return m_Model.ConsumptionNormative.CounterReading; }
+      get
+      {
+        if (m_Model.ConsumptionNormative != null)
+        {
+          return m_Model.ConsumptionNormative.CounterReading;
+        }
+        return 0;
+      }
+    }
+
+    public ReadingViewModel ActualConsumptionReading
+    {
+      get { return AllRelatedReadings.Single(r => r.Model == m_Model.ConsumptionNormative); }
+
+      set { m_Model.ConsumptionNormative = value.Model; }
+    }
+
+    public ReadingViewModel CurrentConsumptionReading
+    {
+      get { return AllRelatedReadings.Single(r => r.Model == m_Model.ConsumptionActual); }
+      set { m_Model.ConsumptionActual = value.Model; }
     }
 
 
@@ -348,6 +348,10 @@ namespace Ork.Energy.ViewModels
       set { m_Model.SavedMoneyAtm = value; }
     }
 
+    public double SavedCO2
+    {
+      get { return m_Model.SavedWattShould * 0.61; }
+    }
 
     //Amortisationszeit in Tagen (sic)
     public double AmortisationTime
@@ -361,6 +365,7 @@ namespace Ork.Energy.ViewModels
       get { return m_Model.FailureMoney; }
       set { m_Model.FailureMoney = value; }
     }
+
 
     public string ReferenceTo // Property für Verweis
     {
@@ -432,11 +437,28 @@ namespace Ork.Energy.ViewModels
       }
     }
 
+    public IEnumerable<ReadingViewModel> AllRelatedReadings
+    {
+      get { return (m_RelatedReadingsViewModels); }
+    }
+
+    private void LoadRelatedReadings()
+    {
+      if (m_Model.Consumer != null &&
+          m_Model.Consumer.Readings != null)
+      {
+        foreach (var reading in m_Model.Consumer.Readings)
+        {
+          m_RelatedReadingsViewModels.Add(m_ViewModelFactory.CreateFromExisting(reading));
+        }
+      }
+    }
+
     private void LoadSubMeasures()
     {
       foreach (var subMeasure in m_Repository.SubMeasures.Where(smvm => smvm.ReleatedMeasure == m_Model))
       {
-        m_SubMeasureViewModels.Add(m_SubMeasureViewModelFactory.CreateFromExisting(subMeasure));
+        m_SubMeasureViewModels.Add(m_ViewModelFactory.CreateFromExisting(subMeasure));
       }
     }
 
@@ -458,7 +480,7 @@ namespace Ork.Energy.ViewModels
         Name = NewSubMeasureName,
         ResponsibleSubject = NewSubMeasureResponsibleSubject.Model
       };
-      m_SubMeasureViewModels.Add(m_SubMeasureViewModelFactory.CreateFromExisting(subMeasure));
+      m_SubMeasureViewModels.Add(m_ViewModelFactory.CreateFromExisting(subMeasure));
 
       NotifyOfPropertyChange(() => SubMeasures);
     }
@@ -486,6 +508,7 @@ namespace Ork.Energy.ViewModels
           break;
       }
     }
+
 
     public void SetImage()
     {

@@ -28,12 +28,12 @@ namespace Ork.Energy.Factories
     private readonly IEnergyRepository m_MeasureRepository;
 
     private readonly IResponsibleSubjectViewModelFactory m_ResponsibleSubjectViewModelFactory;
-    private readonly ISubMeasureViewModelFactory m_SubMeasureViewModelFactory;
+    private readonly IViewModelFactory m_SubMeasureViewModelFactory;
 
     [ImportingConstructor]
     public MeasureViewModelFactory([Import] IEnergyRepository energyRepository,
                                    [Import] IResponsibleSubjectViewModelFactory responsibleSubjectViewModelFactory,
-                                   [Import] ISubMeasureViewModelFactory subMeasureViewModelFactory)
+                                   [Import] IViewModelFactory subMeasureViewModelFactory)
     {
       m_MeasureRepository = energyRepository;
       m_ResponsibleSubjectViewModelFactory = responsibleSubjectViewModelFactory;
