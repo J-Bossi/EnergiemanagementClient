@@ -385,7 +385,7 @@ namespace Ork.Energy.ViewModels
 
     public double SavedCO2
     {
-      get { return m_Model.SavedWattShould * 0.61; }
+      get { return ActualConsumption * 0.61; }
     }
 
     //Amortisationszeit in Tagen (sic)
