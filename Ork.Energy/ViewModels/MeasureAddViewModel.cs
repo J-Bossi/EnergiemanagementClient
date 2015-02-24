@@ -371,6 +371,11 @@ namespace Ork.Energy.ViewModels
       }
     }
 
+    public double? PowerOutput
+    {
+      get { return m_Model.Consumer.PowerOutput; }
+    }
+
 
     public double CurrentSpending // Property für aktuellen Ist-Verbrauchswert in €
     {

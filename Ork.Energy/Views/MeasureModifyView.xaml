@@ -223,14 +223,23 @@
           Grid.Column="0"
           Margin=" 0 20 10 0">
           <TextBlock
-            Margin="0 0 2 3">
+            Margin="0 0 0 3">
+            <Run
+              Text="Herstellerangabe Verbrauch: " />
+            <Run
+              Text="{Binding PowerOutput, Mode=OneWay}" />
+                        <Run
+              Text=" kw" />
+          </TextBlock>
+          <TextBlock
+            Margin="0 0 0 3">
             <Run
               Text="Eingesparte CO2-Äquvalente: " />
             <Run
               Text="{Binding SavedCO2, Mode=OneWay}" />
           </TextBlock>
           <TextBlock
-            Margin="0,0,2,0">
+            Margin="0,0,0,3">
             <Run
               Text="Kalkulierte Einsparung: " />
             <Run
@@ -239,7 +248,7 @@
               Text="(kWh/a)" />
           </TextBlock>
           <TextBlock
-            Margin="0,0,2,0">
+            >
             <Run
               Text="Tatsächliche Einsparung: " />
             <Run
