@@ -37,8 +37,6 @@ namespace Ork.Energy.ViewModels
     private readonly EnergyMeasure m_Model;
     private readonly IEnumerable m_Priorities;
 
-    private readonly BindableCollection<ReadingViewModel> m_RelatedReadingsViewModels =
-      new BindableCollection<ReadingViewModel>();
 
     private readonly IEnergyRepository m_Repository;
     private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
@@ -47,7 +45,7 @@ namespace Ork.Energy.ViewModels
       new BindableCollection<SubMeasureViewModel>();
 
     private readonly IViewModelFactory m_ViewModelFactory;
-
+    private double m_CalculatedConsumption;
     private string _newSubMeasureName;
     private ResponsibleSubjectViewModel _newSubMeasureResponsibleSubject;
     private IEnumerable<Catalog> m_Catalogs;
@@ -72,8 +70,8 @@ namespace Ork.Energy.ViewModels
       m_Repository = energyRepository;
       m_ViewModelFactory = viewModelFactory;
 
+      m_CalculatedConsumption = CurrentConsumption - m_Model.SavedWattShould;
       LoadSubMeasures();
-      LoadRelatedReadings();
       m_SubMeasureViewModels.CollectionChanged += SubMeasuresOnCollectionChanged;
     }
 
@@ -225,9 +223,16 @@ namespace Ork.Energy.ViewModels
       set
       {
         m_Model.Consumer = value;
+
         NotifyOfPropertyChange(() => Room);
         NotifyOfPropertyChange(() => Building);
         NotifyOfPropertyChange(() => ConsumerGroupName);
+        ////NotifyOfPropertyChange(() => AllRelatedReadings);
+        //NotifyOfPropertyChange(() => ActualConsumptionReading);
+        //NotifyOfPropertyChange(() => CurrentConsumptionReading);
+        //NotifyOfPropertyChange(() => ActualConsumptionSaving);
+        //NotifyOfPropertyChange(() => CalculatedConsumptionSaving);
+        ////NotifyOfPropertyChange(() => AllRelatedReadings);
       }
     }
 
@@ -289,13 +294,25 @@ namespace Ork.Energy.ViewModels
 
     public double CalculatedConsumption
     {
-      get { return CurrentConsumption - CalculatedConsumptionSaving; }
-      set { m_Model.SavedWattShould = CurrentConsumption - value; }
+      get { return m_CalculatedConsumption; }
+      set
+      {
+        m_CalculatedConsumption = value;
+        m_Model.SavedWattShould = CurrentConsumption - value;
+        NotifyOfPropertyChange(() => CalculatedConsumptionSaving);
+      }
     }
 
     public double ActualConsumptionSaving
     {
-      get { return CurrentConsumption - ActualConsumption; }
+      get
+      {
+        if (CurrentConsumption == 0)
+        {
+          return 0;
+        }
+        return CurrentConsumption - ActualConsumption;
+      }
     }
 
     public double ActualSpending // Tatsächlicher Verbauchswert nach Abschluss der Maßnahme
@@ -330,15 +347,33 @@ namespace Ork.Energy.ViewModels
 
     public ReadingViewModel ActualConsumptionReading
     {
-      get { return AllRelatedReadings.Single(r => r.Model == m_Model.ConsumptionNormative); }
+      get
+      {
+        return AllRelatedReadings.Single(r => r.Model == m_Model.ConsumptionNormative);
+      }
 
-      set { m_Model.ConsumptionNormative = value.Model; }
+      set
+      {
+        m_Model.ConsumptionNormative = value.Model;
+        NotifyOfPropertyChange(() => ActualConsumptionSaving);
+        NotifyOfPropertyChange(() => CalculatedConsumptionSaving);
+        NotifyOfPropertyChange(() => SavedCO2);
+      }
     }
 
     public ReadingViewModel CurrentConsumptionReading
     {
-      get { return AllRelatedReadings.Single(r => r.Model == m_Model.ConsumptionActual); }
-      set { m_Model.ConsumptionActual = value.Model; }
+      get
+      {
+        return AllRelatedReadings.Single(r => r.Model == m_Model.ConsumptionActual);
+      }
+      set
+      {
+        m_Model.ConsumptionActual = value.Model;
+        NotifyOfPropertyChange(() => ActualConsumptionSaving);
+        m_Model.SavedWattShould = value.Model.CounterReading - m_CalculatedConsumption;
+        NotifyOfPropertyChange(() => CalculatedConsumptionSaving);
+      }
     }
 
 
@@ -439,18 +474,18 @@ namespace Ork.Energy.ViewModels
 
     public IEnumerable<ReadingViewModel> AllRelatedReadings
     {
-      get { return (m_RelatedReadingsViewModels); }
-    }
-
-    private void LoadRelatedReadings()
-    {
-      if (m_Model.Consumer != null &&
-          m_Model.Consumer.Readings != null)
+      get
       {
-        foreach (var reading in m_Model.Consumer.Readings)
+        var RelatedReadingsViewModels = new List<ReadingViewModel>();
+        if (m_Model.Consumer != null &&
+            m_Model.Consumer.Readings != null)
         {
-          m_RelatedReadingsViewModels.Add(m_ViewModelFactory.CreateFromExisting(reading));
+          foreach (var reading in m_Model.Consumer.Readings)
+          {
+            RelatedReadingsViewModels.Add(m_ViewModelFactory.CreateFromExisting(reading));
+          }
         }
+        return RelatedReadingsViewModels;
       }
     }
 
