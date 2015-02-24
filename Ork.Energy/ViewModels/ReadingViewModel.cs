@@ -59,7 +59,7 @@ namespace Ork.Energy.ViewModels
 
     public string ValueAndDate
     {
-      get { return m_Model.CounterReading + "kWh/a | " + ShortReadingDate; }
+      get { return m_Model.CounterReading + "kWh/a : " + ShortReadingDate; }
     }
   }
 }

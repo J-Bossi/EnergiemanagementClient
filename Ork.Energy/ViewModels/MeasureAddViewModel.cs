@@ -45,9 +45,9 @@ namespace Ork.Energy.ViewModels
       new BindableCollection<SubMeasureViewModel>();
 
     private readonly IViewModelFactory m_ViewModelFactory;
-    private double m_CalculatedConsumption;
     private string _newSubMeasureName;
     private ResponsibleSubjectViewModel _newSubMeasureResponsibleSubject;
+    private double m_CalculatedConsumption;
     private IEnumerable<Catalog> m_Catalogs;
     private string m_ResponsibleSubjectSearchText = string.Empty;
     private Catalog m_SelectedCatalog;
@@ -236,7 +236,7 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-    public ICollection<Consumer> Consumers
+    public IEnumerable<Consumer> Consumers
     {
       get { return m_Repository.Consumers; }
     }
@@ -345,34 +345,29 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-    public ReadingViewModel ActualConsumptionReading
+    public Reading ActualConsumptionReading
     {
-      get
-      {
-        return AllRelatedReadings.Single(r => r.Model == m_Model.ConsumptionNormative);
-      }
+      get { return AllRelatedReadings.Single(r => r == m_Model.ConsumptionNormative); }
 
       set
       {
-        m_Model.ConsumptionNormative = value.Model;
+        m_Model.ConsumptionNormative = value;
         NotifyOfPropertyChange(() => ActualConsumptionSaving);
         NotifyOfPropertyChange(() => CalculatedConsumptionSaving);
         NotifyOfPropertyChange(() => SavedCO2);
       }
     }
 
-    public ReadingViewModel CurrentConsumptionReading
+    public Reading CurrentConsumptionReading
     {
-      get
-      {
-        return AllRelatedReadings.Single(r => r.Model == m_Model.ConsumptionActual);
-      }
+      get { return AllRelatedReadings.Single(r => r == m_Model.ConsumptionActual); }
       set
       {
-        m_Model.ConsumptionActual = value.Model;
+        m_Model.ConsumptionActual = value;
         NotifyOfPropertyChange(() => ActualConsumptionSaving);
-        m_Model.SavedWattShould = value.Model.CounterReading - m_CalculatedConsumption;
+        m_Model.SavedWattShould = value.CounterReading - m_CalculatedConsumption;
         NotifyOfPropertyChange(() => CalculatedConsumptionSaving);
+        NotifyOfPropertyChange(() => CurrentConsumptionReading);
       }
     }
 
@@ -472,20 +467,16 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-    public IEnumerable<ReadingViewModel> AllRelatedReadings
+    public IEnumerable<Reading> AllRelatedReadings
     {
       get
       {
-        var RelatedReadingsViewModels = new List<ReadingViewModel>();
         if (m_Model.Consumer != null &&
             m_Model.Consumer.Readings != null)
         {
-          foreach (var reading in m_Model.Consumer.Readings)
-          {
-            RelatedReadingsViewModels.Add(m_ViewModelFactory.CreateFromExisting(reading));
-          }
+          return m_Model.Consumer.Readings;
         }
-        return RelatedReadingsViewModels;
+        return new List<Reading>();
       }
     }
 

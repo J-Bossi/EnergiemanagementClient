@@ -62,7 +62,6 @@
         Text="Betrachtete Verbraucher"
         Margin="0 0 0 3" />
       <ComboBox
-        Style="{DynamicResource ComboBoxStyle}"
         ItemsSource="{Binding Consumers}"
         SelectedItem="{Binding Consumer}"
         Margin="0 0 0 3">
@@ -159,31 +158,31 @@
             Margin="0 0 0 3"
             ToolTip="Ausfallkosten die während der Durchführung der Maßnahme entstehen" />
           <UniformGrid
-        Rows="3">
+            Rows="3">
             <TextBlock
-          Margin="0 0 2 3">
-          <Run
-            Text="Amortisationszeit: " />
-          <Run
-            Text="{Binding AmortisationTime, Mode=OneWay}" />
+              Margin="0 0 2 3">
+              <Run
+                Text="Amortisationszeit: " />
+              <Run
+                Text="{Binding AmortisationTime, Mode=OneWay}" />
             </TextBlock>
             <TextBlock
-          Margin="0,0,2,0">
-          <Run
-            Text="Kalkulierte Einsparung: " />
-          <Run
-            Text="{Binding CalculatedMoneySaving, Mode=OneWay}" />
-          <Run
-            Text="(€)" />
+              Margin="0,0,2,0">
+              <Run
+                Text="Kalkulierte Einsparung: " />
+              <Run
+                Text="{Binding CalculatedMoneySaving, Mode=OneWay}" />
+              <Run
+                Text="(€)" />
             </TextBlock>
             <TextBlock
-          Margin="0,0,2,0">
-          <Run
-            Text="Tatsächliche Einsparung: " />
-          <Run
-            Text="{Binding ActualMoneySaving, Mode=OneWay}" />
-          <Run
-            Text="(€)" />
+              Margin="0,0,2,0">
+              <Run
+                Text="Tatsächliche Einsparung: " />
+              <Run
+                Text="{Binding ActualMoneySaving, Mode=OneWay}" />
+              <Run
+                Text="(€)" />
             </TextBlock>
           </UniformGrid>
         </StackPanel>
@@ -212,7 +211,7 @@
             Margin="0 0 0 3" />
         </StackPanel>
       </Grid>
-     
+
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition
@@ -221,33 +220,32 @@
             Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel
-         Grid.Column="0"
-          Margin=" 0 20 10 0"
-        >
+          Grid.Column="0"
+          Margin=" 0 20 10 0">
           <TextBlock
-          Margin="0 0 2 3">
-          <Run
-            Text="Eingesparte CO2-Äquvalente: " />
-          <Run
-            Text="{Binding SavedCO2, Mode=OneWay}" />
+            Margin="0 0 2 3">
+            <Run
+              Text="Eingesparte CO2-Äquvalente: " />
+            <Run
+              Text="{Binding SavedCO2, Mode=OneWay}" />
           </TextBlock>
           <TextBlock
-          Margin="0,0,2,0">
-          <Run
-            Text="Kalkulierte Einsparung: " />
-          <Run
-            Text="{Binding CalculatedConsumptionSaving, Mode=OneWay}" />
-          <Run
-            Text="(kWh/a)" />
+            Margin="0,0,2,0">
+            <Run
+              Text="Kalkulierte Einsparung: " />
+            <Run
+              Text="{Binding CalculatedConsumptionSaving, Mode=OneWay}" />
+            <Run
+              Text="(kWh/a)" />
           </TextBlock>
           <TextBlock
-          Margin="0,0,2,0">
-          <Run
-            Text="Tatsächliche Einsparung: " />
-          <Run
-            Text="{Binding ActualConsumptionSaving, Mode=OneWay}" />
-          <Run
-            Text="(kWh/a)" />
+            Margin="0,0,2,0">
+            <Run
+              Text="Tatsächliche Einsparung: " />
+            <Run
+              Text="{Binding ActualConsumptionSaving, Mode=OneWay}" />
+            <Run
+              Text="(kWh/a)" />
           </TextBlock>
         </StackPanel>
         <StackPanel
@@ -257,10 +255,27 @@
             Text="Aktueller Verbrauchswert in kWh/a" />
           <ComboBox
             Margin="0 0 0 3"
-            SelectedItem="{Binding CurrentConsumptionReading}"
             ItemsSource="{Binding AllRelatedReadings}"
-            DisplayMemberPath="ValueAndDate"
-            ToolTip="Aktueller Verbrauchswert (kWh/a) vor Maßnahmeneinführung" />
+            SelectedItem="{Binding CurrentConsumptionReading}"
+            ToolTip="Aktueller Verbrauchswert (kWh/a) vor Maßnahmeneinführung">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock>
+                  <Run
+                    Text="{Binding CounterReading}" />
+                  <Run
+                    Text=" : " />
+                  <Run
+                    Text="{Binding Path=ReadingDate, StringFormat=d, ConverterCulture=de-DE}" />
+                  
+                  <TextBlock.ToolTip>
+                    <TextBlock
+                      Text="{Binding Path=MeasuringDevice}" />
+                  </TextBlock.ToolTip>
+                </TextBlock>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
           <TextBlock
             Text="Prognostizierter Verbrauchswert in kWh/a"
             Margin="0 0 0 3" />
@@ -274,13 +289,30 @@
           <ComboBox
             SelectedItem="{Binding ActualConsumptionReading}"
             ItemsSource="{Binding AllRelatedReadings}"
-            DisplayMemberPath="ValueAndDate"
             ToolTip="Verbrauchswert nach Abschluss der Maßnahme Einsparungswert (kWh/a)"
-            Margin="0 0 0 3" />
+            Margin="0 0 0 3" >
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock>
+                  <Run
+                    Text="{Binding CounterReading}" />
+                  <Run
+                    Text=" : " />
+                  <Run
+                    Text="{Binding Path=ReadingDate, StringFormat=d, ConverterCulture=de-DE}" />
+
+                <TextBlock.ToolTip>
+                  <TextBlock
+                      Text="{Binding Path=MeasuringDevice}" />
+                </TextBlock.ToolTip>
+                </TextBlock>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+          </ComboBox>
 
         </StackPanel>
       </Grid>
-    
+
       <StackPanel>
         <Grid>
           <Grid.ColumnDefinitions>
