@@ -210,8 +210,8 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        return Math.Round((m_Model.Investment + m_Model.FailureMoney) / m_Model.SavedMoneyShould * 365, 0);
-        // Errechnet sich aus Investitionskosten+Ausfallkosten und Wert der Einsparung nach beendeter Maßnahme (CalculatedMoneySaving) * 365 Tage (für die Umrechnung)
+        return Math.Round((m_Model.Investment + m_Model.FailureMoney) / m_Model.SavedMoneyShould , 0);
+        // Errechnet sich aus Investitionskosten+Ausfallkosten und Wert der Einsparung nach beendeter Maßnahme (CalculatedMoneySaving) 
       }
     }
 

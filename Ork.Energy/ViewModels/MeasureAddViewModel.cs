@@ -388,10 +388,10 @@ namespace Ork.Energy.ViewModels
       get { return ActualConsumption * 0.61; }
     }
 
-    //Amortisationszeit in Tagen (sic)
+    //Amortisationszeit
     public double AmortisationTime
     {
-      get { return Math.Round((CostsNeeded + FailureCosts) / CalculatedMoneySaving * 365, 0); }
+      get { return Math.Round((CostsNeeded + FailureCosts) / CalculatedMoneySaving , 0); }
     }
 
 

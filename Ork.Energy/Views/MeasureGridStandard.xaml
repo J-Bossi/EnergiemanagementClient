@@ -262,7 +262,7 @@
           Width="20*" />
 
         <controls:DataGridTextColumn
-          Header="Amortisationszeit (in Tagen)"
+          Header="Amortisationszeit"
           Binding="{Binding Amortisationtime,  Mode=OneWay}"
           Width="25*" />
 

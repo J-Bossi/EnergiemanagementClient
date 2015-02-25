@@ -165,18 +165,6 @@
           Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
           controls:TextBoxHelper.Watermark="Filtere Verbrauchergruppen"
           Style="{DynamicResource SearchMetroTextBox}" />
-        <!--<AdornerDecorator
-          Grid.Row="0">
-          <xctk:AutoSelectTextBox
-            Style="{DynamicResource EntryControl}"
-            Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
-            <global:WatermarkService.Watermark>
-              <TextBlock
-                Text="{lex:Loc Ork.Energy:Translate:FilterCatalogs}"
-                Foreground="{DynamicResource TextForegroundColorBrush}" />
-            </global:WatermarkService.Watermark>
-          </xctk:AutoSelectTextBox>
-        </AdornerDecorator>-->
 
         <Button
           Grid.Row="1"
@@ -245,8 +233,13 @@
 
           <ListBox.ItemTemplate>
             <DataTemplate>
+              <Border
+                Margin="0 1"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource AccentColorBrush}">
               <StackPanel
                 Margin="0 0 4 0"
+                
                 Background="Transparent"
                 Orientation="Vertical"
                 cal:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]">
@@ -262,6 +255,7 @@
                   TextTrimming="CharacterEllipsis"
                   Margin="0 0 0 4" />
               </StackPanel>
+              </Border>
             </DataTemplate>
           </ListBox.ItemTemplate>
         </ListBox>

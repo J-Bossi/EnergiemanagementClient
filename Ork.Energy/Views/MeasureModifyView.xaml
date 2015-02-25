@@ -16,7 +16,6 @@
   mc:Ignorable="d"
   d:DesignHeight="1000"
   d:DesignWidth="1000">
-
   <UserControl.Resources>
     <ResourceDictionary>
       <converters:EnumLanguageConverter
@@ -24,13 +23,8 @@
 
       <converters:FileExtensionStyleConverter
         x:Key="StyleConverter" />
-
-
     </ResourceDictionary>
-
-
   </UserControl.Resources>
-
 
   <Grid>
     <Grid.ColumnDefinitions>
@@ -228,7 +222,7 @@
               Text="Herstellerangabe Verbrauch: " />
             <Run
               Text="{Binding PowerOutput, Mode=OneWay}" />
-                        <Run
+            <Run
               Text=" kw" />
           </TextBlock>
           <TextBlock
@@ -247,8 +241,7 @@
             <Run
               Text="(kWh/a)" />
           </TextBlock>
-          <TextBlock
-            >
+          <TextBlock>
             <Run
               Text="Tatsächliche Einsparung: " />
             <Run
@@ -276,7 +269,7 @@
                     Text=" : " />
                   <Run
                     Text="{Binding Path=ReadingDate, StringFormat=d, ConverterCulture=de-DE}" />
-                  
+
                   <TextBlock.ToolTip>
                     <TextBlock
                       Text="{Binding Path=MeasuringDevice}" />
@@ -290,7 +283,7 @@
             Margin="0 0 0 3" />
           <TextBox
             Text="{Binding CalculatedConsumption}"
-            ToolTip="Verbrauchswert nach Abschluss der Maßnahme Einsparungswert (kWh/a)"
+            ToolTip="Verbrauchswert nach Abschluss der Maßnahme (kWh/a)"
             Margin="0 0 0 3" />
           <TextBlock
             Text="Tatsächlicher Verbrauchswert in kWh/a"
@@ -298,25 +291,24 @@
           <ComboBox
             SelectedItem="{Binding ActualConsumptionReading}"
             ItemsSource="{Binding AllRelatedReadings}"
-            ToolTip="Verbrauchswert nach Abschluss der Maßnahme Einsparungswert (kWh/a)"
-            Margin="0 0 0 3" >
-          <ComboBox.ItemTemplate>
-            <DataTemplate>
-              <TextBlock>
+            ToolTip="Verbrauchswert nach Abschluss der Maßnahme(kWh/a)"
+            Margin="0 0 0 3">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock>
                   <Run
                     Text="{Binding CounterReading}" />
                   <Run
                     Text=" : " />
                   <Run
                     Text="{Binding Path=ReadingDate, StringFormat=d, ConverterCulture=de-DE}" />
-
-                <TextBlock.ToolTip>
-                  <TextBlock
+                  <TextBlock.ToolTip>
+                    <TextBlock
                       Text="{Binding Path=MeasuringDevice}" />
-                </TextBlock.ToolTip>
+                  </TextBlock.ToolTip>
                 </TextBlock>
-            </DataTemplate>
-          </ComboBox.ItemTemplate>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
           </ComboBox>
 
         </StackPanel>
