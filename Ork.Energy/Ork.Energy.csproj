@@ -186,6 +186,7 @@
     <Compile Include="ViewModels\ReadingViewModel.cs" />
     <Compile Include="ViewModels\ResponsibleSubjectViewModel.cs" />
     <Compile Include="ViewModels\SubMeasureViewModel.cs" />
+    <Compile Include="ViewModels\TrendManagementViewModel.cs" />
     <Compile Include="Views\AllReadingsControlView.xaml.cs">
       <DependentUpon>AllReadingsControlView.xaml</DependentUpon>
     </Compile>
@@ -323,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReadingAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TrendManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

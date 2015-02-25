@@ -42,9 +42,6 @@ namespace Ork.Energy.ViewModels
     private bool m_FlyoutActivated;
     private bool m_IsEnabled;
     private PlotModel m_Plot;
-    //private bool m_PlotIsVisible;
-    //private bool m_EcoPlotIsVisible;
-    //private bool m_EcoPlotIsVisible2;
     private string m_SearchText;
     private string m_SearchTextMeasures;
     private ConsumerGroupViewModel m_SelectedConsumerGroup;
@@ -57,9 +54,7 @@ namespace Ork.Energy.ViewModels
     private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
     private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
     private readonly IEnergyRepository m_Repository;
-    //private bool m_DgvVisible;
-    //private bool m_DgvVisibleCat;
-    //private bool m_DgvVisibleEco;
+
 
     [ImportingConstructor]
     public MeasureManagementViewModel([Import] IEnergyRepository contextRepository,
@@ -73,14 +68,6 @@ namespace Ork.Energy.ViewModels
       m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
 
       Reload();
-
-      //VisibleCat = false;       // Sichtbarkeit ausgewählter Katalog
-      //VisibleEco = false;       // Siehtbarkeit ökologische Ansicht
-      //VisibleNormal = true;     // Sichtbarkeit normale Ansicht
-
-      //VisibleEcoPlot = false;   // Sichtbarkeit ökologische Grafik (Investition & Ersparnis)
-      //VisibleEcoPlot2 = false;  // Sichtbarkeit ökologische Grafik (CO2)
-      //VisiblePlot = true;       // Sichtbarkeit normale Grafik
 
       FlyoutActivated = true;
     }
@@ -162,26 +149,7 @@ namespace Ork.Energy.ViewModels
       get { return m_SelectedConsumerGroup; }
       set
       {
-        //if (value == null)
-        //{
-        //  VisibleCat = false;
-        //  VisibleNormal = true;
-        //  VisibleEco = false;
 
-        //  VisiblePlot = true;
-        //  VisibleEcoPlot = false;
-        //  VisibleEcoPlot2 = false;
-        //}
-        //else
-        //{
-        //    VisibleCat = true;
-        //    VisibleNormal = false;
-        //    VisibleEco = false;
-
-        //    VisiblePlot = true;
-        //    VisibleEcoPlot = false;
-        //    VisibleEcoPlot2 = false;
-        //}
 
         m_SelectedConsumerGroup = value;
         NotifyOfPropertyChange(() => SelectedConsumerGroup);
@@ -198,65 +166,6 @@ namespace Ork.Energy.ViewModels
       get { return CalculateDateInterval(); }
     }
 
-    //public bool VisibleNormal           // Sichtbarkeit Alle Maßnahmen
-    //{
-    //  get { return m_DgvVisible; }
-    //  set
-    //  {
-    //    m_DgvVisible = value;
-    //    NotifyOfPropertyChange(() => VisibleNormal);
-    //  }
-    //}
-
-    //public bool VisibleCat              // Sichtbarkeit ausgewählter Katalog
-    //{
-    //    get { return m_DgvVisibleCat; }
-    //    set
-    //    {
-    //        m_DgvVisibleCat = value;
-    //        NotifyOfPropertyChange(() => VisibleCat);
-    //    }
-    //}
-
-    //public bool VisibleEco          // Sichtbarkeit Einsparung
-    //{
-    //    get { return m_DgvVisibleEco; }
-    //    set
-    //    {
-    //        m_DgvVisibleEco = value;
-    //        NotifyOfPropertyChange(() => VisibleEco);
-    //    }
-    //}
-
-    //public bool VisiblePlot     // Sichtbarkeit Grafik-Allg.
-    //{
-    //    get { return m_PlotIsVisible; }
-    //    set
-    //    {
-    //        m_PlotIsVisible = value;
-    //        NotifyOfPropertyChange(() => VisiblePlot);
-    //    }
-    //}
-
-    //public bool VisibleEcoPlot     // Sichtbarkeit Grafik-Eco
-    //{
-    //    get { return m_EcoPlotIsVisible; }
-    //    set
-    //    {
-    //        m_EcoPlotIsVisible = value;
-    //        NotifyOfPropertyChange(() => VisibleEcoPlot);
-    //    }
-    //}
-
-    //public bool VisibleEcoPlot2     // Sichtbarkeit Grafik-Eco2
-    //{
-    //    get { return m_EcoPlotIsVisible2; }
-    //    set
-    //    {
-    //        m_EcoPlotIsVisible2 = value;
-    //        NotifyOfPropertyChange(() => VisibleEcoPlot2);
-    //    }
-    //}
 
 
     public bool CanAdd
@@ -270,7 +179,7 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        //todo: optimize initialization
+
         InitializePlot();
 
         var measures = Measures.ToArray();
@@ -304,7 +213,7 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        //todo: optimize initialization
+
         InitializeEcoPlot2();
 
         var measures = Measures.ToArray();
@@ -340,8 +249,7 @@ namespace Ork.Energy.ViewModels
     private string CalculateDateInterval()
     {
       var measures = m_Repository.Measures;
-      //Measure[] measures = m_ConsumerGroups.SelectMany(cat => cat.Measures)
-      //                                     .ToArray();
+
       if (!measures.Any())
       {
         return TranslationProvider.Translate("NoneAvailable");
@@ -484,11 +392,6 @@ namespace Ork.Energy.ViewModels
       OpenEditor(m_MeasureViewModelFactory.CreateCatalogAddViewModel());
     }
 
-    //private void OpenCatalogEditDialog(object dataContext)
-    //{
-    //  SelectedCatalog = (CatalogViewModel) dataContext;
-    //  OpenEditor(m_MeasureViewModelFactory.CreateCatalogEditViewModel((CatalogViewModel) dataContext, RemoveCatalog));
-    //}
 
     private void OpenMeasureEditDialog(MeasureViewModel measureViewModel)
     {
