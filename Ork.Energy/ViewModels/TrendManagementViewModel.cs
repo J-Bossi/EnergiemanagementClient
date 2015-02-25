@@ -19,8 +19,12 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using Ork.Energy.Domain.DomainModelService;
 using Ork.Framework;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
 
 namespace Ork.Energy.ViewModels
 {
@@ -29,6 +33,7 @@ namespace Ork.Energy.ViewModels
   {
     private readonly IEnergyRepository m_Repository;
     private bool m_IsEnabled;
+    private PlotModel m_Plot;
 
     [ImportingConstructor]
     public TrendManagementViewModel([Import] IEnergyRepository contextRepository)
@@ -39,6 +44,29 @@ namespace Ork.Energy.ViewModels
       Reload();
     }
 
+    private Distributor SelectedDistributor
+    {
+      get { return m_Repository.Distributors.First(); }
+      //set NotifyOfPropertyChange(() => RelevantConsumer);
+    }
+
+    private IEnumerable<Consumer> RelevantConsumers
+    {
+      get { return m_Repository.Consumers.Where(c => c.Distributor == SelectedDistributor); }
+    }
+
+    public PlotModel TrendPlot
+    {
+      get
+      {
+        InitializeTrendPlot();
+        LoadActualValueSeries();
+
+        m_Plot.InvalidatePlot(true);
+        return m_Plot;
+      }
+    }
+
     public int Index
     {
       get { return 402; }
@@ -46,7 +74,7 @@ namespace Ork.Energy.ViewModels
 
     public bool IsEnabled
     {
-      get { return m_IsEnabled; }
+      get { return true; }
       private set
       {
         m_IsEnabled = value;
@@ -59,65 +87,83 @@ namespace Ork.Energy.ViewModels
       get { return "Auswertung"; }
     }
 
-    private void Reload()
+    private void Reload() {}
+
+    private void LoadActualValueSeries()
     {
-      IsEnabled = m_Repository.HasConnection;
-      if (IsEnabled)
+      var allReadingDatesFromSelectedDistributor = RelevantConsumers.SelectMany(rc => rc.Readings).ToList();
+      var valueSeries = new LineSeries();
+      foreach (var pointt in  allReadingDatesFromSelectedDistributor.OrderBy(r => r.ReadingDate))
       {
-        LoadData();
+        valueSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(pointt.ReadingDate),
+          AccumulatedValuesAtDate(pointt.ReadingDate)));
       }
+      m_Plot.Series.Add(valueSeries);
     }
 
-    private void LoadData()
+    private double AccumulatedValuesAtDate(DateTime measurePoint)
     {
-      var result = new List<PlotPoint>();
-      var distributor = m_Repository.Distributors.First();
-      //LoadMeasures();
-      var relevantMeasures = m_Repository.Measures.Where(m => m.Consumer.Distributor == distributor);
-      var relevantDays = relevantMeasures.Select(r => r.ConsumptionActual.ReadingDate).ToList();
-      relevantDays.AddRange(relevantMeasures.Select(r => r.ConsumptionNormative.ReadingDate));
-      relevantDays.Sort();
-      foreach (var measurePoint in relevantDays)
-      {
-        result.Add(new PlotPoint(measurePoint, Summe(measurePoint)));
-      }
-    }
-
-    private double Summe(DateTime measurePoint)
-    {
-      var distributor = m_Repository.Distributors.First();
       var returnvalue = 0.0;
-      var relevantConsumers = m_Repository.Consumers.Where(c => c.Distributor == distributor);
 
-
-
-      foreach (var consumer in relevantConsumers)
+      foreach (var consumer in RelevantConsumers)
       {
-        var closestReading = consumer.Readings.OrderBy(r => (r.ReadingDate - measurePoint).Duration())
-                                     .First();
+        var readingsBeforeMeasurePoint = consumer.Readings.Where(r => r.ReadingDate <= measurePoint).ToList();
 
-        returnvalue += closestReading.CounterReading;
+        if (readingsBeforeMeasurePoint.Any())
+        {
+          var closestReading = readingsBeforeMeasurePoint.OrderBy(r => (r.ReadingDate - measurePoint).Duration()).First();
+          returnvalue += closestReading.CounterReading;
+        }
+        else
+        {
+          returnvalue += consumer.Readings.First().CounterReading;
+        }
       }
-
       return returnvalue;
-
     }
 
 
- 
-   
+    private void InitializeTrendPlot()
+    {
+      m_Plot = new PlotModel
+      {
+        LegendTitle = "Legende",
+      };
 
-  }
-}
+      m_Plot.Axes.Clear();
+      m_Plot.Series.Clear();
 
-class PlotPoint
-{
-  private DateTime plotDate;
-  private double measureValue;
+      var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
+      var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
 
-  public PlotPoint(DateTime dateTime, double value)
-  {
-    plotDate = dateTime;
-    measureValue = value;
+      // m_Plot.Title = ; //ausgewählter Verteiler
+      m_Plot.LegendOrientation = LegendOrientation.Horizontal;
+      m_Plot.LegendPlacement = LegendPlacement.Outside;
+      m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
+      m_Plot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
+      m_Plot.PlotAreaBorderThickness = new OxyThickness(1);
+
+      var dateAxis = new DateTimeAxis()
+      {
+        IsPanEnabled = false,
+        IsZoomEnabled = false
+      };
+      m_Plot.Axes.Add(dateAxis);
+
+      var valueAxis = new LinearAxis(AxisPosition.Left, 0)
+      {
+        ShowMinorTicks = true,
+        MinorGridlineStyle = LineStyle.Dot,
+        MajorGridlineStyle = LineStyle.Dot,
+        MajorGridlineColor = OxyColor.Parse(lightControlColor.ToString()),
+        MinorGridlineColor = OxyColor.Parse(lightControlColor.ToString()),
+        TicklineColor = OxyColor.Parse(textForegroundColor.ToString()),
+        Title = "kwh",
+        IsZoomEnabled = false,
+        IsPanEnabled = false
+      };
+
+      m_Plot.Axes.Add(valueAxis);
+    }
   }
 }

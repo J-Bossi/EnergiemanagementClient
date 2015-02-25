@@ -38,6 +38,13 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class MeasureManagementViewModel : DocumentBase, IWorkspace
   {
+    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
+      new BindableCollection<ConsumerGroupViewModel>();
+
+    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
+    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
+    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
+    private readonly IEnergyRepository m_Repository;
     private IScreen m_EditItem;
     private bool m_FlyoutActivated;
     private bool m_IsEnabled;
@@ -46,14 +53,6 @@ namespace Ork.Energy.ViewModels
     private string m_SearchTextMeasures;
     private ConsumerGroupViewModel m_SelectedConsumerGroup;
     private MeasureViewModel m_SelectedMeasure;
-
-    private readonly BindableCollection<ConsumerGroupViewModel> m_ConsumerGroups =
-      new BindableCollection<ConsumerGroupViewModel>();
-
-    private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
-    private readonly BindableCollection<MeasureViewModel> m_Measures = new BindableCollection<MeasureViewModel>();
-    private readonly IMeasureViewModelFactory m_MeasureViewModelFactory;
-    private readonly IEnergyRepository m_Repository;
 
 
     [ImportingConstructor]
@@ -149,8 +148,6 @@ namespace Ork.Energy.ViewModels
       get { return m_SelectedConsumerGroup; }
       set
       {
-
-
         m_SelectedConsumerGroup = value;
         NotifyOfPropertyChange(() => SelectedConsumerGroup);
         NotifyOfPropertyChange(() => CanAdd);
@@ -167,7 +164,6 @@ namespace Ork.Energy.ViewModels
     }
 
 
-
     public bool CanAdd
     {
       get { return true; }
@@ -179,7 +175,6 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-
         InitializePlot();
 
         var measures = Measures.ToArray();
@@ -196,7 +191,6 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        //todo: optimize initialization
         InitializeEcoPlot();
 
         var measures = Measures.ToArray();
@@ -213,7 +207,6 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-
         InitializeEcoPlot2();
 
         var measures = Measures.ToArray();
