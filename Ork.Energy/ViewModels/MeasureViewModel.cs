@@ -173,7 +173,14 @@ namespace Ork.Energy.ViewModels
 
     public double ActualConsumption
     {
-      get { return m_Model.ConsumptionNormative.CounterReading; }
+      get
+      {
+        if (m_Model.ConsumptionNormative != null)
+        {
+          return m_Model.ConsumptionNormative.CounterReading;
+        }
+        return 0.0;
+      }
     }
 
     public double ActualMoneySaving
@@ -188,7 +195,14 @@ namespace Ork.Energy.ViewModels
 
     public double CurrentConsumption
     {
-      get { return m_Model.ConsumptionActual.CounterReading; }
+      get
+      {
+        if (m_Model.ConsumptionActual != null)
+        {
+          return m_Model.ConsumptionActual.CounterReading;
+        }
+        return 0.0;
+      }
     }
 
     public double SavedCO2

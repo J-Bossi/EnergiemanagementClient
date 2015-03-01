@@ -34,17 +34,6 @@ namespace Ork.Energy.ViewModels
 {
   public class MeasureAddViewModel : DocumentBase
   {
-    private readonly EnergyMeasure m_Model;
-    private readonly IEnumerable m_Priorities;
-
-
-    private readonly IEnergyRepository m_Repository;
-    private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
-
-    private readonly BindableCollection<SubMeasureViewModel> m_SubMeasureViewModels =
-      new BindableCollection<SubMeasureViewModel>();
-
-    private readonly IViewModelFactory m_ViewModelFactory;
     private string _newSubMeasureName;
     private ResponsibleSubjectViewModel _newSubMeasureResponsibleSubject;
     private double m_CalculatedConsumption;
@@ -52,6 +41,15 @@ namespace Ork.Energy.ViewModels
     private string m_ResponsibleSubjectSearchText = string.Empty;
     private Catalog m_SelectedCatalog;
     private ResponsibleSubjectViewModel m_SelectedResponsibleSubject;
+    private readonly EnergyMeasure m_Model;
+    private readonly IEnumerable m_Priorities;
+    private readonly IEnergyRepository m_Repository;
+    private readonly IEnumerable<ResponsibleSubjectViewModel> m_ResponsibleSubjects;
+
+    private readonly BindableCollection<SubMeasureViewModel> m_SubMeasureViewModels =
+      new BindableCollection<SubMeasureViewModel>();
+
+    private readonly IViewModelFactory m_ViewModelFactory;
 
     [ImportingConstructor]
     public MeasureAddViewModel(EnergyMeasure model, IEnumerable<ResponsibleSubjectViewModel> responsibleSubjectViewModels,
@@ -347,7 +345,12 @@ namespace Ork.Energy.ViewModels
 
     public Reading ActualConsumptionReading
     {
-      get { return AllRelatedReadings.Single(r => r == m_Model.ConsumptionNormative); }
+      get
+      {
+        return m_Model.ConsumptionNormative == null
+          ? null
+          : AllRelatedReadings.Single(r => r == m_Model.ConsumptionNormative);
+      }
 
       set
       {
@@ -360,7 +363,17 @@ namespace Ork.Energy.ViewModels
 
     public Reading CurrentConsumptionReading
     {
-      get { return AllRelatedReadings.Single(r => r == m_Model.ConsumptionActual); }
+      get
+      {
+        if (m_Model.ConsumptionActual == null)
+        {
+          return null;
+        }
+        else
+        {
+          return AllRelatedReadings.Single(r => r == m_Model.ConsumptionActual);
+        }
+      }
       set
       {
         m_Model.ConsumptionActual = value;
@@ -373,9 +386,15 @@ namespace Ork.Energy.ViewModels
 
     public double? PowerOutput
     {
-      get { return m_Model.Consumer.PowerOutput; }
+      get
+      {
+        if (m_Model.Consumer != null)
+        {
+          return m_Model.Consumer.PowerOutput;
+        }
+        return null;
+      }
     }
-
 
     public double CurrentSpending // Property für aktuellen Ist-Verbrauchswert in €
     {
@@ -391,16 +410,14 @@ namespace Ork.Energy.ViewModels
     //Amortisationszeit
     public double AmortisationTime
     {
-      get { return Math.Round((CostsNeeded + FailureCosts) / CalculatedMoneySaving , 0); }
+      get { return Math.Round((CostsNeeded + FailureCosts) / CalculatedMoneySaving, 0); }
     }
-
 
     public double FailureCosts // Property für Ausfallkosten
     {
       get { return m_Model.FailureMoney; }
       set { m_Model.FailureMoney = value; }
     }
-
 
     public string ReferenceTo // Property für Verweis
     {
@@ -539,7 +556,6 @@ namespace Ork.Energy.ViewModels
           break;
       }
     }
-
 
     public void SetImage()
     {
