@@ -34,6 +34,7 @@ namespace Ork.Energy.ViewModels
     private readonly IEnergyRepository m_Repository;
     private bool m_IsEnabled;
     private PlotModel m_Plot;
+    private Distributor m_SelectedDistributor;
 
     [ImportingConstructor]
     public TrendManagementViewModel([Import] IEnergyRepository contextRepository)
@@ -44,11 +45,28 @@ namespace Ork.Energy.ViewModels
       Reload();
     }
 
-    private Distributor SelectedDistributor
+    public Distributor SelectedDistributor
     {
-      get { return m_Repository.Distributors.First(); }
-      //set NotifyOfPropertyChange(() => RelevantConsumer);
+      get
+      {
+        if (m_SelectedDistributor == null)
+        {
+          m_SelectedDistributor = m_Repository.Distributors.First();
+        }
+        return m_SelectedDistributor;
+      }
+      set
+      {
+        m_SelectedDistributor = value;
+        NotifyOfPropertyChange(() => RelevantConsumers);
+        NotifyOfPropertyChange(() => TrendPlot);
+      }
     }
+
+    public IEnumerable<Distributor> AllDistributors
+    {
+      get { return m_Repository.Distributors; }
+    } 
 
     private IEnumerable<Consumer> RelevantConsumers
     {
@@ -61,6 +79,7 @@ namespace Ork.Energy.ViewModels
       {
         InitializeTrendPlot();
         LoadActualValueSeries();
+        LoadDistributorValueSeries();
 
         m_Plot.InvalidatePlot(true);
         return m_Plot;
@@ -91,15 +110,42 @@ namespace Ork.Energy.ViewModels
 
     private void LoadActualValueSeries()
     {
-      var allReadingDatesFromSelectedDistributor = RelevantConsumers.SelectMany(rc => rc.Readings).ToList();
+      var allReadingDatesFromSelectedDistributor = RelevantConsumers.SelectMany(rc => rc.Readings)
+                                                                    .ToList();
+      var allRelevantMeasuresFromSelectedDistributor = m_Repository.Measures.Where(m => RelevantConsumers.Contains(m.Consumer));
       var valueSeries = new LineSeries();
+      var calculatedSeries = new LineSeries();
+      var startValue = 0.0;
       foreach (var pointt in  allReadingDatesFromSelectedDistributor.OrderBy(r => r.ReadingDate))
       {
         valueSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(pointt.ReadingDate),
           AccumulatedValuesAtDate(pointt.ReadingDate)));
+        if (!calculatedSeries.Points.Any())
+        {
+          startValue = AccumulatedValuesAtDate(pointt.ReadingDate);
+          calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(pointt.ReadingDate), startValue));
+        }
+      }
+      var newValue = startValue;
+      foreach (var measure in allRelevantMeasuresFromSelectedDistributor)
+      {
+        newValue -= measure.SavedWattShould;
+        calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(measure.DueDate), newValue));
       }
       m_Plot.Series.Add(valueSeries);
+      m_Plot.Series.Add((calculatedSeries));
     }
+
+    private void LoadDistributorValueSeries()
+    {
+      var distributorSeries = new LineSeries();
+      foreach (var reading in SelectedDistributor.Readings)
+      {
+        distributorSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(reading.ReadingDate), reading.CounterReading));
+      }
+      m_Plot.Series.Add((distributorSeries));
+    }
+
 
     private double AccumulatedValuesAtDate(DateTime measurePoint)
     {
@@ -107,16 +153,20 @@ namespace Ork.Energy.ViewModels
 
       foreach (var consumer in RelevantConsumers)
       {
-        var readingsBeforeMeasurePoint = consumer.Readings.Where(r => r.ReadingDate <= measurePoint).ToList();
+        var readingsBeforeMeasurePoint = consumer.Readings.Where(r => r.ReadingDate <= measurePoint)
+                                                 .ToList();
 
         if (readingsBeforeMeasurePoint.Any())
         {
-          var closestReading = readingsBeforeMeasurePoint.OrderBy(r => (r.ReadingDate - measurePoint).Duration()).First();
+          var closestReading = readingsBeforeMeasurePoint.OrderBy(r => (r.ReadingDate - measurePoint).Duration())
+                                                         .First();
           returnvalue += closestReading.CounterReading;
         }
         else
         {
-          returnvalue += consumer.Readings.First().CounterReading;
+          var sortedReadings = consumer.Readings.OrderBy(r => r.ReadingDate);
+          returnvalue += sortedReadings.First()
+                                       .CounterReading;
         }
       }
       return returnvalue;
@@ -136,7 +186,7 @@ namespace Ork.Energy.ViewModels
       var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
       var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
 
-      // m_Plot.Title = ; //ausgewählter Verteiler
+      m_Plot.Title = SelectedDistributor.Name;
       m_Plot.LegendOrientation = LegendOrientation.Horizontal;
       m_Plot.LegendPlacement = LegendPlacement.Outside;
       m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());

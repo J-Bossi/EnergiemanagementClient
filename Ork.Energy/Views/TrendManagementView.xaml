@@ -7,9 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
   <Grid
-      Background="{DynamicResource WorkspaceBackgroundColorBrush}">
+      Background="{DynamicResource WindowBackgroundColorBrush}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <ComboBox
+      Grid.Row="0"
+      SelectedItem="{Binding SelectedDistributor}"
+      ItemsSource="{Binding AllDistributors}"
+      DisplayMemberPath="Name"
+      Width="200"
+      HorizontalAlignment="Left"
+      />
     <oxy:Plot
-
+Grid.Row="1"
         Model="{Binding TrendPlot}"
       
         
