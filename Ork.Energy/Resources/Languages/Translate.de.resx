@@ -133,7 +133,7 @@
     <value>Beschreibung</value>
   </data>
   <data name="DueDate" xml:space="preserve">
-    <value>Planungsdatum</value>
+    <value>Planung zum</value>
   </data>
   <data name="FilterResponsibleSubjects" xml:space="preserve">
     <value>Verantwortliche filtern...</value>
@@ -181,7 +181,7 @@
     <value>Katalog</value>
   </data>
   <data name="Planning" xml:space="preserve">
-    <value>Geplant am</value>
+    <value>Geplant zum</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Priorität</value>
@@ -235,7 +235,7 @@
     <value>Monat</value>
   </data>
   <data name="DueDateIsDelayed" xml:space="preserve">
-    <value>Planungsdatum ist bereits überschritten</value>
+    <value>Geplantes Datum ist bereits überschritten</value>
   </data>
   <data name="EntryDateIsDelayed" xml:space="preserve">
     <value>Maßnahme wurde verspätet durchgeführt</value>
