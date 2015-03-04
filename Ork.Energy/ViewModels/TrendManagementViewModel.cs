@@ -165,8 +165,11 @@ namespace Ork.Energy.ViewModels
         else
         {
           var sortedReadings = consumer.Readings.OrderBy(r => r.ReadingDate);
-          returnvalue += sortedReadings.First()
-                                       .CounterReading;
+          if (sortedReadings.Any())
+          {
+            returnvalue += sortedReadings.First()
+                                         .CounterReading;
+          }
         }
       }
       return returnvalue;
