@@ -155,7 +155,7 @@ namespace Ork.Energy.ViewModels
         TrackerFormatString = "{0} " + Environment.NewLine + "{1}: {2:dd.MM.yy} " + Environment.NewLine + "{3}: {4} "
       };
 
-      foreach (var reading in SelectedDistributor.Readings)
+      foreach (var reading in SelectedDistributor.Readings.OrderBy(r => r.ReadingDate))
       {
         distributorSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(reading.ReadingDate), reading.CounterReading));
       }
