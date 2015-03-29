@@ -112,9 +112,20 @@ namespace Ork.Energy.ViewModels
     {
       var allReadingDatesFromSelectedDistributor = RelevantConsumers.SelectMany(rc => rc.Readings)
                                                                     .ToList();
+      allReadingDatesFromSelectedDistributor.Sort((a, b) => a.ReadingDate.CompareTo(b.ReadingDate));
       var allRelevantMeasuresFromSelectedDistributor = m_Repository.Measures.Where(m => RelevantConsumers.Contains(m.Consumer));
-      var valueSeries = new LineSeries();
-      var calculatedSeries = new LineSeries();
+      var valueSeries = new LineSeries
+      {
+
+        Title = "Gemessener Verbrauch",
+
+      };
+      var calculatedSeries = new LineSeries
+      {
+
+        Title = "Kalkulierter Verbrauch",
+
+      }; 
       var startValue = 0.0;
       foreach (var pointt in  allReadingDatesFromSelectedDistributor.OrderBy(r => r.ReadingDate))
       {
@@ -127,7 +138,7 @@ namespace Ork.Energy.ViewModels
         }
       }
       var newValue = startValue;
-      foreach (var measure in allRelevantMeasuresFromSelectedDistributor)
+      foreach (var measure in allRelevantMeasuresFromSelectedDistributor.OrderBy(m => m.DueDate))
       {
         newValue -= measure.SavedWattShould;
         calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(measure.DueDate), newValue));
@@ -138,8 +149,13 @@ namespace Ork.Energy.ViewModels
 
     private void LoadDistributorValueSeries()
     {
-      var distributorSeries = new LineSeries();
-      foreach (var reading in SelectedDistributor.Readings)
+      var distributorSeries = new LineSeries
+      {
+
+        Title = "Gemessener Verbrauch Verteiler",
+
+      }; 
+      foreach (var reading in SelectedDistributor.Readings.OrderBy(r => r.ReadingDate))
       {
         distributorSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(reading.ReadingDate), reading.CounterReading));
       }
