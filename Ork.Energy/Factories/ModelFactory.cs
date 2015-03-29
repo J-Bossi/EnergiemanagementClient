@@ -55,7 +55,7 @@ namespace Ork.Energy.Factories
       };
     }
 
-    public static Reading CreateReading(DateTime readingDate, long counterReading, string measuringDevice)
+    public static Reading CreateReading(DateTime readingDate, double counterReading, string measuringDevice)
     {
       return new Reading
       {

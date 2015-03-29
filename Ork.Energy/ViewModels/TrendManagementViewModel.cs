@@ -31,10 +31,10 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class TrendManagementViewModel : DocumentBase, IWorkspace
   {
-    private readonly IEnergyRepository m_Repository;
     private bool m_IsEnabled;
     private PlotModel m_Plot;
     private Distributor m_SelectedDistributor;
+    private readonly IEnergyRepository m_Repository;
 
     [ImportingConstructor]
     public TrendManagementViewModel([Import] IEnergyRepository contextRepository)
@@ -116,16 +116,16 @@ namespace Ork.Energy.ViewModels
       var allRelevantMeasuresFromSelectedDistributor = m_Repository.Measures.Where(m => RelevantConsumers.Contains(m.Consumer));
       var valueSeries = new LineSeries
       {
-
-        Title = "Gemessener Verbrauch",
-
+        Title = "Gemessene Verbrauchswerte",
+        TrackerFormatString = "{0} " + Environment.NewLine + "{1}: {2:dd.MM.yy} " + Environment.NewLine + "{3}: {4} "
       };
+
       var calculatedSeries = new LineSeries
       {
+        Title = "Prognostizierte Verbrauchswerte",
+        TrackerFormatString = "{0} " + Environment.NewLine + "{1}: {2:dd.MM.yy} " + Environment.NewLine + "{3}: {4} "
+      };
 
-        Title = "Kalkulierter Verbrauch",
-
-      }; 
       var startValue = 0.0;
       foreach (var pointt in  allReadingDatesFromSelectedDistributor.OrderBy(r => r.ReadingDate))
       {
@@ -151,17 +151,16 @@ namespace Ork.Energy.ViewModels
     {
       var distributorSeries = new LineSeries
       {
+        Title = "Verteiler",
+        TrackerFormatString = "{0} " + Environment.NewLine + "{1}: {2:dd.MM.yy} " + Environment.NewLine + "{3}: {4} "
+      };
 
-        Title = "Gemessener Verbrauch Verteiler",
-
-      }; 
-      foreach (var reading in SelectedDistributor.Readings.OrderBy(r => r.ReadingDate))
+      foreach (var reading in SelectedDistributor.Readings)
       {
         distributorSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(reading.ReadingDate), reading.CounterReading));
       }
       m_Plot.Series.Add((distributorSeries));
     }
-
 
     private double AccumulatedValuesAtDate(DateTime measurePoint)
     {
@@ -181,13 +180,15 @@ namespace Ork.Energy.ViewModels
         else
         {
           var sortedReadings = consumer.Readings.OrderBy(r => r.ReadingDate);
+          if (sortedReadings.Any())
+          {
           returnvalue += sortedReadings.First()
                                        .CounterReading;
         }
       }
+      }
       return returnvalue;
     }
-
 
     private void InitializeTrendPlot()
     {
@@ -205,6 +206,7 @@ namespace Ork.Energy.ViewModels
       m_Plot.Title = SelectedDistributor.Name;
       m_Plot.LegendOrientation = LegendOrientation.Horizontal;
       m_Plot.LegendPlacement = LegendPlacement.Outside;
+      m_Plot.LegendPosition = LegendPosition.BottomLeft;
       m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
       m_Plot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
       m_Plot.PlotAreaBorderThickness = new OxyThickness(1);
@@ -212,7 +214,9 @@ namespace Ork.Energy.ViewModels
       var dateAxis = new DateTimeAxis()
       {
         IsPanEnabled = false,
-        IsZoomEnabled = false
+        IsZoomEnabled = false,
+        Title = "Datum",
+        StringFormat = "dd-MM-yyyy",
       };
       m_Plot.Axes.Add(dateAxis);
 
@@ -224,7 +228,7 @@ namespace Ork.Energy.ViewModels
         MajorGridlineColor = OxyColor.Parse(lightControlColor.ToString()),
         MinorGridlineColor = OxyColor.Parse(lightControlColor.ToString()),
         TicklineColor = OxyColor.Parse(textForegroundColor.ToString()),
-        Title = "kwh",
+        Title = "kWh pro Jahr",
         IsZoomEnabled = false,
         IsPanEnabled = false
       };

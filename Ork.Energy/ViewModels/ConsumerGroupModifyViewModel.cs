@@ -53,12 +53,12 @@ namespace Ork.Energy.ViewModels
       }
     }
 
-    public IEnumerable<ConsumerTypeViewModel> ConsumerTypes
+    public IList<ConsumerTypeViewModel> ConsumerTypes
     {
       get
       {
         return m_Model.ConsumerTypes.Select(ct => m_EnergyViewModelFactory.CreateFromExisting(ct))
-                      .OrderBy(ct => ct.TypeName);
+                      .OrderBy(ct => ct.TypeName).ToList();
       }
     }
 

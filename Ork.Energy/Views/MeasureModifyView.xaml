@@ -73,6 +73,7 @@
       </ComboBox>
 
       <UniformGrid
+        Margin="0 0 0 16"
         Columns="2">
         <TextBlock
           Margin="0 0 0 3">
@@ -154,29 +155,32 @@
           <UniformGrid
             Rows="3">
             <TextBlock
-              Margin="0 0 2 3">
+              Margin="0 0 2 3"
+              
+              >
               <Run
-                Text="Amortisationszeit: " />
+                Text="Amortisationszeit: " FontWeight="DemiBold" />
               <Run
                 Text="{Binding AmortisationTime, Mode=OneWay}" />
             </TextBlock>
             <TextBlock
-              Margin="0,0,2,0">
+              Margin="0,0,2,0"
+              >
               <Run
-                Text="Kalkulierte Einsparung: " />
+                Text="Kalkulierte Einsparung: " FontWeight="DemiBold"/>
               <Run
                 Text="{Binding CalculatedMoneySaving, Mode=OneWay}" />
               <Run
-                Text="(€)" />
+                Text="(€)" FontWeight="DemiBold"/>
             </TextBlock>
             <TextBlock
               Margin="0,0,2,0">
               <Run
-                Text="Tatsächliche Einsparung: " />
+                Text="Tatsächliche Einsparung: " FontWeight="DemiBold" />
               <Run
                 Text="{Binding ActualMoneySaving, Mode=OneWay}" />
               <Run
-                Text="(€)" />
+                Text="(€)" FontWeight="DemiBold"/>
             </TextBlock>
           </UniformGrid>
         </StackPanel>
@@ -184,6 +188,7 @@
           Grid.Column="1">
           <TextBlock
             Margin="0 0 0 3"
+            FontWeight="DemiBold"
             Text="Aktueller Verbrauchswert in Euro/Jahr" />
           <TextBox
             Margin="0 0 0 3"
@@ -191,6 +196,7 @@
             ToolTip="Aktueller Verbrauchswert (€) vor Maßnahmeneinführung" />
           <TextBlock
             Text="Prognostizierter Verbrauchswert in Euro/Jahr"
+             FontWeight="DemiBold"
             Margin="0 0 0 3" />
           <TextBox
             Text="{Binding CalculatedSpending}"
@@ -198,6 +204,7 @@
             Margin="0 0 0 3" />
           <TextBlock
             Text="Tatsächlicher Verbrauchswert in Euro/Jahr"
+             FontWeight="DemiBold"
             Margin="0 0 0 3" />
           <TextBox
             Text="{Binding ActualSpending}"
@@ -219,41 +226,42 @@
           <TextBlock
             Margin="0 0 0 3">
             <Run
-              Text="Herstellerangabe Verbrauch: " />
+              Text="Herstellerangabe Verbrauch: " FontWeight="DemiBold" />
             <Run
               Text="{Binding PowerOutput, Mode=OneWay}" />
             <Run
-              Text=" kw" />
+              Text=" kw" FontWeight="DemiBold" />
           </TextBlock>
           <TextBlock
             Margin="0 0 0 3">
             <Run
-              Text="Eingesparte CO2-Äquvalente: " />
+              Text="Eingesparte CO2-Äquvalente: " FontWeight="DemiBold" />
             <Run
               Text="{Binding SavedCO2, Mode=OneWay}" />
           </TextBlock>
           <TextBlock
             Margin="0,0,0,3">
             <Run
-              Text="Kalkulierte Einsparung: " />
+              Text="Kalkulierte Einsparung: " FontWeight="DemiBold" />
             <Run
               Text="{Binding CalculatedConsumptionSaving, Mode=OneWay}" />
             <Run
-              Text="(kWh/a)" />
+              Text="(kWh/a)" FontWeight="DemiBold"/>
           </TextBlock>
           <TextBlock>
             <Run
-              Text="Tatsächliche Einsparung: " />
+              Text="Tatsächliche Einsparung: " FontWeight="DemiBold"/>
             <Run
               Text="{Binding ActualConsumptionSaving, Mode=OneWay}" />
             <Run
-              Text="(kWh/a)" />
+              Text="(kWh/a)" FontWeight="DemiBold" />
           </TextBlock>
         </StackPanel>
         <StackPanel
           Grid.Column="1">
           <TextBlock
             Margin="0 0 0 3"
+             FontWeight="DemiBold"
             Text="Aktueller Verbrauchswert in kWh/a" />
           <ComboBox
             Margin="0 0 0 3"
@@ -280,6 +288,7 @@
           </ComboBox>
           <TextBlock
             Text="Prognostizierter Verbrauchswert in kWh/a"
+             FontWeight="DemiBold"
             Margin="0 0 0 3" />
           <TextBox
             Text="{Binding CalculatedConsumption}"
@@ -287,6 +296,7 @@
             Margin="0 0 0 3" />
           <TextBlock
             Text="Tatsächlicher Verbrauchswert in kWh/a"
+             FontWeight="DemiBold"
             Margin="0 0 0 3" />
           <ComboBox
             SelectedItem="{Binding ActualConsumptionReading}"

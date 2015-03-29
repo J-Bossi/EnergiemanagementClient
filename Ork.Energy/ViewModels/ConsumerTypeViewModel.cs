@@ -24,6 +24,7 @@ namespace Ork.Energy.ViewModels
     public string TypeName
     {
       get { return m_Model.TypeName; }
+      set { m_Model.TypeName = value; }
     }
   }
 }
