@@ -52,20 +52,24 @@
             </Style>
           </TextBlock.Style>
         </TextBlock>
-        <TextBlock
-          Text="Anzahl Verbraucher" />
-        <TextBlock
-          Text="{Binding RelatedConsumers}" />
+        <TextBlock>
+          <Run
+            Text="Anzahl Verbraucher" />
+          <Run
+            Text="{Binding RelatedConsumers, Mode=OneWay}" />
+        </TextBlock>
         <TextBlock>
           <Run
             Text="Letzte Messung: " />
           <Run
             Text="{Binding LastReadingDate, Mode=OneWay}" />
         </TextBlock>
+       
+     
 
       </StackPanel>
       <StackPanel
-        Orientation="Vertical"
+        Orientation="Horizontal"
         Grid.Column="1">
         <Button
           Width="50"
