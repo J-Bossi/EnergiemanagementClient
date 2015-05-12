@@ -66,7 +66,7 @@ namespace Ork.Energy.ViewModels
     public IEnumerable<Distributor> AllDistributors
     {
       get { return m_Repository.Distributors; }
-    } 
+    }
 
     private IEnumerable<Consumer> RelevantConsumers
     {
@@ -117,12 +117,16 @@ namespace Ork.Energy.ViewModels
       var valueSeries = new LineSeries
       {
         Title = "Gemessene Verbrauchswerte",
+        Color = OxyColors.DarkGray,
+        StrokeThickness = 3,
         TrackerFormatString = "{0} " + Environment.NewLine + "{1}: {2:dd.MM.yy} " + Environment.NewLine + "{3}: {4} "
       };
 
       var calculatedSeries = new LineSeries
       {
         Title = "Prognostizierte Verbrauchswerte",
+        Color = OxyColors.DarkViolet,
+        StrokeThickness = 3,
         TrackerFormatString = "{0} " + Environment.NewLine + "{1}: {2:dd.MM.yy} " + Environment.NewLine + "{3}: {4} "
       };
 
@@ -152,6 +156,8 @@ namespace Ork.Energy.ViewModels
       var distributorSeries = new LineSeries
       {
         Title = "Verteiler",
+        Color = OxyColors.DarkOrange,
+        StrokeThickness = 3,
         TrackerFormatString = "{0} " + Environment.NewLine + "{1}: {2:dd.MM.yy} " + Environment.NewLine + "{3}: {4} "
       };
 
@@ -182,10 +188,10 @@ namespace Ork.Energy.ViewModels
           var sortedReadings = consumer.Readings.OrderBy(r => r.ReadingDate);
           if (sortedReadings.Any())
           {
-          returnvalue += sortedReadings.First()
-                                       .CounterReading;
+            returnvalue += sortedReadings.First()
+                                         .CounterReading;
+          }
         }
-      }
       }
       return returnvalue;
     }
