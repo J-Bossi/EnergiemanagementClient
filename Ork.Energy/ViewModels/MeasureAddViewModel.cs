@@ -64,7 +64,7 @@ namespace Ork.Energy.ViewModels
       m_Priorities = Enum.GetValues(typeof (Priority));
       m_ResponsibleSubjects = responsibleSubjectViewModels;
       DisplayName = TranslationProvider.Translate("TitleMeasureAddViewModel");
-
+  
       m_Repository = energyRepository;
       m_ViewModelFactory = viewModelFactory;
 
@@ -77,6 +77,8 @@ namespace Ork.Energy.ViewModels
     {
       get { return m_ResponsibleSubjects; }
     }
+
+    public new IDialogManager Dialogs { get; private set; }
 
     public bool SubMeasureAddAllowed
     {
@@ -520,17 +522,21 @@ namespace Ork.Energy.ViewModels
       NotifyOfPropertyChange(() => SubMeasures);
     }
 
-    public void AddSubMeasure()
+    public void AddSubMeasure(object dataContext)
     {
-      var subMeasure = new SubMeasure
-      {
-        ReleatedMeasure = m_Model,
-        Name = NewSubMeasureName,
-        ResponsibleSubject = NewSubMeasureResponsibleSubject.Model
-      };
-      m_SubMeasureViewModels.Add(m_ViewModelFactory.CreateFromExisting(subMeasure));
 
-      NotifyOfPropertyChange(() => SubMeasures);
+      {
+        var subMeasure = new SubMeasure
+        {
+          ReleatedMeasure = Model,
+          Name = NewSubMeasureName,
+          ResponsibleSubject = NewSubMeasureResponsibleSubject.Model
+        };
+        m_SubMeasureViewModels.Add(m_ViewModelFactory.CreateFromExisting(subMeasure));
+
+        NotifyOfPropertyChange(() => SubMeasures);
+      }
+
     }
 
     private void SubMeasuresOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)

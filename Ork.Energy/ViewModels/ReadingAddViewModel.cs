@@ -26,7 +26,7 @@ namespace Ork.Energy.ViewModels
       NewReadingDate = DateTime.Now;
     }
 
-    public double NewCounterReading { get; set; }
+    public virtual double NewCounterReading { get; set; }
     public DateTime NewReadingDate { get; set; }
     public string NewMeasuringDevice { get; set; }
 

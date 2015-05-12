@@ -23,7 +23,7 @@ using Ork.Energy.Factories;
 
 namespace Ork.Energy.ViewModels
 {
-  public class DistributorModifyViewModel : Screen
+  public class DistributorModifyViewModel : Screen, IDistributorModifyViewModel
   {
     private readonly IEnergyViewModelFactory m_EnergyViewModelFactory;
     private readonly Distributor m_Model;
@@ -47,7 +47,7 @@ namespace Ork.Energy.ViewModels
 
     public ReadingAddViewModel ReadingAddVm { get; set; }
 
-    public string Name
+    public virtual string Name
     {
       get { return m_Model.Name; }
       set

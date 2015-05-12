@@ -362,13 +362,14 @@
             </StackPanel>
             <Button
               Grid.Column="1"
+              IsEnabled="{Binding SubMeasureAddAllowed}"
               Width="50"
               Height="50"
               Margin="2"
               VerticalAlignment="Bottom"
               HorizontalAlignment="Left"
               Style="{DynamicResource MetroCircleButtonStyle}"
-              cal:Message.Attach="AddSubMeasure"
+              cal:Message.Attach="AddSubMeasure($dataContext)"
               ToolTip="Neue Untermaßnahme hinzufügen">
               <Rectangle
                 Width="20"

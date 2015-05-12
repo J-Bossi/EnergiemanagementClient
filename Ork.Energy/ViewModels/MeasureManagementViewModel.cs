@@ -324,6 +324,7 @@ namespace Ork.Energy.ViewModels
       }
     }
 
+
     private void Save()
     {
       CloseEditor();
