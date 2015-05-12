@@ -265,6 +265,7 @@
             Text="Aktueller Verbrauchswert in kWh/a" />
           <ComboBox
             Margin="0 0 0 3"
+            controls:TextBoxHelper.ClearTextButton="True"
             ItemsSource="{Binding AllRelatedReadings}"
             SelectedItem="{Binding CurrentConsumptionReading}"
             ToolTip="Aktueller Verbrauchswert (kWh/a) vor Maßnahmeneinführung">
@@ -301,6 +302,7 @@
           <ComboBox
             SelectedItem="{Binding ActualConsumptionReading}"
             ItemsSource="{Binding AllRelatedReadings}"
+              controls:TextBoxHelper.ClearTextButton="True"
             ToolTip="Verbrauchswert nach Abschluss der Maßnahme(kWh/a)"
             Margin="0 0 0 3">
             <ComboBox.ItemTemplate>

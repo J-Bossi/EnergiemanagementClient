@@ -380,9 +380,14 @@ namespace Ork.Energy.ViewModels
       {
         m_Model.ConsumptionActual = value;
         NotifyOfPropertyChange(() => ActualConsumptionSaving);
-        m_Model.SavedWattShould = value.CounterReading - m_CalculatedConsumption;
+        if (value != null)
+        {
+          m_Model.SavedWattShould = value.CounterReading - m_CalculatedConsumption;
+        }
+        
         NotifyOfPropertyChange(() => CalculatedConsumptionSaving);
         NotifyOfPropertyChange(() => CurrentConsumptionReading);
+
       }
     }
 

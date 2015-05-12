@@ -133,7 +133,7 @@
     <value>Beschreibung</value>
   </data>
   <data name="DueDate" xml:space="preserve">
-    <value>Planung zum</value>
+    <value>Geplant zum</value>
   </data>
   <data name="FilterResponsibleSubjects" xml:space="preserve">
     <value>Verantwortliche filtern...</value>
