@@ -93,7 +93,7 @@ namespace Ork.Energy.ViewModels
 
     public bool IsEnabled
     {
-      get { return true; }
+      get { return m_IsEnabled; }
       private set
       {
         m_IsEnabled = value;
@@ -101,12 +101,15 @@ namespace Ork.Energy.ViewModels
       }
     }
 
+
     public string Title
     {
       get { return "Auswertung"; }
     }
 
-    private void Reload() {}
+    private void Reload()
+    {   
+    }
 
     private void LoadActualValueSeries()
     {
