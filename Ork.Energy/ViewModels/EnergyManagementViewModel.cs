@@ -512,7 +512,7 @@ namespace Ork.Energy.ViewModels
     {
       return
         m_Repository.Consumers.Any(
-          c => c.Name == consumer.Name && c.ConsumerGroup == consumer.ConsumerGroup && c.Distributor == consumer.Distributor && c != consumer);
+          c => c.Name == consumer.Name  && c.Distributor == consumer.Distributor && c != consumer);
     }
 
     public void Cancel(object dataContext)
