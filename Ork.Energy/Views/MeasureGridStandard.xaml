@@ -40,6 +40,16 @@
 
       </ToolTip>
 
+      <DataTemplate
+        x:Key="RotateHeaderTemplate">
+        <TextBlock
+          Text="{Binding}">
+          <TextBlock.LayoutTransform>
+            <RotateTransform
+              Angle="-35" />
+          </TextBlock.LayoutTransform>
+        </TextBlock>
+      </DataTemplate>
 
       <Style
         BasedOn="{StaticResource {x:Type toolkit:DataGrid}}"
@@ -130,26 +140,50 @@
 
 
       <toolkit:DataGrid.Columns>
-        <!--<toolkit:DataGridTextColumn
-                        Header="Pos"
-                        Binding="{Binding Id}"
-                        Width="8*" />-->
+
 
         <controls:DataGridTextColumn
-          Header="Verteiler Aktion"
+          Header="Name der Aktion"
           Binding="{Binding Name}"
-          Width="45*" />
+          Width="200" />
 
-        <controls:DataGridTextColumn
+        <controls:DataGridTemplateColumn
           Header="Betrachteter Verbraucher"
-          Binding="{Binding ConsumerName,  Mode=OneWay}"
-          Width="45*" />
+          Width="250">
+          <!--<controls:DataGridTemplateColumn.HeaderStyle>
+            <Style
+              TargetType="{x:Type controls:DataGridColumnHeader}"
+              BasedOn="{StaticResource {x:Type controls:DataGridColumnHeader}}">
+              <Setter
+                Property="LayoutTransform">
+                <Setter.Value>
+                  <RotateTransform
+                    Angle="330" />
+                </Setter.Value>
+              </Setter>
+            </Style>
+          </controls:DataGridTemplateColumn.HeaderStyle>-->
+
+          <controls:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <StackPanel
+                Orientation="Vertical">
+                <TextBlock
+                  Text="{Binding ConsumerName,  Mode=OneWay}" />
+                <TextBlock
+                  Text="{Binding DistributorName, Mode=OneWay}" />
+
+              </StackPanel>
+
+            </DataTemplate>
+
+          </controls:DataGridTemplateColumn.CellTemplate>
+        </controls:DataGridTemplateColumn>
 
 
         <controls:DataGridTemplateColumn
           Header="{lex:Loc Ork.Energy:Translate:Planning}"
-          SortMemberPath="DueDate"
-          Width="18*">
+          SortMemberPath="DueDate">
           <controls:DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <StackPanel
@@ -192,8 +226,7 @@
 
         <controls:DataGridTemplateColumn
           Header="{lex:Loc Ork.Energy:Translate:EntryDate}"
-          SortMemberPath="EntryDate"
-          Width="15*">
+          SortMemberPath="EntryDate">
           <controls:DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <StackPanel
@@ -235,13 +268,11 @@
         <controls:DataGridTextColumn
           Header="{lex:Loc Ork.Energy:Translate:State}"
           Binding="{Binding StatusName,  Mode=OneWay}"
-          SortDirection="Ascending"
-          Width="15*" />
+          SortDirection="Ascending" />
 
         <controls:DataGridTemplateColumn
           Header="{lex:Loc Ork.Energy:Translate:Priority}"
-          SortMemberPath="Priority"
-          Width="12*">
+          SortMemberPath="Priority">
           <controls:DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <TextBlock
@@ -253,18 +284,15 @@
 
         <controls:DataGridTextColumn
           Header="{lex:Loc Ork.Energy:Translate:ResponsibleSubject}"
-          Binding="{Binding ResponsibleSubjectName,  Mode=OneWay}"
-          Width="30*" />
+          Binding="{Binding ResponsibleSubjectName,  Mode=OneWay}" />
 
         <controls:DataGridTextColumn
           Header="Einheit [EnPI]"
-          Binding="{Binding Kenn,  Mode=OneWay}"
-          Width="20*" />
+          Binding="{Binding Kenn,  Mode=OneWay}" />
 
         <controls:DataGridTextColumn
-          Header="Amortisationszeit"
-          Binding="{Binding Amortisationtime,  Mode=OneWay}"
-          Width="25*" />
+          Header="Amortisation (a)"
+          Binding="{Binding Amortisationtime,  Mode=OneWay}" />
 
         <!--<toolkit:DataGridTextColumn
                         Header="{lex:Loc Ork.Energy:Translate:RelatedElementName}"
@@ -273,11 +301,11 @@
 
         <controls:DataGridTemplateColumn
           Header="Effizienz"
-          Width="22*">
+          MinWidth="102">
           <controls:DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <controls1:Rating
-                Margin="4"
+                Margin="0"
                 ItemCount="5"
                 Height="20"
                 Foreground="{DynamicResource HighlightBrush}"

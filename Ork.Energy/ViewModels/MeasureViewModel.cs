@@ -244,6 +244,14 @@ namespace Ork.Energy.ViewModels
       }
     }
 
+    public string DistributorName
+    {
+      get
+      {
+        return m_Model.Consumer.Distributor.Name ?? "";
+      }
+    }
+
     public string DueDateIsDelayed
     {
       get { return TranslationProvider.Translate("DueDateIsDelayed"); }

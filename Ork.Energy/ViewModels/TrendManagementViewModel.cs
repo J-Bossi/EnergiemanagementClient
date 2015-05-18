@@ -94,13 +94,12 @@ namespace Ork.Energy.ViewModels
     public bool IsEnabled
     {
       get { return m_IsEnabled; }
-      private set
+      set
       {
         m_IsEnabled = value;
         NotifyOfPropertyChange(() => IsEnabled);
       }
     }
-
 
     public string Title
     {
@@ -108,7 +107,8 @@ namespace Ork.Energy.ViewModels
     }
 
     private void Reload()
-    {   
+    {
+      IsEnabled = m_Repository.HasConnection;
     }
 
     private void LoadActualValueSeries()

@@ -128,13 +128,8 @@
 
       <toolkit:DataGrid.Columns>
 
-        <!--<toolkit:DataGridTextColumn 
-                        Header="Pos"
-                        Binding="{Binding Id}"
-                        Width="7*" />-->
-
         <toolkit:DataGridTextColumn
-          Header="Verteiler Aktion"
+          Header="Name der Aktion"
           Binding="{Binding Name}"
           Width="50*" />
 
