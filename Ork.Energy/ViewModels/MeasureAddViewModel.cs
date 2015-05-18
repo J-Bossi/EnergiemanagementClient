@@ -64,7 +64,7 @@ namespace Ork.Energy.ViewModels
       m_Priorities = Enum.GetValues(typeof (Priority));
       m_ResponsibleSubjects = responsibleSubjectViewModels;
       DisplayName = TranslationProvider.Translate("TitleMeasureAddViewModel");
-  
+
       m_Repository = energyRepository;
       m_ViewModelFactory = viewModelFactory;
 
@@ -228,11 +228,11 @@ namespace Ork.Energy.ViewModels
         NotifyOfPropertyChange(() => Building);
         NotifyOfPropertyChange(() => ConsumerGroupName);
         ////NotifyOfPropertyChange(() => AllRelatedReadings);
-        //NotifyOfPropertyChange(() => ActualConsumptionReading);
-        //NotifyOfPropertyChange(() => CurrentConsumptionReading);
+        NotifyOfPropertyChange(() => ActualConsumptionReading);
+        NotifyOfPropertyChange(() => CurrentConsumptionReading);
         //NotifyOfPropertyChange(() => ActualConsumptionSaving);
         //NotifyOfPropertyChange(() => CalculatedConsumptionSaving);
-        ////NotifyOfPropertyChange(() => AllRelatedReadings);
+        NotifyOfPropertyChange(() => AllRelatedReadings);
       }
     }
 
@@ -349,9 +349,21 @@ namespace Ork.Energy.ViewModels
     {
       get
       {
-        return m_Model.ConsumptionNormative == null
-          ? null
-          : AllRelatedReadings.Single(r => r == m_Model.ConsumptionNormative);
+        if (m_Model.ConsumptionNormative == null)
+        {
+          return null;
+        }
+        else
+        {
+          try
+          {
+            return AllRelatedReadings.Single(r => r == m_Model.ConsumptionNormative);
+          }
+          catch (InvalidOperationException)
+          {
+            return null;
+          }
+        }
       }
 
       set
@@ -372,8 +384,16 @@ namespace Ork.Energy.ViewModels
           return null;
         }
         else
+
         {
-          return AllRelatedReadings.Single(r => r == m_Model.ConsumptionActual);
+          try
+          {
+            return AllRelatedReadings.Single(r => r == m_Model.ConsumptionActual);
+          }
+          catch (InvalidOperationException)
+          {
+            return null;
+          }
         }
       }
       set
@@ -384,10 +404,9 @@ namespace Ork.Energy.ViewModels
         {
           m_Model.SavedWattShould = value.CounterReading - m_CalculatedConsumption;
         }
-        
+
         NotifyOfPropertyChange(() => CalculatedConsumptionSaving);
         NotifyOfPropertyChange(() => CurrentConsumptionReading);
-
       }
     }
 
@@ -541,7 +560,6 @@ namespace Ork.Energy.ViewModels
 
         NotifyOfPropertyChange(() => SubMeasures);
       }
-
     }
 
     private void SubMeasuresOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)

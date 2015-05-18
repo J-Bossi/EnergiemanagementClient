@@ -23,13 +23,18 @@
 
       <converters:FileExtensionStyleConverter
         x:Key="StyleConverter" />
+
+      <Style  TargetType="TextBlock" >
+        <Setter Property="FontWeight" Value="DemiBold" />
+       
+      </Style>
     </ResourceDictionary>
   </UserControl.Resources>
 
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition
-        Width="480" />
+        Width="520" />
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
 
@@ -55,14 +60,19 @@
       <TextBlock
         Text="Betrachtete Verbraucher"
         Margin="0 0 0 3" />
+
       <ComboBox
         ItemsSource="{Binding Consumers}"
         SelectedItem="{Binding Consumer}"
         Margin="0 0 0 3">
         <ComboBox.ItemTemplate>
           <DataTemplate>
-            <TextBlock
-              Text="{Binding Name}">
+            <TextBlock>
+              
+              <Run></Run>
+              <Run Text="{Binding Name}" />
+              <Run Text=" : " />
+              <Run Text="{Binding Distributor.Name}" />
               <TextBlock.ToolTip>
                 <TextBlock
                   Text="{Binding Path=Distributor.Name}" />
@@ -72,8 +82,11 @@
         </ComboBox.ItemTemplate>
       </ComboBox>
 
+
+
+
       <UniformGrid
-        Margin="0 0 0 16"
+      
         Columns="2">
         <TextBlock
           Margin="0 0 0 3">
@@ -90,6 +103,8 @@
             Text="{Binding Building, Mode=OneWay}" />
         </TextBlock>
       </UniformGrid>
+
+     <Separator Margin="0 4"></Separator>
       <Grid
         Margin="0 0 0 3">
         <Grid.ColumnDefinitions>
@@ -155,32 +170,37 @@
           <UniformGrid
             Rows="3">
             <TextBlock
-              Margin="0 0 2 3"
-              
-              >
+              Margin="0 0 2 3">
               <Run
-                Text="Amortisationszeit: " FontWeight="DemiBold" />
+                Text="Amortisationszeit: "
+                FontWeight="DemiBold" />
               <Run
                 Text="{Binding AmortisationTime, Mode=OneWay}" />
-            </TextBlock>
-            <TextBlock
-              Margin="0,0,2,0"
-              >
               <Run
-                Text="Kalkulierte Einsparung: " FontWeight="DemiBold"/>
-              <Run
-                Text="{Binding CalculatedMoneySaving, Mode=OneWay}" />
-              <Run
-                Text="(€)" FontWeight="DemiBold"/>
+                Text=" Jahre"
+                FontWeight="DemiBold" />
             </TextBlock>
             <TextBlock
               Margin="0,0,2,0">
               <Run
-                Text="Tatsächliche Einsparung: " FontWeight="DemiBold" />
+                Text="Kalkulierte Einsparung: "
+                FontWeight="DemiBold" />
+              <Run
+                Text="{Binding CalculatedMoneySaving, Mode=OneWay}" />
+              <Run
+                Text="(€)"
+                FontWeight="DemiBold" />
+            </TextBlock>
+            <TextBlock
+              Margin="0,0,2,0">
+              <Run
+                Text="Tatsächliche Einsparung: "
+                FontWeight="DemiBold" />
               <Run
                 Text="{Binding ActualMoneySaving, Mode=OneWay}" />
               <Run
-                Text="(€)" FontWeight="DemiBold"/>
+                Text="(€)"
+                FontWeight="DemiBold" />
             </TextBlock>
           </UniformGrid>
         </StackPanel>
@@ -189,26 +209,23 @@
           <TextBlock
             Margin="0 0 0 3"
             FontWeight="DemiBold"
-            Text="Aktueller Verbrauchswert in Euro/Jahr" />
+            Text="Kosten in €/Jahr vor Maßnahmeneinführung" />
           <TextBox
             Margin="0 0 0 3"
-            Text="{Binding CurrentSpending}"
-            ToolTip="Aktueller Verbrauchswert (€) vor Maßnahmeneinführung" />
+            Text="{Binding CurrentSpending}" />
           <TextBlock
-            Text="Prognostizierter Verbrauchswert in Euro/Jahr"
-             FontWeight="DemiBold"
+            Text="Prognostizierte Kosten in €/Jahr"
+            FontWeight="DemiBold"
             Margin="0 0 0 3" />
           <TextBox
             Text="{Binding CalculatedSpending}"
-            ToolTip="Verbrauchswert nach Abschluss der Maßnahme Einsparungswert (€)"
             Margin="0 0 0 3" />
           <TextBlock
-            Text="Tatsächlicher Verbrauchswert in Euro/Jahr"
-             FontWeight="DemiBold"
+            Text="Kosten in €/Jahr nach Maßnahmenabschluss"
+            FontWeight="DemiBold"
             Margin="0 0 0 3" />
           <TextBox
             Text="{Binding ActualSpending}"
-            ToolTip="Verbrauchswert nach Abschluss der Maßnahme Einsparungswert (€)"
             Margin="0 0 0 3" />
         </StackPanel>
       </Grid>
@@ -226,49 +243,55 @@
           <TextBlock
             Margin="0 0 0 3">
             <Run
-              Text="Herstellerangabe Verbrauch: " FontWeight="DemiBold" />
+              Text="Herstellerangabe Verbrauch: "
+              FontWeight="DemiBold" />
             <Run
               Text="{Binding PowerOutput, Mode=OneWay}" />
             <Run
-              Text=" kw" FontWeight="DemiBold" />
+              Text=" kWh"
+              FontWeight="DemiBold" />
           </TextBlock>
           <TextBlock
             Margin="0 0 0 3">
             <Run
-              Text="Eingesparte CO2-Äquvalente: " FontWeight="DemiBold" />
+              Text="Eingesparte CO2-Äquvalente: "
+              FontWeight="DemiBold" />
             <Run
               Text="{Binding SavedCO2, Mode=OneWay}" />
           </TextBlock>
           <TextBlock
             Margin="0,0,0,3">
             <Run
-              Text="Kalkulierte Einsparung: " FontWeight="DemiBold" />
+              Text="Kalkulierte Einsparung: "
+              FontWeight="DemiBold" />
             <Run
               Text="{Binding CalculatedConsumptionSaving, Mode=OneWay}" />
             <Run
-              Text="(kWh/a)" FontWeight="DemiBold"/>
+              Text="(kWh/a)"
+              FontWeight="DemiBold" />
           </TextBlock>
           <TextBlock>
             <Run
-              Text="Tatsächliche Einsparung: " FontWeight="DemiBold"/>
+              Text="Tatsächliche Einsparung: "
+              FontWeight="DemiBold" />
             <Run
               Text="{Binding ActualConsumptionSaving, Mode=OneWay}" />
             <Run
-              Text="(kWh/a)" FontWeight="DemiBold" />
+              Text="(kWh/a)"
+              FontWeight="DemiBold" />
           </TextBlock>
         </StackPanel>
         <StackPanel
           Grid.Column="1">
           <TextBlock
             Margin="0 0 0 3"
-             FontWeight="DemiBold"
-            Text="Aktueller Verbrauchswert in kWh/a" />
+            FontWeight="DemiBold"
+            Text="Verbrauch in kWh/a vor Maßnahmeneinführung" />
           <ComboBox
             Margin="0 0 0 3"
             controls:TextBoxHelper.ClearTextButton="True"
             ItemsSource="{Binding AllRelatedReadings}"
-            SelectedItem="{Binding CurrentConsumptionReading}"
-            ToolTip="Aktueller Verbrauchswert (kWh/a) vor Maßnahmeneinführung">
+            SelectedItem="{Binding CurrentConsumptionReading}">
             <ComboBox.ItemTemplate>
               <DataTemplate>
                 <TextBlock>
@@ -288,22 +311,20 @@
             </ComboBox.ItemTemplate>
           </ComboBox>
           <TextBlock
-            Text="Prognostizierter Verbrauchswert in kWh/a"
-             FontWeight="DemiBold"
+            Text="Prognostizierter Verbrauch in kWh/a"
+            FontWeight="DemiBold"
             Margin="0 0 0 3" />
           <TextBox
             Text="{Binding CalculatedConsumption}"
-            ToolTip="Verbrauchswert nach Abschluss der Maßnahme (kWh/a)"
             Margin="0 0 0 3" />
           <TextBlock
-            Text="Tatsächlicher Verbrauchswert in kWh/a"
-             FontWeight="DemiBold"
+            Text="Verbrauch in kWh/a nach Maßnahmenabschluss"
+            FontWeight="DemiBold"
             Margin="0 0 0 3" />
           <ComboBox
             SelectedItem="{Binding ActualConsumptionReading}"
             ItemsSource="{Binding AllRelatedReadings}"
-              controls:TextBoxHelper.ClearTextButton="True"
-            ToolTip="Verbrauchswert nach Abschluss der Maßnahme(kWh/a)"
+            controls:TextBoxHelper.ClearTextButton="True"
             Margin="0 0 0 3">
             <ComboBox.ItemTemplate>
               <DataTemplate>
@@ -487,11 +508,11 @@
 
       </StackPanel>
       <TextBlock
-        Style="{DynamicResource LabelControl}"
+        
         Text="{lex:Loc Priorities}" />
 
       <ComboBox
-        Style="{DynamicResource ComboBoxStyle}"
+   
         Margin="4"
         ItemsSource="{Binding Priorities}"
         SelectedIndex="{Binding Priority}">
