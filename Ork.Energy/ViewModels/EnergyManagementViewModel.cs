@@ -456,8 +456,38 @@ namespace Ork.Energy.ViewModels
     {
       var constraint = m_Repository.Links.Where(c => c.Target != null && c.Target.Equals(dataContext));
       Dialogs.ShowMessageBox(
-        "Das Objekt kann nicht gelöscht werden, da folgendes andere Objekt abhängig ist. " +
-        String.Join(" ", (constraint.Select(c => (c.Source)))), "Datenbankfehler");
+        "Das Objekt kann nicht gelöscht werden, da folgendes andere Objekt abhängig ist:" + Environment.NewLine +
+        String.Join(Environment.NewLine, ShowLinkedObjects((constraint.Select(c => (c.Source))))), "Datenbankfehler");
+    }
+
+    private IEnumerable<string> ShowLinkedObjects(IEnumerable<object> linkedObject)
+    {
+      var output = new List<string>();
+      foreach (var o in linkedObject)
+      {
+        if (o.GetType() == typeof (Consumer))
+        {
+          output.Add(((Consumer)o).Name);
+        }
+        if (o.GetType() == typeof(Distributor))
+        {
+          output.Add(((Distributor)o).Name);
+        }
+        if (o.GetType() == typeof(ConsumerGroup))
+        {
+          output.Add(((ConsumerGroup)o).GroupName);
+        }
+        if (o.GetType() == typeof(EnergyMeasure))
+        {
+          output.Add(((EnergyMeasure)o).Name);
+        }
+        else
+        {
+          output.Add(o.ToString());
+        }
+      
+      }
+      return output;
     }
 
     private void DeleteDistributor(Distributor dataContext)
