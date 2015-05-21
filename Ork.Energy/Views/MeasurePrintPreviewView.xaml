@@ -424,8 +424,6 @@
         ColumnSpan="2"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Bottom">
-
-
         <StackPanel
           Orientation="Horizontal"
           HorizontalAlignment="Right">
@@ -441,10 +439,7 @@
             Content="{lex:Loc Back}" />
 
         </StackPanel>
-
-
       </Grid>
-
     </Grid>
   </ScrollViewer>
 </UserControl>

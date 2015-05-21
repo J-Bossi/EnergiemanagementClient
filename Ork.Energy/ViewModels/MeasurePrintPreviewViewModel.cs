@@ -17,13 +17,9 @@ namespace Ork.Energy.ViewModels
         public MeasurePrintPreviewViewModel(EnergyMeasure model, Action removeMeasureAction, ResponsibleSubjectViewModel[] responsibleSubjectViewModels,
      [Import] IEnergyRepository energyRepository, [Import] IViewModelFactory subMeasureViewModelFactory)
       : base(model, removeMeasureAction, responsibleSubjectViewModels,  energyRepository, subMeasureViewModelFactory)
-    {
-      DisplayName = TranslationProvider.Translate("TitleMeasurePrintPreviewViewModel");
-      //m_Stati = Enum.GetValues(typeof (Status));
-     
+    {  
       SelectedResponsibleSubject = responsibleSubjectViewModels.Single(rsvm => model.ResponsibleSubject == rsvm.Model);
-   
-      
+
     }
 
 

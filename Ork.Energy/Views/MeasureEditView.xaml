@@ -20,6 +20,12 @@
   <UserControl.Resources>
     <ResourceDictionary>
 
+      <Style  TargetType="TextBlock" >
+        <Setter Property="FontWeight" Value="DemiBold" />
+
+      </Style>
+
+
       <Style
         x:Key="DatePickerCalendarStyle"
         TargetType="{x:Type Calendar}"
@@ -127,7 +133,7 @@
       Margin="10,0,0,0">
       <StackPanel>
         <TextBlock
-          Style="{DynamicResource LabelControl}"
+          
           Text="{lex:Loc Status}" />
 
         <ComboBox
@@ -154,7 +160,7 @@
           Style="{DynamicResource AcomplishedStackPanelStyle}"
           Name="AcomplishedStackPanel">
           <TextBlock
-            Style="{DynamicResource LabelControl}"
+           
             Text="{lex:Loc EntryDate}" />
 
           <DatePicker
@@ -162,19 +168,19 @@
             SelectedDate="{Binding EntryDate}" />
 
           <TextBlock
-            Style="{DynamicResource LabelControl}"
+           
             Text="{lex:Loc Evaluation}" />
 
           <TextBox
             VerticalScrollBarVisibility="Auto"
             Height="380"
-            Style="{DynamicResource EntryControl}"
+           
             Text="{Binding Evaluation}"
             TextWrapping="Wrap"
             AcceptsReturn="True" />
 
           <TextBlock
-            Style="{DynamicResource LabelControl}"
+            
             Text="{lex:Loc Efficiency}" />
 
           <tkControls:Rating
