@@ -31,8 +31,9 @@ namespace Ork.Energy.ViewModels
   [Export(typeof (IWorkspace))]
   public class TrendManagementViewModel : DocumentBase, IWorkspace
   {
+    private PlotModel m_ConsumerPlot;
+    private PlotModel m_DistributorPlot;
     private bool m_IsEnabled;
-    private PlotModel m_Plot;
     private Distributor m_SelectedDistributor;
     private readonly IEnergyRepository m_Repository;
 
@@ -59,7 +60,8 @@ namespace Ork.Energy.ViewModels
       {
         m_SelectedDistributor = value;
         NotifyOfPropertyChange(() => RelevantConsumers);
-        NotifyOfPropertyChange(() => TrendPlot);
+        NotifyOfPropertyChange(() => TrendConsumerPlot);
+        NotifyOfPropertyChange(() => TrendDistributorPlot);
       }
     }
 
@@ -73,16 +75,26 @@ namespace Ork.Energy.ViewModels
       get { return m_Repository.Consumers.Where(c => c.Distributor == SelectedDistributor); }
     }
 
-    public PlotModel TrendPlot
+    public PlotModel TrendConsumerPlot
     {
       get
       {
-        InitializeTrendPlot();
+        InitializeTrendConsumerPlot();
         LoadActualValueSeries();
-        LoadDistributorValueSeries();
 
-        m_Plot.InvalidatePlot(true);
-        return m_Plot;
+        m_ConsumerPlot.InvalidatePlot(true);
+        return m_ConsumerPlot;
+      }
+    }
+
+    public PlotModel TrendDistributorPlot
+    {
+      get
+      {
+        InitializeTrendDistributorPlot();
+        LoadDistributorValueSeries();
+        m_DistributorPlot.InvalidatePlot(true);
+        return m_DistributorPlot;
       }
     }
 
@@ -109,6 +121,8 @@ namespace Ork.Energy.ViewModels
     private void Reload()
     {
       IsEnabled = m_Repository.HasConnection;
+      m_SelectedDistributor = null;
+      NotifyOfPropertyChange(() => SelectedDistributor);
     }
 
     private void LoadActualValueSeries()
@@ -150,8 +164,8 @@ namespace Ork.Energy.ViewModels
         newValue -= measure.SavedWattShould;
         calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(measure.DueDate), newValue));
       }
-      m_Plot.Series.Add(valueSeries);
-      m_Plot.Series.Add((calculatedSeries));
+      m_ConsumerPlot.Series.Add(valueSeries);
+      m_ConsumerPlot.Series.Add((calculatedSeries));
     }
 
     private void LoadDistributorValueSeries()
@@ -168,7 +182,7 @@ namespace Ork.Energy.ViewModels
       {
         distributorSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(reading.ReadingDate), reading.CounterReading));
       }
-      m_Plot.Series.Add((distributorSeries));
+      m_DistributorPlot.Series.Add((distributorSeries));
     }
 
     private double AccumulatedValuesAtDate(DateTime measurePoint)
@@ -199,26 +213,26 @@ namespace Ork.Energy.ViewModels
       return returnvalue;
     }
 
-    private void InitializeTrendPlot()
+    private void InitializeTrendConsumerPlot()
     {
-      m_Plot = new PlotModel
+      m_ConsumerPlot = new PlotModel
       {
         LegendTitle = "Legende",
       };
 
-      m_Plot.Axes.Clear();
-      m_Plot.Series.Clear();
+      m_ConsumerPlot.Axes.Clear();
+      m_ConsumerPlot.Series.Clear();
 
       var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
       var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
 
-      m_Plot.Title = SelectedDistributor.Name;
-      m_Plot.LegendOrientation = LegendOrientation.Horizontal;
-      m_Plot.LegendPlacement = LegendPlacement.Outside;
-      m_Plot.LegendPosition = LegendPosition.BottomLeft;
-      m_Plot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
-      m_Plot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
-      m_Plot.PlotAreaBorderThickness = new OxyThickness(1);
+      m_ConsumerPlot.Title = SelectedDistributor.Name;
+      m_ConsumerPlot.LegendOrientation = LegendOrientation.Horizontal;
+      m_ConsumerPlot.LegendPlacement = LegendPlacement.Outside;
+      m_ConsumerPlot.LegendPosition = LegendPosition.BottomLeft;
+      m_ConsumerPlot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
+      m_ConsumerPlot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
+      m_ConsumerPlot.PlotAreaBorderThickness = new OxyThickness(1);
 
       var dateAxis = new DateTimeAxis()
       {
@@ -227,7 +241,7 @@ namespace Ork.Energy.ViewModels
         Title = "Datum",
         StringFormat = "dd-MM-yyyy",
       };
-      m_Plot.Axes.Add(dateAxis);
+      m_ConsumerPlot.Axes.Add(dateAxis);
 
       var valueAxis = new LinearAxis(AxisPosition.Left, 0)
       {
@@ -242,7 +256,53 @@ namespace Ork.Energy.ViewModels
         IsPanEnabled = false
       };
 
-      m_Plot.Axes.Add(valueAxis);
+      m_ConsumerPlot.Axes.Add(valueAxis);
+    }
+
+    private void InitializeTrendDistributorPlot()
+    {
+      m_DistributorPlot = new PlotModel
+      {
+        LegendTitle = "Legende",
+      };
+
+      m_DistributorPlot.Axes.Clear();
+      m_DistributorPlot.Series.Clear();
+
+      var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
+      var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
+
+      m_DistributorPlot.Title = SelectedDistributor.Name;
+      m_DistributorPlot.LegendOrientation = LegendOrientation.Horizontal;
+      m_DistributorPlot.LegendPlacement = LegendPlacement.Outside;
+      m_DistributorPlot.LegendPosition = LegendPosition.BottomLeft;
+      m_DistributorPlot.TextColor = OxyColor.Parse(textForegroundColor.ToString());
+      m_DistributorPlot.PlotAreaBorderColor = OxyColor.Parse(textForegroundColor.ToString());
+      m_DistributorPlot.PlotAreaBorderThickness = new OxyThickness(1);
+
+      var dateAxis = new DateTimeAxis()
+      {
+        IsPanEnabled = false,
+        IsZoomEnabled = false,
+        Title = "Datum",
+        StringFormat = "dd-MM-yyyy",
+      };
+      m_DistributorPlot.Axes.Add(dateAxis);
+
+      var valueAxis = new LinearAxis(AxisPosition.Left, 0)
+      {
+        ShowMinorTicks = true,
+        MinorGridlineStyle = LineStyle.Dot,
+        MajorGridlineStyle = LineStyle.Dot,
+        MajorGridlineColor = OxyColor.Parse(lightControlColor.ToString()),
+        MinorGridlineColor = OxyColor.Parse(lightControlColor.ToString()),
+        TicklineColor = OxyColor.Parse(textForegroundColor.ToString()),
+        Title = "kWh pro Jahr",
+        IsZoomEnabled = false,
+        IsPanEnabled = false
+      };
+
+      m_DistributorPlot.Axes.Add(valueAxis);
     }
   }
 }
