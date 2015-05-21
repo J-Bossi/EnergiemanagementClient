@@ -6,6 +6,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:cal="http://www.caliburnproject.org"
   xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+  xmlns:vma="clr-namespace:Ork.RoomBook.ViewModels"
   mc:Ignorable="d"
   d:DesignHeight="300"
   d:DesignWidth="300">
@@ -25,9 +26,17 @@
         <DataGridTextColumn
           Header="Raumnummer"
           Binding="{Binding RoomNumber}" />
-        <DataGridTextColumn
-          Header="Rauminfo"
-          Binding="{Binding RoomInformation , Mode=OneWay}" />
+        <DataGridComboBoxColumn
+           Header="Rauminfo"
+          
+        
+          SelectedItemBinding="{Binding RoomInformation }"
+          DisplayMemberPath="UsageGroup"
+           
+          ItemsSource="{Binding Source={x:Static vma:RoomViewModel.RoomUsages}}">
+          
+        </DataGridComboBoxColumn>
+      
         <controls:DataGridNumericUpDownColumn
           Header="Fläche"
           Binding="{Binding Space}"

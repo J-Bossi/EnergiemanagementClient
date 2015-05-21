@@ -14,6 +14,9 @@
 
 #endregion
 
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using Caliburn.Micro;
 using Ork.Energy.Domain.DomainModelService;
 using Ork.Framework;
 
@@ -21,53 +24,52 @@ namespace Ork.RoomBook.ViewModels
 {
   public class RoomViewModel : DocumentBase
   {
-    private readonly Room m_Model;
+    private static readonly BindableCollection<RoomUsage> m_RoomUsages = new BindableCollection<RoomUsage>();
+    private readonly IRoomRepository m_Repository;
 
-    public RoomViewModel(Room room)
+    public RoomViewModel(Room room, [Import] IRoomRepository repository)
     {
-      m_Model = room;
+      Model = room;
+      m_Repository = repository;
+
+      LoadRoomUsages();
     }
 
     public RoomViewModel()
     {
-      m_Model = new Room
+      Model = new Room
       {
         Building = "",
-
       };
-      
     }
 
-    public Room Model
-    {
-      get { return m_Model; }
-    }
+    public Room Model { get; private set; }
 
     public string RoomNumber
     {
-      get { return m_Model.RoomNumber; }
-      set { m_Model.RoomNumber = value; }
+      get { return Model.RoomNumber; }
+      set { Model.RoomNumber = value; }
     }
 
     public int Floor
     {
-      get { return m_Model.Floor; }
-      set { m_Model.Floor = value; }
+      get { return Model.Floor; }
+      set { Model.Floor = value; }
     }
 
     public float? Space
     {
       get
       {
-        if (m_Model.Space.Equals(null))
+        if (Model.Space.Equals(null))
         {
           return 0;
         }
-        return m_Model.Space;
+        return Model.Space;
       }
       set
       {
-        m_Model.Space = value;
+        Model.Space = value;
         NotifyOfPropertyChange(() => RoomVolume);
       }
     }
@@ -76,37 +78,59 @@ namespace Ork.RoomBook.ViewModels
     {
       get
       {
-        return m_Model.Height.Equals(null)
+        return Model.Height.Equals(null)
           ? 0
-          : m_Model.Height;
+          : Model.Height;
       }
       set
       {
-        m_Model.Height = value;
+        Model.Height = value;
         NotifyOfPropertyChange(() => RoomVolume);
       }
     }
 
-    public string RoomInformation
+    public RoomUsage RoomInformation
     {
-      get
+      get { return Model.RoomInformation; }
+      set
       {
-        return m_Model.RoomInformation != null
-          ? m_Model.RoomInformation.UsageGroup
-          : "";
+        Model.RoomInformation = value;
+        NotifyOfPropertyChange(() => RoomInformation);
       }
+    }
+
+    public static IEnumerable<RoomUsage> RoomUsages
+    {
+      get { return m_RoomUsages; }
     }
 
     public float? RoomVolume
     {
       get
       {
-        if (m_Model.Space.Equals(null) ||
-            m_Model.Height.Equals(null))
+        if (Model.Space.Equals(null) ||
+            Model.Height.Equals(null))
         {
           return 0;
         }
-        return (m_Model.Space * m_Model.Height);
+        return (Model.Space * Model.Height);
+      }
+    }
+
+    private void LoadRoomUsages()
+    {
+      m_RoomUsages.Clear();
+
+      if (m_Repository.RoomUsages != null)
+      {
+        foreach (var ru in m_Repository.RoomUsages)
+        {
+          m_RoomUsages.Add(ru);
+        }
+      }
+      else
+      {
+        m_RoomUsages.Add(new RoomUsage());
       }
     }
   }

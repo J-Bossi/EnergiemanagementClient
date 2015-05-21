@@ -23,6 +23,7 @@ namespace Ork.RoomBook
   public interface IRoomRepository
   {
     DataServiceCollection<Room> Rooms { get; }
+    DataServiceCollection<RoomUsage> RoomUsages { get; }
     bool HasConnection { get; }
     void DeleteObject(object deletionObject);
     void ClearPendingChanges();

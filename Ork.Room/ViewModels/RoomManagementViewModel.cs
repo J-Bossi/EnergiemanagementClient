@@ -14,11 +14,13 @@
 
 #endregion
 
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
+using Ork.Energy.Domain.DomainModelService;
 using Ork.Framework;
 
 namespace Ork.RoomBook.ViewModels
@@ -29,7 +31,8 @@ namespace Ork.RoomBook.ViewModels
     private readonly IRoomRepository m_Repository;
     private readonly BindableCollection<RoomViewModel> m_Rooms = new BindableCollection<RoomViewModel>();
     private bool m_IsEnabled;
-
+    private readonly BindableCollection<RoomUsage> m_RoomUsages = new BindableCollection<RoomUsage>();
+      
     [ImportingConstructor]
     public RoomManagementViewModel([Import] IRoomRepository mRepository, [Import] IDialogManager dialogs)
     {
@@ -45,6 +48,7 @@ namespace Ork.RoomBook.ViewModels
     {
       get { return m_Rooms; }
     }
+
 
     public int Index
     {
@@ -97,8 +101,10 @@ namespace Ork.RoomBook.ViewModels
       if (IsEnabled)
       {
         LoadRooms();
+      
       }
     }
+
 
     private void LoadRooms()
     {
@@ -106,9 +112,10 @@ namespace Ork.RoomBook.ViewModels
       //m_Repository.Rooms.CollectionChanged += AlterRoomCollection;
       foreach (var room in m_Repository.Rooms)
       {
-        m_Rooms.Add(new RoomViewModel(room));
+        m_Rooms.Add(new RoomViewModel(room, m_Repository));
       }
     }
+
 
     //private void AlterRoomCollection(object sender, NotifyCollectionChangedEventArgs eventArgs)
     //{
