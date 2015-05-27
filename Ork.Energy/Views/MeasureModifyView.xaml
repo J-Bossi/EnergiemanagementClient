@@ -41,12 +41,11 @@
     <StackPanel
       Grid.Column="0">
       <TextBlock
-        Text="Verteiler Aktion"
+        Text="Name der Maßnahme"
         Margin="0 0 0 3" />
       <TextBox
         Text="{Binding Name}"
-        Margin="0 0 0 3"
-        ToolTip="Name der Maßnahme" />
+        Margin="0 0 0 3" />
       <TextBlock
         Text="{lex:Loc Description}"
         Margin="0 0 0 3" />
