@@ -178,7 +178,7 @@ namespace Ork.Energy
     {
       Distributors = new DataServiceCollection<Distributor>(m_Context);
 
-      var query = m_Context.Distributors.Expand("Readings");
+      var query = m_Context.Distributors.Expand("Readings").Expand("Room"); ;
       Distributors.Load(query);
     }
 

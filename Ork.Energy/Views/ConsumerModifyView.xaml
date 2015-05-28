@@ -30,7 +30,6 @@
       <ComboBox
         HorizontalAlignment="Stretch"
         DisplayMemberPath="RoomNumber"
-        Style="{DynamicResource VirtualisedMetroComboBox}"
         Controls:TextBoxHelper.ClearTextButton="True"
         IsEditable="True"
         ItemsSource="{Binding Rooms}"

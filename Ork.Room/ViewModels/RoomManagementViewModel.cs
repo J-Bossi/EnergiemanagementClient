@@ -22,6 +22,7 @@ using System.Windows;
 using Caliburn.Micro;
 using Ork.Energy.Domain.DomainModelService;
 using Ork.Framework;
+using Ork.Setting;
 
 namespace Ork.RoomBook.ViewModels
 {
@@ -31,15 +32,18 @@ namespace Ork.RoomBook.ViewModels
     private readonly IRoomRepository m_Repository;
     private readonly BindableCollection<RoomViewModel> m_Rooms = new BindableCollection<RoomViewModel>();
     private bool m_IsEnabled;
+    private Visibility m_HaveEditsBeenMade = Visibility.Collapsed;
+    private readonly ISettingsProvider m_SettingsProvider;
     private readonly BindableCollection<RoomUsage> m_RoomUsages = new BindableCollection<RoomUsage>();
       
     [ImportingConstructor]
-    public RoomManagementViewModel([Import] IRoomRepository mRepository, [Import] IDialogManager dialogs)
+    public RoomManagementViewModel([Import] IRoomRepository mRepository, [Import] IDialogManager dialogs, [Import] ISettingsProvider settingsProvider)
     {
       Dialogs = dialogs;
       m_Repository = mRepository;
+      m_SettingsProvider = settingsProvider;
       m_Repository.ContextChanged += (s, e) => Application.Current.Dispatcher.Invoke(Reload);
-
+      m_Repository.SaveCompleted += (s, e) => ShowInfoBox();
       Reload();
       m_Rooms.CollectionChanged += RoomsOnCollectionChanged;
     }
@@ -49,6 +53,25 @@ namespace Ork.RoomBook.ViewModels
       get { return m_Rooms; }
     }
 
+    public void RefreshDataSource()
+    {
+      m_SettingsProvider.Refresh();
+      HaveEditsBeenMade = Visibility.Collapsed;
+    }
+    private void ShowInfoBox()
+    {
+      HaveEditsBeenMade = Visibility.Visible;
+    }
+
+    public Visibility HaveEditsBeenMade
+    {
+      get { return m_HaveEditsBeenMade; }
+      set
+      {
+        m_HaveEditsBeenMade = value;
+        NotifyOfPropertyChange(() => HaveEditsBeenMade);
+      }
+    }
 
     public int Index
     {

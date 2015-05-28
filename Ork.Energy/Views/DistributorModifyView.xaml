@@ -12,7 +12,8 @@
   d:DesignWidth="300">
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition MinWidth="200" />
+      <ColumnDefinition
+        MinWidth="200" />
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
@@ -38,14 +39,14 @@
         Text="Raum" />
       <ComboBox
         HorizontalAlignment="Stretch"
-        Margin="0, 10, 0, 0"
         DisplayMemberPath="RoomNumber"
-        Style="{DynamicResource VirtualisedMetroComboBox}"
         controls:TextBoxHelper.ClearTextButton="True"
         IsEditable="True"
         ItemsSource="{Binding Rooms}"
         SelectedItem="{Binding Room}"
-        MaxDropDownHeight="125" />
+        MaxDropDownHeight="125"
+        Margin="0 0 0 3"/>
+     
       <StackPanel
         Margin="0 0 0 3"
         Orientation="Horizontal">
