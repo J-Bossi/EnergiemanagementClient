@@ -148,6 +148,9 @@ namespace Ork.Energy.ViewModels
       };
 
       var startValue = 0.0;
+      var startDate = new DateTime();
+      var lastPoint = new Reading();
+      var lastMeasure = new Measure();
       foreach (var pointt in  allReadingDatesFromSelectedDistributor.OrderBy(r => r.ReadingDate))
       {
         valueSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(pointt.ReadingDate),
@@ -155,14 +158,23 @@ namespace Ork.Energy.ViewModels
         if (!calculatedSeries.Points.Any())
         {
           startValue = AccumulatedValuesAtDate(pointt.ReadingDate);
+          startDate = pointt.ReadingDate;
           calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(pointt.ReadingDate), startValue));
         }
+        lastPoint = pointt;
       }
       var newValue = startValue;
       foreach (var measure in allRelevantMeasuresFromSelectedDistributor.OrderBy(m => m.DueDate))
       {
+        if (measure.DueDate > startDate) { 
         newValue -= measure.SavedWattShould;
         calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(measure.DueDate), newValue));
+          lastMeasure = measure;
+        }
+      }
+      if (lastPoint.ReadingDate > lastMeasure.DueDate )
+      {
+        calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(lastPoint.ReadingDate), newValue));
       }
       m_ConsumerPlot.Series.Add(valueSeries);
       m_ConsumerPlot.Series.Add((calculatedSeries));

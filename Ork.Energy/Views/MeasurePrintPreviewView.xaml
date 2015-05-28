@@ -332,15 +332,28 @@
 
               <DataGrid
                 ItemsSource="{Binding SubMeasures}"
-                AutoGenerateColumns="False">
+                AutoGenerateColumns="False"
+                HorizontalScrollBarVisibility="Disabled">
                 <DataGrid.Columns>
                   <DataGridTextColumn
+                    Width="3*"
                     Header="Name"
-                    Binding="{Binding Name}" />
-                  <DataGridTextColumn
+                    Binding="{Binding Name}"
+                    
+                    >
+                    <DataGridTextColumn.ElementStyle>
+                      <Style>
+                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                      
+                      </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                    Width="Auto"
                     Header="Verantwortlich"
                     Binding="{Binding ResponsibleSubject.Infotext, Mode=OneWay}" />
                   <DataGridCheckBoxColumn
+                    Width="Auto"
                     Header="Abgeschlossen"
                     Binding="{Binding IsCompleted}" />
 
