@@ -5,6 +5,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:oxy="http://oxyplot.org/wpf"
+  xmlns:cal="http://www.caliburnproject.org"
   mc:Ignorable="d"
   d:DesignHeight="300"
   d:DesignWidth="300">
@@ -18,13 +19,38 @@
       <RowDefinition
         Height="*" />
     </Grid.RowDefinitions>
-    <ComboBox
-      Grid.Row="0"
-      SelectedItem="{Binding SelectedDistributor}"
-      ItemsSource="{Binding AllDistributors}"
-      DisplayMemberPath="Name"
-      Width="200"
-      HorizontalAlignment="Left" />
+    <StackPanel
+      Orientation="Horizontal"
+      Grid.Row="0">
+
+
+      <ComboBox
+        SelectedItem="{Binding SelectedDistributor}"
+        ItemsSource="{Binding AllDistributors}"
+        DisplayMemberPath="Name"
+        Width="200"
+        VerticalAlignment="Center" />
+      <Button
+        Width="50"
+        Height="50"
+        Margin="2"
+        VerticalAlignment="Bottom"
+        HorizontalAlignment="Left"
+        Style="{DynamicResource MetroCircleButtonStyle}"
+        cal:Message.Attach="Refresh()"
+        ToolTip="Aktualisieren">
+        <Rectangle
+          Width="20"
+          Height="20"
+          Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+          <Rectangle.OpacityMask>
+            <VisualBrush
+              Stretch="Fill"
+              Visual="{DynamicResource appbar_refresh}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Button>
+    </StackPanel>
     <oxy:Plot
       Grid.Row="1"
       Model="{Binding TrendDistributorPlot}"

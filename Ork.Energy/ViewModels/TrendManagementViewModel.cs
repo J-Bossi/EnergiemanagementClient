@@ -87,6 +87,17 @@ namespace Ork.Energy.ViewModels
       }
     }
 
+    public void Refresh()
+    {
+
+      //Terrible Hack to refresh
+      var oldDistributor = SelectedDistributor;
+      SelectedDistributor = null;
+      NotifyOfPropertyChange(() => SelectedDistributor);
+      SelectedDistributor = oldDistributor;
+      NotifyOfPropertyChange(() => SelectedDistributor);
+    }
+
     public PlotModel TrendDistributorPlot
     {
       get
@@ -118,9 +129,10 @@ namespace Ork.Energy.ViewModels
       get { return "Auswertung"; }
     }
 
-    private void Reload()
+    public void Reload()
     {
       IsEnabled = m_Repository.HasConnection;
+
       m_SelectedDistributor = null;
       NotifyOfPropertyChange(() => SelectedDistributor);
     }
@@ -166,13 +178,14 @@ namespace Ork.Energy.ViewModels
       var newValue = startValue;
       foreach (var measure in allRelevantMeasuresFromSelectedDistributor.OrderBy(m => m.DueDate))
       {
-        if (measure.DueDate > startDate) { 
-        newValue -= measure.SavedWattShould;
-        calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(measure.DueDate), newValue));
+        if (measure.DueDate > startDate)
+        {
+          newValue -= measure.SavedWattShould;
+          calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(measure.DueDate), newValue));
           lastMeasure = measure;
         }
       }
-      if (lastPoint.ReadingDate > lastMeasure.DueDate )
+      if (lastPoint.ReadingDate > lastMeasure.DueDate)
       {
         calculatedSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(lastPoint.ReadingDate), newValue));
       }
@@ -238,7 +251,7 @@ namespace Ork.Energy.ViewModels
       var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
       var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
 
-      m_ConsumerPlot.Title = SelectedDistributor.Name;
+      m_ConsumerPlot.Title = "Gesamtverbrauch aller Verbraucher";
       m_ConsumerPlot.LegendOrientation = LegendOrientation.Horizontal;
       m_ConsumerPlot.LegendPlacement = LegendPlacement.Outside;
       m_ConsumerPlot.LegendPosition = LegendPosition.BottomLeft;
@@ -284,7 +297,7 @@ namespace Ork.Energy.ViewModels
       var textForegroundColor = (Color) Application.Current.Resources["BlackColor"];
       var lightControlColor = (Color) Application.Current.Resources["WhiteColor"];
 
-      m_DistributorPlot.Title = SelectedDistributor.Name;
+      m_DistributorPlot.Title = "Gesamtverbrauch Verteiler";
       m_DistributorPlot.LegendOrientation = LegendOrientation.Horizontal;
       m_DistributorPlot.LegendPlacement = LegendPlacement.Outside;
       m_DistributorPlot.LegendPosition = LegendPosition.BottomLeft;
